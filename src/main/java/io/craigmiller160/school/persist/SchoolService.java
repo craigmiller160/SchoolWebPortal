@@ -10,7 +10,7 @@ import java.util.List;
  * @author craig
  * @version 1.0
  */
-public interface ScheduleService {
+public interface SchoolService {
 
 	/**
 	 * Save changes to an existing entity in the 

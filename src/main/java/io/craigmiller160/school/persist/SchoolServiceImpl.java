@@ -5,10 +5,27 @@ import java.util.List;
 
 import javax.transaction.Transactional;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
 import io.craigmiller160.school.entity.Course;
 import io.craigmiller160.school.entity.Student;
 
-public class ScheduleServiceImpl implements ScheduleService {
+/**
+ * Default implementation of the <tt>SchoolService</tt>
+ * interface. Accepts DAO objects for the <tt>Student</tt>
+ * and <tt>Course</tt> entities, with logic to perform
+ * the necessary operations for either via the generic methods.
+ * <p>
+ * <b>THREAD SAFETY:</b> This class is thread-safe. Its only
+ * state is contained in the DAO fields, which are final
+ * and cannot be changed after instantiation. 
+ * 
+ * @author craig
+ * @version 1.0
+ */
+@Component ("schoolService")
+public class SchoolServiceImpl implements SchoolService {
 
 	/**
 	 * The DAO for persisting <tt>Student</tt> objects.
@@ -31,7 +48,8 @@ public class ScheduleServiceImpl implements ScheduleService {
 	 * @param courseDao the DAO for persisting <tt>Course</tt>
 	 * objects.
 	 */
-	public ScheduleServiceImpl(StudentDao studentDao, CourseDao courseDao){
+	@Autowired
+	public SchoolServiceImpl(StudentDao studentDao, CourseDao courseDao){
 		this.studentDao = studentDao;
 		this.courseDao = courseDao;
 	}
@@ -78,6 +96,18 @@ public class ScheduleServiceImpl implements ScheduleService {
 		}
 	}
 	
+	/**
+	 * Internal method to create a <tt>Student</tt>
+	 * entity for the <tt>createEntity(Class<T>, Object...)
+	 * convenience method.
+	 * 
+	 * @param firstName the student's first name.
+	 * @param lastName the student's last name.
+	 * @param birthDate the student's birth date.
+	 * @param gender the student's gender.
+	 * @param grade the student's grade.
+	 * @return the created student.
+	 */
 	private Student createStudent(String firstName, String lastName, 
 			LocalDate birthDate, Character gender, Integer grade){
 		Student student = new Student();
@@ -100,6 +130,17 @@ public class ScheduleServiceImpl implements ScheduleService {
 		return student;
 	}
 	
+	/**
+	 * Internal method to create a <tt>Course</tt>
+	 * entity for the <tt>createEntity(Class<T>, Object...)
+	 * convenience method.
+	 * 
+	 * @param courseName the name of the course.
+	 * @param subject the subject of the course.
+	 * @param teacherLastName the name of the course's teacher.
+	 * @param period the period the course is taught.
+	 * @return the created course.
+	 */
 	private Course createCourse(String courseName, String subject, 
 			String teacherLastName, Integer period){
 		Course course = new Course();
