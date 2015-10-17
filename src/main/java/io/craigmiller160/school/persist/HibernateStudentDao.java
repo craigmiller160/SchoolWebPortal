@@ -130,38 +130,6 @@ public class HibernateStudentDao implements StudentDao {
 		sessionFactory.getCurrentSession().delete(student);
 	}
 	
-	//TODO remove this
-	/**
-	 * Reset the auto-increment counter on the database table
-	 * for the <tt>Student</tt> class. This will set the counter
-	 * generating ids to the next highest number based on the
-	 * records currently in the table. This is especially useful
-	 * during testing operations.
-	 * <p>
-	 * <b>NOTE:</b> This operation is only compatible with a 
-	 * MySQL database, as it uses MySQL-specific syntax. Attempting
-	 * to use it with a different database will cause an exception
-	 * to be thrown.
-	 * 
-	 * @throws HibernateException if the database operation fails.
-	 * @throws NullPointerException if the <tt>SessionFactory</tt>
-	 * was set to null.
-	 * @throws UnsupportedOperationException if this operation is
-	 * attempted with a database that's not MySQL. 
-	 */
-	public void resetAutoIncrement(){
-		Dialect dialect = ((SessionFactoryImplementor) sessionFactory).getDialect();
-		if(dialect instanceof MySQLDialect){
-			sessionFactory.getCurrentSession()
-			.createSQLQuery("alter table student auto_increment = 1")
-			.executeUpdate();
-		}
-		else{
-			throw new UnsupportedOperationException(
-					"Method is only compatible with MySQL database");
-		}
-	}
-	
 	/**
 	 * Close the <tt>SessionFactory</tt> when this class's work
 	 * is complete.

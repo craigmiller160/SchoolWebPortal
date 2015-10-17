@@ -137,31 +137,6 @@ public class HibernateCourseDao implements CourseDao {
 		sessionFactory.getCurrentSession().delete(course);
 	}
 	
-	//TODO remove this
-	/**
-	 * Reset the auto-increment counter on the database table
-	 * for the <tt>Course</tt> class. This will set the counter
-	 * generating ids to the next highest number based on the
-	 * records currently in the table. This is especially useful
-	 * during testing operations.
-	 * 
-	 * @throws HibernateException if the database operation fails.
-	 * @throws NullPointerException if the <tt>SessionFactory</tt>
-	 * was set to null.
-	 */
-	public void resetAutoIncrement(){
-		Dialect dialect = Dialect.getDialect();
-		if(dialect instanceof MySQLDialect){
-			sessionFactory.getCurrentSession()
-			.createQuery("alter table course auto_increment = 1")
-			.executeUpdate();
-		}
-		else{
-			throw new UnsupportedOperationException(
-					"Method is only compatible with MySQL database");
-		}
-	}
-	
 	/**
 	 * Close the <tt>SessionFactory</tt> when this class's work
 	 * is complete.
