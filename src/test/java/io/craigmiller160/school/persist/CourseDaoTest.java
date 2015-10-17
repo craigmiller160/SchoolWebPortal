@@ -26,7 +26,7 @@ import io.craigmiller160.school.entity.Course;
  * DAO. It uses <tt>Spring's</tt> <tt>SpringJUnit4ClassRunning</tt>
  * class to ensure that all transactions are rolled back upon completion,
  * thus ensuring the integrity of the underlying database. It performs 
- * two tests to accomplish this:
+ * four tests to accomplish this:
  * <p>
  * <b>Course Operations:</b> Test the basic CRUD operations on 
  * the course table of the database. Ensures <tt>Hibernate</tt> 
@@ -35,6 +35,13 @@ import io.craigmiller160.school.entity.Course;
  * <p>
  * <b>List Operations:</b> Tests the ability to pull a list of
  * all entities from the course table of the database. 
+ * <p>
+ * <b>List Range Operations:</b> Tests the abiltiy to pull a
+ * list of all entities from the course table within a certain
+ * range (limit on the number of records).
+ * <p>
+ * <b>Count Operation:</b> Tests the ability to get the count
+ * of the number of records in the table.
  * <p>
  * After the completion of its operations, a method is run to 
  * reset the auto-increment counter on the underlying database.
@@ -167,7 +174,11 @@ public class CourseDaoTest{
 		assertTrue("Courses list doesn't contain course", courses.contains(course));
 	}
 	
-	//TODO document this
+	/**
+	 * Tests the abiltiy to pull a
+	 * list of all entities from the course table within a certain
+	 * range (limit on the number of records).
+	 */
 	@Test
 	@Transactional
 	public void testListRangeOperation(){
@@ -181,7 +192,10 @@ public class CourseDaoTest{
 		assertTrue("Courses list greater than endIndex", courses.size() <= 8);
 	}
 	
-	//TODO document this
+	/**
+	 * Tests the ability to get the count
+	 * of the number of records in the table.
+	 */
 	@Test
 	@Transactional
 	public void testCountOperation(){

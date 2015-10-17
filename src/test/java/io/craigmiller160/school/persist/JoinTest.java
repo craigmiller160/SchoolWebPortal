@@ -22,6 +22,28 @@ import io.craigmiller160.school.context.AppContext;
 import io.craigmiller160.school.entity.Course;
 import io.craigmiller160.school.entity.Student;
 
+/**
+ * <tt>JUnit</tt> test case for the join operations of the entity classes.
+ * This test case tests that the many-to-many mapping of the entities
+ * functions properly. It uses <tt>Spring's</tt> <tt>SpringJUnit4ClassRunning</tt>
+ * class to ensure that all transactions are rolled back upon completion,
+ * thus ensuring the integrity of the underlying database. It performs 
+ * two tests to accomplish this:
+ * <p>
+ * <b> Add Course to Student:</b> Test the mapping, including cascade
+ * operations, for when a course is added to a student.
+ * <p>
+ * <b>Add Student to Course:</b> Test the mapping, including cascade
+ * operations, for when a student is added to a course.
+ * <p>
+ * After the completion of its operations, a method is run to 
+ * reset the auto-increment counter on the underlying database.
+ * This prevents the tests from using up large numbers of values
+ * from the counter.
+ * 
+ * @author craig
+ * @version 1.0
+ */
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration({"classpath:/test-context.xml"})
 public class JoinTest {
@@ -84,6 +106,10 @@ public class JoinTest {
 		this.studentDao = studentDao;
 	}
 	
+	/**
+	 * Create and persist the entities needed
+	 * for this test.
+	 */
 	@Transactional
 	@Before
 	public void createEntities(){
@@ -102,6 +128,10 @@ public class JoinTest {
 		courseId = course.getCourseId();
 	}
 	
+	/**
+	 * Test the mapping, including cascade
+	 * operations, for when a course is added to a student.	
+	 */
 	@Transactional
 	@Test
 	public void testAddCourseToStudent(){
@@ -141,6 +171,10 @@ public class JoinTest {
 		
 	}
 	
+	/**
+	 * Test the mapping, including cascade
+	 * operations, for when a student is added to a course.
+	 */
 	@Transactional
 	@Test
 	public void testAddStudentToCourse(){
