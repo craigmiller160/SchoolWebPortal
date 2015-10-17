@@ -10,6 +10,8 @@ import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Restrictions;
 import org.hibernate.dialect.Dialect;
 import org.hibernate.dialect.MySQLDialect;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import io.craigmiller160.school.entity.Course;
 
@@ -29,6 +31,7 @@ import io.craigmiller160.school.entity.Course;
  * @author craig
  * @version 1.0
  */
+@Component ("courseDao")
 public class HibernateCourseDao implements CourseDao {
 
 	/**
@@ -45,6 +48,7 @@ public class HibernateCourseDao implements CourseDao {
 	 * @param sessionFactory the <tt>SessionFactory</tt> this class
 	 * needs to create database sessions.
 	 */
+	@Autowired
 	public HibernateCourseDao(SessionFactory sessionFactory){
 		this.sessionFactory = sessionFactory;
 	}

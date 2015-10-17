@@ -48,14 +48,6 @@ import io.craigmiller160.school.entity.Student;
 @ContextConfiguration ({"classpath:/test-context.xml"})
 public class StudentDaoTest{
 
-	//TODO remove this comment, as this program is switching to annotations 100%
-	/*
-	 * This class uses Spring annotations, rather than purely
-	 * xml based configuration like the other classes of this 
-	 * program. This is because the test cases are instantiated
-	 * differently than regular beans.
-	 */
-	
 	/**
 	 * Output message for the insert operation failing.
 	 */

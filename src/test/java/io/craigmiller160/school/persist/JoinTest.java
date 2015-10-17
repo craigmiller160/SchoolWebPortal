@@ -26,13 +26,6 @@ import io.craigmiller160.school.entity.Student;
 @ContextConfiguration({"classpath:/test-context.xml"})
 public class JoinTest {
 
-	/*
-	 * This class uses Spring annotations, rather than purely
-	 * xml based configuration like the other classes of this 
-	 * program. This is because the test cases are instantiated
-	 * differently than regular beans.
-	 */
-	
 	/**
 	 * The DAO object for the <tt>Course</tt> class.
 	 */
@@ -45,8 +38,14 @@ public class JoinTest {
 	@Autowired
 	private StudentDao studentDao;
 	
-	//TODO document this
+	/**
+	 * The ID of the student temporarily persisted in the database.
+	 */
 	private int studentId;
+	
+	/**
+	 * The ID of a course temporarily persisted in the database.
+	 */
 	private int courseId;
 	
 	/**
@@ -109,7 +108,6 @@ public class JoinTest {
 		//Get entities
 		Student student = studentDao.getStudent(studentId);
 		Course course = courseDao.getCourse(courseId);
-		//TODO delete this SessionFactory factory = ((HibernateStudentDao) studentDao).getSessionFactory();
 		
 		//Add course to student and update database
 		student.addCourse(course);
@@ -129,11 +127,17 @@ public class JoinTest {
 		//Get course from database and test if student is in list
 		course = courseDao.getCourse(courseId);
 		List<Student> students = course.getStudents();
-		System.out.println(students.size());
 		assertNotNull("Students is null", students);
-		System.out.println("SavedID: " + studentId + " Other: " + student.getStudentId());
 		assertTrue("Students does not contain Student", students.contains(student));
 		
+		//Test delete operation
+		student.removeCourse(course);
+		studentDao.updateStudent(student);
+		
+		student = studentDao.getStudent(studentId);
+		courses = student.getCourses();
+		assertNotNull("Courses is null (delete)", courses);
+		assertTrue("Course was not deleted", !courses.contains(course));
 		
 	}
 	
@@ -156,7 +160,6 @@ public class JoinTest {
 		//Get course from database and test if student is in list
 		course = courseDao.getCourse(courseId);
 		List<Student> students = course.getStudents();
-		System.out.println(students.size());
 		assertNotNull("Students is null", students);
 		assertTrue("Students does not contain Student", students.contains(student));
 		
@@ -166,7 +169,14 @@ public class JoinTest {
 		assertNotNull("Courses is null", courses);
 		assertTrue("Courses does not contain Course", courses.contains(course));
 		
-		//TODO add deletion to this test.
+		//Test delete operation
+		course.removeStudent(student);
+		courseDao.updateCourse(course);
+		
+		course = courseDao.getCourse(courseId);
+		students = course.getStudents();
+		assertNotNull("Students is null (delete)", students);
+		assertTrue("Student was not deleted", !students.contains(student));
 	}
 	
 	/**
