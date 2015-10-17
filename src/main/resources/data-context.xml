@@ -9,6 +9,7 @@
 
 <!-- THIS IS THE SPRING CONTEXT FOR ALL DATABASE/TRANSACTION RELATED BEANS -->
 
+	<!-- Data Beans are configured using annotations -->
 	<context:annotation-config/>
 	<context:component-scan base-package="io.craigmiller160.school.persist"/>
 
@@ -56,23 +57,5 @@
     <bean id="transactionManager" class="org.springframework.orm.hibernate4.HibernateTransactionManager">
         <property name="sessionFactory" ref="sessionFactory" />
     </bean>
-    
-    <!-- Student DAO Object
-    <bean id="studentDao" class="io.craigmiller160.schedule.persist.HibernateStudentDao"
-    	destroy-method="closeSessionFactory">
-    	<constructor-arg ref="sessionFactory"/>
-    </bean>-->
-    
-    <!-- Course DAO Object
-    <bean id="courseDao" class="io.craigmiller160.schedule.persist.HibernateCourseDao" 
-    	destroy-method="closeSessionFactory">
-    	<constructor-arg ref="sessionFactory"/>
-    </bean>-->
-    
-    <!-- Data Service Object -
-    <bean id="scheduleService" class="io.craigmiller160.schedule.persist.ScheduleServiceImpl">
-    	<constructor-arg ref="studentDao"/>
-    	<constructor-arg ref="courseDao"/>
-    </bean>-->
 
 </beans>

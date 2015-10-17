@@ -6,6 +6,8 @@ import org.hibernate.SessionFactory;
 import org.hibernate.dialect.Dialect;
 import org.hibernate.dialect.MySQLDialect;
 import org.hibernate.engine.spi.SessionFactoryImplementor;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 /**
  * Utility class for performing unit testing on the database
@@ -28,6 +30,7 @@ import org.hibernate.engine.spi.SessionFactoryImplementor;
  * @author craig
  * @version 1.0
  */
+@Component ("hibernateTestUtil")
 public class HibernateTestUtil {
 
 	/**
@@ -42,6 +45,7 @@ public class HibernateTestUtil {
 	 * 
 	 * @param sessionFactory the <tt>SessionFactory</tt> this class requires.
 	 */
+	@Autowired
 	public HibernateTestUtil(SessionFactory sessionFactory) {
 		this.sessionFactory = sessionFactory;
 	}

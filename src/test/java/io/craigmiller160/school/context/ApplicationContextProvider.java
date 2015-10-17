@@ -3,6 +3,7 @@ package io.craigmiller160.school.context;
 import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
+import org.springframework.stereotype.Component;
 
 /**
  * Utility provider class for <tt>Spring</tt> operations that require 
@@ -18,6 +19,7 @@ import org.springframework.context.ApplicationContextAware;
  * @author craig
  * @version 1.0
  */
+@Component ("contextProvider")
 public class ApplicationContextProvider implements ApplicationContextAware {
 
 	@Override
