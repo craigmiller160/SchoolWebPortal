@@ -3,7 +3,7 @@ package io.craigmiller160.school.persist;
 import java.util.List;
 
 /**
- * Interface for the service layer for the Class Schedule program. It
+ * Interface for the service layer for the School Web Portal program. It
  * performs additional operations on top of the basic
  * CRUD operations of the DAOs. 
  * 
