@@ -200,7 +200,7 @@ public class StudentDaoTest{
 		
 		List<Student> students = studentDao.getPreviousStudents(studentId + 12, 10);
 		assertNotNull("Students list is null", students);
-		assertTrue("Students list greater than endIndex", students.size() == 10);
+		assertTrue("Students list not correct size", students.size() == 10);
 	}
 	
 	/**
@@ -211,14 +211,17 @@ public class StudentDaoTest{
 	@Test
 	@Transactional
 	public void testNextStudentsOperation(){
-		Student student = new Student();
-		setStudent1(student);
-		studentDao.insertStudent(student);
+		int studentId = 0;
+		for(int i = 0; i < 20; i++){
+			Student student = new Student();
+			student.setFirstName("FirstName");
+			studentDao.insertStudent(student);
+			studentId = i == 0 ? student.getStudentId() : studentId;
+		}
 		
-		List<Student> students = studentDao.getNextStudents(1, 10);
+		List<Student> students = studentDao.getNextStudents(studentId, 10);
 		assertNotNull("Students list is null", students);
-		assertTrue("Students list is empty", students.size() >= 1);
-		assertTrue("Students list greater than endIndex", students.size() <= 10);
+		assertTrue("Students list not correct size", students.size() == 10);
 	}
 	
 	/**

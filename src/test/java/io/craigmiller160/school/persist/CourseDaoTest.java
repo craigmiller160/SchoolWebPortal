@@ -196,8 +196,7 @@ public class CourseDaoTest{
 		
 		List<Course> courses = courseDao.getPreviousCourses(courseId + 12, 10);
 		assertNotNull("Courses list is null", courses);
-		assertTrue("Courses list empty", courses.size() >= 1);
-		assertTrue("Courses list greater than endIndex", courses.size() <= 10);
+		assertTrue("Courses list not correct size", courses.size() == 10);
 	}
 	
 	/**
@@ -216,9 +215,9 @@ public class CourseDaoTest{
 			courseId = i == 0 ? course.getCourseId() : courseId;
 		}
 		
-		List<Course> courses = courseDao.getNextCourses(courseId + 12, 10);
+		List<Course> courses = courseDao.getNextCourses(courseId, 10);
 		assertNotNull("Courses list is null", courses);
-		assertTrue("Courses list greater than endIndex", courses.size() == 10);
+		assertTrue("Courses list not correct size", courses.size() == 10);
 	}
 	
 	/**

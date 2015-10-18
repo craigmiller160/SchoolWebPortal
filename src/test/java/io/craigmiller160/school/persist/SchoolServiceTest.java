@@ -265,12 +265,12 @@ public class SchoolServiceTest {
 		}
 		
 		List<Course> nextCourses = schoolService.getNextEntities(Course.class, courseId, 10);
-		assertNotNull("Previous courses list is null", nextCourses);
-		assertTrue("Previous courses list not correct size", nextCourses.size() == 10);
+		assertNotNull("Next courses list is null", nextCourses);
+		assertTrue("Next courses list not correct size", nextCourses.size() == 10);
 		
 		List<Student> nextStudents = schoolService.getNextEntities(Student.class, studentId, 10);
-		assertNotNull("Previous students list is null", nextStudents);
-		assertTrue("Previous students list not correct size", nextStudents.size() == 10);
+		assertNotNull("Next students list is null", nextStudents);
+		assertTrue("Next students list not correct size", nextStudents.size() == 10);
 	}
 	
 	/**
