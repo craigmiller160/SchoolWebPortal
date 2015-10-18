@@ -36,9 +36,13 @@ import io.craigmiller160.school.entity.Course;
  * <b>List Operations:</b> Tests the ability to pull a list of
  * all entities from the course table of the database. 
  * <p>
- * <b>List Range Operations:</b> Tests the abiltiy to pull a
- * list of all entities from the course table within a certain
- * range (limit on the number of records).
+ * <b>Previous Page Operation:</b> Tests the <tt>getPreviousCourses()</tt> operation, to
+ * conveniently retrieve a "previous page" of courses
+ * from the database.
+ * <p>
+ * <b>Next Page Operation:</b> Tests the <tt>getPreviousCourses()</tt> operation, to
+ * conveniently retrieve a "previous page" of courses
+ * from the database.
  * <p>
  * <b>Count Operation:</b> Tests the ability to get the count
  * of the number of records in the table.
@@ -175,21 +179,46 @@ public class CourseDaoTest{
 	}
 	
 	/**
-	 * Tests the abiltiy to pull a
-	 * list of all entities from the course table within a certain
-	 * range (limit on the number of records).
+	 * Tests the <tt>getPreviousCourses()</tt> operation, to
+	 * conveniently retrieve a "previous page" of courses
+	 * from the database.
 	 */
 	@Test
 	@Transactional
-	public void testListRangeOperation(){
-		Course course = new Course();
-		setCourse1(course);
-		courseDao.insertCourse(course);
+	public void testPreviousCoursesOperation(){
+		int courseId = 0;
+		for(int i = 0; i < 20; i++){
+			Course course = new Course();
+			course.setCourseName("Name");
+			courseDao.insertCourse(course);
+			courseId = i == 0 ? course.getCourseId() : courseId;
+		}
 		
-		List<Course> courses = courseDao.getCoursesInRange(1, 8);
+		List<Course> courses = courseDao.getPreviousCourses(courseId + 12, 10);
 		assertNotNull("Courses list is null", courses);
-		assertTrue("Courses list less than startIndex", courses.size() >= 1);
-		assertTrue("Courses list greater than endIndex", courses.size() <= 8);
+		assertTrue("Courses list empty", courses.size() >= 1);
+		assertTrue("Courses list greater than endIndex", courses.size() <= 10);
+	}
+	
+	/**
+	 * Tests the <tt>getNextCourses()</tt> operation, to
+	 * conveniently retrieve a "next page" of courses
+	 * from the database.
+	 */
+	@Test
+	@Transactional
+	public void testNextCoursesOperation(){
+		int courseId = 0;
+		for(int i = 0; i < 20; i++){
+			Course course = new Course();
+			course.setCourseName("Name");
+			courseDao.insertCourse(course);
+			courseId = i == 0 ? course.getCourseId() : courseId;
+		}
+		
+		List<Course> courses = courseDao.getNextCourses(courseId + 12, 10);
+		assertNotNull("Courses list is null", courses);
+		assertTrue("Courses list greater than endIndex", courses.size() == 10);
 	}
 	
 	/**

@@ -53,11 +53,13 @@ import io.craigmiller160.school.entity.Student;
  * method to work, so if that test fails,
  * so does this one.
  * <p>
- * <b>Get Entities in Range:</b> Test <tt>getEntitiesInRange()</tt> method
- * for both <tt>Student</tt> and <tt>Course</tt>
- * entities. Depends on <tt>insertEntity()</tt>
- * method to work, so if that test fails,
- * so does this one.
+ * <b>Get Previous Entities:</b> Tests the <tt>getPreviousEntities()</tt> operation, to
+ * conveniently retrieve a "previous page" of entities
+ * from the database.
+ * <p>
+ * <b>Get Next Entities:</b> Tests the <tt>getNextEntities()</tt> operation, to
+ * conveniently retrieve a "next page" of entities
+ * from the database.
  * <p>
  * After the completion of its operations, a method is run to 
  * reset the auto-increment counter on the underlying database.
@@ -210,32 +212,65 @@ public class SchoolServiceTest {
 	}
 	
 	/**
-	 * Test <tt>getEntitiesInRange()</tt> method
-	 * for both <tt>Student</tt> and <tt>Course</tt>
-	 * entities. Depends on <tt>insertEntity()</tt>
-	 * method to work, so if that test fails,
-	 * so does this one.
+	 * Tests the <tt>getPreviousEntities()</tt> operation, to
+	 * conveniently retrieve a "previous page" of entities
+	 * from the database.
 	 */
 	@Transactional
 	@Test
-	public void testGetEntitiesInRange(){
+	public void testPreviousEntities(){
+		int studentId = 0;
+		int courseId = 0;
 		for(int i = 0; i < 20; i++){
 			Course course = new Course();
 			course.setCourseName("Name");
 			schoolService.insertEntity(course);
+			courseId = i == 0 ? course.getCourseId() : courseId;
 			
 			Student student = new Student();
 			student.setFirstName("FirstName");
 			schoolService.insertEntity(student);
+			studentId = i == 0 ? student.getStudentId() : studentId;
 		}
 		
-		List<Course> coursesInRange = schoolService.getEntitiesInRange(Course.class, 1, 10);
-		assertNotNull("Courses list is null", coursesInRange);
-		assertTrue("Courses list not correct range", coursesInRange.size() == 10);
+		List<Course> previousCourses = schoolService.getPreviousEntities(Course.class, courseId + 12, 10);
+		assertNotNull("Previous courses list is null", previousCourses);
+		assertTrue("Previous courses list not correct size", previousCourses.size() == 10);
 		
-		List<Student> studentsInRange = schoolService.getEntitiesInRange(Student.class, 1, 10);
-		assertNotNull("Students list is null", studentsInRange);
-		assertTrue("Students list not correct range", studentsInRange.size() == 10);
+		List<Student> previousStudents = schoolService.getPreviousEntities(Student.class, studentId + 12, 10);
+		assertNotNull("Previous students list is null", previousStudents);
+		assertTrue("Previous students list not correct size", previousStudents.size() == 10);
+	}
+	
+	/**
+	 * Tests the <tt>getNextEntities()</tt> operation, to
+	 * conveniently retrieve a "next page" of entities
+	 * from the database.
+	 */
+	@Transactional
+	@Test
+	public void testNextEntities(){
+		int studentId = 0;
+		int courseId = 0;
+		for(int i = 0; i < 20; i++){
+			Course course = new Course();
+			course.setCourseName("Name");
+			schoolService.insertEntity(course);
+			courseId = i == 0 ? course.getCourseId() : courseId;
+			
+			Student student = new Student();
+			student.setFirstName("FirstName");
+			schoolService.insertEntity(student);
+			studentId = i == 0 ? student.getStudentId() : studentId;
+		}
+		
+		List<Course> nextCourses = schoolService.getNextEntities(Course.class, courseId, 10);
+		assertNotNull("Previous courses list is null", nextCourses);
+		assertTrue("Previous courses list not correct size", nextCourses.size() == 10);
+		
+		List<Student> nextStudents = schoolService.getNextEntities(Student.class, studentId, 10);
+		assertNotNull("Previous students list is null", nextStudents);
+		assertTrue("Previous students list not correct size", nextStudents.size() == 10);
 	}
 	
 	/**

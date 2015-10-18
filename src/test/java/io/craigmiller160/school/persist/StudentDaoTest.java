@@ -36,9 +36,13 @@ import io.craigmiller160.school.entity.Student;
  * <b>List Operations:</b> Tests the ability to pull a list of
  * all entities from the student table of the database.
  * <p>
- * <b>List Range Operations:</b> Tests the abiltiy to pull a
- * list of all entities from the student table within a certain
- * range (limit on the number of records).
+ * <b>Previous Page Operation:</b> Tests the <tt>getPreviousStudents()</tt> operation, to
+ * conveniently retrieve a "previous page" of students
+ * from the database.
+ * <p>
+ * <b>Next Page Operation:</b> Tests the <tt>getNextStudents()</tt> operation, to
+ * conveniently retrieve a "next page" of students
+ * from the database.
  * <p>
  * <b>Count Operation:</b> Tests the ability to get the count
  * of the number of records in the table.
@@ -179,21 +183,42 @@ public class StudentDaoTest{
 	}
 	
 	/**
-	 * Tests the abiltiy to pull a
-	 * list of all entities from the student table within a certain
-	 * range (limit on the number of records).
+	 * Tests the <tt>getPreviousStudents()</tt> operation, to
+	 * conveniently retrieve a "previous page" of students
+	 * from the database.
 	 */
 	@Test
 	@Transactional
-	public void testListRangeOperation(){
+	public void testPreviouseStudentsOperation(){
+		int studentId = 0;
+		for(int i = 0; i < 20; i++){
+			Student student = new Student();
+			student.setFirstName("FirstName");
+			studentDao.insertStudent(student);
+			studentId = i == 0 ? student.getStudentId() : studentId;
+		}
+		
+		List<Student> students = studentDao.getPreviousStudents(studentId + 12, 10);
+		assertNotNull("Students list is null", students);
+		assertTrue("Students list greater than endIndex", students.size() == 10);
+	}
+	
+	/**
+	 * Tests the <tt>getNextStudents()</tt> operation, to
+	 * conveniently retrieve a "next page" of students
+	 * from the database.
+	 */
+	@Test
+	@Transactional
+	public void testNextStudentsOperation(){
 		Student student = new Student();
 		setStudent1(student);
 		studentDao.insertStudent(student);
 		
-		List<Student> students = studentDao.getStudentsInRange(1, 8);
+		List<Student> students = studentDao.getNextStudents(1, 10);
 		assertNotNull("Students list is null", students);
-		assertTrue("Students list less than startIndex", students.size() >= 1);
-		assertTrue("Students list greater than endIndex", students.size() <= 8);
+		assertTrue("Students list is empty", students.size() >= 1);
+		assertTrue("Students list greater than endIndex", students.size() <= 10);
 	}
 	
 	/**

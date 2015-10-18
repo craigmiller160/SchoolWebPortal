@@ -12,17 +12,6 @@ import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
-import org.hibernate.annotations.NamedNativeQueries;
-import org.hibernate.annotations.NamedNativeQuery;
-
-//TODO document this... possible move it to a better location too
-@NamedNativeQueries({ 
-	@NamedNativeQuery(
-			name="coursesByIndexRangeProcedure",
-			query="call courses_by_index_range (:startIndex, :endIndex)",
-			resultClass=Course.class)
-	})
-
 /**
  * An entity that defines a course that students can take. It
  * contains the attributes defining the course, and a list of
@@ -39,9 +28,6 @@ import org.hibernate.annotations.NamedNativeQuery;
 @Table (name="course")
 public class Course implements Comparable<Course>{
 
-	//TODO I don't think the list is being set at first for either
-	//entity, that should be worked on.
-	
 	/**
 	 * The id of the course.
 	 */

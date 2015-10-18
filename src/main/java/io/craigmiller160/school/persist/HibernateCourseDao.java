@@ -2,6 +2,8 @@ package io.craigmiller160.school.persist;
 
 import java.util.List;
 
+import javax.annotation.PreDestroy;
+
 import org.hibernate.FetchMode;
 import org.hibernate.HibernateException;
 import org.hibernate.Query;
@@ -113,16 +115,6 @@ public class HibernateCourseDao implements CourseDao {
 		return session.createCriteria(Course.class)
 				.list();
 	}
-	
-	@SuppressWarnings("unchecked") //Hibernate list() method doesn't support generics
-	@Override
-	public List<Course> getCoursesInRange(long startIndex, long endIndex){
-		Session session = sessionFactory.getCurrentSession();
-		Query query = session.getNamedQuery("coursesByIndexRangeProcedure")
-				.setLong("startIndex", startIndex)
-				.setLong("endIndex", endIndex);
-		return query.list();
-	}
 
 	/**
 	 * {@inheritDoc}
@@ -143,14 +135,56 @@ public class HibernateCourseDao implements CourseDao {
 	 * @throws NullPointerException if the <tt>SessionFactory</tt>
 	 * was set to null.
 	 */
+	@PreDestroy
 	public void closeSessionFactory(){
 		sessionFactory.close();
 	}
 
+	/**
+	 * {@inheritDoc}
+	 * @throws HibernateException if the database operation fails.
+	 * @throws NullPointerException if the <tt>SessionFactory</tt>
+	 * was set to null.
+	 */
 	@Override
 	public long getCourseCount() {
 		Session session = sessionFactory.getCurrentSession();
 		return (Long) session.createQuery("select count(*) from Course").uniqueResult();
 	}
+
+	/**
+	 * {@inheritDoc}
+	 * @throws HibernateException if the database operation fails.
+	 * @throws NullPointerException if the <tt>SessionFactory</tt>
+	 * was set to null.
+	 */
+	@SuppressWarnings("unchecked") //Hibernate list() method doesn't support generics
+	@Override
+	public List<Course> getPreviousCourses(long firstId, int numRecords) {
+		Session session = sessionFactory.getCurrentSession();
+		Query query = session.getNamedQuery("coursePreviousPage")
+				.setLong("firstId", firstId)
+				.setInteger("records", numRecords);
+		return query.list();
+	}
+
+	/**
+	 * {@inheritDoc}
+	 * @throws HibernateException if the database operation fails.
+	 * @throws NullPointerException if the <tt>SessionFactory</tt>
+	 * was set to null.
+	 */
+	@SuppressWarnings("unchecked") //Hibernate list() method doesn't support generics
+	@Override
+	public List<Course> getNextCourses(long lastId, int numRecords) {
+		Session session = sessionFactory.getCurrentSession();
+		Query query = session.getNamedQuery("courseNextPage")
+				.setLong("lastId", lastId)
+				.setInteger("records", numRecords);
+		return query.list();
+	}
+	
+	//TODO test case for this and studentDao need to be changed for
+	//new previous/next page structure 
 
 }

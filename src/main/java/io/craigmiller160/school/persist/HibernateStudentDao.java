@@ -140,21 +140,49 @@ public class HibernateStudentDao implements StudentDao {
 		sessionFactory.close();
 	}
 
-	@SuppressWarnings("unchecked") //Hibernate list() method doesn't support generics
-	@Override
-	public List<Student> getStudentsInRange(long startIndex, long endIndex) {
-		Session session = sessionFactory.getCurrentSession();
-		Query query = session.getNamedQuery("studentsByIndexRangeProcedure")
-				.setLong("startIndex", startIndex)
-				.setLong("endIndex", endIndex);
-		return query.list();
-	}
-
+	/**
+	 * {@inheritDoc}
+	 * @throws HibernateException if the database operation fails.
+	 * @throws NullPointerException if the <tt>SessionFactory</tt>
+	 * was set to null.
+	 */
 	@Override
 	public long getStudentCount() {
 		Session session = sessionFactory.getCurrentSession();
 		return (Long) session.createQuery("select count(*) from Course").uniqueResult();
 		
+	}
+
+	/**
+	 * {@inheritDoc}
+	 * @throws HibernateException if the database operation fails.
+	 * @throws NullPointerException if the <tt>SessionFactory</tt>
+	 * was set to null.
+	 */
+	@SuppressWarnings("unchecked") //Hibernate list() method doesn't support generics
+	@Override
+	public List<Student> getPreviousStudents(long firstId, int numRecords) {
+		Session session = sessionFactory.getCurrentSession();
+		Query query = session.getNamedQuery("studentPreviousPage")
+				.setLong("firstId", firstId)
+				.setInteger("records", numRecords);
+		return query.list();
+	}
+
+	/**
+	 * {@inheritDoc}
+	 * @throws HibernateException if the database operation fails.
+	 * @throws NullPointerException if the <tt>SessionFactory</tt>
+	 * was set to null.
+	 */
+	@SuppressWarnings("unchecked") //Hibernate list() method doesn't support generics
+	@Override
+	public List<Student> getNextStudents(long lastId, int numRecords) {
+		Session session = sessionFactory.getCurrentSession();
+		Query query = session.getNamedQuery("studentNextPage")
+				.setLong("lastId", lastId)
+				.setInteger("records", numRecords);
+		return query.list();
 	}
 
 }

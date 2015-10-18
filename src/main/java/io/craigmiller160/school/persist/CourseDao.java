@@ -56,17 +56,26 @@ public interface CourseDao {
 	List<Course> getAllCourses();
 	
 	/**
-	 * Get a list of all courses in the database between the
-	 * range of indexes specified.
-	 * <p>
-	 * <b>NOTE:</b> The indexes refer to row numbers, not
-	 * primary key/Id numbers.
+	 * A convenience method to get the previous page of records of
+	 * this entity from the database. Used to facilitate pagination
+	 * behavior.
 	 * 
-	 * @param startIndex the starting index of the range.
-	 * @param endIndex the ending index of the range.
-	 * @return a list of courses within the range of indexes.
+	 * @param firstId the first id of the records on the current page.
+	 * @param numRecords the number of records to return for the page.
+	 * @return a list of the previous page of <tt>Course</tt> objects. 
 	 */
-	List<Course> getCoursesInRange(long startIndex, long endIndex);
+	List<Course> getPreviousCourses(long firstId, int numRecords);
+	
+	/**
+	 * A convenience method to get the next page of records of
+	 * this entity from the database. Used to facilitate pagination
+	 * behavior.
+	 * 
+	 * @param lastId the last id of the records on the current page.
+	 * @param numRecords the number of records to return for the page.
+	 * @return a list of the next page of <tt>Course</tt> objects.
+	 */
+	List<Course> getNextCourses(long lastId, int numRecords);
 	
 	/**
 	 * Delete a course from the database.
@@ -77,7 +86,13 @@ public interface CourseDao {
 	 */
 	void deleteCourse(Course course);
 	
-	//TODO document this
+	/**
+	 * Get a count of the total number of records
+	 * this entity has in the database.
+	 * 
+	 * @return a count of the total number of courses in
+	 * the database.
+	 */
 	long getCourseCount();
 	
 }

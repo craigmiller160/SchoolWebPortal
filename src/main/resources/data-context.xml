@@ -49,6 +49,7 @@
 		<property name="packagesToScan">
 			<list>
 				<value>io.craigmiller160.school.entity</value>
+				<value>io.craigmiller160.school.persist</value>
 			</list>
 		</property>
     </bean>

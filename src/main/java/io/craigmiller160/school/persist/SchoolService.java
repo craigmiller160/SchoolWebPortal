@@ -70,25 +70,32 @@ public interface SchoolService {
 	<T> List<T> getAllEntities(Class<T> entityType);
 	
 	/**
-	 * Get a list of all persisted entities of the 
-	 * specified type, within the range of indexes
-	 * provided. These indexes are ROW NUMBERS, they
-	 * are NOT primary key/id values.
-	 * <p>
-	 * This method is a convenience method to help
-	 * with pagination in the view.
+	 * A convenience method to get the previous page of records of
+	 * an entity from the database. Used to facilitate pagination
+	 * behavior.
 	 * 
-	 * @param entityType the type of entity to get records of.
-	 * @param startIndex the first row to retrieve a record from.
-	 * @param endIndex the last row to retrieve a record from.
-	 * @return a list of all persisted entities of the 
-	 * specified type, within the range of indexes
-	 * provided.
+	 * @param entityType the type of entity to retrieve records of.
+	 * @param firstId the first ID of the records on the current page.
+	 * @param numRecords the number of records to return for the page.
+	 * @return a list of the previous page of entities.
+	 * @throws IllegalArgumentException if the type of entity
+	 * provided is not a supported entity by the database. 
+	 */
+	<T> List<T> getPreviousEntities(Class<T> entityType, long firstId, int numRecords);
+	
+	/**
+	 * A convenience method to get the next page of records of
+	 * an entity from the database. Used to facilitate pagination
+	 * behavior.
+	 * 
+	 * @param entityType the type of entity to retrieve records of.
+	 * @param lastId the last ID of the records on the current page.
+	 * @param numRecords the number of records to return for the page.
+	 * @return a list of the next page of entities. 
 	 * @throws IllegalArgumentException if the type of entity
 	 * provided is not a supported entity by the database.
 	 */
-	<T> List<T> getEntitiesInRange(Class<T> entityType, 
-		long startIndex, long endIndex);
+	<T> List<T> getNextEntities(Class<T> entityType, long lastId, int numRecords);
 	
 	/**
 	 * Get an entity of the specified type from the 

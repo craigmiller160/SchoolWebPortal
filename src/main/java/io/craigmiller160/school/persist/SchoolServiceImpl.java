@@ -192,24 +192,6 @@ public class SchoolServiceImpl implements SchoolService {
 	@SuppressWarnings("unchecked") //The entityType.equals(Class<?>) is the type check
 	@Transactional
 	@Override
-	public <T> List<T> getEntitiesInRange(Class<T> entityType, long startIndex, long endIndex) {
-		List<T> resultList = null;
-		if(entityType.equals(Student.class)){
-			resultList = (List<T>) studentDao.getStudentsInRange(startIndex, endIndex);
-		}
-		else if(entityType.equals(Course.class)){
-			resultList = (List<T>) courseDao.getCoursesInRange(startIndex, endIndex);
-		}
-		else{
-			throw new IllegalArgumentException(entityType + " is not a valid Entity");
-		}
-		
-		return resultList;
-	}
-
-	@SuppressWarnings("unchecked") //The entityType.equals(Class<?>) is the type check
-	@Transactional
-	@Override
 	public <T> T getEntity(Class<T> entityType, int entityId) {
 		if(entityType.equals(Student.class)){
 			return (T) studentDao.getStudent(entityId);
@@ -237,6 +219,42 @@ public class SchoolServiceImpl implements SchoolService {
 		}
 		
 		return result;
+	}
+
+	@SuppressWarnings("unchecked") //The entityType.equals(Class<?>) is the type check
+	@Transactional
+	@Override
+	public <T> List<T> getPreviousEntities(Class<T> entityType, long firstId, int numRecords) {
+		List<T> resultList = null;
+		if(entityType.equals(Student.class)){
+			resultList = (List<T>) studentDao.getPreviousStudents(firstId, numRecords);
+		}
+		else if(entityType.equals(Course.class)){
+			resultList = (List<T>) courseDao.getPreviousCourses(firstId, numRecords);
+		}
+		else{
+			throw new IllegalArgumentException(entityType + " is not a valid Entity");
+		}
+		
+		return resultList;
+	}
+
+	@SuppressWarnings("unchecked") //The entityType.equals(Class<?>) is the type check
+	@Transactional
+	@Override
+	public <T> List<T> getNextEntities(Class<T> entityType, long lastId, int numRecords) {
+		List<T> resultList = null;
+		if(entityType.equals(Student.class)){
+			resultList = (List<T>) studentDao.getNextStudents(lastId, numRecords);
+		}
+		else if(entityType.equals(Course.class)){
+			resultList = (List<T>) courseDao.getNextCourses(lastId, numRecords);
+		}
+		else{
+			throw new IllegalArgumentException(entityType + " is not a valid Entity");
+		}
+		
+		return resultList;
 	}
 
 }
