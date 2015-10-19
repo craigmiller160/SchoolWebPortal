@@ -8,6 +8,8 @@ import static org.junit.Assert.assertTrue;
 import java.time.LocalDate;
 import java.util.TreeSet;
 
+import org.junit.Test;
+
 /**
  * <tt>JUnit</tt> test case for the <tt>Student</tt>
  * entity. It runs four tests on the integrity of
@@ -36,7 +38,8 @@ public class StudentTest{
 	 * and ensure that both produce non-null objects and that
 	 * any arguments are set to the appropriate fields.
 	 */
-	public void testConstructor(){
+	@Test
+	public void testConstructorArgs(){
 		Student student = new Student();
 		assertNotNull(student);
 		
@@ -53,6 +56,7 @@ public class StudentTest{
 	 * Test all setters to ensure that they
 	 * all assign their values to the appropriate fields.
 	 */
+	@Test
 	public void testFields(){
 		Student student = new Student();
 		assertNotNull(student);
@@ -75,6 +79,7 @@ public class StudentTest{
 	 * Test the overriden equals() method
 	 * for comparisons between <tt>Student</tt> objects.
 	 */
+	@Test
 	public void testEquals(){
 		Object o = new Object();
 		
@@ -96,6 +101,7 @@ public class StudentTest{
 	 * Test the overriden compareTo() method
 	 * and more comparisons between <tt>Student</tt> objects.
 	 */
+	@Test
 	public void testCompareTo(){
 		Student student1 = new Student();
 		student1.setStudentId(1);

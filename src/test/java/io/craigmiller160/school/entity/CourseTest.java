@@ -7,6 +7,8 @@ import static org.junit.Assert.assertTrue;
 
 import java.util.TreeSet;
 
+import org.junit.Test;
+
 /**
  * <tt>JUnit</tt> test case for the <tt>Course</tt>
  * entity. It runs four tests on the integrity of
@@ -35,7 +37,8 @@ public class CourseTest{
 	 * and ensure that both produce non-null objects and that
 	 * any arguments are set to the appropriate fields.
 	 */
-	public void testConstructor(){
+	@Test
+	public void testConstructorArgs(){
 		Course course = new Course();
 		assertNotNull(course);
 		
@@ -51,6 +54,7 @@ public class CourseTest{
 	 * Test all setters to ensure that they
 	 * all assign their values to the appropriate fields.
 	 */
+	@Test
 	public void testFields(){
 		Course course = new Course();
 		course.setCourseId(1);
@@ -70,6 +74,7 @@ public class CourseTest{
 	 * Test the overriden equals() method
 	 * for comparisons between <tt>Course</tt> objects.
 	 */
+	@Test
 	public void testEquals(){
 		Object o = new Object();
 		
@@ -91,6 +96,7 @@ public class CourseTest{
 	 * Test the overriden compareTo() method
 	 * and more comparisons between <tt>Course</tt> objects.
 	 */
+	@Test
 	public void testCompareTo(){
 		Course course1 = new Course();
 		course1.setCourseId(1);
