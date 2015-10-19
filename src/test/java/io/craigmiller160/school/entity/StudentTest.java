@@ -6,7 +6,6 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
 import java.time.LocalDate;
-import java.util.TreeSet;
 
 import org.junit.Test;
 
@@ -92,9 +91,9 @@ public class StudentTest{
 		Student student3 = new Student();
 		student3.setStudentId(1);
 		
-		assertFalse(student1.equals(student2));
-		assertFalse(student1.equals(o));
-		assertTrue(student1.equals(student3));
+		assertFalse("ID mismatch", student1.equals(student2));
+		assertFalse("Type mismatch", student1.equals(o));
+		assertTrue("Perfect match", student1.equals(student3));
 	}
 	
 	/**
@@ -110,17 +109,11 @@ public class StudentTest{
 		student2.setStudentId(2);
 		
 		Student student3 = new Student();
-		student3.setStudentId(3);
+		student3.setStudentId(1);
 		
-		TreeSet<Student> set = new TreeSet<>();
-		set.add(student2);
-		set.add(student1);
-		set.add(student3);
-		
-		assertEquals(set.size(), 3);
-		assertEquals(set.pollFirst(), student1);
-		assertEquals(set.pollFirst(), student2);
-		assertEquals(set.pollFirst(), student3);
+		assertEquals("Less than test", student1.compareTo(student2), -1);
+		assertEquals("Greater than test", student2.compareTo(student1), 1);
+		assertEquals("Equals test", student1.compareTo(student3), 0);
 	}
 	
 }
