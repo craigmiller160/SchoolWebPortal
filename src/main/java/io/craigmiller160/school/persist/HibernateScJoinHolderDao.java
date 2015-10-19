@@ -16,6 +16,9 @@ import io.craigmiller160.school.entity.Student;
 @Component ("scJoinHolderDao")
 public class HibernateScJoinHolderDao implements GenericJoinHolderDao<ScJoinHolder> {
 
+	//TODO make sure that no JoinHolders are persisted without
+	//all properties not null
+	
 	private final SessionFactory sessionFactory;
 	
 	@Autowired (required=true)

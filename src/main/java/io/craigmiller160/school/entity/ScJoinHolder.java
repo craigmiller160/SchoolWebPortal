@@ -37,6 +37,9 @@ implements JoinHolder, Comparable<ScJoinHolder>, Serializable{
 	public ScJoinHolder(Student student, Course course){
 		this.student = student;
 		this.course = course;
+		String sId = student != null ? "" + student.getStudentId() : "0";
+		String cId = course != null ? "" + course.getCourseId() : "0";
+		this.scId = Integer.parseInt(sId + cId);
 	}
 	
 	public int getScId() {
