@@ -58,6 +58,9 @@ public interface EntityService {
 	 */
 	<T> void insertEntity(T entity);
 	
+	//TODO document this
+	<T> void deleteEntity(T entity);
+	
 	/**
 	 * Get a list of all persisted entities of the
 	 * specified type.
@@ -108,7 +111,7 @@ public interface EntityService {
 	 * @throws IllegalArgumentException if the type of entity
 	 * provided is not a supported entity by the database.
 	 */
-	<T> T getEntity(Class<T> entityType, int entityId);
+	<T> T getEntityById(Class<T> entityType, int entityId);
 	
 	/**
 	 * Get a count of the total number of entities
