@@ -1,4 +1,4 @@
-package io.craigmiller160.school.persist;
+package io.craigmille160.school.deprecated;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -43,6 +43,7 @@ import io.craigmiller160.school.entity.Student;
  * @version 1.0
  */
 @Entity
+@Deprecated
 @NamedNativeQueries({ 
 	@NamedNativeQuery(
 			name="coursePreviousPage",

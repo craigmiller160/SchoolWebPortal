@@ -1,4 +1,4 @@
-package io.craigmiller160.school.persist;
+package io.craigmille160.school.deprecated;
 
 import java.util.List;
 
