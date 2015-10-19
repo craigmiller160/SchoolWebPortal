@@ -68,7 +68,7 @@ implements JoinHolder, Comparable<ScJoinHolder>, Serializable{
 	public void setCourse(Course course) {
 		this.course = course;
 		this.scId = student != null
-				? Integer.parseInt(course.getCourseId() + "" + student.getStudentId())
+				? Integer.parseInt(student.getStudentId() + "" + course.getCourseId())
 				: Integer.parseInt(course.getCourseId() + "0");
 	}
 	
