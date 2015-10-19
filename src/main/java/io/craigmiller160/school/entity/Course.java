@@ -1,5 +1,6 @@
 package io.craigmiller160.school.entity;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -26,7 +27,13 @@ import javax.persistence.Table;
  */
 @Entity
 @Table (name="course")
-public class Course implements Comparable<Course>{
+public class Course 
+implements Comparable<Course>, Serializable{
+
+	/**
+	 * SerialVersionUID for serialization support.
+	 */
+	private static final long serialVersionUID = 7802449844196979359L;
 
 	/**
 	 * The id of the course.

@@ -1,5 +1,6 @@
 package io.craigmiller160.school.entity;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -32,7 +33,13 @@ import io.craigmiller160.school.util.LocalDateConverter;
  */
 @Entity
 @Table (name="student")
-public class Student implements Comparable<Student>{
+public class Student 
+implements Comparable<Student>, Serializable{
+
+	/**
+	 * SerialVersionUID for serialization support.
+	 */
+	private static final long serialVersionUID = -4803136968378896960L;
 
 	/**
 	 * The id of the student.

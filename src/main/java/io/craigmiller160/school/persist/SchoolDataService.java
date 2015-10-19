@@ -54,7 +54,7 @@ public class SchoolDataService implements EntityService, JoinHolderService {
 	 * @param courseDao the DAO for persisting <tt>Course</tt>
 	 * objects.
 	 */
-	@Autowired
+	@Autowired (required=true)
 	public SchoolDataService(GenericPaginatedDao<Student> studentDao, 
 			GenericPaginatedDao<Course> courseDao,
 			GenericJoinHolderDao<ScJoinHolder> scJoinHolderDao){

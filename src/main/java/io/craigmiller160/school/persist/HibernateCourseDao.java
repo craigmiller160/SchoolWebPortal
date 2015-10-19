@@ -47,7 +47,7 @@ public class HibernateCourseDao implements GenericPaginatedDao<Course> {
 	 * @param sessionFactory the <tt>SessionFactory</tt> this class
 	 * needs to create database sessions.
 	 */
-	@Autowired
+	@Autowired (required=true)
 	public HibernateCourseDao(SessionFactory sessionFactory){
 		this.sessionFactory = sessionFactory;
 	}
