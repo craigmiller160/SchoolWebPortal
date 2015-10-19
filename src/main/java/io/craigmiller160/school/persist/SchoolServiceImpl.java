@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import io.craigmiller160.school.entity.Course;
+import io.craigmiller160.school.entity.ScJoinHolder;
 import io.craigmiller160.school.entity.Student;
 
 /**
@@ -25,17 +26,20 @@ import io.craigmiller160.school.entity.Student;
  * @version 1.0
  */
 @Component ("schoolService")
-public class SchoolServiceImpl implements SchoolService {
+public class SchoolServiceImpl implements EntityService, JoinHolderService {
 
 	/**
 	 * The DAO for persisting <tt>Student</tt> objects.
 	 */
-	private final StudentDao studentDao;
+	private final GenericPaginatedDao<Student> studentDao;
 	
 	/**
 	 * The DAO for persisting <tt>Course</tt> objects.
 	 */
-	private final CourseDao courseDao;
+	private final GenericPaginatedDao<Course> courseDao;
+	
+	//TODO document this
+	private final GenericJoinHolderDao<ScJoinHolder> scJoinHolderDao;
 	
 	/**
 	 * Create a new instance of this service, setting
@@ -43,25 +47,30 @@ public class SchoolServiceImpl implements SchoolService {
 	 * either DAO parameter, this class will not be able
 	 * to function.
 	 * 
+	 * TODO add documentation
+	 * 
 	 * @param studentDao the DAO for persisting <tt>Student</tt>
 	 * objects.
 	 * @param courseDao the DAO for persisting <tt>Course</tt>
 	 * objects.
 	 */
 	@Autowired
-	public SchoolServiceImpl(StudentDao studentDao, CourseDao courseDao){
+	public SchoolServiceImpl(GenericPaginatedDao<Student> studentDao, 
+			GenericPaginatedDao<Course> courseDao,
+			GenericJoinHolderDao<ScJoinHolder> scJoinHolderDao){
 		this.studentDao = studentDao;
 		this.courseDao = courseDao;
+		this.scJoinHolderDao = scJoinHolderDao;
 	}
 	
 	@Transactional
 	@Override
-	public <T> void saveEntity(T entity) {
+	public <T> void updateEntity(T entity) {
 		if(entity instanceof Student){
-			studentDao.updateStudent((Student) entity);
+			studentDao.updateEntity((Student) entity);
 		}
 		else if(entity instanceof Course){
-			courseDao.updateCourse((Course) entity);
+			courseDao.updateEntity((Course) entity);
 		}
 		else{
 			throw new IllegalArgumentException(entity.getClass() + " is not a valid entity");
@@ -79,7 +88,7 @@ public class SchoolServiceImpl implements SchoolService {
 					params.length >= 3 ? (LocalDate) params[2] : null,
 					params.length >= 4 ? (char) params[3] : null,
 					params.length >= 5 ? (int) params[4] : null);
-			studentDao.insertStudent(student);
+			studentDao.insertEntity(student);
 			return (T) student;
 		}
 		else if(entityType.equals(Course.class)){
@@ -88,7 +97,7 @@ public class SchoolServiceImpl implements SchoolService {
 					params.length >= 2 ? (String) params[1] : null,
 					params.length >= 3 ? (String) params[2] : null,
 					params.length >= 4 ? (int) params[3] : null);
-			courseDao.insertCourse(course);
+			courseDao.insertEntity(course);
 			return (T) course;
 		}
 		else{
@@ -164,10 +173,10 @@ public class SchoolServiceImpl implements SchoolService {
 	@Override
 	public <T> void insertEntity(T entity) {
 		if(entity instanceof Student){
-			studentDao.insertStudent((Student) entity);
+			studentDao.insertEntity((Student) entity);
 		}
 		else if(entity instanceof Course){
-			courseDao.insertCourse((Course) entity);
+			courseDao.insertEntity((Course) entity);
 		}
 		else{
 			throw new IllegalArgumentException(entity.getClass() + " is not a valid entity");
@@ -179,10 +188,10 @@ public class SchoolServiceImpl implements SchoolService {
 	@Override
 	public <T> List<T> getAllEntities(Class<T> entityType) {
 		if(entityType.equals(Student.class)){
-			return (List<T>) studentDao.getAllStudents();
+			return (List<T>) studentDao.getAllEntities();
 		}
 		else if(entityType.equals(Course.class)){
-			return (List<T>) courseDao.getAllCourses();
+			return (List<T>) courseDao.getAllEntities();
 		}
 		else{
 			throw new IllegalArgumentException(entityType + " is not a valid entity");
@@ -194,10 +203,10 @@ public class SchoolServiceImpl implements SchoolService {
 	@Override
 	public <T> T getEntity(Class<T> entityType, int entityId) {
 		if(entityType.equals(Student.class)){
-			return (T) studentDao.getStudent(entityId);
+			return (T) studentDao.getEntityById(entityId);
 		}
 		else if(entityType.equals(Course.class)){
-			return (T) courseDao.getCourse(entityId);
+			return (T) courseDao.getEntityById(entityId);
 		}
 		else{
 			throw new IllegalArgumentException(entityType + " is not a valid entity");
@@ -209,10 +218,10 @@ public class SchoolServiceImpl implements SchoolService {
 	public <T> long getEntityCount(Class<T> entityType) {
 		long result = 0;
 		if(entityType.equals(Student.class)){
-			result = studentDao.getStudentCount();
+			result = studentDao.getEntityCount();
 		}
 		else if(entityType.equals(Course.class)){
-			result = courseDao.getCourseCount();
+			result = courseDao.getEntityCount();
 		}
 		else{
 			throw new IllegalArgumentException(entityType + " is not a valid Entity");
@@ -224,13 +233,13 @@ public class SchoolServiceImpl implements SchoolService {
 	@SuppressWarnings("unchecked") //The entityType.equals(Class<?>) is the type check
 	@Transactional
 	@Override
-	public <T> List<T> getPreviousEntities(Class<T> entityType, long firstId, int numRecords) {
+	public <T> List<T> getPreviousEntities(Class<T> entityType, int firstId, int numRecords) {
 		List<T> resultList = null;
 		if(entityType.equals(Student.class)){
-			resultList = (List<T>) studentDao.getPreviousStudents(firstId, numRecords);
+			resultList = (List<T>) studentDao.getPreviousEntities(firstId, numRecords);
 		}
 		else if(entityType.equals(Course.class)){
-			resultList = (List<T>) courseDao.getPreviousCourses(firstId, numRecords);
+			resultList = (List<T>) courseDao.getPreviousEntities(firstId, numRecords);
 		}
 		else{
 			throw new IllegalArgumentException(entityType + " is not a valid Entity");
@@ -242,19 +251,105 @@ public class SchoolServiceImpl implements SchoolService {
 	@SuppressWarnings("unchecked") //The entityType.equals(Class<?>) is the type check
 	@Transactional
 	@Override
-	public <T> List<T> getNextEntities(Class<T> entityType, long lastId, int numRecords) {
+	public <T> List<T> getNextEntities(Class<T> entityType, int lastId, int numRecords) {
 		List<T> resultList = null;
 		if(entityType.equals(Student.class)){
-			resultList = (List<T>) studentDao.getNextStudents(lastId, numRecords);
+			resultList = (List<T>) studentDao.getNextEntities(lastId, numRecords);
 		}
 		else if(entityType.equals(Course.class)){
-			resultList = (List<T>) courseDao.getNextCourses(lastId, numRecords);
+			resultList = (List<T>) courseDao.getNextEntities(lastId, numRecords);
 		}
 		else{
 			throw new IllegalArgumentException(entityType + " is not a valid Entity");
 		}
 		
 		return resultList;
+	}
+
+	@SuppressWarnings("unchecked") //The entityType.equals(Class<?>) is the type check
+	@Transactional
+	@Override
+	public <T, U> List<T> getAllJoinsFor(Class<T> joinHolderType, 
+			Class<U> joinedEntityType, int entityId) {
+		List<T> resultList = null;
+		if(joinHolderType.equals(ScJoinHolder.class)){
+			if(joinedEntityType.equals(Student.class) 
+					|| joinedEntityType.equals(Course.class)){
+				resultList = (List<T>) scJoinHolderDao.getAllJoinsFor(joinedEntityType, entityId);
+			}
+			else{
+				throw new IllegalArgumentException(joinedEntityType + " is not a valid Joined Entity");
+			}
+		}
+		else{
+			throw new IllegalArgumentException(joinHolderType + " is not a valid JoinHolder");
+		}
+		
+		return resultList;
+	}
+
+	@SuppressWarnings("unchecked") //The entityType.equals(Class<?>) is the type check
+	@Transactional
+	@Override
+	public <T, U> List<T> getPreviousJoinsFor(Class<T> joinHolderType, 
+			Class<U> joinedEntityType, int entityId, int firstId, int numRecords) {
+		List<T> resultList = null;
+		if(joinHolderType.equals(ScJoinHolder.class)){
+			if(joinedEntityType.equals(Student.class) 
+					|| joinedEntityType.equals(Course.class)){
+				resultList = (List<T>) scJoinHolderDao.getPreviousJoinsFor(joinedEntityType, entityId, firstId, numRecords);
+			}
+			else{
+				throw new IllegalArgumentException(joinedEntityType + " is not a valid Joined Entity");
+			}
+		}
+		else{
+			throw new IllegalArgumentException(joinHolderType + " is not a valid JoinHolder");
+		}
+		
+		return resultList;
+	}
+
+	@SuppressWarnings("unchecked") //The entityType.equals(Class<?>) is the type check
+	@Transactional
+	@Override
+	public <T, U> List<T> getNextJoinsFor(Class<T> joinHolderType, 
+			Class<U> joinedEntityType, int entityId, int lastId, int numRecords) {
+		List<T> resultList = null;
+		if(joinHolderType.equals(ScJoinHolder.class)){
+			if(joinedEntityType.equals(Student.class) 
+					|| joinedEntityType.equals(Course.class)){
+				resultList = (List<T>) scJoinHolderDao.getNextJoinsFor(joinedEntityType, entityId, lastId, numRecords);
+			}
+			else{
+				throw new IllegalArgumentException(joinedEntityType + " is not a valid Joined Entity");
+			}
+		}
+		else{
+			throw new IllegalArgumentException(joinHolderType + " is not a valid JoinHolder");
+		}
+		
+		return resultList;
+	}
+
+	@Transactional
+	@Override
+	public <T,U> long getJoinCountFor(Class<T> joinHolderType, Class<U> joinedEntityType, int entityId) {
+		long result = 0;
+		if(joinHolderType.equals(ScJoinHolder.class)){
+			if(joinedEntityType.equals(Student.class) 
+					|| joinedEntityType.equals(Course.class)){
+				result = (Long) scJoinHolderDao.getJoinCountFor(joinedEntityType, entityId);
+			}
+			else{
+				throw new IllegalArgumentException(joinedEntityType + " is not a valid Joined Entity");
+			}
+		}
+		else{
+			throw new IllegalArgumentException(joinHolderType + " is not a valid JoinHolder");
+		}
+		
+		return result;
 	}
 
 }

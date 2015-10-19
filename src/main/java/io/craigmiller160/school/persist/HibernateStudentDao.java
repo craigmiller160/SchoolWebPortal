@@ -6,7 +6,6 @@ import javax.annotation.PreDestroy;
 
 import org.hibernate.FetchMode;
 import org.hibernate.HibernateException;
-import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Restrictions;
@@ -32,7 +31,7 @@ import io.craigmiller160.school.entity.Student;
  * @version 1.0
  */
 @Component ("studentDao")
-public class HibernateStudentDao implements StudentDao {
+public class HibernateStudentDao implements GenericPaginatedDao<Student> {
 
 	/**
 	 * The <tt>SessionFactory</tt> that this class uses
@@ -72,7 +71,7 @@ public class HibernateStudentDao implements StudentDao {
 	 * was set to null.
 	 */
 	@Override
-	public void insertStudent(Student student) {
+	public void insertEntity(Student student) {
 		sessionFactory.getCurrentSession().save(student);
 	}
 
@@ -83,7 +82,7 @@ public class HibernateStudentDao implements StudentDao {
 	 * was set to null.
 	 */
 	@Override
-	public void updateStudent(Student student) {
+	public void updateEntity(Student student) {
 		sessionFactory.getCurrentSession().update(student);
 	}
 
@@ -94,7 +93,7 @@ public class HibernateStudentDao implements StudentDao {
 	 * was set to null.
 	 */
 	@Override
-	public Student getStudent(int studentId) {
+	public Student getEntityById(int studentId) {
 		Session session = sessionFactory.getCurrentSession();
 		return (Student) session.createCriteria(Student.class)
 					.setFetchMode("courses", FetchMode.JOIN)
@@ -110,7 +109,7 @@ public class HibernateStudentDao implements StudentDao {
 	 */
 	@SuppressWarnings("unchecked") //Criteria.list() doesn't support generics
 	@Override
-	public List<Student> getAllStudents() {
+	public List<Student> getAllEntities() {
 		Session session = sessionFactory.getCurrentSession();
 		return session.createCriteria(Student.class)
 				.list();
@@ -123,7 +122,7 @@ public class HibernateStudentDao implements StudentDao {
 	 * was set to null.
 	 */
 	@Override
-	public void deleteStudent(Student student) {
+	public void deleteEntity(Student student) {
 		sessionFactory.getCurrentSession().delete(student);
 	}
 	
@@ -147,7 +146,7 @@ public class HibernateStudentDao implements StudentDao {
 	 * was set to null.
 	 */
 	@Override
-	public long getStudentCount() {
+	public long getEntityCount() {
 		Session session = sessionFactory.getCurrentSession();
 		return (Long) session.createQuery("select count(*) from Course").uniqueResult();
 		
@@ -161,12 +160,13 @@ public class HibernateStudentDao implements StudentDao {
 	 */
 	@SuppressWarnings("unchecked") //Hibernate list() method doesn't support generics
 	@Override
-	public List<Student> getPreviousStudents(long firstId, int numRecords) {
-		Session session = sessionFactory.getCurrentSession();
-		Query query = session.getNamedQuery("studentPreviousPage")
-				.setLong("firstId", firstId)
-				.setInteger("records", numRecords);
-		return query.list();
+	public List<Student> getPreviousEntities(int firstId, int numRecords) {
+		return sessionFactory.getCurrentSession()
+				.createCriteria(Student.class)
+				.setFirstResult(firstId - numRecords)
+				.setMaxResults(numRecords)
+				.list();
+		//TODO the previous methods, what happens if firstResult < 0???
 	}
 
 	/**
@@ -177,12 +177,12 @@ public class HibernateStudentDao implements StudentDao {
 	 */
 	@SuppressWarnings("unchecked") //Hibernate list() method doesn't support generics
 	@Override
-	public List<Student> getNextStudents(long lastId, int numRecords) {
-		Session session = sessionFactory.getCurrentSession();
-		Query query = session.getNamedQuery("studentNextPage")
-				.setLong("lastId", lastId)
-				.setInteger("records", numRecords);
-		return query.list();
+	public List<Student> getNextEntities(int lastId, int numRecords) {
+		return sessionFactory.getCurrentSession()
+				.createCriteria(Student.class)
+				.setFirstResult(lastId)
+				.setMaxResults(numRecords)
+				.list();
 	}
 
 }

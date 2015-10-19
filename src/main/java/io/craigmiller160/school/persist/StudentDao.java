@@ -11,6 +11,7 @@ import io.craigmiller160.school.entity.Student;
  * @author craig
  * @version 1.0
  */
+@Deprecated
 public interface StudentDao {
 
 	/**

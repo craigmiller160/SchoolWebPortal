@@ -11,6 +11,7 @@ import io.craigmiller160.school.entity.Course;
  * @author craig
  * @version 1.0
  */
+@Deprecated
 public interface CourseDao {
 
 	/**

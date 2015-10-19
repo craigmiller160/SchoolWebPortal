@@ -10,7 +10,7 @@ import java.util.List;
  * @author craig
  * @version 1.0
  */
-public interface SchoolService {
+public interface EntityService {
 
 	/**
 	 * Save changes to an existing entity in the 
@@ -20,7 +20,7 @@ public interface SchoolService {
 	 * @throws IllegalArgumentException if the type of entity
 	 * provided is not a supported entity by the database.
 	 */
-	<T> void saveEntity(T entity);
+	<T> void updateEntity(T entity);
 	
 	/**
 	 * Convenience class for creating new instances of
@@ -81,7 +81,7 @@ public interface SchoolService {
 	 * @throws IllegalArgumentException if the type of entity
 	 * provided is not a supported entity by the database. 
 	 */
-	<T> List<T> getPreviousEntities(Class<T> entityType, long firstId, int numRecords);
+	<T> List<T> getPreviousEntities(Class<T> entityType, int firstId, int numRecords);
 	
 	/**
 	 * A convenience method to get the next page of records of
@@ -95,7 +95,7 @@ public interface SchoolService {
 	 * @throws IllegalArgumentException if the type of entity
 	 * provided is not a supported entity by the database.
 	 */
-	<T> List<T> getNextEntities(Class<T> entityType, long lastId, int numRecords);
+	<T> List<T> getNextEntities(Class<T> entityType, int lastId, int numRecords);
 	
 	/**
 	 * Get an entity of the specified type from the 

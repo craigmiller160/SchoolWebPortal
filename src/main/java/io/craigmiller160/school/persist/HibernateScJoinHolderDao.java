@@ -14,7 +14,7 @@ import io.craigmiller160.school.entity.ScJoinHolder;
 import io.craigmiller160.school.entity.Student;
 
 @Component ("scJoinHolderDao")
-public class HibernateScJoinHolderDao implements JoinHolderDao<ScJoinHolder> {
+public class HibernateScJoinHolderDao implements GenericJoinHolderDao<ScJoinHolder> {
 
 	private final SessionFactory sessionFactory;
 	

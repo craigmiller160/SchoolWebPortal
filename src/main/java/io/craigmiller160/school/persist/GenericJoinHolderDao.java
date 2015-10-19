@@ -3,7 +3,7 @@ package io.craigmiller160.school.persist;
 import java.util.List;
 
 
-public interface JoinHolderDao<T> extends GenericPaginatedDao<T>{
+public interface GenericJoinHolderDao<T> extends GenericPaginatedDao<T>{
 
 	<U> List<T> getAllJoinsFor(Class<U> joinedEntityType, int entityId);
 	
