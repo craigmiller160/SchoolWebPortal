@@ -5,10 +5,13 @@ import java.util.List;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Projections;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import io.craigmiller160.school.entity.Course;
 import io.craigmiller160.school.entity.ScJoinHolder;
+import io.craigmiller160.school.entity.Student;
 
 @Component ("scJoinHolderDao")
 public class HibernateScJoinHolderDao implements JoinHolderDao<ScJoinHolder> {
@@ -73,42 +76,134 @@ public class HibernateScJoinHolderDao implements JoinHolderDao<ScJoinHolder> {
 				.uniqueResult();
 	}
 
+	@SuppressWarnings("unchecked") //Hibernate list() method doesn't support generics
 	@Override
 	public List<ScJoinHolder> getAllEntities() {
-		// TODO Auto-generated method stub
-		return null;
+		return sessionFactory.getCurrentSession()
+				.createCriteria(ScJoinHolder.class)
+				.list();
 	}
 
+	@SuppressWarnings("unchecked") //Hibernate list() method doesn't support generics
 	@Override
 	public <U> List<ScJoinHolder> getAllJoinsFor(Class<U> joinedEntityType, int entityId) {
-		// TODO Auto-generated method stub
-		return null;
+		List<ScJoinHolder> resultList = null;
+		if(joinedEntityType.equals(Student.class)){
+			resultList = sessionFactory.getCurrentSession()
+					.createCriteria(ScJoinHolder.class)
+					.add(Restrictions.eq("student.studentId", entityId))
+					.list();
+		}
+		else if(joinedEntityType.equals(Course.class)){
+			resultList = sessionFactory.getCurrentSession()
+					.createCriteria(ScJoinHolder.class)
+					.add(Restrictions.eq("course.courseId", entityId))
+					.list();
+		}
+		else{
+			throw new IllegalArgumentException(joinedEntityType + " is not joined via this object");
+		}
+		
+		return resultList;
 	}
 
+	@SuppressWarnings("unchecked") //Hibernate list() method doesn't support generics
 	@Override
-	public <U> List<ScJoinHolder> getPreviousJoinsFor(Class<U> joinedEntityType, int entityId, long firstId,
+	public <U> List<ScJoinHolder> getPreviousJoinsFor(Class<U> joinedEntityType, int entityId, int firstId,
 			int numRecords) {
-		// TODO Auto-generated method stub
-		return null;
+		List<ScJoinHolder> resultList = null;
+		if(joinedEntityType.equals(Student.class)){
+			resultList = sessionFactory.getCurrentSession()
+					.createCriteria(ScJoinHolder.class)
+					.add(Restrictions.eqOrIsNull("student.studentId", entityId))
+					.setFirstResult(firstId - numRecords)
+					.setMaxResults(numRecords)
+					.list();
+		}
+		else if(joinedEntityType.equals(Course.class)){
+			resultList = sessionFactory.getCurrentSession()
+					.createCriteria(ScJoinHolder.class)
+					.add(Restrictions.eqOrIsNull("course.courseId", entityId))
+					.setFirstResult(firstId - numRecords)
+					.setMaxResults(numRecords)
+					.list();
+		}
+		else{
+			throw new IllegalArgumentException(joinedEntityType + " is not joined via this object");
+		}
+		
+		return resultList;
 	}
 
+	@SuppressWarnings("unchecked") //Hibernate list() method doesn't support generics
 	@Override
-	public <U> List<ScJoinHolder> getNextJoinsFor(Class<U> joinedEntityType, int entityId, long lastId,
+	public <U> List<ScJoinHolder> getNextJoinsFor(Class<U> joinedEntityType, int entityId, int lastId,
 			int numRecords) {
-		// TODO Auto-generated method stub
-		return null;
+		List<ScJoinHolder> resultList = null;
+		if(joinedEntityType.equals(Student.class)){
+			resultList = sessionFactory.getCurrentSession()
+					.createCriteria(ScJoinHolder.class)
+					.add(Restrictions.eqOrIsNull("student.studentId", entityId))
+					.setFirstResult(lastId + 1)
+					.setMaxResults(numRecords)
+					.list();
+		}
+		else if(joinedEntityType.equals(Course.class)){
+			resultList = sessionFactory.getCurrentSession()
+					.createCriteria(ScJoinHolder.class)
+					.add(Restrictions.eqOrIsNull("course.courseId", entityId))
+					.setFirstResult(lastId + 1)
+					.setMaxResults(numRecords)
+					.list();
+		}
+		else{
+			throw new IllegalArgumentException(joinedEntityType + " is not joined via this object");
+		}
+		
+		return resultList;
 	}
 
 	@Override
-	public <U> List<ScJoinHolder> removeJoinsFor(Class<U> joinedEntityType, int entityId) {
-		// TODO Auto-generated method stub
-		return null;
+	public <U> void removeJoinsFor(Class<U> joinedEntityType, int entityId) {
+		if(joinedEntityType.equals(Student.class)){
+			sessionFactory.getCurrentSession()
+				.createQuery("delete from ScJoinHolder where studentId= :id")
+				.setInteger("id", entityId)
+				.executeUpdate();
+		}
+		else if(joinedEntityType.equals(Course.class)){
+			sessionFactory.getCurrentSession()
+				.createQuery("delete from ScJoinHolder where courseId= :id")
+				.setInteger("id", entityId)
+				.executeUpdate();
+		}
+		else{
+			throw new IllegalArgumentException(joinedEntityType + " is not joined via this object");
+		}
 	}
 
 	@Override
 	public <U> long getJoinCountFor(Class<U> joinedEntityType, int entityId) {
-		// TODO Auto-generated method stub
-		return 0;
+		long result = 0;
+		if(joinedEntityType.equals(Student.class)){
+			result = (Long) sessionFactory.getCurrentSession()
+						.createCriteria(ScJoinHolder.class)
+						.add(Restrictions.eqOrIsNull("course.courseId", entityId))
+						.setProjection(Projections.rowCount())
+						.uniqueResult();
+		}
+		else if(joinedEntityType.equals(Course.class)){
+			result = (Long) sessionFactory.getCurrentSession()
+						.createCriteria(ScJoinHolder.class)
+						.add(Restrictions.eqOrIsNull("student.studentId", entityId))
+						.setProjection(Projections.rowCount())
+						.uniqueResult();
+		}
+		else{
+			throw new IllegalArgumentException(joinedEntityType + " is not joined via this object");
+		}
+		
+		return result;
 	}
 
 }
