@@ -1,4 +1,4 @@
-package io.craigmiller160.school.persist;
+package io.craigmiller160.school.persistold;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
@@ -20,6 +20,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import io.craigmiller160.school.context.AppContext;
 import io.craigmiller160.school.entity.Course;
 import io.craigmiller160.school.entity.Student;
+import io.craigmiller160.school.persist.EntityService;
 
 /**
  * <tt>JUnit</tt> test case for the <tt>SchoolService</tt>
@@ -78,7 +79,7 @@ public class SchoolServiceTest {
 	 * tested.
 	 */
 	@Autowired
-	private SchoolService schoolService;
+	private EntityService schoolService;
 	
 	/**
 	 * Test the convenience <tt>createEntity()</tt> method
@@ -145,14 +146,14 @@ public class SchoolServiceTest {
 		int studentId = student.getStudentId();
 		
 		course.setCourseName("Name2");
-		schoolService.saveEntity(course);
+		schoolService.updateEntity(course);
 		
 		course = schoolService.getEntity(Course.class, courseId);
 		assertNotNull("Course not inserted", course);
 		assertEquals("Course save failed", course.getCourseName(), "Name2");
 		
 		student.setFirstName("FirstName2");
-		schoolService.saveEntity(student);
+		schoolService.updateEntity(student);
 		
 		student = schoolService.getEntity(Student.class, studentId);
 		assertNotNull("Student not inserted", student);

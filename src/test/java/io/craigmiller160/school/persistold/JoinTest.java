@@ -1,4 +1,4 @@
-package io.craigmiller160.school.persist;
+package io.craigmiller160.school.persistold;
 
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
@@ -18,6 +18,8 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import io.craigmille160.school.deprecated.CourseDao;
+import io.craigmille160.school.deprecated.StudentDao;
 import io.craigmiller160.school.context.AppContext;
 import io.craigmiller160.school.entity.Course;
 import io.craigmiller160.school.entity.Student;
