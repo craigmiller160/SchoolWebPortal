@@ -9,7 +9,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 
 @Entity (name="student_course")
-public class ScJoinHolder {
+public class ScJoinHolder implements JoinHolder{
 
 	@Id
 	@Column (name="sc_id")
