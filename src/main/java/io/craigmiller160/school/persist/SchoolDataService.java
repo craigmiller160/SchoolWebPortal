@@ -389,5 +389,33 @@ public class SchoolDataService implements EntityService, JoinHolderService {
 		
 		return result;
 	}
+	
+	@Transactional
+	@Override
+	public <T> void joinEntities(Class<T> joinHolderType, Object...entitiesToJoin){
+		if(joinHolderType.equals(ScJoinHolder.class)){
+			if(entitiesToJoin.length > 2){
+				throw new IllegalArgumentException("Wrong number of parameters");
+			}
+			if(entitiesToJoin[0] instanceof Student && entitiesToJoin[1] instanceof Course){
+				ScJoinHolder joinHolder = new ScJoinHolder();
+				joinHolder.setStudent((Student) entitiesToJoin[0]);
+				joinHolder.setCourse((Course) entitiesToJoin[1]);
+				scJoinHolderDao.insertEntity(joinHolder);
+			}
+			else if(entitiesToJoin[0] instanceof Course && entitiesToJoin[1] instanceof Student){
+				ScJoinHolder joinHolder = new ScJoinHolder();
+				joinHolder.setStudent((Student) entitiesToJoin[1]);
+				joinHolder.setCourse((Course) entitiesToJoin[0]);
+				scJoinHolderDao.insertEntity(joinHolder);
+			}
+			else{
+				throw new IllegalArgumentException("Wrong entities as parameters");
+			}
+		}
+		else{
+			throw new IllegalArgumentException(joinHolderType + " is not a valid JoinHolder");
+		}
+	}
 
 }

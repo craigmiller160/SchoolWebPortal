@@ -3,6 +3,8 @@ package io.craigmiller160.school.persist;
 import java.util.List;
 
 public interface JoinHolderService {
+	
+	<T> void joinEntities(Class<T> joinHolderType, Object...entitiesToJoin);
 
 	<T,U> List<T> getAllJoinsFor(Class<T> joinHolderType, 
 			Class<U> joinedEntityType, int entityId);
