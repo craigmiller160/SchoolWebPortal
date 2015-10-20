@@ -33,21 +33,21 @@ implements GenericPaginatedDao<ScJoinHolder>, GenericPaginatedJoinHolderDao<ScJo
 	
 	@SuppressWarnings("unchecked") //Hibernate list() method doesn't support generics
 	@Override
-	public List<ScJoinHolder> getPreviousEntities(int firstId, int numRecords) {
+	public List<ScJoinHolder> getPreviousEntities(int lastPageFirstRowNum, int pageSize) {
 		Session session = sessionFactory.getCurrentSession();
 		return session.createCriteria(ScJoinHolder.class)
-				.setFirstResult(firstId - numRecords)
-				.setMaxResults(numRecords)
+				.setFirstResult(lastPageFirstRowNum)
+				.setMaxResults(pageSize)
 				.list();
 	}
 
 	@SuppressWarnings("unchecked") //Hibernate list() method doesn't support generics
 	@Override
-	public List<ScJoinHolder> getNextEntities(int lastId, int numRecords) {
+	public List<ScJoinHolder> getNextEntities(int lastPageLastRowNum, int pageSize) {
 		Session session = sessionFactory.getCurrentSession();
 		return session.createCriteria(ScJoinHolder.class)
-				.setFirstResult(lastId + 1)
-				.setMaxResults(numRecords)
+				.setFirstResult(lastPageLastRowNum)
+				.setMaxResults(pageSize)
 				.list();
 	}
 
@@ -113,23 +113,23 @@ implements GenericPaginatedDao<ScJoinHolder>, GenericPaginatedJoinHolderDao<ScJo
 
 	@SuppressWarnings("unchecked") //Hibernate list() method doesn't support generics
 	@Override
-	public <U> List<ScJoinHolder> getPreviousJoinsFor(Class<U> joinedEntityType, int entityId, int firstId,
-			int numRecords) {
+	public <U> List<ScJoinHolder> getPreviousJoinsFor(Class<U> joinedEntityType, int entityId, 
+			int lastPageFirstRowNum, int pageSize) {
 		List<ScJoinHolder> resultList = null;
 		if(joinedEntityType.equals(Student.class)){
 			resultList = sessionFactory.getCurrentSession()
 					.createCriteria(ScJoinHolder.class)
 					.add(Restrictions.eqOrIsNull("student.studentId", entityId))
-					.setFirstResult(firstId - numRecords)
-					.setMaxResults(numRecords)
+					.setFirstResult(lastPageFirstRowNum - 1 - pageSize)
+					.setMaxResults(pageSize)
 					.list();
 		}
 		else if(joinedEntityType.equals(Course.class)){
 			resultList = sessionFactory.getCurrentSession()
 					.createCriteria(ScJoinHolder.class)
 					.add(Restrictions.eqOrIsNull("course.courseId", entityId))
-					.setFirstResult(firstId - numRecords)
-					.setMaxResults(numRecords)
+					.setFirstResult(lastPageFirstRowNum - pageSize)
+					.setMaxResults(pageSize)
 					.list();
 		}
 		else{
@@ -141,23 +141,23 @@ implements GenericPaginatedDao<ScJoinHolder>, GenericPaginatedJoinHolderDao<ScJo
 
 	@SuppressWarnings("unchecked") //Hibernate list() method doesn't support generics
 	@Override
-	public <U> List<ScJoinHolder> getNextJoinsFor(Class<U> joinedEntityType, int entityId, int lastId,
-			int numRecords) {
+	public <U> List<ScJoinHolder> getNextJoinsFor(Class<U> joinedEntityType, int entityId, 
+			int lastPageLastRowNum,	int pageSize) {
 		List<ScJoinHolder> resultList = null;
 		if(joinedEntityType.equals(Student.class)){
 			resultList = sessionFactory.getCurrentSession()
 					.createCriteria(ScJoinHolder.class)
 					.add(Restrictions.eqOrIsNull("student.studentId", entityId))
-					.setFirstResult(lastId + 1)
-					.setMaxResults(numRecords)
+					.setFirstResult(lastPageLastRowNum)
+					.setMaxResults(pageSize)
 					.list();
 		}
 		else if(joinedEntityType.equals(Course.class)){
 			resultList = sessionFactory.getCurrentSession()
 					.createCriteria(ScJoinHolder.class)
 					.add(Restrictions.eqOrIsNull("course.courseId", entityId))
-					.setFirstResult(lastId + 1)
-					.setMaxResults(numRecords)
+					.setFirstResult(lastPageLastRowNum)
+					.setMaxResults(pageSize)
 					.list();
 		}
 		else{

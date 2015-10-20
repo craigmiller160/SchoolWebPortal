@@ -160,11 +160,11 @@ public class HibernateStudentDao implements GenericPaginatedDao<Student> {
 	 */
 	@SuppressWarnings("unchecked") //Hibernate list() method doesn't support generics
 	@Override
-	public List<Student> getPreviousEntities(int firstId, int numRecords) {
+	public List<Student> getPreviousEntities(int lastPageFirstRowNum, int pageSize) {
 		return sessionFactory.getCurrentSession()
 				.createCriteria(Student.class)
-				.setFirstResult(firstId - numRecords)
-				.setMaxResults(numRecords)
+				.setFirstResult(lastPageFirstRowNum - 1 - pageSize)
+				.setMaxResults(pageSize)
 				.list();
 		//TODO the previous methods, what happens if firstResult < 0???
 	}
@@ -177,11 +177,11 @@ public class HibernateStudentDao implements GenericPaginatedDao<Student> {
 	 */
 	@SuppressWarnings("unchecked") //Hibernate list() method doesn't support generics
 	@Override
-	public List<Student> getNextEntities(int lastId, int numRecords) {
+	public List<Student> getNextEntities(int lastPageLastRowNum, int pageSize) {
 		return sessionFactory.getCurrentSession()
 				.createCriteria(Student.class)
-				.setFirstResult(lastId)
-				.setMaxResults(numRecords)
+				.setFirstResult(lastPageLastRowNum)
+				.setMaxResults(pageSize)
 				.list();
 	}
 

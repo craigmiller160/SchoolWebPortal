@@ -16,7 +16,7 @@ public interface GenericPaginatedEntityService extends GenericEntityService{
 	 * @throws IllegalArgumentException if the type of entity
 	 * provided is not a supported entity by the database. 
 	 */
-	<T> List<T> getPreviousEntities(Class<T> entityType, int firstId, int numRecords);
+	<T> List<T> getPreviousEntities(Class<T> entityType, int lastPageFirstRowNum, int pageSize);
 	
 	/**
 	 * A convenience method to get the next page of records of
@@ -30,6 +30,6 @@ public interface GenericPaginatedEntityService extends GenericEntityService{
 	 * @throws IllegalArgumentException if the type of entity
 	 * provided is not a supported entity by the database.
 	 */
-	<T> List<T> getNextEntities(Class<T> entityType, int lastId, int numRecords);
+	<T> List<T> getNextEntities(Class<T> entityType, int lastPageLastRowNum, int pageSize);
 	
 }

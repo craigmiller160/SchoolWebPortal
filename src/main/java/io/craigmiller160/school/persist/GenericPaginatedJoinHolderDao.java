@@ -6,9 +6,9 @@ public interface GenericPaginatedJoinHolderDao<T>
 extends GenericJoinHolderDao<T>, GenericPaginatedDao<T>{
 
 	<U> List<T> getPreviousJoinsFor(Class<U> joinedEntityType, 
-			int entityId, int firstId, int numRecords);	
+			int entityId, int lastPageFirstRowNum, int pageSize);	
 	
 	<U> List<T> getNextJoinsFor(Class<U> joinedEntityType, 
-			int entityId, int lastId, int numRecords);
+			int entityId, int lastPageLastRowNum, int pageSize);
 	
 }
