@@ -21,7 +21,6 @@ implements JoinHolder, Comparable<ScJoinHolder>, Serializable{
 
 	@Id
 	@Column (name="sc_id")
-	@GeneratedValue (strategy=GenerationType.AUTO)
 	private int scId;
 	
 	@OneToOne
