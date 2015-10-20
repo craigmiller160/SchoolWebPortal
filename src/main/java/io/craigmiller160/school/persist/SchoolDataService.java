@@ -15,9 +15,10 @@ import io.craigmiller160.school.entity.Student;
 
 /**
  * Default implementation of the <tt>SchoolService</tt>
- * interface. Accepts DAO objects for the <tt>Student</tt>
- * and <tt>Course</tt> entities, with logic to perform
- * the necessary operations for either via the generic methods.
+ * interface. Accepts DAO objects for the <tt>Student</tt> 
+ * and <tt>Course</tt> entities and the <tt>ScJoinHolder</tt> entity
+ * that they're joined to, with logic to perform
+ * the necessary operations for all three via the generic methods.
  * <p>
  * <b>THREAD SAFETY:</b> This class is thread-safe. Its only
  * state is contained in the DAO fields, which are final
@@ -40,7 +41,9 @@ implements GenericPaginatedEntityService, GenericPaginatedJoinHolderService {
 	 */
 	private final GenericPaginatedDao<Course> courseDao;
 	
-	//TODO document this
+	/**
+	 * The DAO for persisting <tt>ScJoinHolder</tt> objects.
+	 */
 	private final GenericPaginatedJoinHolderDao<ScJoinHolder> scJoinHolderDao;
 	
 	/**
@@ -49,11 +52,11 @@ implements GenericPaginatedEntityService, GenericPaginatedJoinHolderService {
 	 * either DAO parameter, this class will not be able
 	 * to function.
 	 * 
-	 * TODO add documentation
-	 * 
 	 * @param studentDao the DAO for persisting <tt>Student</tt>
 	 * objects.
 	 * @param courseDao the DAO for persisting <tt>Course</tt>
+	 * objects.
+	 * @param scJoinHolderDao the DAO for persisting <tt>ScJoinHolder</tt>
 	 * objects.
 	 */
 	@Autowired (required=true)
@@ -264,8 +267,6 @@ implements GenericPaginatedEntityService, GenericPaginatedJoinHolderService {
 		return result;
 	}
 
-	//TODO documentation for all paginated methods needs to be updated with new variable names.
-	
 	@SuppressWarnings("unchecked") //The entityType.equals(Class<?>) is the type check
 	@Transactional
 	@Override

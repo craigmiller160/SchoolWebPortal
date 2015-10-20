@@ -5,7 +5,9 @@ import java.util.List;
 /**
  * Interface for the service layer for the School Web Portal program. It
  * performs additional operations on top of the basic
- * CRUD operations of the DAOs. 
+ * CRUD operations of the DAOs. Like other service classes, implementations
+ * of this class can work with multiple DAOs and should provide transactional
+ * support.
  * 
  * @author craig
  * @version 1.0
@@ -58,7 +60,17 @@ public interface GenericEntityService {
 	 */
 	<T> void insertEntity(T entity);
 	
-	//TODO document this
+	/**
+	 * Delete an entity from the database. This is to 
+	 * be used with an entity that already exists in
+	 * the database.
+	 * 
+	 * @param entity
+	 * @throws IllegalArgumentException if the type of entity
+	 * provided is not a supported entity by the database.
+	 * @throws RuntimeException a subclass of this exception is
+	 * thrown if the entity already exists in the database.
+	 */
 	<T> void deleteEntity(T entity);
 	
 	/**

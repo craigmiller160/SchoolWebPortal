@@ -183,8 +183,5 @@ public class HibernateCourseDao implements GenericPaginatedDao<Course> {
 				.setMaxResults(pageSize)
 				.list();
 	}
-	
-	//TODO test case for this and studentDao need to be changed for
-	//new previous/next page structure 
 
 }

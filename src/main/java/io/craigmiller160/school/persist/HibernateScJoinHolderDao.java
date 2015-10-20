@@ -2,6 +2,9 @@ package io.craigmiller160.school.persist;
 
 import java.util.List;
 
+import javax.annotation.PreDestroy;
+
+import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Projections;
@@ -13,6 +16,22 @@ import io.craigmiller160.school.entity.Course;
 import io.craigmiller160.school.entity.ScJoinHolder;
 import io.craigmiller160.school.entity.Student;
 
+/**
+ * A DAO class for using the <tt>Hibernate</tt> framework
+ * to persist <tt>ScJoinHolder</tt> entities. This class depends
+ * on a <tt>Hibernate SessionFactory</tt> to generate
+ * the database sessions & connections. This class
+ * does NOT manage its own transactions, it will
+ * depend on a service layer class to handle that 
+ * functionality.
+ * <p>
+ * <b>THREAD SAFETY:</b> This class is thread-safe.
+ * It has no mutable state that could cause issues
+ * with multiple threads.
+ * 
+ * @author craig
+ * @version 1.0
+ */
 @Component ("scJoinHolderDao")
 public class HibernateScJoinHolderDao 
 implements GenericPaginatedDao<ScJoinHolder>, GenericPaginatedJoinHolderDao<ScJoinHolder> {
@@ -20,17 +39,36 @@ implements GenericPaginatedDao<ScJoinHolder>, GenericPaginatedJoinHolderDao<ScJo
 	//TODO make sure that no JoinHolders are persisted without
 	//all properties not null
 	
+	/**
+	 * The <tt>SessionFactory</tt> required for this DAO to function.
+	 */
 	private final SessionFactory sessionFactory;
 	
+	/**
+	 * Create this DAO with the required <tt>SessionFactory</tt>.
+	 * 
+	 * @param sessionFactory the <tt>SessionFactory</tt> for this DAO.
+	 */
 	@Autowired (required=true)
 	public HibernateScJoinHolderDao(SessionFactory sessionFactory){
 		this.sessionFactory = sessionFactory;
 	}
 	
+	/**
+	 * Get the <tt>SessionFactory</tt> for this DAO.
+	 * 
+	 * @return the <tt>SessionFactory</tt> for this DAO.
+	 */
 	public SessionFactory getSessionFactory(){
 		return sessionFactory;
 	}
 	
+	/**
+	 * {@inheritDoc}
+	 * @throws HibernateException if the database operation fails.
+	 * @throws NullPointerException if the <tt>SessionFactory</tt>
+	 * was set to null.
+	 */
 	@SuppressWarnings("unchecked") //Hibernate list() method doesn't support generics
 	@Override
 	public List<ScJoinHolder> getPreviousEntities(int lastPageFirstRowNum, int pageSize) {
@@ -41,6 +79,12 @@ implements GenericPaginatedDao<ScJoinHolder>, GenericPaginatedJoinHolderDao<ScJo
 				.list();
 	}
 
+	/**
+	 * {@inheritDoc}
+	 * @throws HibernateException if the database operation fails.
+	 * @throws NullPointerException if the <tt>SessionFactory</tt>
+	 * was set to null.
+	 */
 	@SuppressWarnings("unchecked") //Hibernate list() method doesn't support generics
 	@Override
 	public List<ScJoinHolder> getNextEntities(int lastPageLastRowNum, int pageSize) {
@@ -51,6 +95,12 @@ implements GenericPaginatedDao<ScJoinHolder>, GenericPaginatedJoinHolderDao<ScJo
 				.list();
 	}
 
+	/**
+	 * {@inheritDoc}
+	 * @throws HibernateException if the database operation fails.
+	 * @throws NullPointerException if the <tt>SessionFactory</tt>
+	 * was set to null.
+	 */
 	@Override
 	public void insertEntity(ScJoinHolder entity) {
 		sessionFactory.getCurrentSession().save(entity);
@@ -61,6 +111,12 @@ implements GenericPaginatedDao<ScJoinHolder>, GenericPaginatedJoinHolderDao<ScJo
 		sessionFactory.getCurrentSession().update(entity);
 	}
 
+	/**
+	 * {@inheritDoc}
+	 * @throws HibernateException if the database operation fails.
+	 * @throws NullPointerException if the <tt>SessionFactory</tt>
+	 * was set to null.
+	 */
 	@Override
 	public void deleteEntity(ScJoinHolder entity) {
 		sessionFactory.getCurrentSession().delete(entity);
@@ -72,6 +128,12 @@ implements GenericPaginatedDao<ScJoinHolder>, GenericPaginatedJoinHolderDao<ScJo
 				.get(ScJoinHolder.class, entityId);
 	}
 
+	/**
+	 * {@inheritDoc}
+	 * @throws HibernateException if the database operation fails.
+	 * @throws NullPointerException if the <tt>SessionFactory</tt>
+	 * was set to null.
+	 */
 	@Override
 	public long getEntityCount() {
 		Session session = sessionFactory.getCurrentSession();
@@ -80,6 +142,12 @@ implements GenericPaginatedDao<ScJoinHolder>, GenericPaginatedJoinHolderDao<ScJo
 				.uniqueResult();
 	}
 
+	/**
+	 * {@inheritDoc}
+	 * @throws HibernateException if the database operation fails.
+	 * @throws NullPointerException if the <tt>SessionFactory</tt>
+	 * was set to null.
+	 */
 	@SuppressWarnings("unchecked") //Hibernate list() method doesn't support generics
 	@Override
 	public List<ScJoinHolder> getAllEntities() {
@@ -88,6 +156,12 @@ implements GenericPaginatedDao<ScJoinHolder>, GenericPaginatedJoinHolderDao<ScJo
 				.list();
 	}
 
+	/**
+	 * {@inheritDoc}
+	 * @throws HibernateException if the database operation fails.
+	 * @throws NullPointerException if the <tt>SessionFactory</tt>
+	 * was set to null.
+	 */
 	@SuppressWarnings("unchecked") //Hibernate list() method doesn't support generics
 	@Override
 	public <U> List<ScJoinHolder> getAllJoinsFor(Class<U> joinedEntityType, int entityId) {
@@ -111,6 +185,12 @@ implements GenericPaginatedDao<ScJoinHolder>, GenericPaginatedJoinHolderDao<ScJo
 		return resultList;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 * @throws HibernateException if the database operation fails.
+	 * @throws NullPointerException if the <tt>SessionFactory</tt>
+	 * was set to null.
+	 */
 	@SuppressWarnings("unchecked") //Hibernate list() method doesn't support generics
 	@Override
 	public <U> List<ScJoinHolder> getPreviousJoinsFor(Class<U> joinedEntityType, int entityId, 
@@ -141,6 +221,12 @@ implements GenericPaginatedDao<ScJoinHolder>, GenericPaginatedJoinHolderDao<ScJo
 		return resultList;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 * @throws HibernateException if the database operation fails.
+	 * @throws NullPointerException if the <tt>SessionFactory</tt>
+	 * was set to null.
+	 */
 	@SuppressWarnings("unchecked") //Hibernate list() method doesn't support generics
 	@Override
 	public <U> List<ScJoinHolder> getNextJoinsFor(Class<U> joinedEntityType, int entityId, 
@@ -171,6 +257,12 @@ implements GenericPaginatedDao<ScJoinHolder>, GenericPaginatedJoinHolderDao<ScJo
 		return resultList;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 * @throws HibernateException if the database operation fails.
+	 * @throws NullPointerException if the <tt>SessionFactory</tt>
+	 * was set to null.
+	 */
 	@Override
 	public <U> void removeJoinsFor(Class<U> joinedEntityType, int entityId) {
 		if(joinedEntityType.equals(Student.class)){
@@ -190,6 +282,12 @@ implements GenericPaginatedDao<ScJoinHolder>, GenericPaginatedJoinHolderDao<ScJo
 		}
 	}
 
+	/**
+	 * {@inheritDoc}
+	 * @throws HibernateException if the database operation fails.
+	 * @throws NullPointerException if the <tt>SessionFactory</tt>
+	 * was set to null.
+	 */
 	@Override
 	public <U> long getJoinCountFor(Class<U> joinedEntityType, int entityId) {
 		long result = 0;
@@ -214,6 +312,18 @@ implements GenericPaginatedDao<ScJoinHolder>, GenericPaginatedJoinHolderDao<ScJo
 		}
 		
 		return result;
+	}
+	
+	/**
+	 * Close the <tt>SessionFactory</tt> when the program shuts down.
+	 * 
+	 * @throws HibernateException if the database operation fails.
+	 * @throws NullPointerException if the <tt>SessionFactory</tt>
+	 * was set to null.
+	 */
+	@PreDestroy
+	public void closeSessionFactory(){
+		sessionFactory.close();
 	}
 
 	//TODO restore this only if it's actually necessary
