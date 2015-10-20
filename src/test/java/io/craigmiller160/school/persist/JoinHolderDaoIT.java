@@ -192,5 +192,6 @@ public class JoinHolderDaoIT {
 		HibernateTestUtil testUtil = context.getBean(HibernateTestUtil.class, "hibernateTestUtil");
 		testUtil.resetCourseAutoIncrement();
 		testUtil.resetStudentAutoIncrement();
+		testUtil.resetStudentCourseAutoIncrement();
 	}
 }
