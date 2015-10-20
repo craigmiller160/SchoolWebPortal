@@ -14,7 +14,8 @@ import io.craigmiller160.school.entity.ScJoinHolder;
 import io.craigmiller160.school.entity.Student;
 
 @Component ("scJoinHolderDao")
-public class HibernateScJoinHolderDao implements GenericJoinHolderDao<ScJoinHolder> {
+public class HibernateScJoinHolderDao 
+implements GenericPaginatedDao<ScJoinHolder>, GenericPaginatedJoinHolderDao<ScJoinHolder> {
 
 	//TODO make sure that no JoinHolders are persisted without
 	//all properties not null

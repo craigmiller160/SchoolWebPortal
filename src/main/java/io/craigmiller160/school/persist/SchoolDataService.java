@@ -27,7 +27,7 @@ import io.craigmiller160.school.entity.Student;
  */
 @Component ("schoolService")
 public class SchoolDataService 
-implements GenericEntityService, GenericPaginatedJoinHolderService {
+implements GenericPaginatedEntityService, GenericPaginatedJoinHolderService {
 
 	/**
 	 * The DAO for persisting <tt>Student</tt> objects.
@@ -40,7 +40,7 @@ implements GenericEntityService, GenericPaginatedJoinHolderService {
 	private final GenericPaginatedDao<Course> courseDao;
 	
 	//TODO document this
-	private final GenericJoinHolderDao<ScJoinHolder> scJoinHolderDao;
+	private final GenericPaginatedJoinHolderDao<ScJoinHolder> scJoinHolderDao;
 	
 	/**
 	 * Create a new instance of this service, setting
@@ -58,7 +58,7 @@ implements GenericEntityService, GenericPaginatedJoinHolderService {
 	@Autowired (required=true)
 	public SchoolDataService(GenericPaginatedDao<Student> studentDao, 
 			GenericPaginatedDao<Course> courseDao,
-			GenericJoinHolderDao<ScJoinHolder> scJoinHolderDao){
+			GenericPaginatedJoinHolderDao<ScJoinHolder> scJoinHolderDao){
 		this.studentDao = studentDao;
 		this.courseDao = courseDao;
 		this.scJoinHolderDao = scJoinHolderDao;
