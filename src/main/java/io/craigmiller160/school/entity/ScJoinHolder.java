@@ -21,7 +21,7 @@ implements JoinHolder, Comparable<ScJoinHolder>, Serializable{
 
 	@Id
 	@Column (name="sc_id")
-	private int scId;
+	private long scId;
 	
 	@OneToOne
 	@JoinColumn (name="student_id", nullable=false)
@@ -41,11 +41,11 @@ implements JoinHolder, Comparable<ScJoinHolder>, Serializable{
 		this.scId = Integer.parseInt(sId + cId);
 	}
 	
-	public int getScId() {
+	public long getScId() {
 		return scId;
 	}
 
-	public void setScId(int scIdd) {
+	public void setScId(long scIdd) {
 		this.scId = scIdd;
 	}
 
@@ -73,7 +73,7 @@ implements JoinHolder, Comparable<ScJoinHolder>, Serializable{
 	
 	@Override
 	public int hashCode(){
-		return scId;
+		return Long.valueOf(scId).hashCode();
 	}
 	
 	@Override
@@ -88,7 +88,7 @@ implements JoinHolder, Comparable<ScJoinHolder>, Serializable{
 
 	@Override
 	public int compareTo(ScJoinHolder joinHolder) {
-		return ((Integer) this.scId).compareTo(((Integer) joinHolder.scId));
+		return ((Long) this.scId).compareTo(((Long) joinHolder.scId));
 	}
 	
 	@Override
