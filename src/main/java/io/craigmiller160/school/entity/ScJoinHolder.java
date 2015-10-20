@@ -21,6 +21,7 @@ implements JoinHolder, Comparable<ScJoinHolder>, Serializable{
 
 	@Id
 	@Column (name="sc_id")
+	@GeneratedValue (strategy=GenerationType.AUTO)
 	private int scId;
 	
 	@OneToOne
@@ -36,9 +37,6 @@ implements JoinHolder, Comparable<ScJoinHolder>, Serializable{
 	public ScJoinHolder(Student student, Course course){
 		this.student = student;
 		this.course = course;
-		String sId = student != null ? "" + student.getStudentId() : "0";
-		String cId = course != null ? "" + course.getCourseId() : "0";
-		this.scId = Integer.parseInt(sId + cId);
 	}
 	
 	public int getScId() {
@@ -55,9 +53,6 @@ implements JoinHolder, Comparable<ScJoinHolder>, Serializable{
 
 	public void setStudent(Student student) {
 		this.student = student;
-		this.scId = course != null 
-				? Integer.parseInt(student.getStudentId() + "" + course.getCourseId()) 
-				: Integer.parseInt(student.getStudentId() + "0");
 	}
 
 	public Course getCourse() {
@@ -66,9 +61,6 @@ implements JoinHolder, Comparable<ScJoinHolder>, Serializable{
 
 	public void setCourse(Course course) {
 		this.course = course;
-		this.scId = student != null
-				? Integer.parseInt(student.getStudentId() + "" + course.getCourseId())
-				: Integer.parseInt(course.getCourseId() + "0");
 	}
 	
 	@Override
