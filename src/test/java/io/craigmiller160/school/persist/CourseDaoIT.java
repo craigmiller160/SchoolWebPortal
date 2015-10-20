@@ -187,12 +187,17 @@ public class CourseDaoIT {
 		List<Course> courses1 = courseDao.getNextEntities(15, 5);
 		assertNotNull("Courses list is null", courses1);
 		assertTrue("List is wrong size", courses1.size() == 5);
+		for(Course c : courses1){
+			System.out.println("1: " + c.getCourseId());
+		}
+		
 		
 		//Get another page and compare the two
 		List<Course> courses2 = courseDao.getNextEntities(20, 5);
 		assertNotNull("Courses list is null", courses2);
 		assertTrue("List is wrong size", courses2.size() == 5);
 		for(Course c : courses2){
+			System.out.println("2: " + c.getCourseId());
 			assertFalse("Overlap between pages", courses1.contains(c));
 		}
 		assertTrue("Spacing between pages incorrect", courses2.get(0).getCourseId() 

@@ -179,7 +179,7 @@ public class HibernateCourseDao implements GenericPaginatedDao<Course> {
 	public List<Course> getNextEntities(int lastPageLastRowNum, int pageSize) {
 		return sessionFactory.getCurrentSession()
 				.createCriteria(Course.class)
-				.setFirstResult(lastPageLastRowNum)
+				.setFirstResult(lastPageLastRowNum + 1)
 				.setMaxResults(pageSize)
 				.list();
 	}

@@ -46,7 +46,7 @@ implements GenericPaginatedDao<ScJoinHolder>, GenericPaginatedJoinHolderDao<ScJo
 	public List<ScJoinHolder> getNextEntities(int lastPageLastRowNum, int pageSize) {
 		Session session = sessionFactory.getCurrentSession();
 		return session.createCriteria(ScJoinHolder.class)
-				.setFirstResult(lastPageLastRowNum)
+				.setFirstResult(lastPageLastRowNum + 1)
 				.setMaxResults(pageSize)
 				.list();
 	}
@@ -148,7 +148,7 @@ implements GenericPaginatedDao<ScJoinHolder>, GenericPaginatedJoinHolderDao<ScJo
 			resultList = sessionFactory.getCurrentSession()
 					.createCriteria(ScJoinHolder.class)
 					.add(Restrictions.eqOrIsNull("student.studentId", entityId))
-					.setFirstResult(lastPageLastRowNum)
+					.setFirstResult(lastPageLastRowNum + 1)
 					.setMaxResults(pageSize)
 					.list();
 		}
@@ -156,7 +156,7 @@ implements GenericPaginatedDao<ScJoinHolder>, GenericPaginatedJoinHolderDao<ScJo
 			resultList = sessionFactory.getCurrentSession()
 					.createCriteria(ScJoinHolder.class)
 					.add(Restrictions.eqOrIsNull("course.courseId", entityId))
-					.setFirstResult(lastPageLastRowNum)
+					.setFirstResult(lastPageLastRowNum + 1)
 					.setMaxResults(pageSize)
 					.list();
 		}
