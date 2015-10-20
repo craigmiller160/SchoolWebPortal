@@ -26,7 +26,7 @@ import io.craigmiller160.school.entity.Student;
  * @version 1.0
  */
 @Component ("schoolService")
-public class SchoolDataService implements EntityService, JoinHolderService {
+public class SchoolDataService implements EntityService, GenericJoinHolderService {
 
 	/**
 	 * The DAO for persisting <tt>Student</tt> objects.

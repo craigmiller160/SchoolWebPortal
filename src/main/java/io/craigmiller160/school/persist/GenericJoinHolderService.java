@@ -2,7 +2,7 @@ package io.craigmiller160.school.persist;
 
 import java.util.List;
 
-public interface JoinHolderService {
+public interface GenericJoinHolderService {
 	
 	<T> void joinEntities(Class<T> joinHolderType, Object...entitiesToJoin);
 
