@@ -1,6 +1,7 @@
 package io.craigmiller160.school.persist;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
@@ -149,25 +150,53 @@ public class CourseDaoIT {
 	@Transactional
 	@Test
 	public void testPreviousPage(){
-		int courseId = 0;
 		//Create big list of temporary data
 		for(int i = 0; i < 20; i++){
 			Course course = new Course();
 			setCourse1(course);
 			courseDao.insertEntity(course);
-			System.out.println("LoopId " + course.getCourseId());
-			courseId = i == 0 ? course.getCourseId() : courseId;
 		}
 		
 		//Get previous page and test for content
-		List<Course> courses = courseDao.getPreviousEntities(courseId + 13, 10);
-		assertNotNull("Courses list is null", courses);
-		assertTrue("List is wrong size", courses.size() == 10);
-		System.out.println(courseId);
-		for(Course c : courses){
-			System.out.println(c.getCourseId());
+		List<Course> courses1 = courseDao.getPreviousEntities(16, 5);
+		assertNotNull("Courses list is null", courses1);
+		assertTrue("List is wrong size", courses1.size() == 5);
+		
+		//Get another page and compare the two
+		List<Course> courses2 = courseDao.getPreviousEntities(11, 5);
+		assertNotNull("Courses list is null", courses2);
+		assertTrue("List is wrong size", courses2.size() == 5);
+		for(Course c : courses2){
+			assertFalse("Overlap between pages", courses1.contains(c));
 		}
-		assertTrue("Course ID match failed", courses.get(courses.size() - 1).getCourseId() == courseId + 12);
+		assertTrue("Spacing between pages incorrect", courses1.get(0).getCourseId() 
+				== courses2.get(courses2.size() - 1).getCourseId() + 1);
+	}
+	
+	@Transactional
+	@Test
+	public void testNextPage(){
+		//Create big list of temporary data
+		for(int i = 0; i < 20; i++){
+			Course course = new Course();
+			setCourse1(course);
+			courseDao.insertEntity(course);
+		}
+		
+		//Get next page and test for content
+		List<Course> courses1 = courseDao.getNextEntities(15, 5);
+		assertNotNull("Courses list is null", courses1);
+		assertTrue("List is wrong size", courses1.size() == 5);
+		
+		//Get another page and compare the two
+		List<Course> courses2 = courseDao.getNextEntities(20, 5);
+		assertNotNull("Courses list is null", courses2);
+		assertTrue("List is wrong size", courses2.size() == 5);
+		for(Course c : courses2){
+			assertFalse("Overlap between pages", courses1.contains(c));
+		}
+		assertTrue("Spacing between pages incorrect", courses2.get(0).getCourseId() 
+				== courses1.get(courses2.size() - 1).getCourseId() + 1);
 	}
 	
 	/**
