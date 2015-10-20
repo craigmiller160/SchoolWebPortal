@@ -169,8 +169,9 @@ public class CourseDaoIT {
 		for(Course c : courses2){
 			assertFalse("Overlap between pages", courses1.contains(c));
 		}
-		assertTrue("Spacing between pages incorrect", courses1.get(0).getCourseId() 
-				== courses2.get(courses2.size() - 1).getCourseId() + 1);
+		//TODO in the future, see if there is a way to calculate the spacing
+		//between pages. Using primary key won't work because of the possibility
+		//of deletion. Might not be possible, but something to go back to.
 	}
 	
 	@Transactional
@@ -194,8 +195,6 @@ public class CourseDaoIT {
 		for(Course c : courses2){
 			assertFalse("Overlap between pages", courses1.contains(c));
 		}
-		assertTrue("Spacing between pages incorrect", courses2.get(0).getCourseId() 
-				== courses1.get(courses2.size() - 1).getCourseId() + 1);
 	}
 	
 	/**

@@ -174,8 +174,6 @@ public class StudentDaoIT {
 		for(Student s : students2){
 			assertFalse("Overlap between pages", students1.contains(s));
 		}
-		assertTrue("Spacing between pages incorrect", students1.get(0).getStudentId() 
-				== students2.get(students2.size() - 1).getStudentId() + 1);
 	}
 	
 	@Transactional
@@ -200,8 +198,6 @@ public class StudentDaoIT {
 		for(Student s : students2){
 			assertFalse("Overlap between pages", students1.contains(s));
 		}
-		assertTrue("Spacing between pages incorrect", students2.get(0).getStudentId() 
-				== students1.get(students2.size() - 1).getStudentId() + 1);
 	}
 	
 	/**
