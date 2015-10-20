@@ -2,8 +2,16 @@ package io.craigmiller160.school.persist;
 
 import java.util.List;
 
+import io.craigmiller160.school.entity.JoinHolder;
 
-public interface GenericJoinHolderDao<T> extends GenericDao<T>{
+/**
+ * 
+ * 
+ * @author craig
+ * @version 1.0
+ * @param <T>
+ */
+public interface GenericJoinHolderDao<T extends JoinHolder> extends GenericDao<T>{
 
 	<U> List<T> getAllJoinsFor(Class<U> joinedEntityType, int entityId);
 	

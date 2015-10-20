@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import io.craigmiller160.school.entity.Course;
+import io.craigmiller160.school.entity.JoinHolder;
 import io.craigmiller160.school.entity.ScJoinHolder;
 import io.craigmiller160.school.entity.Student;
 
@@ -310,7 +311,7 @@ implements GenericPaginatedEntityService, GenericPaginatedJoinHolderService {
 	@SuppressWarnings("unchecked") //The entityType.equals(Class<?>) is the type check
 	@Transactional
 	@Override
-	public <T, U> List<T> getAllJoinsFor(Class<T> joinHolderType, 
+	public <T extends JoinHolder, U> List<T> getAllJoinsFor(Class<T> joinHolderType, 
 			Class<U> joinedEntityType, int entityId) {
 		List<T> resultList = null;
 		if(joinHolderType.equals(ScJoinHolder.class)){
@@ -332,7 +333,7 @@ implements GenericPaginatedEntityService, GenericPaginatedJoinHolderService {
 	@SuppressWarnings("unchecked") //The entityType.equals(Class<?>) is the type check
 	@Transactional
 	@Override
-	public <T, U> List<T> getPreviousJoinsFor(Class<T> joinHolderType, 
+	public <T extends JoinHolder, U> List<T> getPreviousJoinsFor(Class<T> joinHolderType, 
 			Class<U> joinedEntityType, int entityId, int lastPageFirstRowNum, int pageSize) {
 		List<T> resultList = null;
 		if(joinHolderType.equals(ScJoinHolder.class)){
@@ -354,7 +355,7 @@ implements GenericPaginatedEntityService, GenericPaginatedJoinHolderService {
 	@SuppressWarnings("unchecked") //The entityType.equals(Class<?>) is the type check
 	@Transactional
 	@Override
-	public <T, U> List<T> getNextJoinsFor(Class<T> joinHolderType, 
+	public <T extends JoinHolder, U> List<T> getNextJoinsFor(Class<T> joinHolderType, 
 			Class<U> joinedEntityType, int entityId, int lastPageLastRowNum, int pageSize) {
 		List<T> resultList = null;
 		if(joinHolderType.equals(ScJoinHolder.class)){
@@ -375,7 +376,7 @@ implements GenericPaginatedEntityService, GenericPaginatedJoinHolderService {
 
 	@Transactional
 	@Override
-	public <T,U> long getJoinCountFor(Class<T> joinHolderType, Class<U> joinedEntityType, int entityId) {
+	public <T extends JoinHolder,U> long getJoinCountFor(Class<T> joinHolderType, Class<U> joinedEntityType, int entityId) {
 		long result = 0;
 		if(joinHolderType.equals(ScJoinHolder.class)){
 			if(joinedEntityType.equals(Student.class) 
@@ -395,7 +396,7 @@ implements GenericPaginatedEntityService, GenericPaginatedJoinHolderService {
 	
 	@Transactional
 	@Override
-	public <T> void joinEntities(Class<T> joinHolderType, Object...entitiesToJoin){
+	public <T extends JoinHolder> void joinEntities(Class<T> joinHolderType, Object...entitiesToJoin){
 		if(joinHolderType.equals(ScJoinHolder.class)){
 			if(entitiesToJoin.length > 2){
 				throw new IllegalArgumentException("Wrong number of parameters");

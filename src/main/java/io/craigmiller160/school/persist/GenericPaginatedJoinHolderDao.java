@@ -2,7 +2,9 @@ package io.craigmiller160.school.persist;
 
 import java.util.List;
 
-public interface GenericPaginatedJoinHolderDao<T> 
+import io.craigmiller160.school.entity.JoinHolder;
+
+public interface GenericPaginatedJoinHolderDao<T extends JoinHolder> 
 extends GenericJoinHolderDao<T>, GenericPaginatedDao<T>{
 
 	<U> List<T> getPreviousJoinsFor(Class<U> joinedEntityType, 
