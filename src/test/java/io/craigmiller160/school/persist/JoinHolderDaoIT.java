@@ -237,6 +237,80 @@ public class JoinHolderDaoIT {
 		}
 	}
 	
+	@Transactional
+	@Test
+	public void testCountForStudent(){
+		//Create entities and insert. Same student, different course.
+		Student student = studentDao.getEntityById(studentId1);
+		Course course = courseDao.getEntityById(courseId1);
+		ScJoinHolder joinHolder = new ScJoinHolder(student, course);
+		scJoinHolderDao.insertEntity(joinHolder);
+		
+		course = courseDao.getEntityById(courseId2);
+		joinHolder = new ScJoinHolder(student, course);
+		scJoinHolderDao.insertEntity(joinHolder);
+		
+		//Get count based on student
+		long count = scJoinHolderDao.getJoinCountFor(Student.class, studentId1);
+		assertEquals(count, 2);
+	}
+	
+	@Transactional
+	@Test
+	public void testCountForCourse(){
+		//Create entities and insert. Same course, different student.
+		Student student = studentDao.getEntityById(studentId1);
+		Course course = courseDao.getEntityById(courseId1);
+		ScJoinHolder joinHolder = new ScJoinHolder(student, course);
+		scJoinHolderDao.insertEntity(joinHolder);
+		
+		student = studentDao.getEntityById(studentId2);
+		joinHolder = new ScJoinHolder(student, course);
+		scJoinHolderDao.insertEntity(joinHolder);
+		
+		//Get count based on course
+		long count = scJoinHolderDao.getJoinCountFor(Course.class, courseId1);
+		assertEquals(count, 2);
+	}
+	
+	@Transactional
+	@Test
+	public void testGetAllForStudent(){
+		//Create entities and insert. Same student, different course.
+		Student student = studentDao.getEntityById(studentId1);
+		Course course = courseDao.getEntityById(courseId1);
+		ScJoinHolder joinHolder = new ScJoinHolder(student, course);
+		scJoinHolderDao.insertEntity(joinHolder);
+		
+		course = courseDao.getEntityById(courseId2);
+		joinHolder = new ScJoinHolder(student, course);
+		scJoinHolderDao.insertEntity(joinHolder);
+		
+		//Retrieve list based on student and test
+		List<ScJoinHolder> joinHolders = scJoinHolderDao.getAllJoinsFor(Student.class, studentId1);
+		assertNotNull("JoinHolders is null", joinHolders);
+		assertEquals(joinHolders.size(), 2);
+	}
+	
+	@Transactional
+	@Test
+	public void testGetAllForCourse(){
+		//Create entities and insert. Same course, different student.
+		Student student = studentDao.getEntityById(studentId1);
+		Course course = courseDao.getEntityById(courseId1);
+		ScJoinHolder joinHolder = new ScJoinHolder(student, course);
+		scJoinHolderDao.insertEntity(joinHolder);
+		
+		student = studentDao.getEntityById(studentId2);
+		joinHolder = new ScJoinHolder(student, course);
+		scJoinHolderDao.insertEntity(joinHolder);
+		
+		//Retrieve list based on course and test
+		List<ScJoinHolder> joinHolders = scJoinHolderDao.getAllJoinsFor(Course.class, courseId1);
+		assertNotNull("JoinHolders is null", joinHolders);
+		assertEquals(joinHolders.size(), 2);
+	}
+	
 	/**
 	 * Set the fields of the <tt>Course</tt> object
 	 * to the first set of values.
