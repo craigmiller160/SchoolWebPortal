@@ -263,19 +263,21 @@ implements GenericPaginatedEntityService, GenericPaginatedJoinHolderService {
 		return result;
 	}
 
+	//TODO documentation for all paginated methods needs to be updated with new variable names.
+	
 	@SuppressWarnings("unchecked") //The entityType.equals(Class<?>) is the type check
 	@Transactional
 	@Override
-	public <T> List<T> getPreviousEntities(Class<T> entityType, int firstId, int numRecords) {
+	public <T> List<T> getPreviousEntities(Class<T> entityType, int lastPageFirstRowNum, int pageSize) {
 		List<T> resultList = null;
 		if(entityType.equals(Student.class)){
-			resultList = (List<T>) studentDao.getPreviousEntities(firstId, numRecords);
+			resultList = (List<T>) studentDao.getPreviousEntities(lastPageFirstRowNum, pageSize);
 		}
 		else if(entityType.equals(Course.class)){
-			resultList = (List<T>) courseDao.getPreviousEntities(firstId, numRecords);
+			resultList = (List<T>) courseDao.getPreviousEntities(lastPageFirstRowNum, pageSize);
 		}
 		else if(entityType.equals(ScJoinHolder.class)){
-			resultList = (List<T>) scJoinHolderDao.getPreviousEntities(firstId, numRecords);
+			resultList = (List<T>) scJoinHolderDao.getPreviousEntities(lastPageFirstRowNum, pageSize);
 		}
 		else{
 			throw new IllegalArgumentException(entityType + " is not a valid Entity");
@@ -287,16 +289,16 @@ implements GenericPaginatedEntityService, GenericPaginatedJoinHolderService {
 	@SuppressWarnings("unchecked") //The entityType.equals(Class<?>) is the type check
 	@Transactional
 	@Override
-	public <T> List<T> getNextEntities(Class<T> entityType, int lastId, int numRecords) {
+	public <T> List<T> getNextEntities(Class<T> entityType, int lastPageLastRowNum, int pageSize) {
 		List<T> resultList = null;
 		if(entityType.equals(Student.class)){
-			resultList = (List<T>) studentDao.getNextEntities(lastId, numRecords);
+			resultList = (List<T>) studentDao.getNextEntities(lastPageLastRowNum, pageSize);
 		}
 		else if(entityType.equals(Course.class)){
-			resultList = (List<T>) courseDao.getNextEntities(lastId, numRecords);
+			resultList = (List<T>) courseDao.getNextEntities(lastPageLastRowNum, pageSize);
 		}
 		else if(entityType.equals(ScJoinHolder.class)){
-			resultList = (List<T>) scJoinHolderDao.getNextEntities(lastId, numRecords);
+			resultList = (List<T>) scJoinHolderDao.getNextEntities(lastPageLastRowNum, pageSize);
 		}
 		else{
 			throw new IllegalArgumentException(entityType + " is not a valid Entity");
@@ -331,12 +333,12 @@ implements GenericPaginatedEntityService, GenericPaginatedJoinHolderService {
 	@Transactional
 	@Override
 	public <T, U> List<T> getPreviousJoinsFor(Class<T> joinHolderType, 
-			Class<U> joinedEntityType, int entityId, int firstId, int numRecords) {
+			Class<U> joinedEntityType, int entityId, int lastPageFirstRowNum, int pageSize) {
 		List<T> resultList = null;
 		if(joinHolderType.equals(ScJoinHolder.class)){
 			if(joinedEntityType.equals(Student.class) 
 					|| joinedEntityType.equals(Course.class)){
-				resultList = (List<T>) scJoinHolderDao.getPreviousJoinsFor(joinedEntityType, entityId, firstId, numRecords);
+				resultList = (List<T>) scJoinHolderDao.getPreviousJoinsFor(joinedEntityType, entityId, lastPageFirstRowNum, pageSize);
 			}
 			else{
 				throw new IllegalArgumentException(joinedEntityType + " is not a valid Joined Entity");
@@ -353,12 +355,12 @@ implements GenericPaginatedEntityService, GenericPaginatedJoinHolderService {
 	@Transactional
 	@Override
 	public <T, U> List<T> getNextJoinsFor(Class<T> joinHolderType, 
-			Class<U> joinedEntityType, int entityId, int lastId, int numRecords) {
+			Class<U> joinedEntityType, int entityId, int lastPageLastRowNum, int pageSize) {
 		List<T> resultList = null;
 		if(joinHolderType.equals(ScJoinHolder.class)){
 			if(joinedEntityType.equals(Student.class) 
 					|| joinedEntityType.equals(Course.class)){
-				resultList = (List<T>) scJoinHolderDao.getNextJoinsFor(joinedEntityType, entityId, lastId, numRecords);
+				resultList = (List<T>) scJoinHolderDao.getNextJoinsFor(joinedEntityType, entityId, lastPageLastRowNum, pageSize);
 			}
 			else{
 				throw new IllegalArgumentException(joinedEntityType + " is not a valid Joined Entity");
