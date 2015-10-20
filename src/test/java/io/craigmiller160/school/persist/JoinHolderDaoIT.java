@@ -25,6 +25,7 @@ import io.craigmiller160.school.entity.Course;
 import io.craigmiller160.school.entity.ScJoinHolder;
 import io.craigmiller160.school.entity.Student;
 
+//TODO document how this is a BIG test class
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration({"classpath:/test-context.xml"})
 public class JoinHolderDaoIT {
@@ -309,6 +310,68 @@ public class JoinHolderDaoIT {
 		List<ScJoinHolder> joinHolders = scJoinHolderDao.getAllJoinsFor(Course.class, courseId1);
 		assertNotNull("JoinHolders is null", joinHolders);
 		assertEquals(joinHolders.size(), 2);
+	}
+	
+	@Transactional
+	@Test
+	public void testPreviousForStudent(){
+		//Create large list of dummy data
+		Student student = studentDao.getEntityById(studentId1);
+		for(int i = 0; i < 20; i++){
+			Course course = new Course();
+			setCourse1(course);
+			courseDao.insertEntity(course);
+			ScJoinHolder joinHolder = new ScJoinHolder(student, course);
+			scJoinHolderDao.insertEntity(joinHolder);
+		}
+		
+		//Get page and test content
+		List<ScJoinHolder> joinHolders1 = scJoinHolderDao.getPreviousJoinsFor(Student.class, studentId1, 11, 5);
+		assertNotNull("JoinHolders list is null", joinHolders1);
+		assertTrue("List is wrong size", joinHolders1.size() == 5);
+		for(ScJoinHolder jh : joinHolders1){
+			assertEquals("Wrong studentId", jh.getStudent().getStudentId(), studentId1);
+		}
+		
+		//Get another page and compare
+		List<ScJoinHolder> joinHolders2 = scJoinHolderDao.getPreviousJoinsFor(Student.class, studentId1, 6, 5);
+		assertNotNull("JoinHolders list is null", joinHolders2);
+		assertTrue("List is wrong size", joinHolders2.size() == 5);
+		for(ScJoinHolder jh : joinHolders2){
+			assertEquals("Wrong studentId", jh.getStudent().getStudentId(), studentId1);
+			assertFalse("Overlap between pages", joinHolders1.contains(jh));
+		}
+	}
+	
+	@Transactional
+	@Test
+	public void testPreviousForCourse(){
+		//Create large list of dummy data
+		Course course = courseDao.getEntityById(courseId1);
+		for(int i = 0; i < 20; i++){
+			Student student = new Student();
+			setStudent1(student);
+			studentDao.insertEntity(student);
+			ScJoinHolder joinHolder = new ScJoinHolder(student, course);
+			scJoinHolderDao.insertEntity(joinHolder);
+		}
+		
+		//Get page and test content
+		List<ScJoinHolder> joinHolders1 = scJoinHolderDao.getPreviousJoinsFor(Course.class, courseId1, 11, 5);
+		assertNotNull("JoinHolders list is null", joinHolders1);
+		assertTrue("List is wrong size", joinHolders1.size() == 5);
+		for(ScJoinHolder jh : joinHolders1){
+			assertEquals("Wrong courseID", jh.getCourse().getCourseId(), courseId1);
+		}
+		
+		//Get another page and compare
+		List<ScJoinHolder> joinHolders2 = scJoinHolderDao.getPreviousJoinsFor(Course.class, courseId1, 6, 5);
+		assertNotNull("JoinHolders list is null", joinHolders2);
+		assertTrue("List is wrong size", joinHolders2.size() == 5);
+		for(ScJoinHolder jh : joinHolders2){
+			assertEquals("Wrong courseID", jh.getCourse().getCourseId(), courseId1);
+			assertFalse("Overlap between pages", joinHolders1.contains(jh));
+		}
 	}
 	
 	/**
