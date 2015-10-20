@@ -119,7 +119,8 @@ implements GenericPaginatedDao<ScJoinHolder>, GenericPaginatedJoinHolderDao<ScJo
 		if(joinedEntityType.equals(Student.class)){
 			resultList = sessionFactory.getCurrentSession()
 					.createCriteria(ScJoinHolder.class)
-					.add(Restrictions.eqOrIsNull("student.studentId", entityId))
+					.createCriteria("student", "s")
+					.add(Restrictions.eq("s.studentId", entityId))
 					.setFirstResult(lastPageFirstRowNum - 1 - pageSize)
 					.setMaxResults(pageSize)
 					.list();
@@ -127,7 +128,8 @@ implements GenericPaginatedDao<ScJoinHolder>, GenericPaginatedJoinHolderDao<ScJo
 		else if(joinedEntityType.equals(Course.class)){
 			resultList = sessionFactory.getCurrentSession()
 					.createCriteria(ScJoinHolder.class)
-					.add(Restrictions.eqOrIsNull("course.courseId", entityId))
+					.createCriteria("course", "c")
+					.add(Restrictions.eqOrIsNull("c.courseId", entityId))
 					.setFirstResult(lastPageFirstRowNum - pageSize)
 					.setMaxResults(pageSize)
 					.list();
@@ -147,7 +149,8 @@ implements GenericPaginatedDao<ScJoinHolder>, GenericPaginatedJoinHolderDao<ScJo
 		if(joinedEntityType.equals(Student.class)){
 			resultList = sessionFactory.getCurrentSession()
 					.createCriteria(ScJoinHolder.class)
-					.add(Restrictions.eqOrIsNull("student.studentId", entityId))
+					.createCriteria("student", "s")
+					.add(Restrictions.eq("s.studentId", entityId))
 					.setFirstResult(lastPageLastRowNum + 1)
 					.setMaxResults(pageSize)
 					.list();
@@ -155,7 +158,8 @@ implements GenericPaginatedDao<ScJoinHolder>, GenericPaginatedJoinHolderDao<ScJo
 		else if(joinedEntityType.equals(Course.class)){
 			resultList = sessionFactory.getCurrentSession()
 					.createCriteria(ScJoinHolder.class)
-					.add(Restrictions.eqOrIsNull("course.courseId", entityId))
+					.createCriteria("course", "c")
+					.add(Restrictions.eq("c.courseId", entityId))
 					.setFirstResult(lastPageLastRowNum + 1)
 					.setMaxResults(pageSize)
 					.list();
