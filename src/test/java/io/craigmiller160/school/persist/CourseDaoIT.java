@@ -188,6 +188,7 @@ public class CourseDaoIT {
 		List<Course> courses1 = courseDao.getNextEntities(5, 5);
 		assertNotNull("Courses list is null", courses1);
 		assertTrue("List is wrong size", courses1.size() == 5);
+		
 		//Get another page and compare the two
 		List<Course> courses2 = courseDao.getNextEntities(10, 5);
 		assertNotNull("Courses list is null", courses2);

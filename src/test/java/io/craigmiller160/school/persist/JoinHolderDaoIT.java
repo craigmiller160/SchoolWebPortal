@@ -212,6 +212,31 @@ public class JoinHolderDaoIT {
 		}
 	}
 	
+	@Transactional
+	@Test
+	public void testNextPage(){
+		//Create big list of temporary data
+		for(int i = 0; i < 20; i++){
+			Course course = courseDao.getEntityById(courseId1);
+			Student student = studentDao.getEntityById(studentId1);
+			ScJoinHolder joinHolder = new ScJoinHolder(student, course);
+			scJoinHolderDao.insertEntity(joinHolder);
+		}
+		
+		//Get next page and test for content
+		List<ScJoinHolder> joinHolders1 = scJoinHolderDao.getNextEntities(5, 5);
+		assertNotNull("JoinHolders list is null", joinHolders1);
+		assertTrue("List is wrong size", joinHolders1.size() == 5);
+		
+		//Get another page and compare the two
+		List<ScJoinHolder> joinHolders2 = scJoinHolderDao.getNextEntities(10, 5);
+		assertNotNull("JoinHolders list is null", joinHolders2);
+		assertTrue("List is wrong size", joinHolders1.size() == 5);
+		for(ScJoinHolder jh : joinHolders2){
+			assertFalse("Overlap between pages", joinHolders1.contains(jh));
+		}
+	}
+	
 	/**
 	 * Set the fields of the <tt>Course</tt> object
 	 * to the first set of values.
