@@ -4,8 +4,8 @@ import java.util.List;
 
 public interface GenericPaginatedDao<T> extends GenericDao<T>{
 
-	List<T> getPreviousEntities(int firstId, int numRecords);
+	List<T> getPreviousEntities(int lastPageFirstRowNum, int pageSize);
 	
-	List<T> getNextEntities(int lastId, int numRecords);
+	List<T> getNextEntities(int lastPageLastRowNum, int pageSize);
 	
 }

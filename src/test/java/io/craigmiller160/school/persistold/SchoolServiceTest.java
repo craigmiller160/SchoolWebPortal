@@ -20,7 +20,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import io.craigmiller160.school.context.AppContext;
 import io.craigmiller160.school.entity.Course;
 import io.craigmiller160.school.entity.Student;
-import io.craigmiller160.school.persist.EntityService;
+import io.craigmiller160.school.persist.GenericEntityService;
 import io.craigmiller160.school.persist.HibernateTestUtil;
 
 /**
@@ -80,7 +80,7 @@ public class SchoolServiceTest {
 	 * tested.
 	 */
 	@Autowired
-	private EntityService schoolService;
+	private GenericEntityService schoolService;
 	
 	/**
 	 * Test the convenience <tt>createEntity()</tt> method
