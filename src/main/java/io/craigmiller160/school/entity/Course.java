@@ -1,16 +1,12 @@
 package io.craigmiller160.school.entity;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
 /**
@@ -64,13 +60,6 @@ implements Comparable<Course>, Serializable{
 	 * The period the course is taught.
 	 */
 	private int period;
-	
-	/**
-	 * The list of students taking this course.
-	 */
-	@ManyToMany (cascade=CascadeType.ALL, mappedBy="courses") //TODO not sure if cascading is appropriate here or not
-	private List<Student> students = new ArrayList<>();
-	//TODO might want to change this to be a set... debating this
 	
 	/**
 	 * Create a new course with none of its properties set.
@@ -187,52 +176,6 @@ implements Comparable<Course>, Serializable{
 	 */
 	public void setPeriod(int period) {
 		this.period = period;
-	}
-	
-	/**
-	 * Get the list of the students taking this course.
-	 * 
-	 * @return the list of the students taking this course.
-	 * @throws NullPointerException if the field 
-	 * being retrieved was not set.
-	 */
-	public List<Student> getStudents(){
-		return students;
-	}
-	
-	/**
-	 * Set the list of the students taking this course.
-	 * 
-	 * @param students the list of the students taking this course.
-	 */
-	public void setStudents(List<Student> students){
-		this.students = students;
-	}
-	
-	/**
-	 * Add a student to the list of students taking this course.
-	 * 
-	 * @param student the student to add.
-	 * @return true if the student was added successfully.
-	 * @throws NullPointerException if the list of students was
-	 * not properly instantiated.
-	 */
-	public boolean addStudent(Student student){
-		//TODO can't put add operation here because endless stackoverflow loop
-		return students.add(student);
-	}
-	
-	/**
-	 * Remove a student from the list of students taking this course.
-	 * 
-	 * @param student the student to remove.
-	 * @return true if the student was successfully removed.
-	 * @throws NullPointerException if the list of students was
-	 * not properly instantiated.
-	 */
-	public boolean removeStudent(Student student){
-		//TODO work on the double-removal, make sure it's working.
-		return students.remove(student);
 	}
 	
 	@Override

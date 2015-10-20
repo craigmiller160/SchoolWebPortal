@@ -2,19 +2,13 @@ package io.craigmiller160.school.entity;
 
 import java.io.Serializable;
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Convert;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
 import io.craigmiller160.school.util.LocalDateConverter;
@@ -77,16 +71,6 @@ implements Comparable<Student>, Serializable{
 	 * The grade of the student.
 	 */
 	private int grade;
-	
-	/**
-	 * The list of courses this student is taking.
-	 */
-	@ManyToMany (cascade=CascadeType.ALL) //TODO not sure if cascading is appropriate here or not
-	@JoinTable (name="student_course", 
-				joinColumns={@JoinColumn (name="student_id")}, 
-				inverseJoinColumns={@JoinColumn (name="course_id")})
-	private List<Course> courses = new ArrayList<>();
-	//TODO might want to change this to be a set... debating this
 	
 	/**
 	 * Create a new student with none of its properties set.
@@ -210,53 +194,7 @@ implements Comparable<Student>, Serializable{
 	 */
 	public void setGrade(int grade) {
 		this.grade = grade;
-	}
-	
-	/**
-	 * Add a course to the list of courses this student is taking.
-	 * 
-	 * @param course the course to add.
-	 * @return true if the course is added successfully.
-	 * @throws NullPointerException if the list of courses was
-	 * not properly instantiated.
-	 */
-	public boolean addCourse(Course course){
-		//TODO can't put add operation here because endless stackoverflow loop
-		return courses.add(course);
-	}
-	
-	/**
-	 * Remove a course from the list of courses this student is taking.
-	 * 
-	 * @param course the course to remove.
-	 * @return true if this course was removed successfully.
-	 * @throws NullPointerException if the list of courses was
-	 * not properly instantiated.
-	 */
-	public boolean removeCourse(Course course){
-		//TODO need to have a remove operation reflected on both sides
-		return courses.remove(course);
-	}
-	
-	/**
-	 * Get the list of courses this student is taking.
-	 * 
-	 * @return the list of courses this student is taking.
-	 * @throws NullPointerException if the field 
-	 * being retrieved was not set.
-	 */
-	public List<Course> getCourses() {
-		return courses;
-	}
-	
-	/**
-	 * Set the list of courses this student is taking.
-	 * 
-	 * @param courses the list of courses this student is taking.
-	 */
-	public void setCourses(List<Course> courses) {
-		this.courses = courses;
-	}
+	}	
 
 	/**
 	 * Get the gender of the student.
