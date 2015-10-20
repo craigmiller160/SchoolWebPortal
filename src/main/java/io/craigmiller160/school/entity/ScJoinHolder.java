@@ -40,6 +40,8 @@ implements JoinHolder, Comparable<ScJoinHolder>, Serializable{
 	@GeneratedValue (strategy=GenerationType.AUTO)
 	private int scId;
 	
+	//TODO consider adding cascade effects to the mapped entities.
+	
 	/**
 	 * The <tt>Student</tt> entity being joined.
 	 */
