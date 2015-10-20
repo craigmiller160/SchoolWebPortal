@@ -442,6 +442,38 @@ public class JoinHolderDaoIT {
 		}
 	}
 	
+	@Transactional
+	@Test
+	public void testRemoveForStudent(){
+		//Create dummy data
+		Student student = studentDao.getEntityById(studentId1);
+		Course course = courseDao.getEntityById(courseId1);
+		ScJoinHolder joinHolder = new ScJoinHolder(student, course);
+		scJoinHolderDao.insertEntity(joinHolder);
+		
+		//Removed join with the student and test result
+		scJoinHolderDao.removeJoinsFor(Student.class, studentId1);
+		List<ScJoinHolder> joinHolders = scJoinHolderDao.getAllJoinsFor(Student.class, studentId1);
+		assertNotNull("JoinHolders list is null", joinHolders);
+		assertEquals("JoinHolders is not empty", joinHolders.size(), 0);
+	}
+	
+	@Transactional
+	@Test
+	public void testRemoveForCourse(){
+		//Create dummy data
+		Student student = studentDao.getEntityById(studentId1);
+		Course course = courseDao.getEntityById(courseId1);
+		ScJoinHolder joinHolder = new ScJoinHolder(student, course);
+		scJoinHolderDao.insertEntity(joinHolder);
+		
+		//Remove join with the course and test result
+		scJoinHolderDao.removeJoinsFor(Course.class, courseId1);
+		List<ScJoinHolder> joinHolders = scJoinHolderDao.getAllJoinsFor(Course.class, courseId1);
+		assertNotNull("JoinHolders list is null", joinHolders);
+		assertEquals("JoinHolders is not empty", joinHolders.size(), 0);
+	}
+	
 	/**
 	 * Set the fields of the <tt>Course</tt> object
 	 * to the first set of values.
