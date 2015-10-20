@@ -10,7 +10,7 @@ import java.util.List;
  * @author craig
  * @version 1.0
  */
-public interface EntityService {
+public interface GenericEntityService {
 
 	/**
 	 * Save changes to an existing entity in the 
