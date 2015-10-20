@@ -102,6 +102,13 @@ implements GenericPaginatedEntityService, GenericPaginatedJoinHolderService {
 		}
 	}
 	
+	/**
+	 * {@inheritDoc}
+	 * <p>
+	 * <b>NOTE:</b> This implementation of this method does NOT support
+	 * creating the <tt>ScJoinHolder</tt> entity. That is handled by the
+	 * separate <tt>joinEntities(Class<T>,Object...)</tt> method.
+	 */
 	@Transactional
 	@SuppressWarnings("unchecked") //Casting to <T> works because of the check on entityType
 	@Override
