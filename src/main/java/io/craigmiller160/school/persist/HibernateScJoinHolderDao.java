@@ -216,4 +216,37 @@ implements GenericPaginatedDao<ScJoinHolder>, GenericPaginatedJoinHolderDao<ScJo
 		return result;
 	}
 
+	//TODO restore this only if it's actually necessary
+	/*@Override
+	public <U, V> void removeJoinFor(Class<U> firstJoinedEntityType, int firstEntityId, Class<V> secondJoinedEntityType,
+			int secondEntityId) {
+		//TODO if duplicate joinHolders exist in the table, this
+		//will end up throwing a HibernateException
+		if(firstJoinedEntityType.equals(Student.class) 
+				&& secondJoinedEntityType.equals(Course.class)){
+			ScJoinHolder joinHolder = (ScJoinHolder) sessionFactory.getCurrentSession()
+						.createCriteria(ScJoinHolder.class)
+						.createCriteria("student", "s")
+						.createCriteria("course", "c")
+						.add(Restrictions.eq("s.studentId", firstEntityId))
+						.add(Restrictions.eq("c.courseId", secondEntityId))
+						.uniqueResult();
+			sessionFactory.getCurrentSession().delete(joinHolder);
+		}
+		else if(firstJoinedEntityType.equals(Course.class)
+				&& secondJoinedEntityType.equals(Student.class)){
+			ScJoinHolder joinHolder = (ScJoinHolder) sessionFactory.getCurrentSession()
+					.createCriteria(ScJoinHolder.class)
+					.createCriteria("student", "s")
+					.createCriteria("course", "c")
+					.add(Restrictions.eq("s.studentId", secondEntityId))
+					.add(Restrictions.eq("c.courseId", firstEntityId))
+					.uniqueResult();
+		sessionFactory.getCurrentSession().delete(joinHolder);
+		}
+		else{
+			throw new IllegalArgumentException("Invalid Entity Types");
+		}
+	}*/
+
 }
