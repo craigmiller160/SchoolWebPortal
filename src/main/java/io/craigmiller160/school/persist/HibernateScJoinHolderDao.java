@@ -192,14 +192,16 @@ implements GenericPaginatedDao<ScJoinHolder>, GenericPaginatedJoinHolderDao<ScJo
 		if(joinedEntityType.equals(Student.class)){
 			result = (Long) sessionFactory.getCurrentSession()
 						.createCriteria(ScJoinHolder.class)
-						.add(Restrictions.eqOrIsNull("course.courseId", entityId))
+						.createCriteria("student", "s")
+						.add(Restrictions.eq("s.studentId", entityId))
 						.setProjection(Projections.rowCount())
 						.uniqueResult();
 		}
 		else if(joinedEntityType.equals(Course.class)){
 			result = (Long) sessionFactory.getCurrentSession()
 						.createCriteria(ScJoinHolder.class)
-						.add(Restrictions.eqOrIsNull("student.studentId", entityId))
+						.createCriteria("course", "c")
+						.add(Restrictions.eq("c.courseId", entityId))
 						.setProjection(Projections.rowCount())
 						.uniqueResult();
 		}
