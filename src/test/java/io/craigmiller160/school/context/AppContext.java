@@ -16,7 +16,7 @@ import org.springframework.context.ApplicationContext;
  * 
  * @author craig
  * @version 1.0
- * @see io.craigmiller160.schedule.persist.CourseDaoTest CourseDaoTest
+ * @see io.craigmiller160.CourseDaoIT.persist.CourseDaoTest CourseDaoTest
  * @see io.craigmiller160.schedule.persist.StudentDaoTest StudentDaoTest
  */
 public class AppContext {
