@@ -147,6 +147,12 @@ public class JoinHolderDaoIT {
 		//Try to get entity and test for delete
 		joinHolder = scJoinHolderDao.getEntityById(joinHolderId);
 		assertNull(DELETE_FAIL, joinHolder);
+		
+		//Test to ensure that student/course entities haven't been deleted
+		student = studentDao.getEntityById(studentId2);
+		assertNotNull("Student was deleted with JoinHolder", student);
+		course = courseDao.getEntityById(courseId2);
+		assertNotNull("Course was deleted with JoinHolder", course);
 	}
 	
 	@Transactional
