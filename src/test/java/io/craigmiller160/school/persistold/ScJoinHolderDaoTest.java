@@ -17,6 +17,7 @@ import io.craigmiller160.school.context.AppContext;
 import io.craigmiller160.school.entity.ScJoinHolder;
 import io.craigmiller160.school.entity.Student;
 import io.craigmiller160.school.persist.GenericJoinHolderDao;
+import io.craigmiller160.school.persist.HibernateTestUtil;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration ({"classpath:/test-context.xml"})

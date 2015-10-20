@@ -20,6 +20,7 @@ import org.springframework.transaction.annotation.Transactional;
 import io.craigmille160.school.deprecated.StudentDao;
 import io.craigmiller160.school.context.AppContext;
 import io.craigmiller160.school.entity.Student;
+import io.craigmiller160.school.persist.HibernateTestUtil;
 
 /**
  * <tt>JUnit</tt> test case for the <tt>StudentDao</tt> class.

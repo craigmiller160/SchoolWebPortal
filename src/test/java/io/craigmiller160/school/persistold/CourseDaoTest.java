@@ -20,6 +20,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import io.craigmille160.school.deprecated.CourseDao;
 import io.craigmiller160.school.context.AppContext;
 import io.craigmiller160.school.entity.Course;
+import io.craigmiller160.school.persist.HibernateTestUtil;
 
 /**
  * <tt>JUnit</tt> test case for the <tt>CourseDao</tt> class.

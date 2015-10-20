@@ -1,4 +1,4 @@
-package io.craigmiller160.school.persistold;
+package io.craigmiller160.school.persist;
 
 import javax.transaction.Transactional;
 
