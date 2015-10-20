@@ -175,13 +175,13 @@ implements GenericPaginatedDao<ScJoinHolder>, GenericPaginatedJoinHolderDao<ScJo
 	public <U> void removeJoinsFor(Class<U> joinedEntityType, int entityId) {
 		if(joinedEntityType.equals(Student.class)){
 			sessionFactory.getCurrentSession()
-				.createQuery("delete from ScJoinHolder where studentId= :id")
+				.createQuery("delete from " + ScJoinHolder.class.getName() + " where student.studentId= :id")
 				.setInteger("id", entityId)
 				.executeUpdate();
 		}
 		else if(joinedEntityType.equals(Course.class)){
 			sessionFactory.getCurrentSession()
-				.createQuery("delete from ScJoinHolder where courseId= :id")
+				.createQuery("delete from " + ScJoinHolder.class.getName() + " where course.courseId= :id")
 				.setInteger("id", entityId)
 				.executeUpdate();
 		}
