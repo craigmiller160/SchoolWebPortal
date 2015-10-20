@@ -1,9 +1,13 @@
 package io.craigmiller160.school.persist;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
 import java.time.LocalDate;
+import java.util.List;
 
 import javax.transaction.Transactional;
 
@@ -105,8 +109,6 @@ public class JoinHolderDaoIT {
 		courseId2 = course.getCourseId();
 	}
 	
-	
-	
 	@Transactional
 	@Test
 	public void testCRUD(){
@@ -118,13 +120,96 @@ public class JoinHolderDaoIT {
 		ScJoinHolder joinHolder = new ScJoinHolder(student, course);
 		scJoinHolderDao.insertEntity(joinHolder);
 		int joinHolderId = joinHolder.getScId();
-		System.out.println(joinHolderId);
 		
 		//Get joinHolder and test values
 		joinHolder = scJoinHolderDao.getEntityById(joinHolderId);
 		assertNotNull(INSERT_FAIL, joinHolder);
-		assertTrue(INSERT_FAIL, joinHolder.getCourse().getCourseName().equals("Name"));
-		assertTrue(INSERT_FAIL, joinHolder.getStudent().getFirstName().equals("First"));
+		assertEquals(INSERT_FAIL, joinHolder.getCourse().getCourseName(), "Name");
+		assertEquals(INSERT_FAIL, joinHolder.getStudent().getFirstName(), "First");
+		
+		//Change content and update
+		student = studentDao.getEntityById(studentId2);
+		course = courseDao.getEntityById(courseId2);
+		joinHolder.setStudent(student);
+		joinHolder.setCourse(course);
+		scJoinHolderDao.updateEntity(joinHolder);
+		
+		//Get entity and test for successful update
+		joinHolder = scJoinHolderDao.getEntityById(joinHolderId);
+		assertNotNull(INSERT_FAIL, joinHolder);
+		assertEquals(UPDATE_FAIL, joinHolder.getCourse().getCourseName(), "Name2");
+		assertEquals(UPDATE_FAIL, joinHolder.getStudent().getFirstName(), "First2");
+		
+		//Delete entity
+		scJoinHolderDao.deleteEntity(joinHolder);
+		
+		//Try to get entity and test for delete
+		joinHolder = scJoinHolderDao.getEntityById(joinHolderId);
+		assertNull(DELETE_FAIL, joinHolder);
+	}
+	
+	@Transactional
+	@Test
+	public void testCountAll(){
+		//Create and insert test data
+		Course course = courseDao.getEntityById(courseId1);
+		Student student = studentDao.getEntityById(studentId1);
+		ScJoinHolder joinHolder = new ScJoinHolder(student, course);
+		scJoinHolderDao.insertEntity(joinHolder);
+		
+		course = courseDao.getEntityById(courseId2);
+		student = studentDao.getEntityById(studentId2);
+		joinHolder = new ScJoinHolder(student, course);
+		scJoinHolderDao.insertEntity(joinHolder);
+		
+		//Get entity count and test accuracy
+		long count = scJoinHolderDao.getEntityCount();
+		assertTrue(count >= 2);
+	}
+	
+	@Transactional
+	@Test
+	public void testGetAll(){
+		//Create and insert test data
+		Course course = courseDao.getEntityById(courseId1);
+		Student student = studentDao.getEntityById(studentId1);
+		ScJoinHolder joinHolder = new ScJoinHolder(student, course);
+		scJoinHolderDao.insertEntity(joinHolder);
+		
+		course = courseDao.getEntityById(courseId2);
+		student = studentDao.getEntityById(studentId2);
+		joinHolder = new ScJoinHolder(student, course);
+		scJoinHolderDao.insertEntity(joinHolder);
+		
+		//Get list and check for content
+		List<ScJoinHolder> joinHolders = scJoinHolderDao.getAllEntities();
+		assertNotNull(joinHolders);
+		assertTrue(joinHolders.size() >= 2);
+	}
+	
+	@Transactional
+	@Test
+	public void testPreviousPage(){
+		//Create big list of temporary data
+		for(int i = 0; i < 20; i++){
+			Course course = courseDao.getEntityById(courseId1);
+			Student student = studentDao.getEntityById(studentId1);
+			ScJoinHolder joinHolder = new ScJoinHolder(student, course);
+			scJoinHolderDao.insertEntity(joinHolder);
+		}
+		
+		//Get previous page and test for content
+		List<ScJoinHolder> joinHolders1 = scJoinHolderDao.getPreviousEntities(11, 5);
+		assertNotNull("JoinHolders list is null", joinHolders1);
+		assertTrue("List is wrong size", joinHolders1.size() == 5);
+		
+		//Get another page and compare the two
+		List<ScJoinHolder> joinHolders2 = scJoinHolderDao.getPreviousEntities(6, 5);
+		assertNotNull("JoinHolders list is null", joinHolders2);
+		assertTrue("List is wrong size", joinHolders2.size() == 5);
+		for(ScJoinHolder jh : joinHolders2){
+			assertFalse("Overlap between pages", joinHolders1.contains(jh));
+		}
 	}
 	
 	/**
@@ -143,8 +228,7 @@ public class JoinHolderDaoIT {
 	/**
 	 * Set the fields of the <tt>Course</tt> object
 	 * to the second set of values.
-	 * 
-	 * @param course the <tt>Course</tt> object to set.
+	 * 	 * @param course the <tt>Course</tt> object to set.
 	 */
 	private void setCourse2(Course course){
 		course.setCourseName("Name2");
