@@ -213,7 +213,7 @@ public class StudentDaoIT {
 	public static void resetAutoIncrement(){
 		ApplicationContext context = AppContext.getApplicationContext();
 		HibernateTestUtil testUtil = context.getBean(HibernateTestUtil.class, "hibernateTestUtil");
-		testUtil.resetCourseAutoIncrement();
+		testUtil.resetStudentAutoIncrement();
 	}
 	
 }
