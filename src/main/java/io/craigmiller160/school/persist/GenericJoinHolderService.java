@@ -65,4 +65,18 @@ public interface GenericJoinHolderService extends GenericEntityService{
 	 */
 	<T extends JoinHolder,U> long getJoinCountFor(Class<T> joinHolderType, Class<U> joinedEntityType, int entityId);
 	
+	/**
+	 * Remove all <tt>JoinHolder</tt> entities that are
+	 * joined with the entity whose type and unique ID
+	 * are specified in the parameters.
+	 * 
+	 * @param joinHolderType the type of <tt>JoinHolder</tt> the entity is joined with.
+	 * @param joinedEntityType the type of the entity to remove the joins for.
+	 * @param entityId the ID of the entity to remove the joins for.
+	 * @throws IllegalArgumentException if the type of entity provided
+	 * is not a valid type for this class's <tt>JoinHolder</tt>.
+	 */
+	<T extends JoinHolder, U> void removeJoinsFor(Class<T> joinHolderType, 
+			Class<U> joinedEntityType, int entityId);
+	
 }

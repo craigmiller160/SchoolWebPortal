@@ -430,4 +430,16 @@ implements GenericPaginatedEntityService, GenericPaginatedJoinHolderService {
 		}
 	}
 
+	@Transactional
+	@Override
+	public <T extends JoinHolder, U> void removeJoinsFor(Class<T> joinHolderType, Class<U> joinedEntityType,
+			int entityId) {
+		if(joinHolderType.equals(ScJoinHolder.class)){
+			scJoinHolderDao.removeJoinsFor(joinedEntityType, entityId);
+		}
+		else{
+			throw new IllegalArgumentException(joinHolderType + " is not a valid JoinHolder");
+		}
+	}
+
 }
