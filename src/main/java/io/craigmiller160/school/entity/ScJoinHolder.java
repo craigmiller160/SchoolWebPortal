@@ -42,6 +42,10 @@ implements JoinHolder, Comparable<ScJoinHolder>, Serializable{
 		this.scId = Integer.parseInt(sId + cId);
 	}
 	
+	public ScJoinHolder(Course course, Student student){
+		this(student, course);
+	}
+	
 	public int getScId() {
 		return scId;
 	}
