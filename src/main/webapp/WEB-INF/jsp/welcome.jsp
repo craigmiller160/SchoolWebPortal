@@ -21,7 +21,9 @@
 			</div>
 			
 			<div class="user-status">
-				<input class="btn" type="button" value="login"/>
+				<form:form method="get">
+					<input class="btn-link" type="submit" name="loginButton" value="Login to Web Portal" title="Login to portal"/>
+				</form:form>
 			</div>
 		</header>
 		

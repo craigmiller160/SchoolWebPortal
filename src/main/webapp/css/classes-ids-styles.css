@@ -11,14 +11,14 @@
 .header-title{
 	text-shadow: 3px 3px 5px gray;
 	float: left;
-	margin-left: 40px;
+	margin-left: 60px;
 }
 
 /* Logo Div */
 .logo{
 	background-color: white;
 	margin-top: 5px;
-	margin-left: 5px;
+	margin-left: 10px;
 	border: solid 1px gray;
 	border-radius: 10px;
 	box-shadow: 2px 2px 5px gray;
@@ -27,8 +27,8 @@
 
 /* Div in Header for User Status/Login/Logout/Etc */
 .user-status{
-	margin-right: 5px;
-	background-color: blue;
+	margin-top: 5px;
+	margin-right: 60px;
 	float: right;
 }
 
