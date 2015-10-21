@@ -5,12 +5,14 @@ import java.util.List;
 /**
  * Interface for the service layer for the School Web Portal program. It
  * performs additional operations on top of the basic
- * CRUD operations of the DAOs. 
+ * CRUD operations of the DAOs. Like other service classes, implementations
+ * of this class can work with multiple DAOs and should provide transactional
+ * support.
  * 
  * @author craig
  * @version 1.0
  */
-public interface SchoolService {
+public interface GenericEntityService {
 
 	/**
 	 * Save changes to an existing entity in the 
@@ -20,7 +22,7 @@ public interface SchoolService {
 	 * @throws IllegalArgumentException if the type of entity
 	 * provided is not a supported entity by the database.
 	 */
-	<T> void saveEntity(T entity);
+	<T> void updateEntity(T entity);
 	
 	/**
 	 * Convenience class for creating new instances of
@@ -59,6 +61,19 @@ public interface SchoolService {
 	<T> void insertEntity(T entity);
 	
 	/**
+	 * Delete an entity from the database. This is to 
+	 * be used with an entity that already exists in
+	 * the database.
+	 * 
+	 * @param entity
+	 * @throws IllegalArgumentException if the type of entity
+	 * provided is not a supported entity by the database.
+	 * @throws RuntimeException a subclass of this exception is
+	 * thrown if the entity already exists in the database.
+	 */
+	<T> void deleteEntity(T entity);
+	
+	/**
 	 * Get a list of all persisted entities of the
 	 * specified type.
 	 * 
@@ -68,34 +83,6 @@ public interface SchoolService {
 	 * provided is not a supported entity by the database.
 	 */
 	<T> List<T> getAllEntities(Class<T> entityType);
-	
-	/**
-	 * A convenience method to get the previous page of records of
-	 * an entity from the database. Used to facilitate pagination
-	 * behavior.
-	 * 
-	 * @param entityType the type of entity to retrieve records of.
-	 * @param firstId the first ID of the records on the current page.
-	 * @param numRecords the number of records to return for the page.
-	 * @return a list of the previous page of entities.
-	 * @throws IllegalArgumentException if the type of entity
-	 * provided is not a supported entity by the database. 
-	 */
-	<T> List<T> getPreviousEntities(Class<T> entityType, long firstId, int numRecords);
-	
-	/**
-	 * A convenience method to get the next page of records of
-	 * an entity from the database. Used to facilitate pagination
-	 * behavior.
-	 * 
-	 * @param entityType the type of entity to retrieve records of.
-	 * @param lastId the last ID of the records on the current page.
-	 * @param numRecords the number of records to return for the page.
-	 * @return a list of the next page of entities. 
-	 * @throws IllegalArgumentException if the type of entity
-	 * provided is not a supported entity by the database.
-	 */
-	<T> List<T> getNextEntities(Class<T> entityType, long lastId, int numRecords);
 	
 	/**
 	 * Get an entity of the specified type from the 
@@ -108,7 +95,7 @@ public interface SchoolService {
 	 * @throws IllegalArgumentException if the type of entity
 	 * provided is not a supported entity by the database.
 	 */
-	<T> T getEntity(Class<T> entityType, int entityId);
+	<T> T getEntityById(Class<T> entityType, int entityId);
 	
 	/**
 	 * Get a count of the total number of entities

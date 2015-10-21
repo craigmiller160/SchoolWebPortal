@@ -94,4 +94,26 @@ public class HibernateTestUtil {
 		}
 	}
 	
+	/**
+	 * Reset the auto-increment counter on the student_course table.
+	 * If the <tt>SessionFactory</tt> was set to null, an exception
+	 * will be thrown.
+	 * 
+	 * @throws NullPointerException if the <tt>SessionFactory</tt>
+	 * was set to null.
+	 */
+	@Transactional
+	public void resetStudentCourseAutoIncrement(){
+		Dialect dialect = ((SessionFactoryImplementor) sessionFactory).getDialect();
+		if(dialect instanceof MySQLDialect){
+			sessionFactory.getCurrentSession()
+			.createSQLQuery("alter table student_course auto_increment = 1")
+			.executeUpdate();
+		}
+		else{
+			throw new UnsupportedOperationException(
+					"Method is only compatible with MySQL database");
+		}
+	}
+	
 }

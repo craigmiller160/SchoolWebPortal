@@ -5,7 +5,7 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
-import java.util.TreeSet;
+import org.junit.Test;
 
 /**
  * <tt>JUnit</tt> test case for the <tt>Course</tt>
@@ -35,7 +35,8 @@ public class CourseTest{
 	 * and ensure that both produce non-null objects and that
 	 * any arguments are set to the appropriate fields.
 	 */
-	public void testConstructor(){
+	@Test
+	public void testConstructorArgs(){
 		Course course = new Course();
 		assertNotNull(course);
 		
@@ -51,6 +52,7 @@ public class CourseTest{
 	 * Test all setters to ensure that they
 	 * all assign their values to the appropriate fields.
 	 */
+	@Test
 	public void testFields(){
 		Course course = new Course();
 		course.setCourseId(1);
@@ -70,6 +72,7 @@ public class CourseTest{
 	 * Test the overriden equals() method
 	 * for comparisons between <tt>Course</tt> objects.
 	 */
+	@Test
 	public void testEquals(){
 		Object o = new Object();
 		
@@ -82,15 +85,16 @@ public class CourseTest{
 		Course course3 = new Course();
 		course3.setCourseId(1);
 		
-		assertFalse(course1.equals(course2));
-		assertFalse(course1.equals(o));
-		assertTrue(course1.equals(course3));
+		assertFalse("ID mismatch", course1.equals(course2));
+		assertFalse("Type mismatch", course1.equals(o));
+		assertTrue("Perfect match", course1.equals(course3));
 	}
 	
 	/**
 	 * Test the overriden compareTo() method
 	 * and more comparisons between <tt>Course</tt> objects.
 	 */
+	@Test
 	public void testCompareTo(){
 		Course course1 = new Course();
 		course1.setCourseId(1);
@@ -99,17 +103,11 @@ public class CourseTest{
 		course2.setCourseId(2);
 		
 		Course course3 = new Course();
-		course3.setCourseId(3);
+		course3.setCourseId(1);
 		
-		TreeSet<Course> set = new TreeSet<>();
-		set.add(course2);
-		set.add(course1);
-		set.add(course3);
-		
-		assertEquals(set.size(), 3);
-		assertEquals(set.pollFirst(), course1);
-		assertEquals(set.pollFirst(), course2);
-		assertEquals(set.pollFirst(), course3);
+		assertEquals("Less than test", course1.compareTo(course2), -1);
+		assertEquals("Greater than test", course2.compareTo(course1), 1);
+		assertEquals("Equals test", course1.compareTo(course3), 0);
 	}
 	
 }
