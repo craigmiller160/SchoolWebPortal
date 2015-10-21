@@ -332,7 +332,8 @@ public class JoinHolderDaoIT {
 		}
 		
 		//Get page and test content
-		List<ScJoinHolder> joinHolders1 = scJoinHolderDao.getPreviousJoinsFor(Student.class, studentId1, 11, 5);
+		List<ScJoinHolder> joinHolders1 = scJoinHolderDao.getPreviousJoinsFor(
+				Student.class, studentId1, 11, 5);
 		assertNotNull("JoinHolders list is null", joinHolders1);
 		assertTrue("List is wrong size", joinHolders1.size() == 5);
 		for(ScJoinHolder jh : joinHolders1){
@@ -340,7 +341,8 @@ public class JoinHolderDaoIT {
 		}
 		
 		//Get another page and compare
-		List<ScJoinHolder> joinHolders2 = scJoinHolderDao.getPreviousJoinsFor(Student.class, studentId1, 6, 5);
+		List<ScJoinHolder> joinHolders2 = scJoinHolderDao.getPreviousJoinsFor(
+				Student.class, studentId1, 6, 5);
 		assertNotNull("JoinHolders list is null", joinHolders2);
 		assertTrue("List is wrong size", joinHolders2.size() == 5);
 		for(ScJoinHolder jh : joinHolders2){
@@ -363,7 +365,8 @@ public class JoinHolderDaoIT {
 		}
 		
 		//Get page and test content
-		List<ScJoinHolder> joinHolders1 = scJoinHolderDao.getPreviousJoinsFor(Course.class, courseId1, 11, 5);
+		List<ScJoinHolder> joinHolders1 = scJoinHolderDao.getPreviousJoinsFor(
+				Course.class, courseId1, 11, 5);
 		assertNotNull("JoinHolders list is null", joinHolders1);
 		assertTrue("List is wrong size", joinHolders1.size() == 5);
 		for(ScJoinHolder jh : joinHolders1){
@@ -371,7 +374,8 @@ public class JoinHolderDaoIT {
 		}
 		
 		//Get another page and compare
-		List<ScJoinHolder> joinHolders2 = scJoinHolderDao.getPreviousJoinsFor(Course.class, courseId1, 6, 5);
+		List<ScJoinHolder> joinHolders2 = scJoinHolderDao.getPreviousJoinsFor(
+				Course.class, courseId1, 6, 5);
 		assertNotNull("JoinHolders list is null", joinHolders2);
 		assertTrue("List is wrong size", joinHolders2.size() == 5);
 		for(ScJoinHolder jh : joinHolders2){
@@ -394,7 +398,8 @@ public class JoinHolderDaoIT {
 		}
 		
 		//Get page and test content
-		List<ScJoinHolder> joinHolders1 = scJoinHolderDao.getNextJoinsFor(Student.class, studentId1, 5, 5);
+		List<ScJoinHolder> joinHolders1 = scJoinHolderDao.getNextJoinsFor(
+				Student.class, studentId1, 5, 5);
 		assertNotNull("JoinHolders list is null", joinHolders1);
 		assertTrue("List is wrong size", joinHolders1.size() == 5);
 		for(ScJoinHolder jh : joinHolders1){
@@ -402,7 +407,8 @@ public class JoinHolderDaoIT {
 		}
 		
 		//Get another page and compare
-		List<ScJoinHolder> joinHolders2 = scJoinHolderDao.getNextJoinsFor(Student.class, studentId1, 10, 5);
+		List<ScJoinHolder> joinHolders2 = scJoinHolderDao.getNextJoinsFor(
+				Student.class, studentId1, 10, 5);
 		assertNotNull("JoinHolders list is null", joinHolders2);
 		assertTrue("List is wrong size", joinHolders2.size() == 5);
 		for(ScJoinHolder jh : joinHolders2){

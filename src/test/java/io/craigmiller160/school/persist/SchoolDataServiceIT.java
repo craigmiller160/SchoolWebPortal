@@ -29,9 +29,6 @@ import io.craigmiller160.school.entity.Student;
 @ContextConfiguration({"classpath:/test-context.xml"})
 public class SchoolDataServiceIT {
 
-	//TODO when all methods are done, add additional tests
-	//to ensure the right types are being returned.
-	
 	/**
 	 * Output message for the insert operation failing.
 	 */
@@ -489,6 +486,272 @@ public class SchoolDataServiceIT {
 		for(ScJoinHolder jh : joinHolders2){
 			assertFalse("Overlap between pages", joinHolders1.contains(jh));
 		}
+	}
+	
+	@Transactional
+	@Test
+	public void testGetAllForStudent(){
+		//Create entities and insert.
+		Student student = new Student();
+		setStudent1(student);
+		schoolDataService.insertEntity(student);
+		int studentId = student.getStudentId();
+		
+		Course course = new Course();
+		setCourse1(course);
+		schoolDataService.insertEntity(course);
+		ScJoinHolder joinHolder = new ScJoinHolder(student, course);
+		schoolDataService.insertEntity(joinHolder);
+		
+		course = new Course();
+		setCourse2(course);
+		schoolDataService.insertEntity(course);
+		joinHolder = new ScJoinHolder(student, course);
+		schoolDataService.insertEntity(joinHolder);
+		
+		//Retrieve list based on student and test
+		List<ScJoinHolder> joinHolders = schoolDataService.getAllJoinsFor(
+				ScJoinHolder.class, Student.class, studentId);
+		assertNotNull("JoinHolders is null", joinHolders);
+		assertEquals(joinHolders.size(), 2);
+	}
+	
+	@Transactional
+	@Test
+	public void testGetAllForCourse(){
+		//Create entities and insert.
+		Course course = new Course();
+		setCourse1(course);
+		schoolDataService.insertEntity(course);
+		int courseId = course.getCourseId();
+		
+		Student student = new Student();
+		setStudent1(student);
+		schoolDataService.insertEntity(student);
+		ScJoinHolder joinHolder = new ScJoinHolder(student, course);
+		schoolDataService.insertEntity(joinHolder);
+		
+		student = new Student();
+		setStudent2(student);
+		schoolDataService.insertEntity(student);
+		joinHolder = new ScJoinHolder(student, course);
+		schoolDataService.insertEntity(joinHolder);
+		
+		//Retrieve list based on course and test
+		List<ScJoinHolder> joinHolders = schoolDataService.getAllJoinsFor(
+				ScJoinHolder.class, Course.class, courseId);
+		assertNotNull("JoinHolders is null", joinHolders);
+		assertEquals(joinHolders.size(), 2);
+	}
+	
+	@Transactional
+	@Test
+	public void testGetPreviousForStudent(){
+		//Create large list of dummy data
+		Student student = new Student();
+		setStudent1(student);
+		schoolDataService.insertEntity(student);
+		int studentId = student.getStudentId();
+		for(int i = 0; i < 20; i++){
+			Course course = new Course();
+			setCourse1(course);
+			schoolDataService.insertEntity(course);
+			ScJoinHolder joinHolder = new ScJoinHolder(student, course);
+			schoolDataService.insertEntity(joinHolder);
+		}
+		
+		//Get page and test content
+		List<ScJoinHolder> joinHolders1 = schoolDataService.getPreviousJoinsFor(
+				ScJoinHolder.class, Student.class, studentId, 
+				11, 5);
+		assertNotNull("JoinHolders list is null", joinHolders1);
+		assertTrue("List is wrong size", joinHolders1.size() == 5);
+		for(ScJoinHolder jh : joinHolders1){
+			assertEquals("Wrong studentId", jh.getStudent().getStudentId(), studentId);
+		}
+		
+		//Get another page and compare
+		List<ScJoinHolder> joinHolders2 = schoolDataService.getPreviousJoinsFor(
+				ScJoinHolder.class, Student.class, studentId, 
+				6, 5);
+		assertNotNull("JoinHolders list is null", joinHolders2);
+		assertTrue("List is wrong size", joinHolders2.size() == 5);
+		for(ScJoinHolder jh : joinHolders2){
+			assertEquals("Wrong studentId", jh.getStudent().getStudentId(), studentId);
+			assertFalse("Overlap between pages", joinHolders1.contains(jh));
+		}
+	}
+	
+	@Transactional
+	@Test
+	public void testGetPreviousForCourse(){
+		//Create large list of dummy data
+		Course course = new Course();
+		setCourse1(course);
+		schoolDataService.insertEntity(course);
+		int courseId = course.getCourseId();
+		for(int i = 0; i < 20; i++){
+			Student student = new Student();
+			setStudent1(student);
+			schoolDataService.insertEntity(student);
+			ScJoinHolder joinHolder = new ScJoinHolder(student, course);
+			schoolDataService.insertEntity(joinHolder);
+		}
+		
+		//Get page and test content
+		List<ScJoinHolder> joinHolders1 = schoolDataService.getPreviousJoinsFor(
+				ScJoinHolder.class, Course.class, courseId, 
+				11, 5);
+		assertNotNull("JoinHolders list is null", joinHolders1);
+		assertTrue("List is wrong size", joinHolders1.size() == 5);
+		for(ScJoinHolder jh : joinHolders1){
+			assertEquals("Wrong courseID", jh.getCourse().getCourseId(), courseId);
+		}
+		
+		//Get another page and compare
+		List<ScJoinHolder> joinHolders2 = schoolDataService.getPreviousJoinsFor(
+				ScJoinHolder.class, Course.class, courseId, 
+				6, 5);
+		assertNotNull("JoinHolders list is null", joinHolders2);
+		assertTrue("List is wrong size", joinHolders2.size() == 5);
+		for(ScJoinHolder jh : joinHolders2){
+			assertEquals("Wrong courseID", jh.getCourse().getCourseId(), courseId);
+			assertFalse("Overlap between pages", joinHolders1.contains(jh));
+		}
+	}
+	
+	@Transactional
+	@Test
+	public void testNextForStudent(){
+		//Create large list of dummy data
+		Student student = new Student();
+		setStudent1(student);
+		schoolDataService.insertEntity(student);
+		int studentId = student.getStudentId();
+		for(int i = 0; i < 20; i++){
+			Course course = new Course();
+			setCourse1(course);
+			schoolDataService.insertEntity(course);
+			ScJoinHolder joinHolder = new ScJoinHolder(student, course);
+			schoolDataService.insertEntity(joinHolder);
+		}
+		
+		//Get page and test content
+		List<ScJoinHolder> joinHolders1 = schoolDataService.getNextJoinsFor(
+				ScJoinHolder.class, Student.class, studentId, 
+				5, 5);
+		assertNotNull("JoinHolders list is null", joinHolders1);
+		assertTrue("List is wrong size", joinHolders1.size() == 5);
+		for(ScJoinHolder jh : joinHolders1){
+			assertEquals("Wrong studentId", jh.getStudent().getStudentId(), studentId);
+		}
+		
+		//Get another page and compare
+		List<ScJoinHolder> joinHolders2 = schoolDataService.getNextJoinsFor(
+				ScJoinHolder.class, Student.class, studentId, 
+				10, 5);
+		assertNotNull("JoinHolders list is null", joinHolders2);
+		assertTrue("List is wrong size", joinHolders2.size() == 5);
+		for(ScJoinHolder jh : joinHolders2){
+			assertEquals("Wrong studentId", jh.getStudent().getStudentId(), studentId);
+			assertFalse("Overlap between pages", joinHolders1.contains(jh));
+		}
+	}
+	
+	@Transactional
+	@Test
+	public void testNextForCourse(){
+		//Create large list of dummy data
+		Course course = new Course();
+		setCourse1(course);
+		schoolDataService.insertEntity(course);
+		int courseId = course.getCourseId();
+		for(int i = 0; i < 20; i++){
+			Student student = new Student();
+			setStudent1(student);
+			schoolDataService.insertEntity(student);
+			ScJoinHolder joinHolder = new ScJoinHolder(student, course);
+			schoolDataService.insertEntity(joinHolder);
+		}
+		
+		//Get page and test content
+		List<ScJoinHolder> joinHolders1 = schoolDataService.getNextJoinsFor(
+				ScJoinHolder.class, Course.class, courseId, 
+				5, 5);
+		assertNotNull("JoinHolders list is null", joinHolders1);
+		assertTrue("List is wrong size", joinHolders1.size() == 5);
+		for(ScJoinHolder jh : joinHolders1){
+			assertEquals("Wrong courseID", jh.getCourse().getCourseId(), courseId);
+		}
+		
+		//Get another page and compare
+		List<ScJoinHolder> joinHolders2 = schoolDataService.getNextJoinsFor(
+				ScJoinHolder.class, Course.class, courseId, 
+				10, 5);
+		assertNotNull("JoinHolders list is null", joinHolders2);
+		assertTrue("List is wrong size", joinHolders2.size() == 5);
+		for(ScJoinHolder jh : joinHolders2){
+			assertEquals("Wrong courseID", jh.getCourse().getCourseId(), courseId);
+			assertFalse("Overlap between pages", joinHolders1.contains(jh));
+		}
+	}
+	
+	@Transactional
+	@Test
+	public void testGetCountForStudent(){
+		//Create entities and insert.
+		Student student = new Student();
+		setStudent1(student);
+		schoolDataService.insertEntity(student);
+		int studentId = student.getStudentId();
+		
+		Course course = new Course();
+		setCourse1(course);
+		schoolDataService.insertEntity(course);
+		
+		ScJoinHolder joinHolder = new ScJoinHolder(student, course);
+		schoolDataService.insertEntity(joinHolder);
+		
+		course = new Course();
+		setCourse2(course);
+		schoolDataService.insertEntity(course);
+		
+		joinHolder = new ScJoinHolder(student, course);
+		schoolDataService.insertEntity(joinHolder);
+		
+		//Get count based on student
+		long count = schoolDataService.getJoinCountFor(ScJoinHolder.class, 
+				Student.class, studentId);
+		assertEquals(count, 2);
+	}
+	
+	@Transactional
+	@Test
+	public void testGetCountForCourse(){
+		//Create entities and insert.
+		Course course = new Course();
+		setCourse1(course);
+		schoolDataService.insertEntity(course);
+		int courseId = course.getCourseId();
+		
+		Student student = new Student();
+		setStudent1(student);
+		schoolDataService.insertEntity(student);
+		
+		ScJoinHolder joinHolder = new ScJoinHolder(student, course);
+		schoolDataService.insertEntity(joinHolder);
+		
+		student = new Student();
+		setStudent2(student);
+		schoolDataService.insertEntity(student);
+		
+		joinHolder = new ScJoinHolder(student, course);
+		schoolDataService.insertEntity(joinHolder);
+		
+		//Get count based on course
+		long count = schoolDataService.getJoinCountFor(ScJoinHolder.class, 
+				Course.class, courseId);
+		assertEquals(count, 2);
 	}
 	
 	/**
