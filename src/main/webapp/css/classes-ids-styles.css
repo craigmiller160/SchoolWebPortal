@@ -1,1 +1,47 @@
 @CHARSET "UTF-8";
+
+/* Main Page Div containing content */
+.content-container{
+	display: block;
+	width: 100%;
+	flex: 1 1 auto;
+}
+
+/* Title Text in Header */
+.header-title{
+	text-shadow: 3px 3px 5px gray;
+	float: left;
+	margin-left: 40px;
+}
+
+/* Logo Div */
+.logo{
+	background-color: white;
+	margin-top: 5px;
+	margin-left: 5px;
+	border: solid 1px gray;
+	border-radius: 10px;
+	box-shadow: 2px 2px 5px gray;
+	float: left;
+}
+
+/* Div in Header for User Status/Login/Logout/Etc */
+.user-status{
+	margin-right: 5px;
+	background-color: blue;
+	float: right;
+}
+
+/* Wrapper Div for applying flexbox layout to whole page */
+.wrapper{
+	display: flex;
+	flex-direction: column;
+	height: 100vh;
+}
+
+/* WELCOME PAGE */
+
+.header-welcome{
+	background-color: orange;
+	color: black;
+}
