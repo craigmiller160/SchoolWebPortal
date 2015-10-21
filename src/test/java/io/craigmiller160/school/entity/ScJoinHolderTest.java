@@ -21,30 +21,6 @@ public class ScJoinHolderTest {
 	}
 	
 	@Test
-	public void testCompositeIdSetter(){
-		ScJoinHolder joinHolder = new ScJoinHolder();
-		Student student = new Student();
-		student.setStudentId(1);
-		Course course = new Course();
-		course.setCourseId(2);
-		
-		joinHolder.setStudent(student);
-		joinHolder.setCourse(course);
-		assertEquals(joinHolder.getScId(), 12);
-	}
-	
-	@Test
-	public void testCompositeIdConstructor(){
-		Student student = new Student();
-		student.setStudentId(1);
-		Course course = new Course();
-		course.setCourseId(2);
-		
-		ScJoinHolder joinHolder = new ScJoinHolder(student, course);
-		assertEquals(joinHolder.getScId(), 12);
-	}
-	
-	@Test
 	public void testFields(){
 		ScJoinHolder joinHolder = new ScJoinHolder();
 		Student student = new Student();
