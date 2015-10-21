@@ -754,6 +754,95 @@ public class SchoolDataServiceIT {
 		assertEquals(count, 2);
 	}
 	
+	//TODO this test depends on getJoinsFor working
+	@Transactional
+	@Test
+	public void testJoinEntities(){
+		//Create entities and insert.
+		Student student = new Student();
+		setStudent1(student);
+		schoolDataService.insertEntity(student);
+		int studentId = student.getStudentId();
+		
+		Course course = new Course();
+		setCourse1(course);
+		schoolDataService.insertEntity(course);
+		int courseId = course.getCourseId();
+		
+		//Use convenience method to join entities and insert
+		schoolDataService.joinEntities(ScJoinHolder.class, student, course);
+		
+		//Retrieve joins for student and test
+		List<ScJoinHolder> joinHolders = schoolDataService.getAllJoinsFor(
+				ScJoinHolder.class, Student.class, studentId);
+		assertNotNull("JoinHolders is null", joinHolders);
+		assertEquals("JoinHolders wrong size", joinHolders.size(), 1);
+		assertEquals("Wrong JoinHolder retrieved", 
+				joinHolders.get(0).getCourse().getCourseId(), courseId);
+		
+		//Retrieve joins for course and test
+		joinHolders = schoolDataService.getAllJoinsFor(
+				ScJoinHolder.class, Course.class, courseId);
+		assertNotNull("JoinHolders is null", joinHolders);
+		assertEquals("JoinHolders wrong size", joinHolders.size(), 1);
+		assertEquals("Wrong JoinHolder retrieved", 
+				joinHolders.get(0).getStudent().getStudentId(), studentId);
+	}
+	
+	@Transactional
+	@Test
+	public void testRemoveForStudent(){
+		//Create dummy data
+		Student student = new Student();
+		setStudent1(student);
+		schoolDataService.insertEntity(student);
+		int studentId = student.getStudentId();
+		
+		Course course = new Course();
+		setCourse1(course);
+		schoolDataService.insertEntity(course);
+		
+		ScJoinHolder joinHolder = new ScJoinHolder(student, course);
+		schoolDataService.insertEntity(joinHolder);
+		
+		//Remove join via student
+		schoolDataService.removeJoinsFor(ScJoinHolder.class, Student.class, 
+				studentId);
+		
+		//Retrieve JoinHolder by student and test it
+		List<ScJoinHolder> joinHolders = schoolDataService.getAllJoinsFor(
+				ScJoinHolder.class, Student.class, studentId);
+		assertNotNull("JoinHolders list is null", joinHolders);
+		assertEquals("Wrong size", joinHolders.size(), 0);
+	}
+	
+	@Transactional
+	@Test
+	public void testRemoveForCourse(){
+		//Create dummy data
+		Student student = new Student();
+		setStudent1(student);
+		schoolDataService.insertEntity(student);
+		
+		Course course = new Course();
+		setCourse1(course);
+		schoolDataService.insertEntity(course);
+		int courseId = course.getCourseId();
+		
+		ScJoinHolder joinHolder = new ScJoinHolder(student, course);
+		schoolDataService.insertEntity(joinHolder);
+		
+		//Remove join via course
+		schoolDataService.removeJoinsFor(ScJoinHolder.class, Course.class, 
+				courseId);
+		
+		//Retreive JoinHolder by course and test it
+		List<ScJoinHolder> joinHolders = schoolDataService.getAllJoinsFor(
+				ScJoinHolder.class, Course.class, courseId);
+		assertNotNull("JoinHolders list is null", joinHolders);
+		assertEquals("Wrong size", joinHolders.size(), 0);
+	}
+	
 	/**
 	 * Set the fields of the <tt>Student</tt> object
 	 * to the first set of values.
