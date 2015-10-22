@@ -11,6 +11,8 @@
 </head>
 <body>
 
+<!-- WITH DIFFERENT SCREEN WIDTHS, HEADER ELEMENTS STOP BEING HORIZONTALLY ALIGNED -->
+
 	<div class="wrapper">
 		<header class="header-welcome">
 			<div class="logo">
@@ -22,14 +24,20 @@
 			
 			<div class="user-status">
 				<form:form method="get">
-					<input class="btn-link" type="submit" name="loginButton" value="Login to Web Portal" title="Login to portal"/>
+					<input class="btn-link" type="submit" 
+						name="loginButton" 
+						value="<spring:message code="welcome.header.login"/>"/>
 				</form:form>
 			</div>
 		</header>
 		
 		<div class="content-container">
-		
+			
 		</div>
+		
+		<footer class="footer-welcome">
+			<h4>&copy; Copyright 2015 CraigMiller160</h4>
+		</footer>
 		
 	</div>
 
