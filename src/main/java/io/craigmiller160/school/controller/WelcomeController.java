@@ -26,7 +26,7 @@ public class WelcomeController {
 	 * Access to the welcome page is controlled via
 	 * this method. By default it simply returns the
 	 * welcome screen, but if the <tt>loginButton</tt>
-	 * parameter is not null, then it returns the
+	 * parameter is not null, then it redirects to the
 	 * login screen. 
 	 * 
 	 * @param loginButton a parameter that is not null only when
@@ -37,7 +37,7 @@ public class WelcomeController {
 	@RequestMapping(value="/welcome", method=RequestMethod.GET)
 	public String welcome(@RequestParam (required=false) String loginButton){
 		if(loginButton != null){
-			return "login";
+			return "redirect:login.html";
 		}
 		return "welcome";
 	}
