@@ -63,3 +63,48 @@
 	color: black;
 }
 
+/* LOGIN PAGE */
+
+/* Footer style for login page */
+.footer-login{
+	background-color: coral;
+	color: black;
+}
+
+/* Header Style for login page */
+.header-login{
+	background-color: coral;
+	color: black;
+}
+
+/* Login Input Button */
+.login-btn{
+	font-size: 20px;
+	margin-top: 30px;
+	margin-bottom: 20px;
+	font-family: "Comic Sans MS", cursive, sans-serif;
+}
+
+/* Login Tab Content */
+.login-tab-content{
+	margin-top: 30px;
+	margin-bottom: 20px;
+	font-family: "Times New Roman", Times, Serif;
+}
+
+/* Instructions header for the login screen */
+#login-instruction{
+	text-align: center;
+	margin-top: 150px;
+	font-family: "Times New Roman", Times, Serif;
+}
+
+/* Login Tabs */
+#login-tabs{
+	margin: 0 auto;
+	margin-top: 50px;
+	text-align: center;
+	width: 500px;
+	background-color: mintcream;
+	box-shadow: 3px 3px 5px gray;
+}
