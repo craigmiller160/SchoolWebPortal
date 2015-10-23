@@ -11,13 +11,13 @@
 </head>
 <body>
 
-<!-- WITH DIFFERENT SCREEN WIDTHS, HEADER ELEMENTS STOP BEING HORIZONTALLY ALIGNED -->
-
 	<div class="wrapper">
 		<header class="header-welcome">
+			
 			<div class="logo">
 				<img src="./img/ehslogo.png" height="70px"/>
 			</div>
+			
 			<div class="header-title">
 				<h1><spring:message code="welcome.header.title"/></h1>
 			</div>
@@ -32,7 +32,9 @@
 		</header>
 		
 		<div class="content-container">
-			
+			<div>
+				<img src="./img/highschoolbuilding.jpg" width="100%"/>
+			</div>
 		</div>
 		
 		<footer class="footer-welcome">
