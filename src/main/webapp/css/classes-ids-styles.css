@@ -108,3 +108,27 @@
 	background-color: mintcream;
 	box-shadow: 3px 3px 5px gray;
 }
+
+/* All Admin Pages */
+
+.header-admin{
+	background-color: dodgerblue;
+	color: black;
+}
+
+.footer-admin{
+	background-color: dodgerblue;
+	color: black;
+}
+
+#logout-btn{
+	color: black;
+	border: solid 1px black;
+	padding-top: 7px;
+	padding-bottom: 7px;
+}
+
+#logout-btn:hover{
+	color: blue;
+	border: solid 1px blue;
+}
