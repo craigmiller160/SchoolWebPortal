@@ -109,18 +109,21 @@
 	box-shadow: 3px 3px 5px gray;
 }
 
-/* All Admin Pages */
+/* ALL ADMIN PAGES */
 
+/* Header for admin pages */
 .header-admin{
 	background-color: dodgerblue;
 	color: black;
 }
 
+/* Footer for admin pages */
 .footer-admin{
 	background-color: dodgerblue;
 	color: black;
 }
 
+/* Logout Button */
 #logout-btn{
 	color: black;
 	border: solid 1px black;
@@ -128,7 +131,38 @@
 	padding-bottom: 7px;
 }
 
+/* Logout Button, when you hover over it */
 #logout-btn:hover{
 	color: blue;
 	border: solid 1px blue;
+}
+
+/* ADMIN MAIN PAGE */
+
+#admin-menu{
+	margin: 0 auto;
+	margin-top: 100px;
+	width: 500px;
+	text-align: center;
+	border: solid 1px lightgray;
+	box-shadow: 3px 3px 5px gray;
+}
+
+.options-button{
+	margin: 0 auto;
+	margin-top: 30px;
+	margin-bottom: 15px;
+	border: outset 3px lightgray;
+	width: 200px;
+	font-size: 18px;
+	background-color: white;
+}
+
+.options-button:hover{
+	background-color: aqua;
+}
+
+.options-button:active{
+	background-color: yellow;
+	border: inset 3px lightgray;
 }
