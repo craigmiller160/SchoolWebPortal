@@ -36,7 +36,10 @@
 		<div class="content-container">
 			
 			<table id="courses-table" class="table table-condensed table-hover table-striped">
-				<thead>
+				<caption id="courses-table-caption">
+					<spring:message code="admin.courses.table.caption"/>
+				</caption>
+				<thead id="courses-table-header">
 					<tr>
 						<th data-column-id="select">
 							<spring:message code="admin.courses.table.header.select"/>

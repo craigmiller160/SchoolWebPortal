@@ -139,6 +139,7 @@
 
 /* ADMIN MAIN PAGE */
 
+/* Main Menu div */
 #admin-menu{
 	margin: 0 auto;
 	margin-top: 100px;
@@ -148,6 +149,7 @@
 	box-shadow: 3px 3px 5px gray;
 }
 
+/* A button in the Main Menu */
 .options-button{
 	margin: 0 auto;
 	margin-top: 30px;
@@ -158,11 +160,35 @@
 	background-color: white;
 }
 
+/* Hovering over A button in the Main Menu */
 .options-button:hover{
 	background-color: aqua;
 }
-
+/* Active button in the Main Menu */
 .options-button:active{
 	background-color: yellow;
 	border: inset 3px lightgray;
+}
+
+/* ADMIN COURSE PAGE */
+
+/* Table where all courses are displayed */
+#courses-table{
+	width: 800px;
+	margin: 0 auto;
+	margin-top: 100px;
+	border: solid 1px lightgray;
+	box-shadow: 3px 3px 5px gray;
+}
+
+/* Caption for the courses table */
+#courses-table-caption{
+	text-align: center;
+	font-size: 25px;
+	color: black;
+	text-shadow: 2px 2px 5px gray;
+}
+
+#courses-table-header{
+	background-color: dodgerblue;
 }
