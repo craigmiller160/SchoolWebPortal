@@ -38,12 +38,24 @@
 			<table id="courses-table" class="table table-condensed table-hover table-striped">
 				<thead>
 					<tr>
-						<th data-column-id="select">Select</th>
-						<th data-column-id="courseId">Course ID</th>
-						<th data-column-id="courseName">Course Name</th>
-						<th data-column-id="subject">Subject</th>
-						<th data-column-id="teacherLastName">Teacher</th>
-						<th data-column-id="period">Period</th>
+						<th data-column-id="select">
+							<spring:message code="admin.courses.table.header.select"/>
+						</th>
+						<th data-column-id="courseId">
+							<spring:message code="admin.courses.table.header.id"/>
+						</th>
+						<th data-column-id="courseName">
+							<spring:message code="admin.courses.table.header.name"/>
+						</th>
+						<th data-column-id="subject">
+							<spring:message code="admin.courses.table.header.subject"/>
+						</th>
+						<th data-column-id="teacherLastName">
+							<spring:message code="admin.courses.table.header.teacher"/>
+						</th>
+						<th data-column-id="period">
+							<spring:message code="admin.courses.table.header.period"/>
+						</th>
 					</tr>
 				</thead>
 				<tbody>
