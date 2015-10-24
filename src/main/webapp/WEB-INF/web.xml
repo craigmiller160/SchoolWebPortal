@@ -34,5 +34,16 @@
 		<url-pattern>*.html</url-pattern>
 	</servlet-mapping>
 	
+	<!-- HiddenHttpMethodFilter for using POST/DELETE -->
+	<filter>
+		<filter-name>hiddenMethodFilter</filter-name>
+		<filter-class>org.springframework.web.filter.HiddenHttpMethodFilter</filter-class>
+	</filter>
+	
+	<filter-mapping>
+		<filter-name>hiddenMethodFilter</filter-name>
+		<servlet-name>dispatcher</servlet-name>
+	</filter-mapping>
+	
 
 </web-app>
