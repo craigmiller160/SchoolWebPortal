@@ -17,7 +17,7 @@ public class LoginController {
 	public String login(@RequestParam (required=false) String admin,
 			@RequestParam (required=false) String student){
 		if(admin != null && student == null){
-			return "redirect:admin.html";
+			return "redirect:/admin.html";
 		}
 		else if(student != null && admin == null){
 			System.out.println("Student");
