@@ -11,7 +11,7 @@ public class AdminCourseController {
 	@RequestMapping(value="/all", method=RequestMethod.GET)
 	public String getAllCourses(){
 		System.out.println("Get all courses");
-		return "temp";
+		return "courses";
 	}
 	
 	

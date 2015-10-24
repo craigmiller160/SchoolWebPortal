@@ -42,9 +42,4 @@ public class WelcomeController {
 		return "welcome";
 	}
 	
-	@RequestMapping(value="/admin/temp")
-	public String temp(){
-		return "temp";
-	}
-	
 }

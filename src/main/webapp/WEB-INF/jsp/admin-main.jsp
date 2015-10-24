@@ -36,7 +36,7 @@
 				
 				<h3><spring:message code="admin.main.options.title"/></h3>
 				
-				<form:form action="admin/temp.html" method="get">
+				<form:form action="admin/course/all.html" method="get">
 					<div>
 						<button class="options-button" type="submit">
 							<spring:message code="admin.main.options.courses"/>
