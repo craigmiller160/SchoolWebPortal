@@ -14,7 +14,7 @@
 	<div class="wrapper">
 		<header class="header-admin">
 			<div class="logo">
-				<a href="welcome.html"><img src="./img/ehslogo.png" height="70px"/></a>
+				<a href="welcome"><img src="./img/ehslogo.png" height="70px"/></a>
 			</div>
 			
 			<div class="header-title">
@@ -31,6 +31,27 @@
 		</header>
 		
 		<div class="content-container">
+		
+			<div id="admin-menu">
+				<form:form action="admin/course" method="get">
+					<h3><spring:message code="adminmain.options.title"/></h3>
+					
+					<div>
+						<button class="options-button" type="submit" 
+							name="courses" value="all">
+							<spring:message code="adminmain.options.courses"/>
+						</button>
+					</div>
+					
+					<div>
+						<button class="options-button" type="submit"
+							name="students" value="all">
+							<spring:message code="adminmain.options.students"/>
+						</button>
+					</div>
+				</form:form>
+				
+			</div>
 		
 		</div>
 		
