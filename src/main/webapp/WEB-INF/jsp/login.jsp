@@ -15,7 +15,7 @@
 	<div class="wrapper">
 		<header class="header-login">
 			<div class="logo">
-				<a href="welcome.html"><img src="<c:url value="/img/ehslogo.png"/>" height="70px"/></a>
+				<a href="<c:url value="/welcome.html"/>"><img src="<c:url value="/img/ehslogo.png"/>" height="70px"/></a>
 			</div>
 			
 			<div class="header-title">
