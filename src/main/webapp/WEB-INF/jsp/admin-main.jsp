@@ -7,7 +7,7 @@
 <%@ include file="stub/jstl-stub.jsp" %>
 <%@ include file="stub/spring-stub.jsp" %>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title><spring:message code="adminmain.page.title"/></title>
+<title><spring:message code="admin.main.page.title"/></title>
 </head>
 <body>
 
@@ -18,7 +18,7 @@
 			</div>
 			
 			<div class="header-title">
-				<h1><spring:message code="adminmain.header.title"/></h1>
+				<h1><spring:message code="admin.main.header.title"/></h1>
 			</div>
 			
 			<div class="user-status">
@@ -34,12 +34,12 @@
 		
 			<div id="admin-menu">
 				
-				<h3><spring:message code="adminmain.options.title"/></h3>
+				<h3><spring:message code="admin.main.options.title"/></h3>
 				
 				<form:form action="admin/course/all.html" method="get">
 					<div>
 						<button class="options-button" type="submit">
-							<spring:message code="adminmain.options.courses"/>
+							<spring:message code="admin.main.options.courses"/>
 						</button>
 					</div>
 				</form:form>
@@ -48,7 +48,7 @@
 					<div>
 						<button class="options-button" type="submit"
 							name="students" value="all">
-							<spring:message code="adminmain.options.students"/>
+							<spring:message code="admin.main.options.students"/>
 						</button>
 					</div>
 				</form:form>
