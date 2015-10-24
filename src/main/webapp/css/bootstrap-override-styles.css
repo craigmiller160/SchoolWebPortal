@@ -14,3 +14,20 @@
 	border-radius: 10%;
 	color: blue;
 }
+
+.nav-tabs > li.active > a,
+.nav-tabs > li.active > a:hover,
+.nav-tabs > li.active > a:focus{
+	background-color: mintcream;
+}
+
+.nav-tabs > li{
+	float: left;
+	width: 50%;
+	background-color: lightgray;
+}
+
+.nav-tabs > li > a{
+	background-color: aqua;
+	font-size: 20px;
+}
