@@ -172,13 +172,21 @@
 
 /* ADMIN COURSE PAGE */
 
+.btn-shadow{
+	box-shadow: 3px 3px 5px gray;
+}
+
 /* Table where all courses are displayed */
 #courses-table{
+	border: solid 1px lightgray;
+	box-shadow: 3px 3px 5px gray;
+}
+
+/* The Div holding the courses table and buttons */
+#courses-table-div{
 	width: 800px;
 	margin: 0 auto;
 	margin-top: 100px;
-	border: solid 1px lightgray;
-	box-shadow: 3px 3px 5px gray;
 }
 
 /* Caption for the courses table */
@@ -191,4 +199,12 @@
 
 #courses-table-header{
 	background-color: dodgerblue;
+}
+
+#select-radio{
+	text-align: center;
+}
+
+#page-btns{
+	float: right;
 }

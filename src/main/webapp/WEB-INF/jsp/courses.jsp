@@ -35,6 +35,7 @@
 		
 		<div class="content-container">
 			
+			<div id="courses-table-div">
 			<table id="courses-table" class="table table-condensed table-hover table-striped">
 				<caption id="courses-table-caption">
 					<spring:message code="admin.courses.table.caption"/>
@@ -64,7 +65,7 @@
 				<tbody>
 					<c:forEach items="${courses}" var="course">
 						<tr>
-							<td>
+							<td id="select-radio">
 								<input type="radio" name="courseId" 
 									value="${course.courseId}"/>
 							</td>
@@ -77,6 +78,24 @@
 					</c:forEach>
 				</tbody>
 			</table>
+			
+			<div class="btn-toolbar" role="toolbar">
+				<div class="btn-group-lg" role="group">
+					<input class="btn btn-default btn-shadow" type="submit" 
+						name="addCourse" value="Add New"/>
+					<input class="btn btn-default btn-shadow" type="submit"
+						name="editCourse" value="Edit"/>
+					<input class="btn btn-default btn-shadow" type="submit"
+						name="deleteCourse" value="Delete"/>
+				</div>
+				<div id="page-btns" class="btn-group-lg" role="group">
+					<input class="btn btn-default btn-shadow" type="submit"
+						name="previousPage" value="Previous Page"/>
+					<input class="btn btn-default btn-shadow" type="submit"
+						name="nextPage" value="Next Page"/>
+				</div>
+			</div>
+			</div>
 			
 		</div>
 		
