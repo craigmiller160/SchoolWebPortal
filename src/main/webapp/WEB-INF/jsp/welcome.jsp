@@ -3,8 +3,8 @@
 <!DOCTYPE html>
 <html>
 <head>
-<%@ include file="stub/css-stub.jsp" %>
 <%@ include file="stub/jstl-stub.jsp" %>
+<%@ include file="stub/css-stub.jsp" %>
 <%@ include file="stub/spring-stub.jsp" %>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title><spring:message code="welcome.page.title"/></title>
@@ -15,7 +15,7 @@
 		<header class="header-welcome">
 			
 			<div class="logo">
-				<img src="./img/ehslogo.png" height="70px"/>
+				<img src="<c:url value="/img/ehslogo.png"/>" height="70px"/>
 			</div>
 			
 			<div class="header-title">
@@ -33,7 +33,7 @@
 		
 		<div class="content-container">
 			<div>
-				<img src="./img/highschoolbuilding.jpg" width="100%"/>
+				<img src="<c:url value="/img/highschoolbuilding.jpg"/>" width="100%"/>
 			</div>
 		</div>
 		

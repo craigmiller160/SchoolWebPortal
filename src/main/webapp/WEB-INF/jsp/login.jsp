@@ -3,8 +3,8 @@
 <!DOCTYPE html>
 <html>
 <head>
-<%@ include file="stub/css-stub.jsp" %>
 <%@ include file="stub/jstl-stub.jsp" %>
+<%@ include file="stub/css-stub.jsp" %>
 <%@ include file="stub/spring-stub.jsp" %>
 <%@ include file="stub/bootstrap-tab-js-stub.jsp" %>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -15,7 +15,7 @@
 	<div class="wrapper">
 		<header class="header-login">
 			<div class="logo">
-				<a href="welcome.html"><img src="./img/ehslogo.png" height="70px"/></a>
+				<a href="welcome.html"><img src="<c:url value="/img/ehslogo.png"/>" height="70px"/></a>
 			</div>
 			
 			<div class="header-title">
