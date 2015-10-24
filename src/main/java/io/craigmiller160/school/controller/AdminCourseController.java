@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import io.craigmiller160.school.entity.Course;
 import io.craigmiller160.school.persist.GenericPaginatedJoinHolderService;
@@ -23,11 +24,12 @@ public class AdminCourseController {
 	}
 	
 	@RequestMapping(value="/all", method=RequestMethod.GET)
-	public String getAllCourses(Model model){
-		//TODO needs pagination variable for page number
+	public String getAllCourses(Model model, @RequestParam int page){
+		int firstRowVal = page * 10 - 10;
 		List<Course> courses = service.getNextEntities(
-				Course.class, 0, 10);
+				Course.class, firstRowVal, 10);
 		model.addAttribute("courses", courses);
+		model.addAttribute("page", page);
 		
 		return "courses";
 	}

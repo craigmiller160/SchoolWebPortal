@@ -38,6 +38,7 @@
 				
 				<form:form action="admin/course/all.html" method="get">
 					<div>
+						<input type="hidden" name="page" value="1"/>
 						<button class="options-button" type="submit">
 							<spring:message code="admin.main.options.courses"/>
 						</button>
