@@ -33,16 +33,18 @@
 		<div class="content-container">
 		
 			<div id="admin-menu">
-				<form:form action="admin/course" method="get">
-					<h3><spring:message code="adminmain.options.title"/></h3>
-					
+				
+				<h3><spring:message code="adminmain.options.title"/></h3>
+				
+				<form:form action="admin/course/all.html" method="get">
 					<div>
-						<button class="options-button" type="submit" 
-							name="courses" value="all">
+						<button class="options-button" type="submit">
 							<spring:message code="adminmain.options.courses"/>
 						</button>
 					</div>
-					
+				</form:form>
+				
+				<form:form action="admin/student/all.html" method="get">
 					<div>
 						<button class="options-button" type="submit"
 							name="students" value="all">

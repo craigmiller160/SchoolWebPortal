@@ -1,7 +1,6 @@
 package io.craigmiller160.school.controller;
 
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -17,13 +16,6 @@ public class AdminMainController {
 	@RequestMapping (value="/logout", method=RequestMethod.GET)
 	public String logout(){
 		return "redirect:/welcome.html";
-	}
-	
-	@RequestMapping (value="/course", method=RequestMethod.GET)
-	public String viewCourses(Model model){
-		System.out.println("Working");
-		
-		return null;
 	}
 	
 }
