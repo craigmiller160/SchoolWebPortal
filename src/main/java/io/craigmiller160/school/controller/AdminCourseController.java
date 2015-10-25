@@ -34,6 +34,14 @@ public class AdminCourseController {
 		return "courses";
 	}
 	
+	@RequestMapping (value="/foo", method=RequestMethod.POST)
+	public String foo(Model model, @RequestParam ("id") String id){
+		System.out.println("Working");
+		System.out.println("ID: " + id);
+		
+		return "welcome";
+	}
+	
 	
 	
 }
