@@ -172,9 +172,12 @@
 
 /* ADMIN COURSE PAGE */
 
+/* Drop shadow for buttons */
 .btn-shadow{
-	box-shadow: 3px 3px 5px gray;
+	box-shadow: 3px 3px 5px gray;	
 }
+
+
 
 /* Table where all courses are displayed */
 #courses-table{

@@ -34,6 +34,11 @@ public class AdminCourseController {
 		return "courses";
 	}
 	
+	@RequestMapping (value="/new", method=RequestMethod.GET)
+	public String createNewCourse(){
+		return "course-form";
+	}
+	
 	
 	
 }

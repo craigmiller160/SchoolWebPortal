@@ -82,18 +82,19 @@
 				
 				<div class="btn-toolbar" role="toolbar">
 					
-					<input type="hidden" name="id" id="selection2"/>
 					<div class="btn-group-lg" role="group">
-						<form:form id="addForm" action="../new" method="get">
-							<input class="btn btn-default btn-shadow" type="submit" 
+						<form:form id="addForm" action="./new.html" method="get">
+							<input class="btn btn-lg btn-default btn-shadow" type="submit" 
 								name="addCourse" value="Add New"/>
 						</form:form>
-						<form:form id="editForm" method="get">
-							<input class="btn btn-default btn-shadow" type="submit"
+						<form:form id="editForm" action="./new.html" method="get">
+							<input type="hidden" id="editCourseId" name="courseId"/>
+							<input class="btn btn-lg btn-default btn-shadow" type="submit"
 								name="editCourse" value="Edit"/>
 						</form:form>
-						<form:form id="deleteForm" method="delete">
-							<input class="btn btn-default btn-shadow" type="submit"
+						<form:form id="deleteForm" action="./delete.html" method="delete">
+							<input type="hidden" id="deleteCourseId" name="courseId"/>
+							<input class="btn btn-lg btn-default btn-shadow" type="submit"
 								name="deleteCourse" value="Delete"/>
 						</form:form>
 					</div>
@@ -116,11 +117,19 @@
 	
 	<script type="text/javascript">
 	$(document).ready(function(){
-		$('#buttonForm').submit(function(){
-			
+		$('#editForm').submit(function(){
 			var value = $('input[name=courseId]:checked').val();
-			$('#selection2').val(value);
-			alert("Working, Maybe: " + value);
+			$('#editCourseId').val(value);
+			alert("Edit Course ID: " + value);
+		});
+		
+		//TODO need an if/else block for when nothing is selected
+		//or disable the components until a selection is made.
+		
+		$('#deleteForm').submit(function(){
+			var value = $('input[name=courseId]:checked').val();
+			$('#deleteCourseId').val(value);
+			alert("Delete Course ID: " + value);
 		});
 	});
 	</script>
