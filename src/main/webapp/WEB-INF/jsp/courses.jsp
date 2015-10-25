@@ -6,7 +6,7 @@
 <%@ include file="stub/jstl-stub.jsp" %>
 <%@ include file="stub/css-stub.jsp" %>
 <%@ include file="stub/spring-stub.jsp" %>
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7/jquery.js" type="text/javascript"></script>
+<%@ include file="stub/js-stub.jsp" %>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title><spring:message code="admin.courses.page.title"/></title>
 </head>
@@ -26,7 +26,7 @@
 			</div>
 			
 			<div class="user-status">
-				<form:form action="admin/logout.html" method="get">
+				<form:form action="../logout.html" method="get">
 					<input id="logout-btn" class="btn-link" type="submit" 
 						name="logoutButton" 
 						value="<spring:message code="general.logout"/>"/>
@@ -37,7 +37,6 @@
 		<div class="content-container">
 			
 			<div id="courses-table-div">
-				<form id="tableForm">
 				<table id="courses-table" class="table table-condensed table-hover table-striped">
 					<caption id="courses-table-caption">
 						<spring:message code="admin.courses.table.caption"/>
@@ -80,20 +79,24 @@
 						</c:forEach>
 					</tbody>
 				</table>
-				</form>
 				
 				<div class="btn-toolbar" role="toolbar">
-					<form onsubmit="javascript:copy();" id="buttonForm" action="foo.html" method="post">
+					
 					<input type="hidden" name="id" id="selection2"/>
 					<div class="btn-group-lg" role="group">
-						<input class="btn btn-default btn-shadow" type="submit" 
-							name="addCourse" value="Add New"/>
-						<input class="btn btn-default btn-shadow" type="submit"
-							name="editCourse" value="Edit"/>
-						<input class="btn btn-default btn-shadow" type="submit"
-							name="deleteCourse" value="Delete"/>
+						<form:form id="addForm" action="../new" method="get">
+							<input class="btn btn-default btn-shadow" type="submit" 
+								name="addCourse" value="Add New"/>
+						</form:form>
+						<form:form id="editForm" method="get">
+							<input class="btn btn-default btn-shadow" type="submit"
+								name="editCourse" value="Edit"/>
+						</form:form>
+						<form:form id="deleteForm" method="delete">
+							<input class="btn btn-default btn-shadow" type="submit"
+								name="deleteCourse" value="Delete"/>
+						</form:form>
 					</div>
-					</form>
 					<div id="page-btns" class="btn-group-lg" role="group">
 						<input class="btn btn-default btn-shadow" type="submit"
 							name="previousPage" value="Previous Page"/>
