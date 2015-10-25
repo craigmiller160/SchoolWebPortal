@@ -6,6 +6,7 @@
 <%@ include file="stub/jstl-stub.jsp" %>
 <%@ include file="stub/css-stub.jsp" %>
 <%@ include file="stub/spring-stub.jsp" %>
+<%@ include file="stub/js-stub.jsp" %>
 <%@ include file="stub/bootstrap-tab-js-stub.jsp" %>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title><spring:message code="login.page.title"/></title>
