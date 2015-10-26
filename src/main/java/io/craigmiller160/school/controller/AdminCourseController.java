@@ -43,9 +43,23 @@ public class AdminCourseController {
 	@RequestMapping (value="/{courseId}", method=RequestMethod.GET)
 	public String editCourse(Model model, Course course,
 			@PathVariable ("courseId") String courseId){
-		System.out.println("CourseID: " + courseId);
+		//TODO need a way to handle NumberFormatException here
+		int id = Integer.parseInt(courseId);
+		course = service.getEntityById(Course.class, id);
+		model.addAttribute("course", course);
 		
 		return "course-form";
+	}
+	
+	@RequestMapping (value="/{courseId}", method=RequestMethod.POST)
+	public String saveEditCourse(Course course, Model model,
+			@PathVariable ("courseId") String courseId,
+			@RequestParam (required=false) String cancel){
+		if(cancel == null){
+			service.updateEntity(course);
+		}
+		
+		return getAllCourses(model, 1);
 	}
 	
 	@RequestMapping (value="/{courseId}", method=RequestMethod.DELETE)

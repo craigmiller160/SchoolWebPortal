@@ -48,6 +48,11 @@
 	height: 100vh;
 }
 
+/* Drop shadow for buttons */
+.btn-shadow{
+	box-shadow: 3px 3px 5px gray;	
+}
+
 /* WELCOME PAGE */
 
 /* Footer style for welcome page */
@@ -172,10 +177,7 @@
 
 /* ADMIN COURSE PAGE */
 
-/* Drop shadow for buttons */
-.btn-shadow{
-	box-shadow: 3px 3px 5px gray;	
-}
+
 
 .action-fields{
 	text-align: center;
@@ -212,4 +214,37 @@
 
 #add-btn{
 	float: right;
+}
+
+/* COURSE FORM PAGE */
+
+#course-form{
+	border: solid 1px lightgray;
+	box-shadow: 3px 3px 5px gray;
+	margin: 0 auto;
+	margin-top: 100px;
+	width: 700px;
+	
+}
+
+#course-form-table{
+	margin: 0 auto;
+}
+
+.course-form-row > td{
+	font-size: 25px;
+	padding-left: 10px;
+	padding-right: 10px;
+	padding-bottom: 10px;
+	padding-top: 10px;
+}
+
+#course-btn-div{
+	margin: 0 auto;
+	margin-top: 20px;
+	text-align: center;
+}
+
+#period-select{
+	font-size: 25px;
 }

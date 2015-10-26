@@ -34,43 +34,62 @@
 		</header>
 	
 		<div class="content-container">
-			<form:form commandName="course" >
+			<!-- TODO need to figure out a way to dynamically switch between post and put here -->
+			
+			<form:form commandName="course" method="post">
+				<div id="course-form">
 				<form:input type="hidden" path="courseId"/>
-				<table>
-					<tr>
+				<table id="course-form-table">
+					<tr class="course-form-row">
 						<td>
 							<spring:message code="admin.course.form.name"/>
 						</td>
 						<td>
-							<input path="courseName"/>
+							<form:input path="courseName"/>
 						</td>
 					</tr>
-					<tr>
+					<tr class="course-form-row">
 						<td><spring:message code="admin.course.form.subject"/></td>
 						<td>
-							<input type="text" path="subject" 
+							<form:input type="text" path="subject" 
 								name="subject"/>
 						</td>
 					</tr>
-					<tr>
+					<tr class="course-form-row">
 						<td><spring:message code="admin.course.form.teacher"/></td>
 						<td>
-							<input type="text" path="teacherLastName" 
+							<form:input type="text" path="teacherLastName" 
 								name="teacherLastName"/>
 						</td>
 					</tr>
-					<tr>
+					<tr class="course-form-row">
 						<td><spring:message code="admin.course.form.period"/></td>
 						<td>
-							<select name="period">
+							<select id="period-select" class="form-control" name="period">
 								<c:forEach begin="1" end="12" var="i">
-									<option value="${i}"><c:out value="${i}"/></option>
+									<option value="${i}" 
+										<c:if test="${i == course.period}">
+											selected
+										</c:if>
+									><c:out value="${i}"/></option>
 								</c:forEach>
 							</select>
 						</td>
 					</tr>
 				</table>
+				</div>
+				
+				<div id="course-btn-div">
+					<input class="btn btn-default btn-lg btn-shadow" name="cancel" type="submit"
+						value="<spring:message code="admin.course.form.cancel"/>"/>
+					<input class="btn btn-default btn-lg btn-shadow" name="save" type="submit" 
+						value="<spring:message code="admin.course.form.save"/>"/>
+				</div>
 			</form:form>
+			
+			
+			<!-- TODO need to add list of students taking this course to this page -->
+			
 		</div>
 		
 		<footer class="footer-admin">
