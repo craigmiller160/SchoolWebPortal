@@ -177,7 +177,9 @@
 	box-shadow: 3px 3px 5px gray;	
 }
 
-
+.action-fields{
+	text-align: center;
+}
 
 /* Table where all courses are displayed */
 #courses-table{
@@ -208,6 +210,6 @@
 	text-align: center;
 }
 
-#page-btns{
+#add-btn{
 	float: right;
 }

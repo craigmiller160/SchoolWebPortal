@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -37,6 +38,21 @@ public class AdminCourseController {
 	@RequestMapping (value="/new", method=RequestMethod.GET)
 	public String createNewCourse(){
 		return "course-form";
+	}
+	
+	@RequestMapping (value="/{courseId}", method=RequestMethod.GET)
+	public String editCourse(Model model, Course course,
+			@PathVariable ("courseId") String courseId){
+		System.out.println("CourseID: " + courseId);
+		
+		return "course-form";
+	}
+	
+	@RequestMapping (value="/{courseId}", method=RequestMethod.DELETE)
+	public String deleteCourse(@PathVariable ("courseId") String courseId){
+		System.out.println("Delete CourseID: " + courseId);
+		
+		return null;
 	}
 	
 	

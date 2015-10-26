@@ -43,8 +43,8 @@
 					</caption>
 					<thead id="courses-table-header">
 						<tr>
-							<th data-column-id="select">
-								<spring:message code="admin.courses.table.header.select"/>
+							<th class="action-fields" data-column-id="edit" colspan="2">
+								<spring:message code="admin.courses.table.header.action"/>
 							</th>
 							<th data-column-id="courseId">
 								<spring:message code="admin.courses.table.header.id"/>
@@ -66,9 +66,15 @@
 					<tbody>
 						<c:forEach items="${courses}" var="course">
 							<tr>
-								<td id="select-radio">
-									<input id="selection1" type="radio" name="courseId" 
-										value="${course.courseId}"/>
+								<td class="action-fields">
+									<form:form action="./${course.courseId}.html" method="get">
+										<input class="btn btn-default" type="submit" value="Edit"/>
+									</form:form>
+								</td>
+								<td class="action-fields">
+									<form:form action="./${course.courseId}.html" method="delete">
+										<input class="btn btn-default" type="submit" value="Delete"/>
+									</form:form>
 								</td>
 								<td>${course.courseId}</td>
 								<td>${course.courseName}</td>
@@ -82,28 +88,30 @@
 				
 				<div class="btn-toolbar" role="toolbar">
 					
-					<div class="btn-group-lg" role="group">
+					<div class="btn-group-lg page-btns" role="group">
+						<c:if test="${page > 1}">
+							<form:form method="get">
+								<input type="hidden" name="page" value="${page - 1}"/>
+								<input class="btn-page btn btn-lg btn-default btn-shadow" type="submit"
+									name="previousPage" value="Previous Page"/>
+							</form:form>
+						</c:if>
+						<!-- TODO need to figure out how to kill the next button when there's no more pages -->
+						<form:form method="get">
+							<input type="hidden" name="page" value="${page + 1}"/>
+							<input class="btn-page btn btn-lg btn-default btn-shadow" type="submit"
+								name="nextPage" value="Next Page"/>
+						</form:form>
+						
+					</div>
+					
+					<div id="add-btn" class="btn-group-lg" role="group">
 						<form:form id="addForm" action="./new.html" method="get">
 							<input class="btn btn-lg btn-default btn-shadow" type="submit" 
 								name="addCourse" value="Add New"/>
 						</form:form>
-						<form:form id="editForm" action="./new.html" method="get">
-							<input type="hidden" id="editCourseId" name="courseId"/>
-							<input class="btn btn-lg btn-default btn-shadow" type="submit"
-								name="editCourse" value="Edit"/>
-						</form:form>
-						<form:form id="deleteForm" action="./delete.html" method="delete">
-							<input type="hidden" id="deleteCourseId" name="courseId"/>
-							<input class="btn btn-lg btn-default btn-shadow" type="submit"
-								name="deleteCourse" value="Delete"/>
-						</form:form>
 					</div>
-					<div id="page-btns" class="btn-group-lg" role="group">
-						<input class="btn btn-default btn-shadow" type="submit"
-							name="previousPage" value="Previous Page"/>
-						<input class="btn btn-default btn-shadow" type="submit"
-							name="nextPage" value="Next Page"/>
-					</div>
+					
 				</div>
 			</div>
 			
@@ -114,25 +122,6 @@
 		</footer>
 	
 	</div>
-	
-	<script type="text/javascript">
-	$(document).ready(function(){
-		$('#editForm').submit(function(){
-			var value = $('input[name=courseId]:checked').val();
-			$('#editCourseId').val(value);
-			alert("Edit Course ID: " + value);
-		});
-		
-		//TODO need an if/else block for when nothing is selected
-		//or disable the components until a selection is made.
-		
-		$('#deleteForm').submit(function(){
-			var value = $('input[name=courseId]:checked').val();
-			$('#deleteCourseId').val(value);
-			alert("Delete Course ID: " + value);
-		});
-	});
-	</script>
 
 </body>
 </html>
