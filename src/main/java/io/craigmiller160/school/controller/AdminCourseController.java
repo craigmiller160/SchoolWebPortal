@@ -41,7 +41,7 @@ public class AdminCourseController {
 	}
 	
 	@RequestMapping (value="/new", method=RequestMethod.PUT)
-	public String saveNewCourse(Course course){
+	public String insertCourse(Course course){
 		service.insertEntity(course);
 		
 		return "redirect:/admin/course/all.html?page=1";
@@ -59,7 +59,7 @@ public class AdminCourseController {
 	}
 	
 	@RequestMapping (value="/{courseId}", method=RequestMethod.POST)
-	public String saveEditCourse(Course course, Model model,
+	public String updateCourse(Course course, Model model,
 			@PathVariable ("courseId") String courseId,
 			@RequestParam (required=false) String cancel){
 		if(cancel == null){
