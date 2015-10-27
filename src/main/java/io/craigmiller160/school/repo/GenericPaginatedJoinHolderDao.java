@@ -7,7 +7,10 @@ import io.craigmiller160.school.entity.JoinHolder;
 /**
  * A generic DAO interface containing additional methods for
  * accessing <tt>JoinHolders</tt> and the persisted entities
- * they join in a paginated way.
+ * they join in a paginated way. It should be be used to expand
+ * the capabilities of an existing <tt>JoinHolder</tt> DAO 
+ * implementation. It can be used with basic JDBC or with ORM 
+ * frameworks.
  * 
  * @author craig
  * @version 1.0

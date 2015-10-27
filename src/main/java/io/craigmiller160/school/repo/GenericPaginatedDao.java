@@ -4,7 +4,10 @@ import java.util.List;
 
 /**
  * A generic DAO interface that contains additional methods
- * for accessing data in a paginated way.
+ * for accessing data in a paginated way. It should be used
+ * to expand the capabilities of an existing DAO implementation. 
+ * It can be implemented with basic JDBC implementations or ORM 
+ * frameworks.
  * 
  * @author craig
  * @version 1.0

@@ -7,7 +7,10 @@ import io.craigmiller160.school.entity.JoinHolder;
 /**
  * A generic interface for DAO objects handling <tt>JoinHolder</tt>
  * interfaces. It provides special operations for interacting with the 
- * entities of a database via a join table.
+ * entities of a database via a join table. If operations are needed
+ * to interact with the <tt>JoinHolders</tt> directly, this interface
+ * can be used alongside an implementation of standard DAO methods. 
+ * It can be implemented with basic JDBC implementations or ORM frameworks.
  * 
  * @author craig
  * @version 1.0
