@@ -1,4 +1,4 @@
-package io.craigmiller160.school.persist;
+package io.craigmiller160.school.repo;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
@@ -21,7 +21,8 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import io.craigmiller160.school.context.AppContext;
 import io.craigmiller160.school.entity.Student;
-import io.craigmiller160.school.repo.GenericPaginatedDao;
+import io.craigmiller160.school.repo.GenericPaginatedEntityDao;
+import io.craigmiller160.school.util.HibernateTestUtil;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration({"classpath:/test-context.xml"})
@@ -43,13 +44,13 @@ public class StudentDaoIT {
 	private static final String DELETE_FAIL = "Delete Failed";
 	
 	@Autowired (required=true)
-	private GenericPaginatedDao<Student> studentDao;
+	private GenericPaginatedEntityDao<Student> studentDao;
 
-	public GenericPaginatedDao<Student> getStudentDao() {
+	public GenericPaginatedEntityDao<Student> getStudentDao() {
 		return studentDao;
 	}
 
-	public void setStudentDao(GenericPaginatedDao<Student> studentDao) {
+	public void setStudentDao(GenericPaginatedEntityDao<Student> studentDao) {
 		this.studentDao = studentDao;
 	}
 	

@@ -1,4 +1,4 @@
-package io.craigmiller160.school.persist;
+package io.craigmiller160.school.repo;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
@@ -24,8 +24,9 @@ import io.craigmiller160.school.context.AppContext;
 import io.craigmiller160.school.entity.Course;
 import io.craigmiller160.school.entity.ScJoinHolder;
 import io.craigmiller160.school.entity.Student;
-import io.craigmiller160.school.repo.GenericPaginatedDao;
+import io.craigmiller160.school.repo.GenericPaginatedEntityDao;
 import io.craigmiller160.school.repo.GenericPaginatedJoinHolderDao;
+import io.craigmiller160.school.util.HibernateTestUtil;
 
 //TODO document how this is a BIG test class
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -51,10 +52,10 @@ public class JoinHolderDaoIT {
 	private GenericPaginatedJoinHolderDao<ScJoinHolder> scJoinHolderDao;
 	
 	@Autowired (required=true)
-	private GenericPaginatedDao<Student> studentDao;
+	private GenericPaginatedEntityDao<Student> studentDao;
 	
 	@Autowired (required=true)
-	private GenericPaginatedDao<Course> courseDao;
+	private GenericPaginatedEntityDao<Course> courseDao;
 	
 	private int studentId1;
 	
@@ -64,19 +65,19 @@ public class JoinHolderDaoIT {
 	
 	private int courseId2;
 	
-	public GenericPaginatedDao<Student> getStudentDao() {
+	public GenericPaginatedEntityDao<Student> getStudentDao() {
 		return studentDao;
 	}
 
-	public void setStudentDao(GenericPaginatedDao<Student> studentDao) {
+	public void setStudentDao(GenericPaginatedEntityDao<Student> studentDao) {
 		this.studentDao = studentDao;
 	}
 
-	public GenericPaginatedDao<Course> getCourseDao() {
+	public GenericPaginatedEntityDao<Course> getCourseDao() {
 		return courseDao;
 	}
 
-	public void setCourseDao(GenericPaginatedDao<Course> courseDao) {
+	public void setCourseDao(GenericPaginatedEntityDao<Course> courseDao) {
 		this.courseDao = courseDao;
 	}
 

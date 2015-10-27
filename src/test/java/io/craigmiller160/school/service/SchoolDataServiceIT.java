@@ -1,4 +1,4 @@
-package io.craigmiller160.school.persist;
+package io.craigmiller160.school.service;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
@@ -24,6 +24,7 @@ import io.craigmiller160.school.entity.Course;
 import io.craigmiller160.school.entity.ScJoinHolder;
 import io.craigmiller160.school.entity.Student;
 import io.craigmiller160.school.service.GenericPaginatedJoinHolderService;
+import io.craigmiller160.school.util.HibernateTestUtil;
 
 //TODO document how this is a BIG test class
 @RunWith(SpringJUnit4ClassRunner.class)
