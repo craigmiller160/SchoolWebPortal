@@ -48,6 +48,11 @@
 	height: 100vh;
 }
 
+/* Drop shadow for buttons */
+.btn-shadow{
+	box-shadow: 3px 3px 5px gray;	
+}
+
 /* WELCOME PAGE */
 
 /* Footer style for welcome page */
@@ -139,6 +144,7 @@
 
 /* ADMIN MAIN PAGE */
 
+/* Main Menu div */
 #admin-menu{
 	margin: 0 auto;
 	margin-top: 100px;
@@ -148,6 +154,7 @@
 	box-shadow: 3px 3px 5px gray;
 }
 
+/* A button in the Main Menu */
 .options-button{
 	margin: 0 auto;
 	margin-top: 30px;
@@ -158,11 +165,99 @@
 	background-color: white;
 }
 
+/* Hovering over A button in the Main Menu */
 .options-button:hover{
 	background-color: aqua;
 }
-
+/* Active button in the Main Menu */
 .options-button:active{
 	background-color: yellow;
 	border: inset 3px lightgray;
+}
+
+/* ADMIN COURSE PAGE */
+
+
+
+.action-fields{
+	text-align: center;
+}
+
+/* Table where all courses are displayed */
+#courses-table{
+	border: solid 1px lightgray;
+	box-shadow: 3px 3px 5px gray;
+}
+
+/* The Div holding the courses table and buttons */
+#courses-table-div{
+	width: 800px;
+	margin: 0 auto;
+	margin-top: 100px;
+}
+
+/* Caption for the courses table */
+#courses-table-caption{
+	text-align: center;
+	font-size: 25px;
+	color: black;
+	text-shadow: 2px 2px 5px gray;
+}
+
+#courses-table-header{
+	background-color: dodgerblue;
+}
+
+#select-radio{
+	text-align: center;
+}
+
+#add-btn{
+	float: right;
+}
+
+#courses-btn-bar{
+	margin-bottom: 50px;
+}
+
+/* COURSE FORM PAGE */
+
+#course-form{
+	border: solid 1px lightgray;
+	box-shadow: 3px 3px 5px gray;
+	margin: 0 auto;
+	width: 800px;
+}
+
+#course-form-container{
+	margin: 0 auto;
+	margin-top: 100px;
+	width: 800px;
+}
+
+#course-form-table{
+	margin: 0 auto;
+}
+
+#course-form-caption{
+	text-align: center;
+	font-size: 25px;
+	color: black;
+	text-shadow: 2px 2px 5px gray;
+}
+
+.course-form-row > td{
+	font-size: 25px;
+	padding-left: 10px;
+	padding-right: 10px;
+	padding-bottom: 10px;
+	padding-top: 10px;
+}
+
+#course-btn-div{
+	margin-top: 20px;
+}
+
+#period-select{
+	font-size: 25px;
 }
