@@ -13,7 +13,7 @@ import java.util.List;
  * @version 1.0
  * @param <T> the type of entity this DAO persists.
  */
-public interface GenericPaginatedDao<T>{
+public interface GenericPaginatedEntityDao<T>{
 
 	/**
 	 * Get a "page" of of entities from the database, essentially

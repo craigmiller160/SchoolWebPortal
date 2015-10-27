@@ -11,7 +11,7 @@ import java.util.List;
  * @version 1.0
  * @param <T> the type of entity this DAO will persist.
  */
-public interface GenericDao<T> {
+public interface GenericEntityDao<T> {
 
 	/**
 	 * Insert a new entity into the database. The entity
