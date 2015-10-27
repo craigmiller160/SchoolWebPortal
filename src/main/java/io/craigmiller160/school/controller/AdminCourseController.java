@@ -42,9 +42,9 @@ public class AdminCourseController {
 	
 	@RequestMapping (value="/new", method=RequestMethod.PUT)
 	public String saveNewCourse(Course course){
-		System.out.println("Put Success");
+		service.insertEntity(course);
 		
-		return "welcome";
+		return "redirect:/admin/course/all.html?page=1";
 	}
 	
 	@RequestMapping (value="/{courseId}", method=RequestMethod.GET)
@@ -69,6 +69,7 @@ public class AdminCourseController {
 		return "redirect:/admin/course/all.html?page=1";
 	}
 	
+	//TODO finish delete operation
 	@RequestMapping (value="/{courseId}", method=RequestMethod.DELETE)
 	public String deleteCourse(@PathVariable ("courseId") String courseId){
 		System.out.println("Delete CourseID: " + courseId);

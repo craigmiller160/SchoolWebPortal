@@ -78,6 +78,7 @@
 						<tr class="course-form-row">
 							<td><spring:message code="admin.course.form.period"/></td>
 							<td>
+								<% //TODO fix the height of this select, the numbers get cut off %>
 								<select id="period-select" class="form-control" name="period">
 									<c:forEach begin="1" end="12" var="i">
 										<option value="${i}" 
