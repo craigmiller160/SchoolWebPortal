@@ -69,12 +69,15 @@ public class AdminCourseController {
 		return "redirect:/admin/course/all.html?page=1";
 	}
 	
-	//TODO finish delete operation
 	@RequestMapping (value="/{courseId}", method=RequestMethod.DELETE)
 	public String deleteCourse(@PathVariable ("courseId") String courseId){
-		System.out.println("Delete CourseID: " + courseId);
+		//TODO need deleteByID method
+		//TODO NumberFormatException needs to be handled
+		int id = Integer.parseInt(courseId);
+		Course course = service.getEntityById(Course.class, id);
+		service.deleteEntity(course);
 		
-		return null;
+		return "redirect:/admin/course/all.html?page=1";
 	}
 	
 	
