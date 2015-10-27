@@ -216,6 +216,10 @@
 	float: right;
 }
 
+#courses-btn-bar{
+	margin-bottom: 50px;
+}
+
 /* COURSE FORM PAGE */
 
 #course-form{

@@ -86,7 +86,7 @@
 					</tbody>
 				</table>
 				
-				<div class="btn-toolbar" role="toolbar">
+				<div id="courses-btn-bar" class="btn-toolbar" role="toolbar">
 					
 					<div class="btn-group-lg page-btns" role="group">
 						<c:if test="${page > 1}">
@@ -96,7 +96,7 @@
 									name="previousPage" value="Previous Page"/>
 							</form:form>
 						</c:if>
-						<!-- TODO need to figure out how to kill the next button when there's no more pages -->
+						<% //TODO need to figure out how to kill the next button when there's no more pages %> 
 						<form:form method="get">
 							<input type="hidden" name="page" value="${page + 1}"/>
 							<input class="btn-page btn btn-lg btn-default btn-shadow" type="submit"
