@@ -112,11 +112,13 @@
 					</div>
 					
 					<!-- Save/Cancel buttons in button bar -->
-					<div id="course-btn-div">
-						<input class="btn btn-default btn-lg btn-shadow" name="cancel" type="submit"
-							value="<spring:message code="admin.course.form.cancel"/>"/>
-						<input class="btn btn-default btn-lg btn-shadow" name="save" type="submit" 
-							value="<spring:message code="admin.course.form.save"/>"/>
+					<div id="course-btn-div" class="btn-toolbar">
+						<div class="btn-group-lg">
+							<input class="btn btn-default btn-lg btn-shadow" name="cancel" type="submit"
+								value="<spring:message code="admin.course.form.cancel"/>"/>
+							<input class="btn btn-default btn-lg btn-shadow" name="save" type="submit" 
+								value="<spring:message code="admin.course.form.save"/>"/>
+						</div>
 					</div>
 				</div>
 				
