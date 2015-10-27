@@ -53,7 +53,7 @@
 		</div>
 		
 		<footer class="footer-login">
-			<h4>&copy; Copyright 2015 CraigMiller160</h4>
+			<h4><spring:message code="general.footer"/></h4>
 		</footer>
 	
 	
