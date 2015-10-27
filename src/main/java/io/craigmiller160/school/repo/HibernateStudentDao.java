@@ -31,7 +31,8 @@ import io.craigmiller160.school.entity.Student;
  * @version 1.0
  */
 @Component ("studentDao")
-public class HibernateStudentDao implements GenericPaginatedDao<Student> {
+public class HibernateStudentDao 
+implements GenericEntityDaoBean<Student> {
 
 	/**
 	 * The <tt>SessionFactory</tt> that this class uses
@@ -160,28 +161,11 @@ public class HibernateStudentDao implements GenericPaginatedDao<Student> {
 	 */
 	@SuppressWarnings("unchecked") //Hibernate list() method doesn't support generics
 	@Override
-	public List<Student> getPreviousEntities(int lastPageFirstRowNum, int pageSize) {
+	public List<Student> getEntitiesByPage(int startPageAfterRow, int pageRowCount) {
 		return sessionFactory.getCurrentSession()
 				.createCriteria(Student.class)
-				.setFirstResult(lastPageFirstRowNum - 1 - pageSize)
-				.setMaxResults(pageSize)
-				.list();
-		//TODO the previous methods, what happens if firstResult < 0???
-	}
-
-	/**
-	 * {@inheritDoc}
-	 * @throws HibernateException if the database operation fails.
-	 * @throws NullPointerException if the <tt>SessionFactory</tt>
-	 * was set to null.
-	 */
-	@SuppressWarnings("unchecked") //Hibernate list() method doesn't support generics
-	@Override
-	public List<Student> getNextEntities(int lastPageLastRowNum, int pageSize) {
-		return sessionFactory.getCurrentSession()
-				.createCriteria(Student.class)
-				.setFirstResult(lastPageLastRowNum)
-				.setMaxResults(pageSize)
+				.setFirstResult(startPageAfterRow)
+				.setMaxResults(pageRowCount)
 				.list();
 	}
 

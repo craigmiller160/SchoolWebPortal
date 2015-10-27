@@ -34,7 +34,7 @@ import io.craigmiller160.school.entity.Student;
  */
 @Component ("scJoinHolderDao")
 public class HibernateScJoinHolderDao 
-implements GenericPaginatedDao<ScJoinHolder>, GenericPaginatedJoinHolderDao<ScJoinHolder> {
+implements GenericJoinHolderDaoBean<ScJoinHolder> {
 
 	//TODO make sure that no JoinHolders are persisted without
 	//all properties not null
@@ -61,38 +61,6 @@ implements GenericPaginatedDao<ScJoinHolder>, GenericPaginatedJoinHolderDao<ScJo
 	 */
 	public SessionFactory getSessionFactory(){
 		return sessionFactory;
-	}
-	
-	/**
-	 * {@inheritDoc}
-	 * @throws HibernateException if the database operation fails.
-	 * @throws NullPointerException if the <tt>SessionFactory</tt>
-	 * was set to null.
-	 */
-	@SuppressWarnings("unchecked") //Hibernate list() method doesn't support generics
-	@Override
-	public List<ScJoinHolder> getPreviousEntities(int lastPageFirstRowNum, int pageSize) {
-		Session session = sessionFactory.getCurrentSession();
-		return session.createCriteria(ScJoinHolder.class)
-				.setFirstResult(lastPageFirstRowNum)
-				.setMaxResults(pageSize)
-				.list();
-	}
-
-	/**
-	 * {@inheritDoc}
-	 * @throws HibernateException if the database operation fails.
-	 * @throws NullPointerException if the <tt>SessionFactory</tt>
-	 * was set to null.
-	 */
-	@SuppressWarnings("unchecked") //Hibernate list() method doesn't support generics
-	@Override
-	public List<ScJoinHolder> getNextEntities(int lastPageLastRowNum, int pageSize) {
-		Session session = sessionFactory.getCurrentSession();
-		return session.createCriteria(ScJoinHolder.class)
-				.setFirstResult(lastPageLastRowNum)
-				.setMaxResults(pageSize)
-				.list();
 	}
 
 	/**
@@ -191,78 +159,6 @@ implements GenericPaginatedDao<ScJoinHolder>, GenericPaginatedJoinHolderDao<ScJo
 	 * @throws NullPointerException if the <tt>SessionFactory</tt>
 	 * was set to null.
 	 */
-	@SuppressWarnings("unchecked") //Hibernate list() method doesn't support generics
-	@Override
-	public <U> List<ScJoinHolder> getPreviousJoinsFor(Class<U> joinedEntityType, int entityId, 
-			int lastPageFirstRowNum, int pageSize) {
-		List<ScJoinHolder> resultList = null;
-		if(joinedEntityType.equals(Student.class)){
-			resultList = sessionFactory.getCurrentSession()
-					.createCriteria(ScJoinHolder.class)
-					.createCriteria("student", "s")
-					.add(Restrictions.eq("s.studentId", entityId))
-					.setFirstResult(lastPageFirstRowNum - 1 - pageSize)
-					.setMaxResults(pageSize)
-					.list();
-		}
-		else if(joinedEntityType.equals(Course.class)){
-			resultList = sessionFactory.getCurrentSession()
-					.createCriteria(ScJoinHolder.class)
-					.createCriteria("course", "c")
-					.add(Restrictions.eqOrIsNull("c.courseId", entityId))
-					.setFirstResult(lastPageFirstRowNum - pageSize)
-					.setMaxResults(pageSize)
-					.list();
-		}
-		else{
-			throw new IllegalArgumentException(joinedEntityType + " is not joined via this object");
-		}
-		
-		return resultList;
-	}
-
-	/**
-	 * {@inheritDoc}
-	 * @throws HibernateException if the database operation fails.
-	 * @throws NullPointerException if the <tt>SessionFactory</tt>
-	 * was set to null.
-	 */
-	@SuppressWarnings("unchecked") //Hibernate list() method doesn't support generics
-	@Override
-	public <U> List<ScJoinHolder> getNextJoinsFor(Class<U> joinedEntityType, int entityId, 
-			int lastPageLastRowNum,	int pageSize) {
-		List<ScJoinHolder> resultList = null;
-		if(joinedEntityType.equals(Student.class)){
-			resultList = sessionFactory.getCurrentSession()
-					.createCriteria(ScJoinHolder.class)
-					.createCriteria("student", "s")
-					.add(Restrictions.eq("s.studentId", entityId))
-					.setFirstResult(lastPageLastRowNum)
-					.setMaxResults(pageSize)
-					.list();
-		}
-		else if(joinedEntityType.equals(Course.class)){
-			resultList = sessionFactory.getCurrentSession()
-					.createCriteria(ScJoinHolder.class)
-					.createCriteria("course", "c")
-					.add(Restrictions.eq("c.courseId", entityId))
-					.setFirstResult(lastPageLastRowNum)
-					.setMaxResults(pageSize)
-					.list();
-		}
-		else{
-			throw new IllegalArgumentException(joinedEntityType + " is not joined via this object");
-		}
-		
-		return resultList;
-	}
-
-	/**
-	 * {@inheritDoc}
-	 * @throws HibernateException if the database operation fails.
-	 * @throws NullPointerException if the <tt>SessionFactory</tt>
-	 * was set to null.
-	 */
 	@Override
 	public <U> void removeJoinsFor(Class<U> joinedEntityType, int entityId) {
 		if(joinedEntityType.equals(Student.class)){
@@ -324,6 +220,59 @@ implements GenericPaginatedDao<ScJoinHolder>, GenericPaginatedJoinHolderDao<ScJo
 	@PreDestroy
 	public void closeSessionFactory(){
 		sessionFactory.close();
+	}
+
+	/**
+	 * {@inheritDoc}
+	 * @throws HibernateException if the database operation fails.
+	 * @throws NullPointerException if the <tt>SessionFactory</tt>
+	 * was set to null.
+	 */
+	@SuppressWarnings("unchecked") //Hibernate list() method doesn't support generics
+	@Override
+	public List<ScJoinHolder> getEntitiesByPage(int startPageAfterRow, 
+			int pageRowCount) {
+		Session session = sessionFactory.getCurrentSession();
+		return session.createCriteria(ScJoinHolder.class)
+				.setFirstResult(startPageAfterRow)
+				.setMaxResults(pageRowCount)
+				.list();
+	}
+
+	/**
+	 * {@inheritDoc}
+	 * @throws HibernateException if the database operation fails.
+	 * @throws NullPointerException if the <tt>SessionFactory</tt>
+	 * was set to null.
+	 */
+	@SuppressWarnings("unchecked") //Hibernate list() method doesn't support generics
+	@Override
+	public <U> List<ScJoinHolder> getEntitiesByPageFor(Class<U> joinedEntityType, 
+			int entityId, int startPageAfterRow, int pageRowCount) {
+		List<ScJoinHolder> resultList = null;
+		if(joinedEntityType.equals(Student.class)){
+			resultList = sessionFactory.getCurrentSession()
+					.createCriteria(ScJoinHolder.class)
+					.createCriteria("student", "s")
+					.add(Restrictions.eq("s.studentId", entityId))
+					.setFirstResult(startPageAfterRow)
+					.setMaxResults(pageRowCount)
+					.list();
+		}
+		else if(joinedEntityType.equals(Course.class)){
+			resultList = sessionFactory.getCurrentSession()
+					.createCriteria(ScJoinHolder.class)
+					.createCriteria("course", "c")
+					.add(Restrictions.eq("c.courseId", entityId))
+					.setFirstResult(startPageAfterRow)
+					.setMaxResults(pageRowCount)
+					.list();
+		}
+		else{
+			throw new IllegalArgumentException(joinedEntityType + " is not joined via this object");
+		}
+		
+		return resultList;
 	}
 
 	//TODO restore this only if it's actually necessary

@@ -31,7 +31,8 @@ import io.craigmiller160.school.entity.Course;
  * @version 1.0
  */
 @Component ("courseDao")
-public class HibernateCourseDao implements GenericPaginatedDao<Course> {
+public class HibernateCourseDao 
+implements GenericEntityDaoBean<Course> {
 
 	/**
 	 * The <tt>SessionFactory</tt> that this class uses
@@ -150,7 +151,7 @@ public class HibernateCourseDao implements GenericPaginatedDao<Course> {
 		Session session = sessionFactory.getCurrentSession();
 		return (Long) session.createQuery("select count(*) from Course").uniqueResult();
 	}
-
+	
 	/**
 	 * {@inheritDoc}
 	 * @throws HibernateException if the database operation fails.
@@ -159,29 +160,15 @@ public class HibernateCourseDao implements GenericPaginatedDao<Course> {
 	 */
 	@SuppressWarnings("unchecked") //Hibernate list() method doesn't support generics
 	@Override
-	public List<Course> getPreviousEntities(int lastPageFirstRowNum, int pageSize) {
+	public List<Course> getEntitiesByPage(int startPageAfterRow, 
+			int pageRowCount) {
 		return sessionFactory.getCurrentSession()
 				.createCriteria(Course.class)
-				.setFirstResult(lastPageFirstRowNum - 1 - pageSize)
-				.setMaxResults(pageSize)
+				.setFirstResult(startPageAfterRow)
+				.setMaxResults(pageRowCount)
 				.list();
+		
 		//TODO the previous methods, what happens if firstResult < 0???
-	}
-
-	/**
-	 * {@inheritDoc}
-	 * @throws HibernateException if the database operation fails.
-	 * @throws NullPointerException if the <tt>SessionFactory</tt>
-	 * was set to null.
-	 */
-	@SuppressWarnings("unchecked") //Hibernate list() method doesn't support generics
-	@Override
-	public List<Course> getNextEntities(int lastPageLastRowNum, int pageSize) {
-		return sessionFactory.getCurrentSession()
-				.createCriteria(Course.class)
-				.setFirstResult(lastPageLastRowNum)
-				.setMaxResults(pageSize)
-				.list();
 	}
 
 }
