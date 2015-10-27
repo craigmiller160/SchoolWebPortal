@@ -13,7 +13,7 @@ import io.craigmiller160.school.entity.JoinHolder;
  * @version 1.0
  * @param <T> an entity that implements the <tt>JoinHolder</tt> interface.
  */
-public interface GenericJoinHolderDao<T extends JoinHolder> extends GenericDao<T>{
+public interface GenericJoinHolderDao<T extends JoinHolder>{
 
 	/**
 	 * Get a list of <tt>JoinHolder</tt> entities that are

@@ -3,15 +3,20 @@ package io.craigmiller160.school.repo;
 import java.util.List;
 
 /**
- * An expansion of the <tt>GenericDao</tt> interface with additional
- * methods to facilitate paginated access to data.
+ * A generic DAO interface that contains additional methods
+ * for accessing data in a paginated way.
  * 
  * @author craig
  * @version 1.0
  * @param <T> the type of entity this DAO persists.
  */
-public interface GenericPaginatedDao<T> extends GenericDao<T>{
+public interface GenericPaginatedDao<T>{
 
+	
+	
+	
+	
+	
 	/**
 	 * Get a "previous page" of entities of the type persisted
 	 * by this DAO. The definition of what is a page is determined

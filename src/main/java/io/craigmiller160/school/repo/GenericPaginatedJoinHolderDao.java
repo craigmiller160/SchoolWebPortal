@@ -5,18 +5,15 @@ import java.util.List;
 import io.craigmiller160.school.entity.JoinHolder;
 
 /**
- * Expanded version of the <tt>GenericPaginatedDao</tt> and the
- * <tt>GenericJoinHolderDao</tt> interfaces, bringing paginated
- * operations and join operations together. The methods this
- * interface provides allow for the retrieval of joined entities
- * in paginated fashion.
+ * A generic DAO interface containing additional methods for
+ * accessing <tt>JoinHolders</tt> and the persisted entities
+ * they join in a paginated way.
  * 
  * @author craig
  * @version 1.0
  * @param <T> an entity that implements the <tt>JoinHolder</tt> interface.
  */
-public interface GenericPaginatedJoinHolderDao<T extends JoinHolder> 
-extends GenericJoinHolderDao<T>, GenericPaginatedDao<T>{
+public interface GenericPaginatedJoinHolderDao<T extends JoinHolder> {
 
 	/**
 	 * Get a "previous page" of <tt>JoinHolder</tt> entities that are
