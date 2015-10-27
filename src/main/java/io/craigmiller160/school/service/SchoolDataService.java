@@ -1,4 +1,4 @@
-package io.craigmiller160.school.persist;
+package io.craigmiller160.school.service;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -12,6 +12,8 @@ import io.craigmiller160.school.entity.Course;
 import io.craigmiller160.school.entity.JoinHolder;
 import io.craigmiller160.school.entity.ScJoinHolder;
 import io.craigmiller160.school.entity.Student;
+import io.craigmiller160.school.repo.GenericPaginatedDao;
+import io.craigmiller160.school.repo.GenericPaginatedJoinHolderDao;
 
 /**
  * Default implementation of the <tt>SchoolService</tt>

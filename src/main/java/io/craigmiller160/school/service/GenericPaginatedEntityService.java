@@ -1,21 +1,22 @@
-package io.craigmiller160.school.persist;
+package io.craigmiller160.school.service;
 
 import java.util.List;
 
 /**
- * An expansion of the <tt>GenericDao</tt> interface with additional
- * methods to facilitate paginated access to data.
+ * An expansion of the <tt>GenericEntityService</tt> interface with additional
+ * methods to facilitate paginated access to data. Like other service classes, implementations
+ * of this class can work with multiple DAOs and should provide transactional
+ * support.
  * 
  * @author craig
  * @version 1.0
- * @param <T> the type of entity this DAO persists.
  */
-public interface GenericPaginatedDao<T> extends GenericDao<T>{
+public interface GenericPaginatedEntityService extends GenericEntityService{
 
 	/**
-	 * Get a "previous page" of entities of the type persisted
-	 * by this DAO. The definition of what is a page is determined
-	 * by the <tt>pageSize</tt> parameter.
+	 * A convenience method to get the previous page of records of
+	 * an entity from the database. Used to facilitate pagination
+	 * behavior. 
 	 * <p>
 	 * To use this method properly, the application should track
 	 * the first row number (NOT the primary key) on the currently
@@ -30,21 +31,20 @@ public interface GenericPaginatedDao<T> extends GenericDao<T>{
 	 * should take this into account in trying to be as flexible as
 	 * possible.
 	 * 
+	 * @param entityType the type of entity to retrieve records of.
 	 * @param lastPageFirstRowNum the first row number (NOT the primary key) on the currently
 	 * displayed page.
-	 * @param pageSize the number of entities to be displayed on a
-	 * page.
-	 * @return a "previous page" of entities persisted by this DAO, defined
-	 * by the parameters.
-	 * @throws RuntimeException a subclass of <tt>RuntimeException</tt>
-	 * is thrown if this operation fails in some way.
+	 * @param pageSize the number of records to return for the page.
+	 * @return a list of the previous page of entities.
+	 * @throws IllegalArgumentException if the type of entity
+	 * provided is not a supported entity by the database. 
 	 */
-	List<T> getPreviousEntities(int lastPageFirstRowNum, int pageSize);
+	<T> List<T> getPreviousEntities(Class<T> entityType, int lastPageFirstRowNum, int pageSize);
 	
 	/**
-	 * Get a "next page" of entities of the type persisted
-	 * by this DAO. The definition of what is a page is determined
-	 * by the <tt>pageSize</tt> parameter.
+	 * A convenience method to get the next page of records of
+	 * an entity from the database. Used to facilitate pagination
+	 * behavior.
 	 * <p>
 	 * To use this method properly, the application should track
 	 * the last row number (NOT the primary key) on the currently
@@ -59,15 +59,14 @@ public interface GenericPaginatedDao<T> extends GenericDao<T>{
 	 * should take this into account in trying to be as flexible as
 	 * possible.
 	 * 
+	 * @param entityType the type of entity to retrieve records of.
 	 * @param lastPageLastRowNum the last row number (NOT the primary key) on the currently
 	 * displayed page.
-	 * @param pageSize the number of entities to be displayed on a
-	 * page.
-	 * @return a "next page" of entities persisted by this DAO, defined
-	 * by the parameters.
-	 * @throws RuntimeException a subclass of <tt>RuntimeException</tt>
-	 * is thrown if this operation fails in some way.
+	 * @param pageSize the number of records to return for the page.
+	 * @return a list of the next page of entities. 
+	 * @throws IllegalArgumentException if the type of entity
+	 * provided is not a supported entity by the database.
 	 */
-	List<T> getNextEntities(int lastPageLastRowNum, int pageSize);
+	<T> List<T> getNextEntities(Class<T> entityType, int lastPageLastRowNum, int pageSize);
 	
 }

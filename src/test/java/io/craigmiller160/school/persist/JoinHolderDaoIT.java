@@ -24,6 +24,8 @@ import io.craigmiller160.school.context.AppContext;
 import io.craigmiller160.school.entity.Course;
 import io.craigmiller160.school.entity.ScJoinHolder;
 import io.craigmiller160.school.entity.Student;
+import io.craigmiller160.school.repo.GenericPaginatedDao;
+import io.craigmiller160.school.repo.GenericPaginatedJoinHolderDao;
 
 //TODO document how this is a BIG test class
 @RunWith(SpringJUnit4ClassRunner.class)
