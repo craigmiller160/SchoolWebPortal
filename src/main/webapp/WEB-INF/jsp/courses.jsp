@@ -108,7 +108,7 @@
 					<div id="add-btn" class="btn-group-lg" role="group">
 						<form:form id="addForm" action="./new.html" method="get">
 							<input class="btn btn-lg btn-default btn-shadow" type="submit" 
-								name="addCourse" value="Add New"/>
+								value="Add New"/>
 						</form:form>
 					</div>
 					
