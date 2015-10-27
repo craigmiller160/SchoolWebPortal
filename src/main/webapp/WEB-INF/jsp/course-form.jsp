@@ -40,10 +40,10 @@
 			on if a course from DB has been supplied to page -->
 			<c:choose>
 				<c:when test="${course.courseId > 0}">
-					<c:set var="formMethod" value="post"/>
+					<c:set var="formMethod" value="post" scope="page"/>
 				</c:when>
 				<c:otherwise>
-					<c:set var="formMethod" value="put"/>
+					<c:set var="formMethod" value="put" scope="page"/>
 				</c:otherwise>
 			</c:choose>
 			
