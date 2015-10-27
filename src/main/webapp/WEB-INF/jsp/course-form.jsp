@@ -34,8 +34,6 @@
 		</header>
 	
 		<div class="content-container">
-			<% //TODO need to figure out a way to dynamically switch between post and put here %>
-			
 			<!-- Set the form method variable based 
 			on if a course from DB has been supplied to page -->
 			<c:choose>
@@ -49,7 +47,9 @@
 			
 			<form:form commandName="course" method="${formMethod}">
 				<div id="course-form-container">
-					<h3 id="course-form-caption">Course Info</h3>
+					<h3 id="course-form-caption">
+						<spring:message code="admin.course.form.caption"/>
+					</h3>
 					<form:input type="hidden" path="courseId"/>
 					<div id="course-form">
 					<table id="course-form-table">
