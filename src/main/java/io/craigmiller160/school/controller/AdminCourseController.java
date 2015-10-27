@@ -36,8 +36,15 @@ public class AdminCourseController {
 	}
 	
 	@RequestMapping (value="/new", method=RequestMethod.GET)
-	public String createNewCourse(){
+	public String createNewCourse(Course course){
 		return "course-form";
+	}
+	
+	@RequestMapping (value="/new", method=RequestMethod.PUT)
+	public String saveNewCourse(Course course){
+		System.out.println("Put Success");
+		
+		return "welcome";
 	}
 	
 	@RequestMapping (value="/{courseId}", method=RequestMethod.GET)
@@ -51,6 +58,7 @@ public class AdminCourseController {
 		return "course-form";
 	}
 	
+	//TODO this should redirect to make the URL back to admin/course/all
 	@RequestMapping (value="/{courseId}", method=RequestMethod.POST)
 	public String saveEditCourse(Course course, Model model,
 			@PathVariable ("courseId") String courseId,
