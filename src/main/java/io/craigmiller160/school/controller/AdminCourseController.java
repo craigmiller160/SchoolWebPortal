@@ -58,7 +58,6 @@ public class AdminCourseController {
 		return "course-form";
 	}
 	
-	//TODO this should redirect to make the URL back to admin/course/all
 	@RequestMapping (value="/{courseId}", method=RequestMethod.POST)
 	public String saveEditCourse(Course course, Model model,
 			@PathVariable ("courseId") String courseId,
@@ -67,7 +66,7 @@ public class AdminCourseController {
 			service.updateEntity(course);
 		}
 		
-		return getAllCourses(model, 1);
+		return "redirect:/admin/course/all.html?page=1";
 	}
 	
 	@RequestMapping (value="/{courseId}", method=RequestMethod.DELETE)
