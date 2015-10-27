@@ -1,23 +1,22 @@
-package io.craigmiller160.school.persist;
+package io.craigmiller160.school.repo;
 
 import java.util.List;
 
 import io.craigmiller160.school.entity.JoinHolder;
 
 /**
- * Expanded version of the <tt>GenericPaginatedEntityService</tt> and
- * the <tt>GenericJoinHolderService</tt> interfaces, bringing bringing paginated
+ * Expanded version of the <tt>GenericPaginatedDao</tt> and the
+ * <tt>GenericJoinHolderDao</tt> interfaces, bringing paginated
  * operations and join operations together. The methods this
  * interface provides allow for the retrieval of joined entities
- * in paginated fashion. Like other service classes, implementations
- * of this class can work with multiple DAOs and should provide transactional
- * support.
+ * in paginated fashion.
  * 
  * @author craig
  * @version 1.0
+ * @param <T> an entity that implements the <tt>JoinHolder</tt> interface.
  */
-public interface GenericPaginatedJoinHolderService 
-extends GenericJoinHolderService, GenericPaginatedEntityService{
+public interface GenericPaginatedJoinHolderDao<T extends JoinHolder> 
+extends GenericJoinHolderDao<T>, GenericPaginatedDao<T>{
 
 	/**
 	 * Get a "previous page" of <tt>JoinHolder</tt> entities that are
@@ -38,8 +37,6 @@ extends GenericJoinHolderService, GenericPaginatedEntityService{
 	 * should take this into account in trying to be as flexible as
 	 * possible.
 	 * 
-	 * @param joinHolderType the type of <tt>JoinHolder</tt> the specified
-	 * entity is linked to.
 	 * @param joinedEntityType the type of the entity to get the joins for.
 	 * @param entityId the ID of the entity to get the joins for.
 	 * @param lastPageFirstRowNumthe first row number (NOT the primary key) on the currently
@@ -48,14 +45,12 @@ extends GenericJoinHolderService, GenericPaginatedEntityService{
 	 * page.
 	 * @return a "previous page" of entities joined to the specified entity.
 	 * @throws IllegalArgumentException if the type of entity provided
-	 * is not a valid type for this class's <tt>JoinHolder</tt>, or if the
-	 * <tt>JoinHolder</tt> type provided is not a supported <tt>JoinHolder</tt>
-	 * implementation.
+	 * is not a valid type for this class's <tt>JoinHolder</tt>.
 	 * @throws RuntimeException a subclass of <tt>RuntimeException</tt>
 	 * is thrown if this operation fails in some way.
 	 */
-	<T extends JoinHolder,U> List<T> getPreviousJoinsFor(Class<T> joinHolderType, 
-			Class<U> joinedEntityType, int entityId, int lastPageFirstRowNum, int pageSize);
+	<U> List<T> getPreviousJoinsFor(Class<U> joinedEntityType, 
+			int entityId, int lastPageFirstRowNum, int pageSize);	
 	
 	/**
 	 * Get a "next page" of <tt>JoinHolder</tt> entities that are
@@ -76,8 +71,6 @@ extends GenericJoinHolderService, GenericPaginatedEntityService{
 	 * should take this into account in trying to be as flexible as
 	 * possible.
 	 * 
-	 * @param joinHolderType the type of <tt>JoinHolder</tt> the specified
-	 * entity is linked to.
 	 * @param joinedEntityType the type of the entity to get the joins for.
 	 * @param entityId the ID of the entity to get the joins for.
 	 * @param lastPageLastRowNum the last row number (NOT the primary key) on the currently
@@ -86,13 +79,11 @@ extends GenericJoinHolderService, GenericPaginatedEntityService{
 	 * page.
 	 * @return a "next page" of entities joined to the specified entity.
 	 * @throws IllegalArgumentException if the type of entity provided
-	 * is not a valid type for this class's <tt>JoinHolder</tt>, or if the
-	 * <tt>JoinHolder</tt> type provided is not a supported <tt>JoinHolder</tt>
-	 * implementation.
+	 * is not a valid type for this class's <tt>JoinHolder</tt>.
 	 * @throws RuntimeException a subclass of <tt>RuntimeException</tt>
 	 * is thrown if this operation fails in some way.
 	 */
-	<T extends JoinHolder,U> List<T> getNextJoinsFor(Class<T> joinHolderType,
-			Class<U> joinedEntityType, int entityId, int lastPageLastRowNum, int pageSize);
+	<U> List<T> getNextJoinsFor(Class<U> joinedEntityType, 
+			int entityId, int lastPageLastRowNum, int pageSize);
 	
 }

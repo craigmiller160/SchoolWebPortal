@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import io.craigmiller160.school.entity.Course;
-import io.craigmiller160.school.persist.GenericPaginatedJoinHolderService;
+import io.craigmiller160.school.service.GenericPaginatedJoinHolderService;
 
 @Controller
 @RequestMapping (value="/admin/student")

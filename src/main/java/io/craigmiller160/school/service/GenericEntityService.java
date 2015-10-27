@@ -1,4 +1,4 @@
-package io.craigmiller160.school.persist;
+package io.craigmiller160.school.service;
 
 import java.util.List;
 
