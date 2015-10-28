@@ -11,7 +11,8 @@
 
 	<!-- Data Beans are configured using annotations -->
 	<context:annotation-config/>
-	<context:component-scan base-package="io.craigmiller160.school.persist"/>
+	<context:component-scan base-package="io.craigmiller160.school.repo"/>
+	<context:component-scan base-package="io.craigmiller160.school.service"/>
 
 	<!-- Sets the transaction manager to annotation-driven -->
 	<tx:annotation-driven transaction-manager="transactionManager"/>

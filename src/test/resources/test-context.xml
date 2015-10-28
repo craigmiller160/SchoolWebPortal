@@ -9,7 +9,7 @@
 
 	<context:annotation-config/>
 	<context:component-scan base-package="io.craigmiller160.school.context"/>
-	<context:component-scan base-package='io.craigmiller160.school.persist'/>
+	<context:component-scan base-package='io.craigmiller160.school.util'/>
 
 	<!-- Import the data context beans -->
 	<import resource="data-context.xml"/>
