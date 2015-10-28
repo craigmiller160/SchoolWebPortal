@@ -18,7 +18,7 @@ import io.craigmiller160.school.entity.Course;
  * An implementation of <tt>CourseDao</tt> using the
  * <tt>Hibernate</tt> framework. This class depends
  * on a <tt>Hibernate SessionFactory</tt> to generate
- * the database sessions & connections. This class
+ * the database sessions and connections. This class
  * does NOT manage its own transactions, it will
  * depend on a service layer class to handle that 
  * functionality.
@@ -57,7 +57,7 @@ implements GenericEntityDaoBean<Course> {
 	 * Get the <tt>SessionFactory</tt> used by this class
 	 * for database sessions.
 	 * 
-	 * @return the <tt>SessionFactory used by this class.
+	 * @return the <tt>SessionFactory</tt> used by this class.
 	 * @throws NullPointerException if the <tt>SessionFactory</tt>
 	 * was set to null.
 	 */

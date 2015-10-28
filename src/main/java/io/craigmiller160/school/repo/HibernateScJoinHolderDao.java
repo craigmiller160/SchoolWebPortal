@@ -20,7 +20,7 @@ import io.craigmiller160.school.entity.Student;
  * A DAO class for using the <tt>Hibernate</tt> framework
  * to persist <tt>ScJoinHolder</tt> entities. This class depends
  * on a <tt>Hibernate SessionFactory</tt> to generate
- * the database sessions & connections. This class
+ * the database sessions and connections. This class
  * does NOT manage its own transactions, it will
  * depend on a service layer class to handle that 
  * functionality.

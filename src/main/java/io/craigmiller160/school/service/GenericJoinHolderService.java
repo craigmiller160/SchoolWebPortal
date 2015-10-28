@@ -27,6 +27,7 @@ public interface GenericJoinHolderService{
 	 * @throws IllegalArgumentException if the <tt>JoinHolder</tt> type object is not
 	 * a supported type of <tt>JoinHolder</tt>, or if the entities provided
 	 * are not supported by the <tt>JoinHolder</tt> type.
+	 * @param <T> the type of <tt>JoinHolder</tt>  to use.
 	 */
 	<T extends JoinHolder> void joinEntities(Class<T> joinHolderType, Object...entitiesToJoin);
 
@@ -44,6 +45,8 @@ public interface GenericJoinHolderService{
 	 * @throws IllegalArgumentException if the <tt>JoinHolder</tt> type object is not
 	 * a supported type of <tt>JoinHolder</tt>, or if the entities provided
 	 * are not supported by the <tt>JoinHolder</tt> type.
+	 * @param <T> the type of <tt>JoinHolder</tt>  to use.
+	 * @param <U> the type of entity that is joined.
 	 */
 	<T extends JoinHolder,U> List<T> getAllJoinsFor(Class<T> joinHolderType, 
 			Class<U> joinedEntityType, int entityId);
@@ -62,6 +65,8 @@ public interface GenericJoinHolderService{
 	 * @throws IllegalArgumentException if the <tt>JoinHolder</tt> type object is not
 	 * a supported type of <tt>JoinHolder</tt>, or if the entities provided
 	 * are not supported by the <tt>JoinHolder</tt> type.
+	 * @param <T> the type of <tt>JoinHolder</tt>  to use.
+	 * @param <U> the type of entity that is joined.
 	 */
 	<T extends JoinHolder,U> long getJoinCountFor(Class<T> joinHolderType, Class<U> joinedEntityType, int entityId);
 	
@@ -75,6 +80,8 @@ public interface GenericJoinHolderService{
 	 * @param entityId the ID of the entity to remove the joins for.
 	 * @throws IllegalArgumentException if the type of entity provided
 	 * is not a valid type for this class's <tt>JoinHolder</tt>.
+	 * @param <T> the type of <tt>JoinHolder</tt>  to use.
+	 * @param <U> the type of entity that is joined.
 	 */
 	<T extends JoinHolder, U> void removeJoinsFor(Class<T> joinHolderType, 
 			Class<U> joinedEntityType, int entityId);

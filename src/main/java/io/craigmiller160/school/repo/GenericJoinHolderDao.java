@@ -29,6 +29,7 @@ public interface GenericJoinHolderDao<T extends JoinHolder>{
 	 * joined with the specified entity.
 	 * @throws IllegalArgumentException if the type of entity provided
 	 * is not a valid type for this class's <tt>JoinHolder</tt>.
+	 * @param <U> the type of entity that is joined.
 	 */
 	<U> List<T> getAllJoinsFor(Class<U> joinedEntityType, int entityId);
 	
@@ -41,6 +42,7 @@ public interface GenericJoinHolderDao<T extends JoinHolder>{
 	 * @param entityId the ID of the entity to remove the joins for.
 	 * @throws IllegalArgumentException if the type of entity provided
 	 * is not a valid type for this class's <tt>JoinHolder</tt>.
+	 * @param <U> the type of entity that is joined.
 	 */
 	<U> void removeJoinsFor(Class<U> joinedEntityType, int entityId);
 	
@@ -59,6 +61,7 @@ public interface GenericJoinHolderDao<T extends JoinHolder>{
 	 * that are joined with the entity.
 	 * @throws IllegalArgumentException if the type of entity provided
 	 * is not a valid type for this class's <tt>JoinHolder</tt>.
+	 * @param <U> the type of entity that is joined.
 	 */
 	<U> long getJoinCountFor(Class<U> joinedEntityType, int entityId);
 	

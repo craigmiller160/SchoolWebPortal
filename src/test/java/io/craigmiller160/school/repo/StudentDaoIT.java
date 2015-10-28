@@ -67,7 +67,7 @@ public class StudentDaoIT {
 	/**
 	 * Set the DAO for <tt>Student</tt> entities.
 	 * 
-	 * @param courseDao the DAO for <tt>Student</tt> entities.
+	 * @param studentDao the DAO for <tt>Student</tt> entities.
 	 */
 	public void setStudentDao(GenericEntityDaoBean<Student> studentDao) {
 		this.studentDao = studentDao;

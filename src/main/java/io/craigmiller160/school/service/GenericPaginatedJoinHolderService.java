@@ -19,7 +19,7 @@ import io.craigmiller160.school.entity.JoinHolder;
 public interface GenericPaginatedJoinHolderService {
 
 	/**
-	 * Get a "page> of <tt>JoinHolder</tt> entities that are
+	 * Get a "page" of <tt>JoinHolder</tt> entities that are
 	 * joined with the entity whose type and unique ID are
 	 * specified in the parameters. The size
 	 * of a page is defined by the last parameter (pageRowCount).
@@ -38,7 +38,9 @@ public interface GenericPaginatedJoinHolderService {
 	 * @return a sub-list of entities from the table that is a "page"
 	 * of data, based on the supplied parameters.
 	 * @throws IllegalArgumentException if the type of entity
-	 * provided is not a supported entity by the database. 
+	 * provided is not a supported entity by the database.
+	 * @param <T> the type of <tt>JoinHolder</tt>  to use.
+	 * @param <U> the type of entity that is joined.
 	 */
 	<T extends JoinHolder,U> List<T> getEntitiesByPageFor(Class<T> joinHolderType,
 			Class<U> joinedEntityType, int entityId, int pageNumber, int pageRowCount);

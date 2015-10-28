@@ -21,6 +21,7 @@ public interface GenericEntityService {
 	 * @param entity the entity to update in the database.
 	 * @throws IllegalArgumentException if the type of entity
 	 * provided is not a supported entity by the database.
+	 * @param <T> the type of entity to update.
 	 */
 	<T> void updateEntity(T entity);
 	
@@ -43,6 +44,7 @@ public interface GenericEntityService {
 	 * into the database.
 	 * @throws IllegalArgumentException if the type of entity
 	 * provided is not a supported entity by the database.
+	 * @param <T> the type of entity to create.
 	 */
 	<T> T createEntity(Class<T> entityType, Object...params);
 	
@@ -57,6 +59,7 @@ public interface GenericEntityService {
 	 * provided is not a supported entity by the database.
 	 * @throws RuntimeException a subclass of this exception is
 	 * thrown if the entity already exists in the database.
+	 * @param <T> the type of entity to insert.
 	 */
 	<T> void insertEntity(T entity);
 	
@@ -65,11 +68,12 @@ public interface GenericEntityService {
 	 * be used with an entity that already exists in
 	 * the database.
 	 * 
-	 * @param entity
+	 * @param entity the entity to delete.
 	 * @throws IllegalArgumentException if the type of entity
 	 * provided is not a supported entity by the database.
 	 * @throws RuntimeException a subclass of this exception is
 	 * thrown if the entity already exists in the database.
+	 * @param <T> the type of entity to delete.
 	 */
 	<T> void deleteEntity(T entity);
 	
@@ -81,6 +85,7 @@ public interface GenericEntityService {
 	 * @return a list of all persisted entities of the specified type.
 	 * @throws IllegalArgumentException if the type of entity
 	 * provided is not a supported entity by the database.
+	 * @param <T> the type of entity to get a list of.
 	 */
 	<T> List<T> getAllEntities(Class<T> entityType);
 	
@@ -94,6 +99,7 @@ public interface GenericEntityService {
 	 * provided id, or null if it doesn't exist.
 	 * @throws IllegalArgumentException if the type of entity
 	 * provided is not a supported entity by the database.
+	 * @param <T> the type of entity to get.
 	 */
 	<T> T getEntityById(Class<T> entityType, int entityId);
 	
@@ -107,6 +113,7 @@ public interface GenericEntityService {
 	 * of the specified type.
 	 * @throws IllegalArgumentException if the type of entity
 	 * provided is not a supported entity by the database.
+	 * @param <T> the type of entity to count.
 	 */
 	<T> long getEntityCount(Class<T> entityType);
 	

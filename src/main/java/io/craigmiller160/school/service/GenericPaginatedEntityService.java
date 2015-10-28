@@ -29,7 +29,8 @@ public interface GenericPaginatedEntityService{
 	 * @return a sub-list of entities from the table that is a "page"
 	 * of data, based on the supplied parameters.
 	 * @throws IllegalArgumentException if the type of entity
-	 * provided is not a supported entity by the database. 
+	 * provided is not a supported entity by the database.
+	 * @param <T> the type of entity to get by page.
 	 */
 	<T> List<T> getEntitiesByPage(Class<T> entityType, int pageNumber, 
 			int pageRowCount);

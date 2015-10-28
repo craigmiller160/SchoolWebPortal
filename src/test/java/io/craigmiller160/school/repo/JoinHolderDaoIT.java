@@ -120,7 +120,7 @@ public class JoinHolderDaoIT {
 	/**
 	 * Set the DAO for <tt>Student</tt> entities.
 	 * 
-	 * @param courseDao the DAO for <tt>Student</tt> entities.
+	 * @param studentDao the DAO for <tt>Student</tt> entities.
 	 */
 	public void setStudentDao(GenericEntityDaoBean<Student> studentDao) {
 		this.studentDao = studentDao;
@@ -156,7 +156,7 @@ public class JoinHolderDaoIT {
 	/**
 	 * Set the DAO for <tt>JoinHolder</tt> entities.
 	 * 
-	 * @param courseDao the DAO for <tt>JoinHolder</tt> entities.
+	 * @param scJoinHolderDao the DAO for <tt>JoinHolder</tt> entities.
 	 */
 	public void setScJoinHolderDao(GenericJoinHolderDaoBean<ScJoinHolder> scJoinHolderDao) {
 		this.scJoinHolderDao = scJoinHolderDao;
