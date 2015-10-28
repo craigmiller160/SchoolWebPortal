@@ -12,8 +12,8 @@ import io.craigmiller160.school.entity.Course;
 import io.craigmiller160.school.entity.JoinHolder;
 import io.craigmiller160.school.entity.ScJoinHolder;
 import io.craigmiller160.school.entity.Student;
-import io.craigmiller160.school.repo.GenericPaginatedDao;
-import io.craigmiller160.school.repo.GenericPaginatedJoinHolderDao;
+import io.craigmiller160.school.repo.GenericEntityDaoBean;
+import io.craigmiller160.school.repo.GenericJoinHolderDaoBean;
 
 /**
  * Default implementation of the <tt>SchoolService</tt>
@@ -31,22 +31,22 @@ import io.craigmiller160.school.repo.GenericPaginatedJoinHolderDao;
  */
 @Component ("schoolService")
 public class SchoolDataService 
-implements GenericPaginatedEntityService, GenericPaginatedJoinHolderService {
+implements GenericEntityServiceBean {
 
 	/**
 	 * The DAO for persisting <tt>Student</tt> objects.
 	 */
-	private final GenericPaginatedDao<Student> studentDao;
+	private final GenericEntityDaoBean<Student> studentDao;
 	
 	/**
 	 * The DAO for persisting <tt>Course</tt> objects.
 	 */
-	private final GenericPaginatedDao<Course> courseDao;
+	private final GenericEntityDaoBean<Course> courseDao;
 	
 	/**
 	 * The DAO for persisting <tt>ScJoinHolder</tt> objects.
 	 */
-	private final GenericPaginatedJoinHolderDao<ScJoinHolder> scJoinHolderDao;
+	private final GenericJoinHolderDaoBean<ScJoinHolder> scJoinHolderDao;
 	
 	/**
 	 * Create a new instance of this service, setting
@@ -62,9 +62,9 @@ implements GenericPaginatedEntityService, GenericPaginatedJoinHolderService {
 	 * objects.
 	 */
 	@Autowired (required=true)
-	public SchoolDataService(GenericPaginatedDao<Student> studentDao, 
-			GenericPaginatedDao<Course> courseDao,
-			GenericPaginatedJoinHolderDao<ScJoinHolder> scJoinHolderDao){
+	public SchoolDataService(GenericEntityDaoBean<Student> studentDao, 
+			GenericEntityDaoBean<Course> courseDao,
+			GenericJoinHolderDaoBean<ScJoinHolder> scJoinHolderDao){
 		this.studentDao = studentDao;
 		this.courseDao = courseDao;
 		this.scJoinHolderDao = scJoinHolderDao;
