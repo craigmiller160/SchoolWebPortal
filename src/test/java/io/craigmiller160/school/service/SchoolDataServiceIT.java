@@ -23,10 +23,22 @@ import io.craigmiller160.school.context.AppContext;
 import io.craigmiller160.school.entity.Course;
 import io.craigmiller160.school.entity.ScJoinHolder;
 import io.craigmiller160.school.entity.Student;
-import io.craigmiller160.school.service.GenericPaginatedJoinHolderService;
 import io.craigmiller160.school.util.HibernateTestUtil;
 
-//TODO document how this is a BIG test class
+/**
+ * An integration test for the service layer
+ * of this application. Because the service
+ * class depends on the DAO classes to successfully 
+ * perform its operations, if the tests for the DAO
+ * classes fail, then the tests for this will fail.
+ * <p>
+ * This is also a LARGE test, as the service class
+ * joins together operations from all DAOs and as 
+ * such all need to be tested.
+ * 
+ * @author craig
+ * @version 1.0
+ */
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration({"classpath:/test-context.xml"})
 public class SchoolDataServiceIT {
@@ -48,17 +60,34 @@ public class SchoolDataServiceIT {
 	
 	private static final String CREATE_FAIL = "Create Failed";
 	
+	/**
+	 * The service class of this application, to be tested here.
+	 */
 	@Autowired (required=true)
-	private GenericPaginatedJoinHolderService schoolDataService;
+	private GenericEntityServiceBean schoolDataService;
 
-	public GenericPaginatedJoinHolderService getSchoolDataService() {
+	/**
+	 * Get the service class of this application, to be tested here.
+	 * 
+	 * @return the service class of this application, to be tested here.
+	 */
+	public GenericEntityServiceBean getSchoolDataService() {
 		return schoolDataService;
 	}
 
-	public void setSchoolDataService(GenericPaginatedJoinHolderService schoolDataService) {
+	/**
+	 * Set the service class of this application, to be tested here.
+	 * 
+	 * @param schoolDataService the service class of this application, 
+	 * to be tested here.
+	 */
+	public void setSchoolDataService(GenericEntityServiceBean schoolDataService) {
 		this.schoolDataService = schoolDataService;
 	}
 	
+	/**
+	 * Test CRURD operations with <tt>Student</tt> entities.
+	 */
 	@Transactional
 	@Test
 	public void testStudentCRUD(){
@@ -98,6 +127,9 @@ public class SchoolDataServiceIT {
 		assertNull(DELETE_FAIL, student);
 	}
 	
+	/**
+	 * Test CRURD operations with <tt>Course</tt> entities.
+	 */
 	@Transactional
 	@Test
 	public void testCourseCRUD(){
@@ -135,6 +167,9 @@ public class SchoolDataServiceIT {
 		assertNull(DELETE_FAIL, course);
 	}
 	
+	/**
+	 * Test CRURD operations with <tt>JoinHolder</tt> entities.
+	 */
 	@Transactional
 	@Test
 	public void testScJoinHolderCRUD(){
@@ -187,6 +222,9 @@ public class SchoolDataServiceIT {
 		assertNotNull("Course was deleted with JoinHolder", course);
 	}
 	
+	/**
+	 * Test create operation for <tt>Student</tt> entities.
+	 */
 	@Transactional
 	@Test
 	public void testCreateStudent(){
@@ -206,6 +244,9 @@ public class SchoolDataServiceIT {
 		assertEquals(INSERT_FAIL, student.getFirstName(), "First");
 	}
 	
+	/**
+	 * Test create operation for <tt>Course</tt> entities.
+	 */
 	@Transactional
 	@Test
 	public void testCreateCourse(){
@@ -225,6 +266,9 @@ public class SchoolDataServiceIT {
 		assertEquals(INSERT_FAIL, course.getCourseName(), "Name");
 	}
 	
+	/**
+	 * Test count operation for <tt>Student</tt> entities.
+	 */
 	@Transactional
 	@Test
 	public void testStudentCount(){
@@ -240,6 +284,9 @@ public class SchoolDataServiceIT {
 		assertTrue(count >= 3);
 	}
 	
+	/**
+	 * Test count operation for <tt>Course</tt> entities.
+	 */
 	@Transactional
 	@Test
 	public void testCourseCount(){
@@ -255,6 +302,9 @@ public class SchoolDataServiceIT {
 		assertTrue(count >= 3);
 	}
 	
+	/**
+	 * Test count operation for <tt>JoinHolder</tt> entities.
+	 */
 	@Transactional
 	@Test
 	public void testScJoinHolderCount(){
@@ -277,6 +327,9 @@ public class SchoolDataServiceIT {
 		assertTrue(count >= 3);
 	}
 	
+	/**
+	 * Test get all operation for <tt>Student</tt> entities.
+	 */
 	@Transactional
 	@Test
 	public void testGetAllStudents(){
@@ -293,6 +346,9 @@ public class SchoolDataServiceIT {
 		assertTrue(students.size() >= 3);
 	}
 	
+	/**
+	 * Test get all operation for <tt>Course</tt> entities.
+	 */
 	@Transactional
 	@Test
 	public void testGetAllCourses(){
@@ -309,6 +365,9 @@ public class SchoolDataServiceIT {
 		assertTrue(courses.size() >= 3);
 	}
 	
+	/**
+	 * Test get all operation for <tt>JoinHolder</tt> entities.
+	 */
 	@Transactional
 	@Test
 	public void testGetAllScJoinHolders(){
@@ -332,9 +391,13 @@ public class SchoolDataServiceIT {
 		assertTrue(joinHolders.size() >= 3);
 	}
 	
+	/**
+	 * Test getting <tt>Student</tt> entities in a
+	 * paginated way.
+	 */
 	@Transactional
 	@Test
-	public void testGetPreviousStudents(){
+	public void testGetStudentsPaginated(){
 		//Create dummy data
 		for(int i = 0; i < 20; i++){
 			Student student = new Student();
@@ -342,23 +405,40 @@ public class SchoolDataServiceIT {
 			schoolDataService.insertEntity(student);
 		}
 		
-		//Get previous page and test for content
-		List<Student> students1 = schoolDataService.getPreviousEntities(Student.class, 16, 5);
+		//Get page and test for content
+		List<Student> students1 = schoolDataService.getEntitiesByPage(
+				Student.class, 2, 5);
 		assertNotNull("Students list is null", students1);
 		assertTrue("List is wrong size", students1.size() == 5);
 		
 		//Get another page and compare the two
-		List<Student> students2 = schoolDataService.getPreviousEntities(Student.class, 11, 5);
+		//This list is deliberately one entity larger than the first one
+		//This allows testing to ensure that the pages are retrieving entities
+		//in the right order.
+		List<Student> students2 = schoolDataService.getEntitiesByPage(
+				Student.class, 1, 6);
 		assertNotNull("Students list is null", students2);
-		assertTrue("List is wrong size", students2.size() == 5);
-		for(Student s : students2){
-			assertFalse("Overlap between pages", students1.contains(s));
+		assertTrue("List is wrong size", students2.size() == 6);
+		//The uneven sizes are meant for the following test: If this is true,
+		//then the last entity in the second list matches the first in the first.
+		//That would prove that pages are being retrieved in order.
+		assertEquals("First entity in first list doesn't equal last entity in second", 
+				students1.get(0), students2.get(students2.size() - 1));
+		//Test for overlap while skipping the first record in list one because
+		//that one should match, but the others should not.
+		for(int i = 1; i < students1.size(); i++){
+			assertFalse("Overlap between pages", 
+					students2.contains(students1.get(i)));
 		}
 	}
 	
+	/**
+	 * Test getting <tt>Course</tt> entities in a
+	 * paginated way.
+	 */
 	@Transactional
 	@Test
-	public void testGetPreviousCourses(){
+	public void testGetCoursesPaginated(){
 		//Create dummy data
 		for(int i = 0; i < 20; i++){
 			Course course = new Course();
@@ -366,23 +446,40 @@ public class SchoolDataServiceIT {
 			schoolDataService.insertEntity(course);
 		}
 		
-		//Get previous page and test for content
-		List<Course> courses1 = schoolDataService.getPreviousEntities(Course.class, 11, 5);
+		//Get page and test for content
+		List<Course> courses1 = schoolDataService.getEntitiesByPage(
+				Course.class, 2, 5);
 		assertNotNull("Courses list is null", courses1);
 		assertTrue("List is wrong size", courses1.size() == 5);
 		
 		//Get another page and compare the two
-		List<Course> courses2 = schoolDataService.getPreviousEntities(Course.class, 6, 5);
+		//This list is deliberately one entity larger than the first one
+		//This allows testing to ensure that the pages are retrieving entities
+		//in the right order.
+		List<Course> courses2 = schoolDataService.getEntitiesByPage(
+				Course.class, 1, 6);
 		assertNotNull("Courses list is null", courses2);
-		assertTrue("List is wrong size", courses2.size() == 5);
-		for(Course c : courses2){
-			assertFalse("Overlap between pages", courses1.contains(c));
+		assertTrue("List is wrong size", courses2.size() == 6);
+		//The uneven sizes are meant for the following test: If this is true,
+		//then the last entity in the second list matches the first in the first.
+		//That would prove that pages are being retrieved in order.
+		assertEquals("First entity in first list doesn't equal last entity in second", 
+				courses1.get(0), courses2.get(courses2.size() - 1));
+		//Test for overlap while skipping the first record in list one because
+		//that one should match, but the others should not.
+		for(int i = 1; i < courses1.size(); i++){
+			assertFalse("Overlap between pages", 
+					courses2.contains(courses1.get(i)));
 		}
 	}
 	
+	/**
+	 * Test getting <tt>JoinHolder</tt> entities in a
+	 * paginated way.
+	 */
 	@Transactional
 	@Test
-	public void testGetPreviousScJoinHolders(){
+	public void testGetScJoinHoldersPaginated(){
 		//Create dummy data
 		for(int i = 0; i < 20; i++){
 			Course course = new Course();
@@ -397,99 +494,37 @@ public class SchoolDataServiceIT {
 			schoolDataService.insertEntity(joinHolder);
 		}
 		
-		//Get previous page and test for content
-		List<ScJoinHolder> joinHolders1 = schoolDataService.getPreviousEntities(ScJoinHolder.class, 11, 5);
+		//Get page and test for content
+		List<ScJoinHolder> joinHolders1 = schoolDataService.getEntitiesByPage(
+				ScJoinHolder.class, 2, 5);
 		assertNotNull("JoinHolders list is null", joinHolders1);
 		assertTrue("List is wrong size", joinHolders1.size() == 5);
 		
 		//Get another page and compare the two
-		List<ScJoinHolder> joinHolders2 = schoolDataService.getPreviousEntities(ScJoinHolder.class, 6, 5);
-		assertNotNull("JoinHolders list is null", joinHolders2);
-		assertTrue("List is wrong size", joinHolders2.size() == 5);
-		for(ScJoinHolder jh : joinHolders2){
-			assertFalse("Overlap between pages", joinHolders1.contains(jh));
-		}
-	}
-	
-	@Transactional
-	@Test
-	public void testGetNextStudents(){
-		//Create dummy data
-		for(int i = 0; i < 20; i++){
-			Student student = new Student();
-			setStudent1(student);
-			schoolDataService.insertEntity(student);
-		}
-		
-		//Get next page and test for content
-		List<Student> students1 = schoolDataService.getNextEntities(Student.class, 5, 5);
-		assertNotNull("Students list is null", students1);
-		assertTrue("List is wrong size", students1.size() == 5);
-		
-		//Get another page and compare the two
-		List<Student> students2 = schoolDataService.getNextEntities(Student.class, 10, 5);
-		assertNotNull("Students list is null", students2);
-		assertTrue("List is wrong size", students2.size() == 5);
-		for(Student s : students2){
-			assertFalse("Overlap between pages", students1.contains(s));
-		}
-	}
-	
-	@Transactional
-	@Test
-	public void testGetNextCourses(){
-		//Create dummy data
-		for(int i = 0; i < 20; i++){
-			Course course = new Course();
-			setCourse1(course);
-			schoolDataService.insertEntity(course);
-		}
-		
-		//Get next page and test for content
-		List<Course> courses1 = schoolDataService.getNextEntities(Course.class, 5, 5);
-		assertNotNull("Courses list is null", courses1);
-		assertTrue("List is wrong size", courses1.size() == 5);
-		
-		//Get another page and compare the two
-		List<Course> courses2 = schoolDataService.getNextEntities(Course.class, 10, 5);
-		assertNotNull("Courses list is null", courses2);
-		assertTrue("List is wrong size", courses2.size() == 5);
-		for(Course c : courses2){
-			assertFalse("Overlap between pages", courses1.contains(c));
-		}
-	}
-	
-	@Transactional
-	@Test
-	public void testGetNextScJoinHolders(){
-		//Create dummy data
-		for(int i = 0; i < 20; i++){
-			Course course = new Course();
-			setCourse1(course);
-			Student student = new Student();
-			setStudent1(student);
-			
-			schoolDataService.insertEntity(student);
-			schoolDataService.insertEntity(course);
-			
-			ScJoinHolder joinHolder = new ScJoinHolder(student, course);
-			schoolDataService.insertEntity(joinHolder);
-		}
-		
-		//Get next page and test for content
-		List<ScJoinHolder> joinHolders1 = schoolDataService.getNextEntities(ScJoinHolder.class, 5, 5);
-		assertNotNull("JoinHolders list is null", joinHolders1);
-		assertTrue("List is wrong size", joinHolders1.size() == 5);
-		
-		//Get another page and compare the two
-		List<ScJoinHolder> joinHolders2 = schoolDataService.getNextEntities(ScJoinHolder.class, 10, 5);
+		//This list is deliberately one entity larger than the first one
+		//This allows testing to ensure that the pages are retrieving entities
+		//in the right order.
+		List<ScJoinHolder> joinHolders2 = schoolDataService.getEntitiesByPage(
+				ScJoinHolder.class, 1, 6);
 		assertNotNull("JoinHolders list is null", joinHolders2);
 		assertTrue("List is wrong size", joinHolders1.size() == 5);
-		for(ScJoinHolder jh : joinHolders2){
-			assertFalse("Overlap between pages", joinHolders1.contains(jh));
+		//The uneven sizes are meant for the following test: If this is true,
+		//then the last entity in the second list matches the first in the first.
+		//That would prove that pages are being retrieved in order.
+		assertEquals("First entity in first list doesn't equal last entity in second", 
+				joinHolders1.get(0), joinHolders2.get(joinHolders2.size() - 1));
+		//Test for overlap while skipping the first record in list one because
+		//that one should match, but the others should not.
+		for(int i = 1; i < joinHolders1.size(); i++){
+			assertFalse("Overlap between pages", 
+					joinHolders2.contains(joinHolders1.get(i)));
 		}
 	}
 	
+	/**
+	 * Test get all joined entities with
+	 * specified <tt>Student</tt>.
+	 */
 	@Transactional
 	@Test
 	public void testGetAllForStudent(){
@@ -518,6 +553,10 @@ public class SchoolDataServiceIT {
 		assertEquals(joinHolders.size(), 2);
 	}
 	
+	/**
+	 * Test get all joined entities with
+	 * specified <tt>Course</tt>.
+	 */
 	@Transactional
 	@Test
 	public void testGetAllForCourse(){
@@ -546,9 +585,13 @@ public class SchoolDataServiceIT {
 		assertEquals(joinHolders.size(), 2);
 	}
 	
+	/**
+	 * Get entities joined with specified
+	 * <tt>Student</tt> in a paginated way.
+	 */
 	@Transactional
 	@Test
-	public void testGetPreviousForStudent(){
+	public void testPaginatedForStudent(){
 		//Create large list of dummy data
 		Student student = new Student();
 		setStudent1(student);
@@ -563,30 +606,49 @@ public class SchoolDataServiceIT {
 		}
 		
 		//Get page and test content
-		List<ScJoinHolder> joinHolders1 = schoolDataService.getPreviousJoinsFor(
+		List<ScJoinHolder> joinHolders1 = schoolDataService.getEntitiesByPageFor(
 				ScJoinHolder.class, Student.class, studentId, 
-				11, 5);
+				2, 5);
 		assertNotNull("JoinHolders list is null", joinHolders1);
-		assertTrue("List is wrong size", joinHolders1.size() == 5);
+		//assertTrue("List is wrong size", joinHolders1.size() == 5);
 		for(ScJoinHolder jh : joinHolders1){
 			assertEquals("Wrong studentId", jh.getStudent().getStudentId(), studentId);
 		}
 		
 		//Get another page and compare
-		List<ScJoinHolder> joinHolders2 = schoolDataService.getPreviousJoinsFor(
+		//This list is deliberately one entity larger than the first one
+		//This allows testing to ensure that the pages are retrieving entities
+		//in the right order.
+		List<ScJoinHolder> joinHolders2 = schoolDataService.getEntitiesByPageFor(
 				ScJoinHolder.class, Student.class, studentId, 
-				6, 5);
+				1, 6);
 		assertNotNull("JoinHolders list is null", joinHolders2);
-		assertTrue("List is wrong size", joinHolders2.size() == 5);
-		for(ScJoinHolder jh : joinHolders2){
-			assertEquals("Wrong studentId", jh.getStudent().getStudentId(), studentId);
-			assertFalse("Overlap between pages", joinHolders1.contains(jh));
+		assertTrue("List is wrong size", joinHolders2.size() == 6);
+		//The uneven sizes are meant for the following test: If this is true,
+		//then the last entity in the second list matches the first in the first.
+		//That would prove that pages are being retrieved in order.
+		assertEquals("First entity in first list doesn't equal last entity in second", 
+				joinHolders1.get(0), joinHolders2.get(joinHolders2.size() - 1));
+		//Test for overlap while skipping the first record in list one because
+		//that one should match, but the others should not.
+		for(int i = 0; i < joinHolders2.size(); i++){
+			assertEquals("Wrong studentId", 
+					joinHolders2.get(i).getStudent().getStudentId(), studentId);
+			//Don't do this for the last entry in the list
+			if(i != joinHolders2.size() - 1){
+				assertFalse("Overlap between pages", 
+						joinHolders1.contains(joinHolders2.get(i)));
+			}
 		}
 	}
 	
+	/**
+	 * Get entities joined with specified
+	 * <tt>Course</tt> in a paginated way.
+	 */
 	@Transactional
 	@Test
-	public void testGetPreviousForCourse(){
+	public void testPaginatedForCourse(){
 		//Create large list of dummy data
 		Course course = new Course();
 		setCourse1(course);
@@ -601,9 +663,9 @@ public class SchoolDataServiceIT {
 		}
 		
 		//Get page and test content
-		List<ScJoinHolder> joinHolders1 = schoolDataService.getPreviousJoinsFor(
+		List<ScJoinHolder> joinHolders1 = schoolDataService.getEntitiesByPageFor(
 				ScJoinHolder.class, Course.class, courseId, 
-				11, 5);
+				2, 5);
 		assertNotNull("JoinHolders list is null", joinHolders1);
 		assertTrue("List is wrong size", joinHolders1.size() == 5);
 		for(ScJoinHolder jh : joinHolders1){
@@ -611,93 +673,36 @@ public class SchoolDataServiceIT {
 		}
 		
 		//Get another page and compare
-		List<ScJoinHolder> joinHolders2 = schoolDataService.getPreviousJoinsFor(
+		//This list is deliberately one entity larger than the first one
+		//This allows testing to ensure that the pages are retrieving entities
+		//in the right order.
+		List<ScJoinHolder> joinHolders2 = schoolDataService.getEntitiesByPageFor(
 				ScJoinHolder.class, Course.class, courseId, 
-				6, 5);
+				1, 6);
 		assertNotNull("JoinHolders list is null", joinHolders2);
-		assertTrue("List is wrong size", joinHolders2.size() == 5);
-		for(ScJoinHolder jh : joinHolders2){
-			assertEquals("Wrong courseID", jh.getCourse().getCourseId(), courseId);
-			assertFalse("Overlap between pages", joinHolders1.contains(jh));
+		assertTrue("List is wrong size", joinHolders2.size() == 6);
+		//The uneven sizes are meant for the following test: If this is true,
+		//then the last entity in the second list matches the first in the first.
+		//That would prove that pages are being retrieved in order.
+		assertEquals("First entity in first list doesn't equal last entity in second", 
+				joinHolders1.get(0), joinHolders2.get(joinHolders2.size() - 1));
+		//Test for overlap while skipping the first record in list one because
+		//that one should match, but the others should not.
+		for(int i = 0; i < joinHolders2.size(); i++){
+			assertEquals("Wrong courseID", 
+					joinHolders2.get(i).getCourse().getCourseId(), courseId);
+			//Don't do this for the last entry in the list
+			if(i != joinHolders2.size() - 1){
+				assertFalse("Overlap between pages", 
+						joinHolders1.contains(joinHolders2.get(i)));
+			}
 		}
 	}
 	
-	@Transactional
-	@Test
-	public void testNextForStudent(){
-		//Create large list of dummy data
-		Student student = new Student();
-		setStudent1(student);
-		schoolDataService.insertEntity(student);
-		int studentId = student.getStudentId();
-		for(int i = 0; i < 20; i++){
-			Course course = new Course();
-			setCourse1(course);
-			schoolDataService.insertEntity(course);
-			ScJoinHolder joinHolder = new ScJoinHolder(student, course);
-			schoolDataService.insertEntity(joinHolder);
-		}
-		
-		//Get page and test content
-		List<ScJoinHolder> joinHolders1 = schoolDataService.getNextJoinsFor(
-				ScJoinHolder.class, Student.class, studentId, 
-				5, 5);
-		assertNotNull("JoinHolders list is null", joinHolders1);
-		assertTrue("List is wrong size", joinHolders1.size() == 5);
-		for(ScJoinHolder jh : joinHolders1){
-			assertEquals("Wrong studentId", jh.getStudent().getStudentId(), studentId);
-		}
-		
-		//Get another page and compare
-		List<ScJoinHolder> joinHolders2 = schoolDataService.getNextJoinsFor(
-				ScJoinHolder.class, Student.class, studentId, 
-				10, 5);
-		assertNotNull("JoinHolders list is null", joinHolders2);
-		assertTrue("List is wrong size", joinHolders2.size() == 5);
-		for(ScJoinHolder jh : joinHolders2){
-			assertEquals("Wrong studentId", jh.getStudent().getStudentId(), studentId);
-			assertFalse("Overlap between pages", joinHolders1.contains(jh));
-		}
-	}
-	
-	@Transactional
-	@Test
-	public void testNextForCourse(){
-		//Create large list of dummy data
-		Course course = new Course();
-		setCourse1(course);
-		schoolDataService.insertEntity(course);
-		int courseId = course.getCourseId();
-		for(int i = 0; i < 20; i++){
-			Student student = new Student();
-			setStudent1(student);
-			schoolDataService.insertEntity(student);
-			ScJoinHolder joinHolder = new ScJoinHolder(student, course);
-			schoolDataService.insertEntity(joinHolder);
-		}
-		
-		//Get page and test content
-		List<ScJoinHolder> joinHolders1 = schoolDataService.getNextJoinsFor(
-				ScJoinHolder.class, Course.class, courseId, 
-				5, 5);
-		assertNotNull("JoinHolders list is null", joinHolders1);
-		assertTrue("List is wrong size", joinHolders1.size() == 5);
-		for(ScJoinHolder jh : joinHolders1){
-			assertEquals("Wrong courseID", jh.getCourse().getCourseId(), courseId);
-		}
-		
-		//Get another page and compare
-		List<ScJoinHolder> joinHolders2 = schoolDataService.getNextJoinsFor(
-				ScJoinHolder.class, Course.class, courseId, 
-				10, 5);
-		assertNotNull("JoinHolders list is null", joinHolders2);
-		assertTrue("List is wrong size", joinHolders2.size() == 5);
-		for(ScJoinHolder jh : joinHolders2){
-			assertEquals("Wrong courseID", jh.getCourse().getCourseId(), courseId);
-			assertFalse("Overlap between pages", joinHolders1.contains(jh));
-		}
-	}
-	
+	/**
+	 * Test getting count of all entities joined
+	 * with specified <tt>Student</tt>.
+	 */
 	@Transactional
 	@Test
 	public void testGetCountForStudent(){
@@ -727,6 +732,10 @@ public class SchoolDataServiceIT {
 		assertEquals(count, 2);
 	}
 	
+	/**
+	 * Test getting count of all entities joined
+	 * with specified <tt>Course</tt>.
+	 */
 	@Transactional
 	@Test
 	public void testGetCountForCourse(){
@@ -756,7 +765,14 @@ public class SchoolDataServiceIT {
 		assertEquals(count, 2);
 	}
 	
-	//TODO this test depends on getJoinsFor working
+	/**
+	 * Test operation to create a <tt>JoinHolder</tt>
+	 * by specifying the entities to be joined.
+	 * This test depends on the <tt>getJoinsFor</tt>
+	 * operation to be working, which is tested
+	 * separately here. If that test fails, this
+	 * one will too. 
+	 */
 	@Transactional
 	@Test
 	public void testJoinEntities(){
@@ -791,6 +807,10 @@ public class SchoolDataServiceIT {
 				joinHolders.get(0).getStudent().getStudentId(), studentId);
 	}
 	
+	/**
+	 * Test removing all entities joined with
+	 * a specified student.
+	 */
 	@Transactional
 	@Test
 	public void testRemoveForStudent(){
@@ -818,6 +838,10 @@ public class SchoolDataServiceIT {
 		assertEquals("Wrong size", joinHolders.size(), 0);
 	}
 	
+	/**
+	 * Test remove all entities joined with
+	 * a specified <tt>Course</tt>.
+	 */
 	@Transactional
 	@Test
 	public void testRemoveForCourse(){
@@ -910,6 +934,7 @@ public class SchoolDataServiceIT {
 		testUtil.resetCourseAutoIncrement();
 		testUtil.resetStudentAutoIncrement();
 		testUtil.resetStudentCourseAutoIncrement();
+		//TODO the reset auto increment might not be working...
 	}
 	
 }
