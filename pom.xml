@@ -84,6 +84,11 @@
 			<artifactId>standard</artifactId>
 			<version>1.1.2</version>
 		</dependency>
+		<dependency> <!-- Javax Interceptor API - Fixes JavaDoc Failure when using @Transactional annotations -->
+			<groupId>javax.interceptor</groupId> 
+			<artifactId>javax.interceptor-api</artifactId>
+			<version>1.2</version>
+		</dependency>
 		
 	
 	</dependencies>
