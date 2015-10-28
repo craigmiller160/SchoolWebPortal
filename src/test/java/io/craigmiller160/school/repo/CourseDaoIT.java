@@ -20,7 +20,6 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import io.craigmiller160.school.context.AppContext;
 import io.craigmiller160.school.entity.Course;
-import io.craigmiller160.school.repo.GenericPaginatedEntityDao;
 import io.craigmiller160.school.util.HibernateTestUtil;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -42,14 +41,27 @@ public class CourseDaoIT {
 	 */
 	private static final String DELETE_FAIL = "Delete Failed";
 	
+	/**
+	 * DAO for <tt>Course</tt> entities, which is being tested here.
+	 */
 	@Autowired (required=true)
-	private GenericPaginatedEntityDao<Course> courseDao;
+	private GenericEntityDaoBean<Course> courseDao;
 
-	public GenericPaginatedEntityDao<Course> getCourseDao() {
+	/**
+	 * Get the DAO for <tt>Course</tt> entities.
+	 * 
+	 * @return the DAO for <tt>Course</tt> entities.
+	 */
+	public GenericEntityDaoBean<Course> getCourseDao() {
 		return courseDao;
 	}
 
-	public void setCourseDao(GenericPaginatedEntityDao<Course> courseDao) {
+	/**
+	 * Set the DAO for <tt>Course</tt> entities.
+	 * 
+	 * @param courseDao the DAO for <tt>Course</tt> entities.
+	 */
+	public void setCourseDao(GenericEntityDaoBean<Course> courseDao) {
 		this.courseDao = courseDao;
 	}
 	
@@ -160,12 +172,12 @@ public class CourseDaoIT {
 		}
 		
 		//Get previous page and test for content
-		List<Course> courses1 = courseDao.getPreviousEntities(11, 5);
+		List<Course> courses1 = courseDao.getEntitiesByPage(10, 5);
 		assertNotNull("Courses list is null", courses1);
 		assertTrue("List is wrong size", courses1.size() == 5);
 		
 		//Get another page and compare the two
-		List<Course> courses2 = courseDao.getPreviousEntities(6, 5);
+		List<Course> courses2 = courseDao.getEntitiesByPage(5, 5);
 		assertNotNull("Courses list is null", courses2);
 		assertTrue("List is wrong size", courses2.size() == 5);
 		for(Course c : courses2){
@@ -187,12 +199,12 @@ public class CourseDaoIT {
 		}
 		
 		//Get next page and test for content
-		List<Course> courses1 = courseDao.getNextEntities(5, 5);
+		List<Course> courses1 = courseDao.getEntitiesByPage(5, 5);
 		assertNotNull("Courses list is null", courses1);
 		assertTrue("List is wrong size", courses1.size() == 5);
 		
 		//Get another page and compare the two
-		List<Course> courses2 = courseDao.getNextEntities(10, 5);
+		List<Course> courses2 = courseDao.getEntitiesByPage(10, 5);
 		assertNotNull("Courses list is null", courses2);
 		assertTrue("List is wrong size", courses2.size() == 5);
 		for(Course c : courses2){
