@@ -22,6 +22,13 @@ import io.craigmiller160.school.context.AppContext;
 import io.craigmiller160.school.entity.Course;
 import io.craigmiller160.school.util.HibernateTestUtil;
 
+/**
+ * JUnit Integration test for the DAO class
+ * that handles <tt>Course</tt> entities.
+ * 
+ * @author craig
+ * @version 1.0
+ */
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration({"classpath:/test-context.xml"})
 public class CourseDaoIT {
