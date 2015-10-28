@@ -385,6 +385,7 @@ implements GenericEntityServiceBean {
 		}
 	}
 
+	@Transactional
 	@SuppressWarnings("unchecked") //type is checked prior to the operation
 	@Override
 	public <T> List<T> getEntitiesByPage(Class<T> entityType, int pageNumber, int pageRowCount) {
@@ -407,6 +408,7 @@ implements GenericEntityServiceBean {
 		return resultList;
 	}
 
+	@Transactional
 	@SuppressWarnings("unchecked") //type is checked prior to the operation
 	@Override
 	public <T extends JoinHolder, U> List<T> getEntitiesByPageFor(Class<T> joinHolderType, 
