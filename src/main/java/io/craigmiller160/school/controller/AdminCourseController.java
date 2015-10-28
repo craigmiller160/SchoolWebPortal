@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import io.craigmiller160.school.entity.Course;
-import io.craigmiller160.school.service.GenericPaginatedJoinHolderService;
+import io.craigmiller160.school.service.GenericEntityServiceBean;
 
 /**
  * The controller handling all interactions with
@@ -32,7 +32,7 @@ public class AdminCourseController {
 	/**
 	 * The class representing this program's service layer.
 	 */
-	private final GenericPaginatedJoinHolderService service;
+	private final GenericEntityServiceBean service;
 	
 	/**
 	 * Create this controller and inject a reference to this
@@ -44,7 +44,7 @@ public class AdminCourseController {
 	 * layer.
 	 */
 	@Autowired (required=true)
-	public AdminCourseController(GenericPaginatedJoinHolderService service){
+	public AdminCourseController(GenericEntityServiceBean service){
 		this.service = service;
 	}
 	
@@ -62,9 +62,8 @@ public class AdminCourseController {
 	@RequestMapping(value="/all", method=RequestMethod.GET)
 	public String getAllCourses(Model model, @RequestParam int page){
 		//TODO allow for variable page sizes chosen by the user.
-		int firstRowVal = page * 10 - 10;
-		List<Course> courses = service.getNextEntities(
-				Course.class, firstRowVal, 10);
+		List<Course> courses = service.getEntitiesByPage(
+				Course.class, page, 10);
 		model.addAttribute("courses", courses);
 		model.addAttribute("page", page);
 		
