@@ -70,6 +70,33 @@ implements GenericEntityServiceBean {
 		this.scJoinHolderDao = scJoinHolderDao;
 	}
 	
+	/**
+	 * Get the DAO for persisting <tt>ScJoinHolder</tt> objects.
+	 * 
+	 * @return the DAO for persisting <tt>ScJoinHolder</tt> objects.
+	 */
+	public GenericJoinHolderDaoBean<ScJoinHolder> getScJoinHolderDao(){
+		return scJoinHolderDao;
+	}
+	
+	/**
+	 * Get the DAO for persisting <tt>Course</tt> objects.
+	 * 
+	 * @return the DAO for persisting <tt>Course</tt> objects.
+	 */
+	public GenericEntityDaoBean<Course> getCourseDao(){
+		return courseDao;
+	}
+	
+	/**
+	 * Get the DAO for persisting <tt>Student</tt> objects.
+	 * 
+	 * @return the DAO for persisting <tt>Student</tt> objects.
+	 */
+	public GenericEntityDaoBean<Student> getStudentDao(){
+		return studentDao;
+	}
+	
 	@Transactional
 	@Override
 	public <T> void updateEntity(T entity) {
@@ -386,6 +413,8 @@ implements GenericEntityServiceBean {
 			Class<U> joinedEntityType, int entityId, int pageNumber, int pageRowCount) {
 		List<T> resultList = null;
 		int startPageAfterRow = (pageNumber - 1) * pageRowCount;
+		//TODO delete this
+		System.out.println("StartRow: " + startPageAfterRow + " RowCount: " + pageRowCount);
 		
 		if(joinHolderType.equals(ScJoinHolder.class)){
 			if(joinedEntityType.equals(Student.class) 
