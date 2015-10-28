@@ -459,7 +459,7 @@ public class JoinHolderDaoIT {
 		for(int i = 0; i < joinHolders2.size(); i++){
 			assertEquals("Wrong studentId", 
 					joinHolders2.get(i).getStudent().getStudentId(), studentId1);
-			//Don't do this for the last entry in the 
+			//Don't do this for the last entry in the list
 			if(i != joinHolders2.size() - 1){
 				assertFalse("Overlap between pages", 
 						joinHolders1.contains(joinHolders2.get(i)));
@@ -494,6 +494,9 @@ public class JoinHolderDaoIT {
 		}
 		
 		//Get another page and compare the two
+		//This list is deliberately one entity larger than the first one
+		//This allows testing to ensure that the pages are retrieving entities
+		//in the right order.
 		List<ScJoinHolder> joinHolders2 = scJoinHolderDao.getEntitiesByPageFor(
 				Course.class, courseId1, 5, 6);
 		assertNotNull("JoinHolders list is null", joinHolders2);
@@ -508,7 +511,7 @@ public class JoinHolderDaoIT {
 		for(int i = 0; i < joinHolders2.size(); i++){
 			assertEquals("Wrong courseID", 
 					joinHolders2.get(i).getCourse().getCourseId(), courseId1);
-			//Don't do this for the last entry in the 
+			//Don't do this for the last entry in the list
 			if(i != joinHolders2.size() - 1){
 				assertFalse("Overlap between pages", 
 						joinHolders1.contains(joinHolders2.get(i)));
