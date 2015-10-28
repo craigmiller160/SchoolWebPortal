@@ -279,48 +279,6 @@ implements GenericEntityServiceBean {
 	@SuppressWarnings("unchecked") //The entityType.equals(Class<?>) is the type check
 	@Transactional
 	@Override
-	public <T> List<T> getPreviousEntities(Class<T> entityType, int lastPageFirstRowNum, int pageSize) {
-		List<T> resultList = null;
-		if(entityType.equals(Student.class)){
-			resultList = (List<T>) studentDao.getPreviousEntities(lastPageFirstRowNum, pageSize);
-		}
-		else if(entityType.equals(Course.class)){
-			resultList = (List<T>) courseDao.getPreviousEntities(lastPageFirstRowNum, pageSize);
-		}
-		else if(entityType.equals(ScJoinHolder.class)){
-			resultList = (List<T>) scJoinHolderDao.getPreviousEntities(lastPageFirstRowNum, pageSize);
-		}
-		else{
-			throw new IllegalArgumentException(entityType + " is not a valid Entity");
-		}
-		
-		return resultList;
-	}
-
-	@SuppressWarnings("unchecked") //The entityType.equals(Class<?>) is the type check
-	@Transactional
-	@Override
-	public <T> List<T> getNextEntities(Class<T> entityType, int lastPageLastRowNum, int pageSize) {
-		List<T> resultList = null;
-		if(entityType.equals(Student.class)){
-			resultList = (List<T>) studentDao.getNextEntities(lastPageLastRowNum, pageSize);
-		}
-		else if(entityType.equals(Course.class)){
-			resultList = (List<T>) courseDao.getNextEntities(lastPageLastRowNum, pageSize);
-		}
-		else if(entityType.equals(ScJoinHolder.class)){
-			resultList = (List<T>) scJoinHolderDao.getNextEntities(lastPageLastRowNum, pageSize);
-		}
-		else{
-			throw new IllegalArgumentException(entityType + " is not a valid Entity");
-		}
-		
-		return resultList;
-	}
-
-	@SuppressWarnings("unchecked") //The entityType.equals(Class<?>) is the type check
-	@Transactional
-	@Override
 	public <T extends JoinHolder, U> List<T> getAllJoinsFor(Class<T> joinHolderType, 
 			Class<U> joinedEntityType, int entityId) {
 		List<T> resultList = null;
@@ -328,50 +286,6 @@ implements GenericEntityServiceBean {
 			if(joinedEntityType.equals(Student.class) 
 					|| joinedEntityType.equals(Course.class)){
 				resultList = (List<T>) scJoinHolderDao.getAllJoinsFor(joinedEntityType, entityId);
-			}
-			else{
-				throw new IllegalArgumentException(joinedEntityType + " is not a valid Joined Entity");
-			}
-		}
-		else{
-			throw new IllegalArgumentException(joinHolderType + " is not a valid JoinHolder");
-		}
-		
-		return resultList;
-	}
-
-	@SuppressWarnings("unchecked") //The entityType.equals(Class<?>) is the type check
-	@Transactional
-	@Override
-	public <T extends JoinHolder, U> List<T> getPreviousJoinsFor(Class<T> joinHolderType, 
-			Class<U> joinedEntityType, int entityId, int lastPageFirstRowNum, int pageSize) {
-		List<T> resultList = null;
-		if(joinHolderType.equals(ScJoinHolder.class)){
-			if(joinedEntityType.equals(Student.class) 
-					|| joinedEntityType.equals(Course.class)){
-				resultList = (List<T>) scJoinHolderDao.getPreviousJoinsFor(joinedEntityType, entityId, lastPageFirstRowNum, pageSize);
-			}
-			else{
-				throw new IllegalArgumentException(joinedEntityType + " is not a valid Joined Entity");
-			}
-		}
-		else{
-			throw new IllegalArgumentException(joinHolderType + " is not a valid JoinHolder");
-		}
-		
-		return resultList;
-	}
-
-	@SuppressWarnings("unchecked") //The entityType.equals(Class<?>) is the type check
-	@Transactional
-	@Override
-	public <T extends JoinHolder, U> List<T> getNextJoinsFor(Class<T> joinHolderType, 
-			Class<U> joinedEntityType, int entityId, int lastPageLastRowNum, int pageSize) {
-		List<T> resultList = null;
-		if(joinHolderType.equals(ScJoinHolder.class)){
-			if(joinedEntityType.equals(Student.class) 
-					|| joinedEntityType.equals(Course.class)){
-				resultList = (List<T>) scJoinHolderDao.getNextJoinsFor(joinedEntityType, entityId, lastPageLastRowNum, pageSize);
 			}
 			else{
 				throw new IllegalArgumentException(joinedEntityType + " is not a valid Joined Entity");
@@ -442,6 +356,52 @@ implements GenericEntityServiceBean {
 		else{
 			throw new IllegalArgumentException(joinHolderType + " is not a valid JoinHolder");
 		}
+	}
+
+	@SuppressWarnings("unchecked") //type is checked prior to the operation
+	@Override
+	public <T> List<T> getEntitiesByPage(Class<T> entityType, int pageNumber, int pageRowCount) {
+		List<T> resultList = null;
+		int startPageAfterRow = (pageNumber - 1) * pageRowCount;
+		
+		if(entityType.equals(Student.class)){
+			resultList = (List<T>) studentDao.getEntitiesByPage(startPageAfterRow, pageRowCount);
+		}
+		else if(entityType.equals(Course.class)){
+			resultList = (List<T>) courseDao.getEntitiesByPage(startPageAfterRow, pageRowCount);
+		}
+		else if(entityType.equals(ScJoinHolder.class)){
+			resultList = (List<T>) scJoinHolderDao.getEntitiesByPage(startPageAfterRow, pageRowCount);
+		}
+		else{
+			throw new IllegalArgumentException(entityType + " is not a valid Entity");
+		}
+		
+		return resultList;
+	}
+
+	@SuppressWarnings("unchecked") //type is checked prior to the operation
+	@Override
+	public <T extends JoinHolder, U> List<T> getEntitiesByPageFor(Class<T> joinHolderType, 
+			Class<U> joinedEntityType, int entityId, int pageNumber, int pageRowCount) {
+		List<T> resultList = null;
+		int startPageAfterRow = (pageNumber - 1) * pageRowCount;
+		
+		if(joinHolderType.equals(ScJoinHolder.class)){
+			if(joinedEntityType.equals(Student.class) 
+					|| joinedEntityType.equals(Course.class)){
+				resultList = (List<T>) scJoinHolderDao.getEntitiesByPageFor(joinedEntityType, 
+						entityId, startPageAfterRow, pageNumber);
+			}
+			else{
+				throw new IllegalArgumentException(joinedEntityType + " is not a valid Joined Entity");
+			}
+		}
+		else{
+			throw new IllegalArgumentException(joinHolderType + " is not a valid JoinHolder");
+		}
+		
+		return resultList;
 	}
 
 }
