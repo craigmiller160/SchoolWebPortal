@@ -415,14 +415,12 @@ implements GenericEntityServiceBean {
 			Class<U> joinedEntityType, int entityId, int pageNumber, int pageRowCount) {
 		List<T> resultList = null;
 		int startPageAfterRow = (pageNumber - 1) * pageRowCount;
-		//TODO delete this
-		System.out.println("StartRow: " + startPageAfterRow + " RowCount: " + pageRowCount);
 		
 		if(joinHolderType.equals(ScJoinHolder.class)){
 			if(joinedEntityType.equals(Student.class) 
 					|| joinedEntityType.equals(Course.class)){
 				resultList = (List<T>) scJoinHolderDao.getEntitiesByPageFor(joinedEntityType, 
-						entityId, startPageAfterRow, pageNumber);
+						entityId, startPageAfterRow, pageRowCount);
 			}
 			else{
 				throw new IllegalArgumentException(joinedEntityType + " is not a valid Joined Entity");
