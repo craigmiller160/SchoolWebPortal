@@ -14,7 +14,7 @@ import io.craigmiller160.school.entity.JoinHolder;
  * @author craig
  * @version 1.0
  */
-public interface GenericJoinHolderService extends GenericEntityService{
+public interface GenericJoinHolderService{
 	
 	/**
 	 * Join the provided entities together using the type

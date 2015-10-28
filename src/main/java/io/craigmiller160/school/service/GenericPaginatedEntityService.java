@@ -11,8 +11,10 @@ import java.util.List;
  * @author craig
  * @version 1.0
  */
-public interface GenericPaginatedEntityService extends GenericEntityService{
+public interface GenericPaginatedEntityService{
 
+	
+	
 	/**
 	 * A convenience method to get the previous page of records of
 	 * an entity from the database. Used to facilitate pagination

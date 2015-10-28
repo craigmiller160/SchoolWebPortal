@@ -16,8 +16,7 @@ import io.craigmiller160.school.entity.JoinHolder;
  * @author craig
  * @version 1.0
  */
-public interface GenericPaginatedJoinHolderService 
-extends GenericJoinHolderService, GenericPaginatedEntityService{
+public interface GenericPaginatedJoinHolderService {
 
 	/**
 	 * Get a "previous page" of <tt>JoinHolder</tt> entities that are
