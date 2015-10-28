@@ -21,9 +21,15 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import io.craigmiller160.school.context.AppContext;
 import io.craigmiller160.school.entity.Student;
-import io.craigmiller160.school.repo.GenericPaginatedEntityDao;
 import io.craigmiller160.school.util.HibernateTestUtil;
 
+/**
+ * JUnit Integration test for the DAO class that
+ * handles <tt>Student</tt> entities.
+ * 
+ * @author craig
+ * @version 1.0
+ */
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration({"classpath:/test-context.xml"})
 public class StudentDaoIT {
@@ -43,14 +49,27 @@ public class StudentDaoIT {
 	 */
 	private static final String DELETE_FAIL = "Delete Failed";
 	
+	/**
+	 * DAO for <tt>Student</tt> entities, which is being tested here.
+	 */
 	@Autowired (required=true)
-	private GenericPaginatedEntityDao<Student> studentDao;
+	private GenericEntityDaoBean<Student> studentDao;
 
-	public GenericPaginatedEntityDao<Student> getStudentDao() {
+	/**
+	 * Get the DAO for <tt>Student</tt> entities.
+	 * 
+	 * @return the DAO for <tt>Student</tt> entities.
+	 */
+	public GenericEntityDaoBean<Student> getStudentDao() {
 		return studentDao;
 	}
 
-	public void setStudentDao(GenericPaginatedEntityDao<Student> studentDao) {
+	/**
+	 * Set the DAO for <tt>Student</tt> entities.
+	 * 
+	 * @param courseDao the DAO for <tt>Student</tt> entities.
+	 */
+	public void setStudentDao(GenericEntityDaoBean<Student> studentDao) {
 		this.studentDao = studentDao;
 	}
 	
@@ -82,6 +101,9 @@ public class StudentDaoIT {
 		student.setGrade(2);
 	}
 	
+	/**
+	 * Test CRUD operations in the DAO.
+	 */
 	@Transactional
 	@Test
 	public void testCRUD(){
@@ -121,6 +143,9 @@ public class StudentDaoIT {
 		assertNull(DELETE_FAIL, student);
 	}
 	
+	/**
+	 * Test count operation in the DAO.
+	 */
 	@Transactional
 	@Test
 	public void testCount(){
@@ -137,6 +162,9 @@ public class StudentDaoIT {
 		assertTrue(count >= 2);
 	}
 	
+	/**
+	 * Test get all operation in DAO.
+	 */
 	@Transactional
 	@Test
 	public void testGetAll(){
@@ -154,33 +182,12 @@ public class StudentDaoIT {
 		assertTrue(students.size() >= 2);
 	}
 	
+	/**
+	 * Test pagination method of DAO.
+	 */
 	@Transactional
 	@Test
-	public void testPreviousPage(){
-		//Create big list of temporary data
-		for(int i = 0; i < 20; i++){
-			Student student = new Student();
-			setStudent1(student);
-			studentDao.insertEntity(student);
-		}
-		
-		//Get previous page and test for content
-		List<Student> students1 = studentDao.getPreviousEntities(16, 5);
-		assertNotNull("Students list is null", students1);
-		assertTrue("List is wrong size", students1.size() == 5);
-		
-		//Get another page and compare the two
-		List<Student> students2 = studentDao.getPreviousEntities(11, 5);
-		assertNotNull("Students list is null", students2);
-		assertTrue("List is wrong size", students2.size() == 5);
-		for(Student s : students2){
-			assertFalse("Overlap between pages", students1.contains(s));
-		}
-	}
-	
-	@Transactional
-	@Test
-	public void testNextPage(){
+	public void testPagination(){
 		//Create big list of temporary data
 		for(int i = 0; i < 20; i++){
 			Student student = new Student();
@@ -189,16 +196,27 @@ public class StudentDaoIT {
 		}
 		
 		//Get next page and test for content
-		List<Student> students1 = studentDao.getNextEntities(5, 5);
+		List<Student> students1 = studentDao.getEntitiesByPage(10, 5);
 		assertNotNull("Students list is null", students1);
 		assertTrue("List is wrong size", students1.size() == 5);
 		
 		//Get another page and compare the two
-		List<Student> students2 = studentDao.getNextEntities(10, 5);
+		//This list is deliberately one entity larger than the first one
+		//This allows testing to ensure that the pages are retrieving entities
+		//in the right order.
+		List<Student> students2 = studentDao.getEntitiesByPage(5, 6);
 		assertNotNull("Students list is null", students2);
-		assertTrue("List is wrong size", students2.size() == 5);
-		for(Student s : students2){
-			assertFalse("Overlap between pages", students1.contains(s));
+		assertTrue("List is wrong size", students2.size() == 6);
+		//The uneven sizes are meant for the following test: If this is true,
+		//then the last entity in the second list matches the first in the first.
+		//That would prove that pages are being retrieved in order.
+		assertEquals("First entity in first list doesn't equal last entity in second", 
+				students1.get(0), students2.get(students2.size() - 1));
+		//Test for overlap while skipping the first record in list one because
+		//that one should match, but the others should not.
+		for(int i = 1; i < students1.size(); i++){
+			assertFalse("Overlap between pages", 
+					students2.contains(students1.get(i)));
 		}
 	}
 	

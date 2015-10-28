@@ -190,7 +190,7 @@ public class CourseDaoIT {
 			courseDao.insertEntity(course);
 		}
 		
-		//Get previous page and test for content
+		//Get page and test for content
 		List<Course> courses1 = courseDao.getEntitiesByPage(10, 5);
 		assertNotNull("Courses list is null", courses1);
 		assertTrue("List is wrong size", courses1.size() == 5);
@@ -210,7 +210,8 @@ public class CourseDaoIT {
 		//Test for overlap while skipping the first record in list one because
 		//that one should match, but the others should not.
 		for(int i = 1; i < courses1.size(); i++){
-			assertFalse("Overlap between pages", courses2.contains(courses1.get(i)));
+			assertFalse("Overlap between pages", 
+					courses2.contains(courses1.get(i)));
 		}
 	}
 	
