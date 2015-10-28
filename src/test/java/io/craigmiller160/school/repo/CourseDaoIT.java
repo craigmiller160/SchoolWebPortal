@@ -91,6 +91,9 @@ public class CourseDaoIT {
 		course.setPeriod(2);
 	}
 	
+	/**
+	 * Test CRUD operations in the DAO.
+	 */
 	@Transactional
 	@Test
 	public void testCRUD(){
@@ -128,6 +131,9 @@ public class CourseDaoIT {
 		assertNull(DELETE_FAIL, course);
 	}
 	
+	/**
+	 * Test count operation in the DAO.
+	 */
 	@Transactional
 	@Test
 	public void testCount(){
@@ -144,6 +150,9 @@ public class CourseDaoIT {
 		assertTrue(count >= 2);
 	}
 	
+	/**
+	 * Test get all operation in DAO.
+	 */
 	@Transactional
 	@Test
 	public void testGetAll(){
@@ -161,9 +170,12 @@ public class CourseDaoIT {
 		assertTrue(courses.size() >= 2);
 	}
 	
+	/**
+	 * Test pagination method of DAO.
+	 */
 	@Transactional
 	@Test
-	public void testPreviousPage(){
+	public void testPagination(){
 		//Create big list of temporary data
 		for(int i = 0; i < 20; i++){
 			Course course = new Course();
@@ -177,38 +189,21 @@ public class CourseDaoIT {
 		assertTrue("List is wrong size", courses1.size() == 5);
 		
 		//Get another page and compare the two
-		List<Course> courses2 = courseDao.getEntitiesByPage(5, 5);
+		//This list is deliberately one entity larger than the first one
+		//This allows testing to ensure that the pages are retrieving entities
+		//in the right order.
+		List<Course> courses2 = courseDao.getEntitiesByPage(5, 6);
 		assertNotNull("Courses list is null", courses2);
-		assertTrue("List is wrong size", courses2.size() == 5);
-		for(Course c : courses2){
-			assertFalse("Overlap between pages", courses1.contains(c));
-		}
-		//TODO in the future, see if there is a way to calculate the spacing
-		//between pages. Using primary key won't work because of the possibility
-		//of deletion. Might not be possible, but something to go back to.
-	}
-	
-	@Transactional
-	@Test
-	public void testNextPage(){
-		//Create big list of temporary data
-		for(int i = 0; i < 20; i++){
-			Course course = new Course();
-			setCourse1(course);
-			courseDao.insertEntity(course);
-		}
-		
-		//Get next page and test for content
-		List<Course> courses1 = courseDao.getEntitiesByPage(5, 5);
-		assertNotNull("Courses list is null", courses1);
-		assertTrue("List is wrong size", courses1.size() == 5);
-		
-		//Get another page and compare the two
-		List<Course> courses2 = courseDao.getEntitiesByPage(10, 5);
-		assertNotNull("Courses list is null", courses2);
-		assertTrue("List is wrong size", courses2.size() == 5);
-		for(Course c : courses2){
-			assertFalse("Overlap between pages", courses1.contains(c));
+		assertTrue("List is wrong size", courses2.size() == 6);
+		//The uneven sizes are meant for the following test: If this is true,
+		//then the last entity in the second list matches the first in the first.
+		//That would prove that pages are being retrieved in order.
+		assertEquals("First entity in first list doesn't equal last entity in second", 
+				courses1.get(0), courses2.get(courses2.size() - 1));
+		//Test for overlap while skipping the first record in list one because
+		//that one should match, but the others should not.
+		for(int i = 1; i < courses1.size(); i++){
+			assertFalse("Overlap between pages", courses2.contains(courses1.get(i)));
 		}
 	}
 	
