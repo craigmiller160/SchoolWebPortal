@@ -29,6 +29,7 @@ public interface GenericPaginatedJoinHolderService {
 	 * 
 	 * @param joinHolderType the type of <tt>JoinHolder</tt> the specified
 	 * entity is linked to.
+	 * @param entityId the unique ID of the entity to get the joins for. 
 	 * @param joinedEntityType the type of the entity to get the joins for.
 	 * @param pageNumber the page to retrieve, based on breaking up
 	 * the number of records in the table into "pages" with the
@@ -40,6 +41,6 @@ public interface GenericPaginatedJoinHolderService {
 	 * provided is not a supported entity by the database. 
 	 */
 	<T extends JoinHolder,U> List<T> getEntitiesByPageFor(Class<T> joinHolderType,
-			Class<U> joinedEntityType, int pageNumber, int pageRowCount);
+			Class<U> joinedEntityType, int entityId, int pageNumber, int pageRowCount);
 	
 }
