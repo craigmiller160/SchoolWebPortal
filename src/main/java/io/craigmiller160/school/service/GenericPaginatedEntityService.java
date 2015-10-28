@@ -13,62 +13,25 @@ import java.util.List;
  */
 public interface GenericPaginatedEntityService{
 
-	
-	
 	/**
-	 * A convenience method to get the previous page of records of
-	 * an entity from the database. Used to facilitate pagination
-	 * behavior. 
-	 * <p>
-	 * To use this method properly, the application should track
-	 * the first row number (NOT the primary key) on the currently
-	 * displayed page, to pass as the <tt>lastPageFirstRowNum</tt>
-	 * parameter. In addition, the <tt>pageSize</tt> value should
-	 * stay consistent between calls, unless it is specifically
-	 * changed by the client. These guidelines will minimize
-	 * inconsistencies with pagination.
-	 * <p>
-	 * <b>NOTE:</b> Ongoing CRUD operations on the underlying
-	 * database will likely effect pagination, so implementations
-	 * should take this into account in trying to be as flexible as
-	 * possible.
+	 * Get a "page" of of entities from the database, essentially
+	 * a sub-list of records from the database. The size
+	 * of a page is defined by the last parameter (pageRowCount).
+	 * The records to select are calculated by the pageNumber parameter,
+	 * which is multiplied by the pageRowCount to find the section
+	 * in the table to retrieve records for.
 	 * 
 	 * @param entityType the type of entity to retrieve records of.
-	 * @param lastPageFirstRowNum the first row number (NOT the primary key) on the currently
-	 * displayed page.
-	 * @param pageSize the number of records to return for the page.
-	 * @return a list of the previous page of entities.
+	 * @param pageNumber the page to retrieve, based on breaking up
+	 * the number of records in the table into "pages" with the
+	 * number of rows defined in pageRowCount.
+	 * @param pageRowCount the number of rows on each page.
+	 * @return a sub-list of entities from the table that is a "page"
+	 * of data, based on the supplied parameters.
 	 * @throws IllegalArgumentException if the type of entity
 	 * provided is not a supported entity by the database. 
 	 */
-	<T> List<T> getPreviousEntities(Class<T> entityType, int lastPageFirstRowNum, int pageSize);
-	
-	/**
-	 * A convenience method to get the next page of records of
-	 * an entity from the database. Used to facilitate pagination
-	 * behavior.
-	 * <p>
-	 * To use this method properly, the application should track
-	 * the last row number (NOT the primary key) on the currently
-	 * displayed page, to pass as the <tt>lastPageLastRowNum</tt>
-	 * parameter. In addition, the <tt>pageSize</tt> value should
-	 * stay consistent between calls, unless it is specifically
-	 * changed by the client. These guidelines will minimize
-	 * inconsistencies with pagination.
-	 * <p>
-	 * <b>NOTE:</b> Ongoing CRUD operations on the underlying
-	 * database will likely effect pagination, so implementations
-	 * should take this into account in trying to be as flexible as
-	 * possible.
-	 * 
-	 * @param entityType the type of entity to retrieve records of.
-	 * @param lastPageLastRowNum the last row number (NOT the primary key) on the currently
-	 * displayed page.
-	 * @param pageSize the number of records to return for the page.
-	 * @return a list of the next page of entities. 
-	 * @throws IllegalArgumentException if the type of entity
-	 * provided is not a supported entity by the database.
-	 */
-	<T> List<T> getNextEntities(Class<T> entityType, int lastPageLastRowNum, int pageSize);
+	<T> List<T> getEntitiesByPage(Class<T> entityType, int pageNumber, 
+			int pageRowCount);
 	
 }
