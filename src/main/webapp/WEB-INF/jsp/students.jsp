@@ -90,6 +90,31 @@
 					<tbody>
 						<!-- JSTL For Loop to create a new row for 
 						each entry in the students list -->
+						<c:forEach items="${students}" var="student">
+							<!-- Create the row -->
+							<tr>
+								<!-- Edit Button with a value of the Student ID -->
+								<td class="action-fields">
+									<form:form action="./${student.studentId}.html" method="get">
+										<input class="btn btn-default" type="submit" value="Edit"/>
+									</form:form>
+								</td>
+								<!-- Delete Button with a value of the Student ID -->
+								<td class="action-fields">
+									<form:form action="./${student.studentId}.html" method="delete">
+										<input class="btn btn-default" type="submit" value="Delete"/>
+									</form:form>
+								</td>
+								<td>${student.studentId}</td>
+								<td>${student.firstName}</td>
+								<td>${student.lastName}</td>
+								<td>${student.age}</td>
+								<td>${student.gender}</td>
+								<td>${student.grade}</td>
+							</tr>
+						</c:forEach>
+							
+							
 					</tbody>
 				
 				</table>
