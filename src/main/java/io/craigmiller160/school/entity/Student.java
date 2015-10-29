@@ -216,6 +216,18 @@ implements Comparable<Student>, Serializable{
 		this.gender = gender;
 	}
 	
+	/**
+	 * Get the age based on the currently set
+	 * date of birth.
+	 * 
+	 * @return the age based on the currently set 
+	 * date of birth.
+	 */
+	public int getAge(){
+		LocalDate today = LocalDate.now();
+		return birthDate.until(today).getYears();
+	}
+	
 	@Override
 	public String toString(){
 		return firstName + " " + lastName;

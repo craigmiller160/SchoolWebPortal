@@ -66,12 +66,14 @@ public class StudentTest{
 		student.setGender('M');
 		student.setGrade(5);
 		
-		assertEquals(student.getStudentId(), 1);
-		assertEquals(student.getFirstName(), "Joe");
-		assertEquals(student.getLastName(), "Dirt");
-		assertEquals(student.getBirthDate(), LocalDate.of(1988, 10, 26));
-		assertEquals(student.getGender(), 'M');
-		assertEquals(student.getGrade(), 5);
+		assertEquals("ID is wrong", student.getStudentId(), 1);
+		assertEquals("First Name is wrong", student.getFirstName(), "Joe");
+		assertEquals("Last Name is wrong", student.getLastName(), "Dirt");
+		assertEquals("Birth Date is wrong", student.getBirthDate(), 
+				LocalDate.of(1988, 10, 26));
+		assertEquals("Gender is wrong", student.getGender(), 'M');
+		assertEquals("Grade is wrong", student.getGrade(), 5);
+		assertEquals("Age is wrong", student.getAge(), 27);
 	}
 	
 	/**
