@@ -6,7 +6,6 @@
 <%@ include file="stub/jstl-stub.jsp" %> <!-- Include JSTL Tag Library -->
 <%@ include file="stub/css-stub.jsp" %> <!-- Include CSS Stylesheets -->
 <%@ include file="stub/spring-stub.jsp" %> <!-- Include Spring Tag Library -->
-<%@ include file="stub/js-stub.jsp" %>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title><spring:message code="admin.courses.page.title"/></title>
 </head>
