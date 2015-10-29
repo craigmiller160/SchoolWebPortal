@@ -91,6 +91,7 @@ public interface GenericEntityService {
 	 * provided is not a supported entity by the database.
 	 * @throws RuntimeException a subclass of <tt>RuntimeException</tt>
 	 * is thrown if this operation fails in some way.
+	 * @param <T> the type of entity to delete.
 	 */
 	<T> void deleteEntityById(Class<T> entityType, int entityId);
 	
