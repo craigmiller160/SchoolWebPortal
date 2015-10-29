@@ -171,11 +171,9 @@ public class AdminCourseController {
 	 */
 	@RequestMapping (value="/{courseId}", method=RequestMethod.DELETE)
 	public String deleteCourse(@PathVariable ("courseId") String courseId){
-		//TODO need deleteByID method
 		//TODO NumberFormatException needs to be handled
 		int id = Integer.parseInt(courseId);
-		Course course = service.getEntityById(Course.class, id);
-		service.deleteEntity(course);
+		service.deleteEntityById(Course.class, id);
 		
 		return "redirect:/admin/course/all.html?page=1";
 	}
