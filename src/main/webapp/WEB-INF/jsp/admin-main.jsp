@@ -56,8 +56,7 @@
 				<!-- Form with button to open the students section -->
 				<form:form action="admin/student/all.html" method="get">
 					<div>
-						<button class="options-button" type="submit"
-							name="students" value="all">
+						<button class="options-button" type="submit">
 							<spring:message code="admin.main.options.students"/>
 						</button>
 					</div>
