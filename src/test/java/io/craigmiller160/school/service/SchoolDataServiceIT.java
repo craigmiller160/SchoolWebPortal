@@ -870,6 +870,93 @@ public class SchoolDataServiceIT {
 	}
 	
 	/**
+	 * Test delete by ID for <tt>Student</tt> entities.
+	 * This test depends on the basic CRUD operations 
+	 * to be working, if they do not then this test will fail too.
+	 */
+	@Transactional
+	@Test
+	public void testStudentDeleteById(){
+		//Create dummy data
+		Student student = new Student();
+		setStudent1(student);
+		schoolDataService.insertEntity(student);
+		int studentId = student.getStudentId();
+		
+		//Test to ensure successful insert
+		student = schoolDataService.getEntityById(Student.class, studentId);
+		assertNotNull("Student insert failed", student);
+		
+		//Delete student
+		schoolDataService.deleteEntityById(Student.class, studentId);
+		
+		//Attempt to retrieve student to test for deletion
+		student = schoolDataService.getEntityById(Student.class, studentId);
+		assertNull("Student not deleted", student);
+	}
+	
+	/**
+	 * Test delete by ID for <tt>Course</tt> entities.
+	 * This test depends on the basic CRUD operations 
+	 * to be working, if they do not then this test will fail too.
+	 */
+	@Transactional
+	@Test
+	public void testCourseDeleteById(){
+		//Create dummy data
+		Course course = new Course();
+		setCourse1(course);
+		schoolDataService.insertEntity(course);
+		int courseId = course.getCourseId();
+		
+		//Test to ensure successful insert
+		course = schoolDataService.getEntityById(Course.class, courseId);
+		assertNotNull("Course insert failed", course);
+		
+		//Delete course
+		schoolDataService.deleteEntityById(Course.class, courseId);
+		
+		//Attempt to retrieve course to test for deletion
+		course = schoolDataService.getEntityById(Course.class, courseId);
+		assertNull("Course not deleted", course);
+	}
+	
+	/**
+	 * Test delete by ID for <tt>JoinHolder</tt> entities.
+	 * This test depends on the basic CRUD operations 
+	 * to be working, if they do not then this test will fail too.
+	 */
+	@Transactional
+	@Test
+	public void testJoinHolderDeleteById(){
+		//Create dummy data
+		Course course = new Course();
+		setCourse1(course);
+		schoolDataService.insertEntity(course);
+		
+		Student student = new Student();
+		setStudent1(student);
+		schoolDataService.insertEntity(student);
+		
+		ScJoinHolder joinHolder = new ScJoinHolder();
+		joinHolder.setCourse(course);
+		joinHolder.setStudent(student);
+		schoolDataService.insertEntity(joinHolder);
+		int jhId = joinHolder.getScId();
+		
+		//Test to ensure successful insert
+		joinHolder = schoolDataService.getEntityById(ScJoinHolder.class, jhId);
+		assertNotNull("JoinHolder insert failed", joinHolder);
+		
+		//Delete JoinHolder
+		schoolDataService.deleteEntityById(ScJoinHolder.class, jhId);
+		
+		//Attempt to retrieve JoinHolder to test for deletion
+		joinHolder = schoolDataService.getEntityById(ScJoinHolder.class, jhId);
+		assertNull("JoinHolder not deleted", joinHolder);
+	}
+	
+	/**
 	 * Set the fields of the <tt>Student</tt> object
 	 * to the first set of values.
 	 * 
@@ -934,7 +1021,6 @@ public class SchoolDataServiceIT {
 		testUtil.resetCourseAutoIncrement();
 		testUtil.resetStudentAutoIncrement();
 		testUtil.resetStudentCourseAutoIncrement();
-		//TODO the reset auto increment might not be working...
 	}
 	
 }

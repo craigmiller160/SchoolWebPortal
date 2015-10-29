@@ -78,6 +78,23 @@ public interface GenericEntityService {
 	<T> void deleteEntity(T entity);
 	
 	/**
+	 * Delete an entity from the database, using
+	 * its unique ID to determine which entity is
+	 * to be deleted. This is a convenience method
+	 * so that an entity can be deleted in a single
+	 * transaction if an instance of it is not
+	 * currently being handled by the program.
+	 * 
+	 * @param entityType the type of entity to delete.
+	 * @param entityId the unique ID of the entity to be deleted.
+	 * @throws IllegalArgumentException if the type of entity
+	 * provided is not a supported entity by the database.
+	 * @throws RuntimeException a subclass of <tt>RuntimeException</tt>
+	 * is thrown if this operation fails in some way.
+	 */
+	<T> void deleteEntityById(Class<T> entityType, int entityId);
+	
+	/**
 	 * Get a list of all persisted entities of the
 	 * specified type.
 	 * 

@@ -433,4 +433,24 @@ implements GenericEntityServiceBean {
 		return resultList;
 	}
 
+	@Transactional
+	@Override
+	public <T> void deleteEntityById(Class<T> entityType, int entityId) {
+		if(entityType.equals(Student.class)){
+			Student student = studentDao.getEntityById(entityId);
+			studentDao.deleteEntity(student);
+		}
+		else if(entityType.equals(Course.class)){
+			Course course = courseDao.getEntityById(entityId);
+			courseDao.deleteEntity(course);
+		}
+		else if(entityType.equals(ScJoinHolder.class)){
+			ScJoinHolder joinHolder = scJoinHolderDao.getEntityById(entityId);
+			scJoinHolderDao.deleteEntity(joinHolder);
+		}
+		else{
+			throw new IllegalArgumentException(entityType + " is not a valid entity");
+		}
+	}
+
 }
