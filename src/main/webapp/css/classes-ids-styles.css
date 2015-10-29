@@ -21,6 +21,27 @@
 	margin-top: 0px;
 }
 
+/* The Div holding the entities table and buttons */
+.entities-table-div{
+	width: 800px;
+	margin: 0 auto;
+	margin-top: 100px;
+}
+
+/* Table where all entities are displayed */
+.entities-table{
+	border: solid 1px lightgray;
+	box-shadow: 3px 3px 5px gray;
+}
+
+/* Caption for the entities table */
+.entities-table-caption{
+	text-align: center;
+	font-size: 25px;
+	color: black;
+	text-shadow: 2px 2px 5px gray;
+}
+
 /* Logo Div */
 .logo{
 	display: inline-block;
@@ -181,27 +202,6 @@
 
 .action-fields{
 	text-align: center;
-}
-
-/* Table where all courses are displayed */
-#courses-table{
-	border: solid 1px lightgray;
-	box-shadow: 3px 3px 5px gray;
-}
-
-/* The Div holding the courses table and buttons */
-#courses-table-div{
-	width: 800px;
-	margin: 0 auto;
-	margin-top: 100px;
-}
-
-/* Caption for the courses table */
-#courses-table-caption{
-	text-align: center;
-	font-size: 25px;
-	color: black;
-	text-shadow: 2px 2px 5px gray;
 }
 
 #courses-table-header{

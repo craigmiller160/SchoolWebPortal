@@ -41,11 +41,11 @@
 		<div class="content-container">
 			
 			<!-- Div for the courses list table -->
-			<div id="courses-table-div">
+			<div class="entities-table-div">
 				<!-- Table holding the list of courses -->
-				<table id="courses-table" class="table table-condensed table-hover table-striped">
+				<table class="entities-table table table-condensed table-hover table-striped">
 					<!-- Table Caption -->
-					<caption id="courses-table-caption">
+					<caption class="entities-table-caption">
 						<spring:message code="admin.courses.table.caption"/>
 					</caption>
 					
@@ -54,7 +54,7 @@
 						<tr>
 							<!-- Action Fields Header -->
 							<th class="action-fields" data-column-id="action" colspan="2">
-								<spring:message code="admin.courses.table.header.action"/>
+								<spring:message code="general.table.header.action"/>
 							</th>
 							<!-- Course ID Header -->
 							<th data-column-id="courseId">
