@@ -24,7 +24,7 @@
 			
 			<!-- Page Title in header -->
 			<div class="header-title">
-				<h1><spring:message code="admin.courses.header.title"/></h1>
+				<h1><spring:message code="admin.course.header.title"/></h1>
 			</div>
 			
 			<!-- Option to logout of web portal -->
