@@ -34,4 +34,16 @@ public class AdminStudentController {
 		return "students";
 	}
 	
+	@RequestMapping (value="/new", method=RequestMethod.GET)
+	public String createNewStudent(Student student){
+		return "student-form";
+	}
+	
+	@RequestMapping (value="/new", method=RequestMethod.PUT)
+	public String insertStudent(Student student){
+		System.out.println("Inserting!!!");
+		
+		return "redirect:/admin/student/all.html?page=1";
+	}
+	
 }
