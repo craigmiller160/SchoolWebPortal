@@ -84,6 +84,47 @@
 	float: right;
 }
 
+/* Container for the entity details form */
+.entity-form-container{
+	margin: 0 auto;
+	margin-top: 100px;
+	width: 800px;
+}
+
+/* Caption for the entity details form */
+.entity-form-caption{
+	text-align: center;
+	font-size: 25px;
+	color: black;
+	text-shadow: 2px 2px 5px gray;
+}
+
+/* The table for the layout of the entity details form */
+.entity-form-table{
+	margin: 0 auto;
+}
+
+/* The entity details form */
+.entity-form{
+	border: solid 1px lightgray;
+	box-shadow: 3px 3px 5px gray;
+	margin: 0 auto;
+	width: 800px;
+}
+
+/* Entity Form row */
+.entity-form-row > td{
+	font-size: 25px;
+	padding-left: 10px;
+	padding-right: 10px;
+	padding-bottom: 10px;
+	padding-top: 10px;
+}
+
+.entity-form-select{
+	font-size: 25px;
+}
+
 /* WELCOME PAGE */
 
 /* Footer style for welcome page */
@@ -224,42 +265,7 @@
 
 /* COURSE FORM PAGE */
 
-#course-form{
-	border: solid 1px lightgray;
-	box-shadow: 3px 3px 5px gray;
-	margin: 0 auto;
-	width: 800px;
-}
-
-#course-form-container{
-	margin: 0 auto;
-	margin-top: 100px;
-	width: 800px;
-}
-
-#course-form-table{
-	margin: 0 auto;
-}
-
-#course-form-caption{
-	text-align: center;
-	font-size: 25px;
-	color: black;
-	text-shadow: 2px 2px 5px gray;
-}
-
-.course-form-row > td{
-	font-size: 25px;
-	padding-left: 10px;
-	padding-right: 10px;
-	padding-bottom: 10px;
-	padding-top: 10px;
-}
 
 #course-btn-div{
 	margin-top: 20px;
-}
-
-#period-select{
-	font-size: 25px;
 }

@@ -53,10 +53,10 @@
 			<!-- Form to set the attributes of a course object -->
 			<form:form commandName="course" method="${formMethod}">
 				<!-- The outer container of the form, defining the border -->
-				<div id="course-form-container">
+				<div class="entity-form-container">
 					
 					<!-- The caption for the form -->
-					<h3 id="course-form-caption">
+					<h3 class="entity-form-caption">
 						<spring:message code="admin.course.form.caption"/>
 					</h3>
 					
@@ -64,11 +64,11 @@
 					<form:input type="hidden" path="courseId"/>
 					
 					<!-- Inner div holding the form itself -->
-					<div id="course-form">
+					<div class="entity-form">
 					<!-- Table for the form's layout -->
-					<table id="course-form-table">
+					<table class="entity-form-table">
 						<!-- Course Name row, with label and field -->
-						<tr class="course-form-row">
+						<tr class="entity-form-row">
 							<td>
 								<spring:message code="admin.course.form.name"/>
 							</td>
@@ -77,27 +77,25 @@
 							</td>
 						</tr>
 						<!-- Course Subject row, with label and field -->
-						<tr class="course-form-row">
+						<tr class="entity-form-row">
 							<td><spring:message code="admin.course.form.subject"/></td>
 							<td>
-								<form:input type="text" path="subject" 
-									name="subject"/>
+								<form:input type="text" path="subject"/>
 							</td>
 						</tr>
 						<!-- Course Teacher row, with label and field -->
-						<tr class="course-form-row">
+						<tr class="entity-form-row">
 							<td><spring:message code="admin.course.form.teacher"/></td>
 							<td>
-								<form:input type="text" path="teacherLastName" 
-									name="teacherLastName"/>
+								<form:input type="text" path="teacherLastName"/>
 							</td>
 						</tr>
 						<!-- Course Period row, with label and select box -->
-						<tr class="course-form-row">
+						<tr class="entity-form-row">
 							<td><spring:message code="admin.course.form.period"/></td>
 							<td>
 								<% //TODO fix the height of this select, the numbers get cut off %>
-								<select id="period-select" class="form-control" name="period">
+								<form:select class="entity-form-select form-control" path="period">
 									<c:forEach begin="1" end="12" var="i">
 										<option value="${i}" 
 											<c:if test="${i == course.period}">
@@ -105,7 +103,7 @@
 											</c:if>
 										><c:out value="${i}"/></option>
 									</c:forEach>
-								</select>
+								</form:select>
 							</td>
 						</tr>
 					</table>
