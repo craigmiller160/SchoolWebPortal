@@ -42,6 +42,11 @@
 	text-shadow: 2px 2px 5px gray;
 }
 
+/* Entities table button bar */
+.entities-btn-bar{
+	margin-bottom: 50px;
+}
+
 /* Logo Div */
 .logo{
 	display: inline-block;
@@ -72,6 +77,11 @@
 /* Drop shadow for buttons */
 .btn-shadow{
 	box-shadow: 3px 3px 5px gray;	
+}
+
+/* The add button for the table */
+.add-btn{
+	float: right;
 }
 
 /* WELCOME PAGE */
@@ -210,14 +220,6 @@
 
 #select-radio{
 	text-align: center;
-}
-
-#add-btn{
-	float: right;
-}
-
-#courses-btn-bar{
-	margin-bottom: 50px;
 }
 
 /* COURSE FORM PAGE */

@@ -109,7 +109,7 @@
 				</table>
 				
 				<!-- Button toolbar with action buttons for courses table -->
-				<div id="courses-btn-bar" class="btn-toolbar" role="toolbar">
+				<div class="entities-btn-bar btn-toolbar" role="toolbar">
 					
 					<!-- Next/Previous page buttons -->
 					<div class="btn-group-lg page-btns" role="group">
@@ -131,7 +131,7 @@
 					</div>
 					
 					<!-- Add Course Button -->
-					<div id="add-btn" class="btn-group-lg" role="group">
+					<div class="add-btn btn-group-lg" role="group">
 						<form:form id="addForm" action="./new.html" method="get">
 							<input class="btn btn-lg btn-default btn-shadow" type="submit" 
 								value="Add New"/>
