@@ -105,19 +105,46 @@
 										<input class="btn btn-default" type="submit" value="Delete"/>
 									</form:form>
 								</td>
-								<td>${student.studentId}</td>
-								<td>${student.firstName}</td>
-								<td>${student.lastName}</td>
-								<td>${student.age}</td>
-								<td>${student.gender}</td>
-								<td>${student.grade}</td>
+								<td>${student.studentId}</td> <!-- Student ID Field -->
+								<td>${student.firstName}</td> <!-- First Name Field -->
+								<td>${student.lastName}</td> <!-- Last Name Field -->
+								<td>${student.age}</td> <!-- Age Field -->
+								<td>${student.gender}</td> <!-- Gender Field -->
+								<td>${student.grade}</td> <!-- Grade Field -->
 							</tr>
 						</c:forEach>
-							
-							
 					</tbody>
-				
 				</table>
+				
+				<!-- Button toolbar with action buttons for students table -->
+				<div class="entities-btn-bar btn-toolbar" role="toolbar">
+					<!-- Next/Previous page buttons -->
+					<div class="btn-group-lg page-btns" role="group">
+						<!-- Only show previous page button if page > 1 -->
+						<c:if test="${page > 1}"> 
+							<form:form method="get">
+								<input type="hidden" name="page" value="${page - 1}"/>
+								<input class="btn-page btn btn-lg btn-default btn-shadow" type="submit"
+									value="Previous Page"/>
+							</form:form>
+						</c:if>
+						<% //TODO need to figure out how to kill the next button when there's no more pages %> 
+						<form:form method="get">
+							<input type="hidden" name="page" value="${page + 1}"/>
+							<input class="btn-page btn btn-lg btn-default btn-shadow" type="submit"
+								value="Next Page"/>
+						</form:form>
+						
+					</div>
+					
+					<!-- Add Student Button -->
+					<div class="add-btn btn-group-lg" role="group">
+						<form:form id="addForm" action="./new.html" method="get">
+							<input class="btn btn-lg btn-default btn-shadow" type="submit" 
+								value="Add New"/>
+						</form:form>
+					</div>
+				</div>
 			
 			
 			</div>
