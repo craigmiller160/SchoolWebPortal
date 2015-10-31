@@ -113,7 +113,7 @@
 					<div class="entity-form-btns btn-toolbar">
 						<div class="btn-group-lg">
 							<input class="btn btn-default btn-lg btn-shadow" name="cancel" type="submit"
-								value="<spring:message code="admin.course.form.cancel"/>"/>
+								value="<spring:message code="general.cancel"/>"/>
 							<input class="btn btn-default btn-lg btn-shadow" name="save" type="submit" 
 								value="<spring:message code="admin.course.form.save"/>"/>
 						</div>

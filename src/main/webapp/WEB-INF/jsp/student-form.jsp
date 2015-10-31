@@ -122,6 +122,16 @@
 					</table>
 					
 					</div>
+					
+					<!-- Save/Cancel buttons in button bar -->
+					<div class="entity-form-btns btn-toolbar">
+						<div class="btn-group-lg">
+							<input class="btn btn-default btn-lg btn-shadow" name="cancel" type="submit"
+								value="<spring:message code="general.cancel"/>"/>
+							<input class="btn btn-default btn-lg btn-shadow" name="save" type="submit" 
+								value="<spring:message code="admin.student.form.save"/>"/>
+						</div>
+					</div>
 				
 				</div>
 			
