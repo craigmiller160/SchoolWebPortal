@@ -96,8 +96,13 @@ public class AdminCourseController {
 	 * is thrown if the persistence operation fails.
 	 */
 	@RequestMapping (value="/new", method=RequestMethod.PUT)
-	public String insertCourse(Course course){
-		service.insertEntity(course);
+	public String insertCourse(Course course, 
+			@RequestParam (required=false) String cancel){
+		if(cancel == null){
+			service.insertEntity(course);
+		}
+		
+		
 		
 		return "redirect:/admin/course/all.html?page=1";
 	}

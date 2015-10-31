@@ -16,6 +16,8 @@ import io.craigmiller160.school.service.GenericEntityServiceBean;
 @RequestMapping (value="/admin/student")
 public class AdminStudentController {
 
+	//TODO this and the course controller, how to handle HibernateExceptions???
+	
 	private final GenericEntityServiceBean service;
 	
 	@Autowired (required=true)
@@ -40,8 +42,11 @@ public class AdminStudentController {
 	}
 	
 	@RequestMapping (value="/new", method=RequestMethod.PUT)
-	public String insertStudent(Student student){
-		System.out.println("Inserting!!!");
+	public String insertStudent(Student student,
+			@RequestParam (required=false) String cancel){
+		if(cancel == null){
+			service.insertEntity(student);
+		}
 		
 		return "redirect:/admin/student/all.html?page=1";
 	}
