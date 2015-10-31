@@ -110,7 +110,7 @@
 					</div>
 					
 					<!-- Save/Cancel buttons in button bar -->
-					<div id="course-btn-div" class="btn-toolbar">
+					<div class="entity-form-btns btn-toolbar">
 						<div class="btn-group-lg">
 							<input class="btn btn-default btn-lg btn-shadow" name="cancel" type="submit"
 								value="<spring:message code="admin.course.form.cancel"/>"/>

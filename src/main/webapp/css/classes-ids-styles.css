@@ -125,6 +125,10 @@
 	font-size: 25px;
 }
 
+.entity-form-btns{
+	margin-top: 20px;
+}
+
 /* WELCOME PAGE */
 
 /* Footer style for welcome page */
@@ -266,6 +270,3 @@
 /* COURSE FORM PAGE */
 
 
-#course-btn-div{
-	margin-top: 20px;
-}
