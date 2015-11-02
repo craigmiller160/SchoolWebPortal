@@ -94,4 +94,13 @@ public class AdminStudentController {
 		return "redirect:/admin/student/all.html?page=1";
 	}
 	
+	@RequestMapping (value="/{studentId}", method=RequestMethod.DELETE)
+	public String deleteStudent(@PathVariable ("studentId") String studentId){
+		//TODO NumberFormatException needs to be handled
+		int id = Integer.parseInt(studentId);
+		service.deleteEntityById(Student.class, id);
+		
+		return "redirect:/admin/student/all.html?page=1";
+	}
+	
 }
