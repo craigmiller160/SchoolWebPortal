@@ -77,22 +77,22 @@
 								<spring:message code="admin.student.form.firstName"/>
 							</td>
 							<td>
-								<form:input class="form-control" path="firstName"/>
+								<form:input class="entity-form-input form-control" path="firstName"/>
 							</td>
 						</tr>
 						<!-- Last Name row, with label and field -->
 						<tr class="entity-form-row">
 							<td><spring:message code="admin.student.form.lastName"/></td>
 							<td>
-								<form:input class="form-control" type="text" path="lastName"/>
+								<form:input class="entity-form-input form-control" type="text" path="lastName"/>
 							</td>
 						</tr>
 						<!-- Birth Date row, with label and field -->
 						<tr class="entity-form-row">
 							<td><spring:message code="admin.student.form.birthDate"/></td>
 							<td>
-								<% //TODO need to look up a date picker for this one %>
-								<form:input id="datepicker" class="form-control" 
+								<% //TODO Datepicker value causes error with controller's expected type %>
+								<form:input id="datepicker" class="entity-form-input form-control" 
 									type="text" path="birthDate"/>
 							</td>
 						</tr>
@@ -101,7 +101,7 @@
 							<td><spring:message code="admin.student.form.gender"/></td>
 							<td>
 								<% //TODO fix the height of this select, the numbers get cut off %>
-								<form:select class="entity-form-select form-control" path="gender">
+								<form:select class="entity-form-input form-control" path="gender">
 									<% //TODO set it so that the selected item is the entity's gender %>
 									<option value="M">M</option>
 									<option value="F">F</option>
@@ -114,7 +114,7 @@
 							<td><spring:message code="admin.student.form.grade"/></td>
 							<td>
 								<% //TODO fix the height of this select, the numbers get cut off %>
-								<form:select class="entity-form-select form-control" path="gender">
+								<form:select class="entity-form-input form-control" path="gender">
 									<% //TODO set it so that the selected item is the entity's grade %>
 									<c:forEach begin="1" end="12" var="i">
 										<option value="${i}"><c:out value="${i}"/></option>

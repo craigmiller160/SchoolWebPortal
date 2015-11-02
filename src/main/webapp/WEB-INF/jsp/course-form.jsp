@@ -74,21 +74,24 @@
 								<spring:message code="admin.course.form.name"/>
 							</td>
 							<td>
-								<form:input path="courseName"/>
+								<form:input class="entity-form-input form-control" 
+									type="text" path="courseName"/>
 							</td>
 						</tr>
 						<!-- Course Subject row, with label and field -->
 						<tr class="entity-form-row">
 							<td><spring:message code="admin.course.form.subject"/></td>
 							<td>
-								<form:input type="text" path="subject"/>
+								<form:input class="entity-form-input form-control" 
+									type="text" path="subject"/>
 							</td>
 						</tr>
 						<!-- Course Teacher row, with label and field -->
 						<tr class="entity-form-row">
 							<td><spring:message code="admin.course.form.teacher"/></td>
 							<td>
-								<form:input type="text" path="teacherLastName"/>
+								<form:input class="entity-form-input form-control" 
+									type="text" path="teacherLastName"/>
 							</td>
 						</tr>
 						<!-- Course Period row, with label and select box -->
@@ -96,7 +99,8 @@
 							<td><spring:message code="admin.course.form.period"/></td>
 							<td>
 								<% //TODO fix the height of this select, the numbers get cut off %>
-								<form:select class="entity-form-select form-control" path="period">
+								<form:select class="entity-form-input form-control" 
+									path="period">
 									<c:forEach begin="1" end="12" var="i">
 										<option value="${i}" 
 											<c:if test="${i == course.period}">

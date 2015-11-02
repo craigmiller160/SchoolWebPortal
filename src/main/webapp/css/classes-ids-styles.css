@@ -121,8 +121,9 @@
 	padding-top: 10px;
 }
 
-.entity-form-select{
+.entity-form-input{
 	font-size: 25px;
+	height: 40px;
 }
 
 .entity-form-btns{
