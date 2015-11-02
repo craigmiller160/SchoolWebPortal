@@ -4,6 +4,7 @@
 <html>
 <head>
 <%@ include file="stub/jstl-stub.jsp" %> <!-- Include JSTL Tag Library -->
+<%@ include file="stub/bootstrap-stub.jsp" %> <!-- Include Bootstrap Dependencies -->
 <%@ include file="stub/css-stub.jsp" %> <!-- Include CSS Stylesheets -->
 <%@ include file="stub/spring-stub.jsp" %> <!-- Include Spring Tag Library -->
 <%@ include file="stub/js-stub.jsp" %> <!-- Include JQuery Library -->
