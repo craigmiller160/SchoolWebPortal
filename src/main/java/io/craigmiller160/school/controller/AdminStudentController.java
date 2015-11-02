@@ -1,16 +1,21 @@
 package io.craigmiller160.school.controller;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import io.craigmiller160.school.entity.Student;
 import io.craigmiller160.school.service.GenericEntityServiceBean;
+import io.craigmiller160.school.util.DatePropertyEditor;
 
 @Controller
 @RequestMapping (value="/admin/student")
@@ -19,6 +24,15 @@ public class AdminStudentController {
 	//TODO this and the course controller, how to handle HibernateExceptions???
 	
 	private final GenericEntityServiceBean service;
+	
+	@InitBinder (value="student")
+	public void dateBinding(WebDataBinder binder){
+		System.out.println("Date Binding Running");
+		DateTimeFormatter formatter = 
+				DateTimeFormatter.ofPattern("MM/dd/yyyy");
+		DatePropertyEditor editor = new DatePropertyEditor(formatter, true);
+		binder.registerCustomEditor(LocalDate.class, editor);
+	}
 	
 	@Autowired (required=true)
 	public AdminStudentController(GenericEntityServiceBean service){
