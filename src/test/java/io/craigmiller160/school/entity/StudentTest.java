@@ -42,12 +42,13 @@ public class StudentTest{
 		Student student = new Student();
 		assertNotNull(student);
 		
-		student = new Student("FirstName", "LastName", LocalDate.of(1900, 1, 1), 'U', 1);
+		student = new Student("FirstName", "LastName", 
+				LocalDate.of(1900, 1, 1), Gender.UNKNOWN, 1);
 		assertNotNull(student);
 		assertEquals(student.getFirstName(), "FirstName");
 		assertEquals(student.getLastName(), "LastName");
 		assertEquals(student.getBirthDate(), LocalDate.of(1900, 1, 1));
-		assertEquals(student.getGender(), 'U');
+		assertEquals(student.getGender(), Gender.UNKNOWN);
 		assertEquals(student.getGrade(), 1);
 	}
 	
@@ -63,7 +64,7 @@ public class StudentTest{
 		student.setFirstName("Joe");
 		student.setLastName("Dirt");
 		student.setBirthDate(LocalDate.of(1988, 10, 26));
-		student.setGender('M');
+		student.setGender(Gender.UNKNOWN);
 		student.setGrade(5);
 		
 		assertEquals("ID is wrong", student.getStudentId(), 1);
@@ -71,7 +72,7 @@ public class StudentTest{
 		assertEquals("Last Name is wrong", student.getLastName(), "Dirt");
 		assertEquals("Birth Date is wrong", student.getBirthDate(), 
 				LocalDate.of(1988, 10, 26));
-		assertEquals("Gender is wrong", student.getGender(), 'M');
+		assertEquals("Gender is wrong", student.getGender(), Gender.UNKNOWN);
 		assertEquals("Grade is wrong", student.getGrade(), 5);
 		assertEquals("Age is wrong", student.getAge(), 27);
 	}

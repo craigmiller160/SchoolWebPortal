@@ -20,6 +20,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import io.craigmiller160.school.context.AppContext;
+import io.craigmiller160.school.entity.Gender;
 import io.craigmiller160.school.entity.Student;
 import io.craigmiller160.school.util.HibernateTestUtil;
 
@@ -83,7 +84,7 @@ public class StudentDaoIT {
 		student.setFirstName("First");
 		student.setLastName("Last");
 		student.setBirthDate(LocalDate.of(1900, 1, 1));
-		student.setGender('U');
+		student.setGender(Gender.UNKNOWN);
 		student.setGrade(1);
 	}
 	
@@ -97,7 +98,7 @@ public class StudentDaoIT {
 		student.setFirstName("First2");
 		student.setLastName("Last2");
 		student.setBirthDate(LocalDate.of(1950, 1, 1));
-		student.setGender('M');
+		student.setGender(Gender.MALE);
 		student.setGrade(2);
 	}
 	
@@ -119,7 +120,7 @@ public class StudentDaoIT {
 		assertEquals(INSERT_FAIL, student.getFirstName(), "First");
 		assertEquals(INSERT_FAIL, student.getLastName(), "Last");
 		assertEquals(INSERT_FAIL, student.getBirthDate(), LocalDate.of(1900, 1, 1));
-		assertEquals(INSERT_FAIL, student.getGender(), 'U');
+		assertEquals(INSERT_FAIL, student.getGender(), Gender.UNKNOWN);
 		assertEquals(INSERT_FAIL, student.getGrade(), 1);
 		
 		//Change content and update
@@ -132,7 +133,7 @@ public class StudentDaoIT {
 		assertEquals(UPDATE_FAIL, student.getFirstName(), "First2");
 		assertEquals(UPDATE_FAIL, student.getLastName(), "Last2");
 		assertEquals(UPDATE_FAIL, student.getBirthDate(), LocalDate.of(1950, 1, 1));
-		assertEquals(UPDATE_FAIL, student.getGender(), 'M');
+		assertEquals(UPDATE_FAIL, student.getGender(), Gender.MALE);
 		assertEquals(UPDATE_FAIL, student.getGrade(), 2);
 		
 		//Delete entity

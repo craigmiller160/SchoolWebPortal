@@ -91,7 +91,6 @@
 						<tr class="entity-form-row">
 							<td><spring:message code="admin.student.form.birthDate"/></td>
 							<td>
-								<% //TODO Datepicker value causes error with controller's expected type %>
 								<form:input id="datepicker" class="entity-form-input form-control" 
 									type="text" path="birthDate"/>
 							</td>
@@ -100,12 +99,14 @@
 						<tr class="entity-form-row">
 							<td><spring:message code="admin.student.form.gender"/></td>
 							<td>
-								<% //TODO fix the height of this select, the numbers get cut off %>
 								<form:select class="entity-form-input form-control" path="gender">
-									<% //TODO set it so that the selected item is the entity's gender %>
-									<option value="M">M</option>
-									<option value="F">F</option>
-									<option value="U">U</option>
+									<c:forEach items="${genders}" var="g">
+										<option value="${g}"
+											<c:if test="${student.gender == g}">
+												selected
+											</c:if>
+										><c:out value="${g}"/></option>
+									</c:forEach>
 								</form:select>
 							</td>
 						</tr>
@@ -113,11 +114,14 @@
 						<tr class="entity-form-row">
 							<td><spring:message code="admin.student.form.grade"/></td>
 							<td>
-								<% //TODO fix the height of this select, the numbers get cut off %>
 								<form:select class="entity-form-input form-control" path="grade">
 									<% //TODO set it so that the selected item is the entity's grade %>
 									<c:forEach begin="1" end="12" var="i">
-										<option value="${i}"><c:out value="${i}"/></option>
+										<option value="${i}"
+											<c:if test="${i == student.grade}">
+												selected
+											</c:if>
+										><c:out value="${i}"/></option>
 									</c:forEach>
 								</form:select>
 							</td>

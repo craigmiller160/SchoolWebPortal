@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import io.craigmiller160.school.entity.Course;
+import io.craigmiller160.school.entity.Gender;
 import io.craigmiller160.school.entity.JoinHolder;
 import io.craigmiller160.school.entity.ScJoinHolder;
 import io.craigmiller160.school.entity.Student;
@@ -33,6 +34,9 @@ import io.craigmiller160.school.repo.GenericJoinHolderDaoBean;
 public class SchoolDataService 
 implements GenericEntityServiceBean {
 
+	//TODO for the convenience create operations, wrap all exceptions
+	//in IllegalArgumentException
+	
 	/**
 	 * The DAO for persisting <tt>Student</tt> objects.
 	 */
@@ -147,7 +151,7 @@ implements GenericEntityServiceBean {
 					params.length >= 1 ? (String) params[0] : null,
 					params.length >= 2 ? (String) params[1] : null,
 					params.length >= 3 ? (LocalDate) params[2] : null,
-					params.length >= 4 ? (char) params[3] : null,
+					params.length >= 4 ? (Gender) params[3] : null,
 					params.length >= 5 ? (int) params[4] : null);
 			studentDao.insertEntity(student);
 			return (T) student;
@@ -179,7 +183,7 @@ implements GenericEntityServiceBean {
 	 * @return the created student.
 	 */
 	private Student createStudent(String firstName, String lastName, 
-			LocalDate birthDate, Character gender, Integer grade){
+			LocalDate birthDate, Gender gender, Integer grade){
 		Student student = new Student();
 		if(firstName != null){
 			student.setFirstName(firstName);

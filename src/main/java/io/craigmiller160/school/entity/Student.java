@@ -6,6 +6,8 @@ import java.time.LocalDate;
 import javax.persistence.Column;
 import javax.persistence.Convert;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -65,7 +67,8 @@ implements Comparable<Student>, Serializable{
 	/**
 	 * The gender of the student.
 	 */
-	private char gender;
+	@Enumerated (EnumType.STRING)
+	private Gender gender;
 	
 	/**
 	 * The grade of the student.
@@ -88,7 +91,7 @@ implements Comparable<Student>, Serializable{
 	 * @param grade the grade of the student.
 	 */
 	public Student(String firstName, String lastName, 
-			LocalDate birthDate, char gender, int grade){
+			LocalDate birthDate, Gender gender, int grade){
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.birthDate = birthDate;
@@ -203,7 +206,7 @@ implements Comparable<Student>, Serializable{
 	 * @throws NullPointerException if the field 
 	 * being retrieved was not set.
 	 */
-	public char getGender() {
+	public Gender getGender() {
 		return gender;
 	}
 
@@ -212,7 +215,7 @@ implements Comparable<Student>, Serializable{
 	 * 
 	 * @param gender the gender of the student.
 	 */
-	public void setGender(char gender) {
+	public void setGender(Gender gender) {
 		this.gender = gender;
 	}
 	

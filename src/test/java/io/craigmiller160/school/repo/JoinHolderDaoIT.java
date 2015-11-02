@@ -22,6 +22,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import io.craigmiller160.school.context.AppContext;
 import io.craigmiller160.school.entity.Course;
+import io.craigmiller160.school.entity.Gender;
 import io.craigmiller160.school.entity.ScJoinHolder;
 import io.craigmiller160.school.entity.Student;
 import io.craigmiller160.school.util.HibernateTestUtil;
@@ -594,7 +595,7 @@ public class JoinHolderDaoIT {
 		student.setFirstName("First");
 		student.setLastName("Last");
 		student.setBirthDate(LocalDate.of(1900, 1, 1));
-		student.setGender('U');
+		student.setGender(Gender.UNKNOWN);
 		student.setGrade(1);
 	}
 	
@@ -608,7 +609,7 @@ public class JoinHolderDaoIT {
 		student.setFirstName("First2");
 		student.setLastName("Last2");
 		student.setBirthDate(LocalDate.of(1950, 1, 1));
-		student.setGender('M');
+		student.setGender(Gender.MALE);
 		student.setGrade(2);
 	}
 

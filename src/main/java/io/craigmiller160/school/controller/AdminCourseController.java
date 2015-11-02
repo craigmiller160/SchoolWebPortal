@@ -98,6 +98,7 @@ public class AdminCourseController {
 	@RequestMapping (value="/new", method=RequestMethod.PUT)
 	public String insertCourse(Course course, 
 			@RequestParam (required=false) String cancel){
+		//If the button selected wasn't cancel, it must be save
 		if(cancel == null){
 			service.insertEntity(course);
 		}
