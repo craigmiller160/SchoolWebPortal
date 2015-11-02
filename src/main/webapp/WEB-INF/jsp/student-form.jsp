@@ -4,10 +4,11 @@
 <html>
 <head>
 <%@ include file="stub/jstl-stub.jsp" %> <!-- Include JSTL Tag Library -->
+<%@ include file="stub/js-stub.jsp" %> <!-- Include JQuery Library -->
 <%@ include file="stub/bootstrap-stub.jsp" %> <!-- Include Bootstrap Dependencies -->
 <%@ include file="stub/css-stub.jsp" %> <!-- Include CSS Stylesheets -->
 <%@ include file="stub/spring-stub.jsp" %> <!-- Include Spring Tag Library -->
-<%@ include file="stub/js-stub.jsp" %> <!-- Include JQuery Library -->
+<%@ include file="stub/bootstrap-datepicker-stub.jsp" %> <!-- Include Bootstrap Datepicker Dependencies -->
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title><spring:message code="admin.student.page.title"/></title>
 </head>
@@ -76,14 +77,14 @@
 								<spring:message code="admin.student.form.firstName"/>
 							</td>
 							<td>
-								<form:input path="firstName"/>
+								<form:input class="form-control" path="firstName"/>
 							</td>
 						</tr>
 						<!-- Last Name row, with label and field -->
 						<tr class="entity-form-row">
 							<td><spring:message code="admin.student.form.lastName"/></td>
 							<td>
-								<form:input type="text" path="lastName"/>
+								<form:input class="form-control" type="text" path="lastName"/>
 							</td>
 						</tr>
 						<!-- Birth Date row, with label and field -->
@@ -91,7 +92,8 @@
 							<td><spring:message code="admin.student.form.birthDate"/></td>
 							<td>
 								<% //TODO need to look up a date picker for this one %>
-								<form:input type="text" path="birthDate"/>
+								<form:input id="datepicker" class="form-control" 
+									type="text" path="birthDate"/>
 							</td>
 						</tr>
 						<!-- Gender row, with label and select box -->
@@ -149,6 +151,16 @@
 		
 	
 	</div>
+	
+	<!-- Bootstrap Datepicker JQuery Script -->
+	<script>
+	$(document).ready(function(){
+		$('#datepicker').datepicker({
+			startDate: "-50y",
+			endDate: "+50y"
+		});
+	});
+	</script>
 
 </body>
 </html>
