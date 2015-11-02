@@ -27,7 +27,6 @@ public class AdminStudentController {
 	
 	@InitBinder (value="student")
 	public void dateBinding(WebDataBinder binder){
-		System.out.println("Date Binding Running");
 		DateTimeFormatter formatter = 
 				DateTimeFormatter.ofPattern("MM/dd/yyyy");
 		DatePropertyEditor editor = new DatePropertyEditor(formatter, true);

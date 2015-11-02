@@ -114,7 +114,7 @@
 							<td><spring:message code="admin.student.form.grade"/></td>
 							<td>
 								<% //TODO fix the height of this select, the numbers get cut off %>
-								<form:select class="entity-form-input form-control" path="gender">
+								<form:select class="entity-form-input form-control" path="grade">
 									<% //TODO set it so that the selected item is the entity's grade %>
 									<c:forEach begin="1" end="12" var="i">
 										<option value="${i}"><c:out value="${i}"/></option>
