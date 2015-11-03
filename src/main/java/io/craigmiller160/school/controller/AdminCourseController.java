@@ -66,6 +66,8 @@ public class AdminCourseController {
 				Course.class, page, 10);
 		model.addAttribute("courses", courses);
 		model.addAttribute("page", page);
+		model.addAttribute("morePages", service.hasPagesRemaining(
+				Course.class, page, 10));
 		
 		return "courses";
 	}
