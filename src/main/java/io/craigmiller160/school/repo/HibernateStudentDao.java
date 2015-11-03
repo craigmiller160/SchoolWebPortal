@@ -149,7 +149,7 @@ implements GenericEntityDaoBean<Student> {
 	@Override
 	public long getEntityCount() {
 		Session session = sessionFactory.getCurrentSession();
-		return (Long) session.createQuery("select count(*) from Course").uniqueResult();
+		return (Long) session.createQuery("select count(*) from Student").uniqueResult();
 		
 	}
 
