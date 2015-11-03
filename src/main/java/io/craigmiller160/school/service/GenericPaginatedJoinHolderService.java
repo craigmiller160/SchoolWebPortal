@@ -45,4 +45,27 @@ public interface GenericPaginatedJoinHolderService {
 	<T extends JoinHolder,U> List<T> getEntitiesByPageFor(Class<T> joinHolderType,
 			Class<U> joinedEntityType, int entityId, int pageNumber, int pageRowCount);
 	
+	/**
+	 * A convenience method to determine if the last available
+	 * "page" of a joined entity has been displayed. This is
+	 * determined based on the provided pageNumber and pageRowCount
+	 * arguments, which are used to calculate if a "next page"
+	 * operation would return any additional records.
+	 * 
+	 * @param joinHolderType the type of <tt>JoinHolder</tt> the specified
+	 * entity is linked to.
+	 * @param joinedEntityType the type of entity to check if pages remain.
+	 * @param entityId the unique ID of the entity to get the joins for. 
+	 * @param pageNumber the current page number.
+	 * @param pageRowCount the number of rows per page.
+	 * @return true if a "next page" operation would return 
+	 * additional records.
+	 * @throws IllegalArgumentException if the type of entity
+	 * provided is not a supported entity by the database.
+	 * @param <T> the type of entity to get by page.
+	 */
+	<T extends JoinHolder,U> boolean hasPagesRemainingFor(Class<T> joinHolderType,
+			Class<U> joinedEntityType, int entityId, int pageNumber, 
+			int pageRowCount);
+	
 }

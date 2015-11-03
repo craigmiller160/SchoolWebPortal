@@ -35,4 +35,23 @@ public interface GenericPaginatedEntityService{
 	<T> List<T> getEntitiesByPage(Class<T> entityType, int pageNumber, 
 			int pageRowCount);
 	
+	/**
+	 * A convenience method to determine if the last available
+	 * "page" of an entity has been displayed. This is
+	 * determined based on the provided pageNumber and pageRowCount
+	 * arguments, which are used to calculate if a "next page"
+	 * operation would return any additional records.
+	 * 
+	 * @param entityType the type of entity to check if pages remain.
+	 * @param pageNumber the current page number.
+	 * @param pageRowCount the number of rows per page.
+	 * @return true if a "next page" operation would return 
+	 * additional records.
+	 * @throws IllegalArgumentException if the type of entity
+	 * provided is not a supported entity by the database.
+	 * @param <T> the type of entity to get by page.
+	 */
+	<T> boolean hasPagesRemaining(Class<T> entityType, int pageNumber, 
+			int pageRowCount);
+	
 }

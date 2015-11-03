@@ -958,6 +958,176 @@ public class SchoolDataServiceIT {
 	}
 	
 	/**
+	 * Test the hasPagesRemaining method in the service
+	 * class for <tt>Student</tt> entities. This is dependent 
+	 * on the count methods, and
+	 * if they don't work, this won't
+	 * work either.
+	 */
+	@Transactional
+	@Test
+	public void testStudentHasPagesRemaining(){
+		//Create dummy data
+		for(int i = 0; i < 10; i++){
+			Student student = new Student();
+			setStudent1(student);
+			schoolDataService.insertEntity(student);
+		}
+		
+		//Get the current count to set up the comparison
+		long actualCount = schoolDataService.getEntityCount(Student.class);
+		int pageCount = (int) actualCount / 10; //Works because of small data sets, might not work in larger application.
+		
+		//Test with a value that should result in true
+		assertTrue("Should have pages remaining", schoolDataService.hasPagesRemaining(
+				Student.class, 1, 5));
+		//Test with a value that should result in false
+		assertFalse("Should not have pages remaining", schoolDataService.hasPagesRemaining(
+				Student.class, pageCount + 1, 10));
+	}
+	
+	/**
+	 * Test the hasPagesRemaining method in the service
+	 * class for <tt>Course</tt> entities. This is dependent 
+	 * on the count methods, and
+	 * if they don't work, this won't
+	 * work either.
+	 */
+	@Transactional
+	@Test
+	public void testCourseHasPagesRemaining(){
+		//Create dummy data
+		for(int i = 0; i < 10; i++){
+			Course course = new Course();
+			setCourse1(course);
+			schoolDataService.insertEntity(course);
+		}
+		
+		//Get the current count to set up the comparison
+		long actualCount = schoolDataService.getEntityCount(Course.class);
+		int pageCount = (int) actualCount / 10; //Works because of small data sets, might not work in larger application.
+		
+		//Test with a value that should result in true
+		assertTrue("Should have pages remaining", schoolDataService.hasPagesRemaining(
+				Course.class, 1, 5));
+		//Test with a value that should result in false
+		assertFalse("Should not have pages remaining", schoolDataService.hasPagesRemaining(
+				Course.class, pageCount + 1, 10));
+	}
+	
+	/**
+	 * Test the hasPagesRemaining method in the service
+	 * class for <tt>ScJoinHolder</tt> entities. This is dependent 
+	 * on the count methods, and
+	 * if they don't work, this won't
+	 * work either.
+	 */
+	@Transactional
+	@Test
+	public void testJoinHolderHasPagesRemaining(){
+		//Create dummy data
+		for(int i = 0; i < 10; i++){
+			Course course = new Course();
+			setCourse1(course);
+			schoolDataService.insertEntity(course);
+			
+			Student student = new Student();
+			setStudent1(student);
+			schoolDataService.insertEntity(student);
+			
+			ScJoinHolder joinHolder = new ScJoinHolder(student, course);
+			schoolDataService.insertEntity(joinHolder);
+		}
+		
+		//Get the current count to set up the comparison
+		long actualCount = schoolDataService.getEntityCount(ScJoinHolder.class);
+		int pageCount = (int) actualCount / 10; //Works because of small data sets, might not work in larger application.
+		
+		//Test with a value that should result in true
+		assertTrue("Should have pages remaining", schoolDataService.hasPagesRemaining(
+				ScJoinHolder.class, 1, 5));
+		//Test with a value that should result in false
+		assertFalse("Should not have pages remaining", schoolDataService.hasPagesRemaining(
+				ScJoinHolder.class, pageCount + 1, 10));
+	}
+	
+	/**
+	 * Test hasPagesRemainingFor method for
+	 * joins from a <tt>Student</tt> entity.
+	 * This is dependent 
+	 * on the count methods, and
+	 * if they don't work, this won't
+	 * work either.
+	 */
+	@Transactional
+	@Test
+	public void testHasPagesRemainingForStudent(){
+		//Create dummy data
+		Student student = new Student();
+		setStudent1(student);
+		schoolDataService.insertEntity(student);
+		int studentId = student.getStudentId();
+		for(int i = 0; i < 10; i++){
+			Course course = new Course();
+			setCourse1(course);
+			schoolDataService.insertEntity(course);
+			
+			ScJoinHolder joinHolder = new ScJoinHolder(student, course);
+			schoolDataService.insertEntity(joinHolder);
+		}
+		
+		//Get the current count to set up the comparison
+		long actualCount = schoolDataService.getJoinCountFor(
+				ScJoinHolder.class, Student.class, studentId);
+		int pageCount = (int) actualCount / 10; //Works because of small data sets, might not work in larger application.
+		
+		//Test with a value that should result in true
+		assertTrue("Should have pages remaining", schoolDataService.hasPagesRemainingFor(
+				ScJoinHolder.class, Student.class, studentId, 1, 5));
+		//Test with a value that should result in false
+		assertFalse("Should not have pages remaining", schoolDataService.hasPagesRemainingFor(
+				ScJoinHolder.class, Student.class, studentId, pageCount + 1, 10));
+	}
+	
+	/**
+	 * Test hasPagesRemainingFor method for
+	 * joins from a <tt>Student</tt> entity.
+	 * This is dependent 
+	 * on the count methods, and
+	 * if they don't work, this won't
+	 * work either.
+	 */
+	@Transactional
+	@Test
+	public void testHasPagesRemainingForCourse(){
+		//Create dummy data
+		Course course = new Course();
+		setCourse1(course);
+		schoolDataService.insertEntity(course);
+		int courseId = course.getCourseId();
+		for(int i = 0; i < 10; i++){
+			Student student = new Student();
+			setStudent1(student);
+			schoolDataService.insertEntity(student);
+			
+			ScJoinHolder joinHolder = new ScJoinHolder(student, course);
+			schoolDataService.insertEntity(joinHolder);
+		}
+		
+		//Get the current count to set up the comparison
+		long actualCount = schoolDataService.getJoinCountFor(
+				ScJoinHolder.class, Course.class, courseId);
+		int pageCount = (int) actualCount / 10; //Works because of small data sets, might not work in larger application.
+		
+		//Test with a value that should result in true
+		assertTrue("Should have pages remaining", schoolDataService.hasPagesRemainingFor(
+				ScJoinHolder.class, Course.class, courseId, 1, 5));
+		//Test with a value that should result in false
+		assertFalse("Should not have pages remaining", schoolDataService.hasPagesRemainingFor(
+				ScJoinHolder.class, Course.class, courseId, pageCount + 1, 10));
+	}
+	
+	/**
 	 * Set the fields of the <tt>Student</tt> object
 	 * to the first set of values.
 	 * 

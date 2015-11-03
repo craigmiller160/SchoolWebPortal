@@ -457,4 +457,49 @@ implements GenericEntityServiceBean {
 		}
 	}
 
+	@Transactional
+	@Override
+	public <T> boolean hasPagesRemaining(Class<T> entityType, int pageNumber, int pageRowCount) {
+		long actualCount = 0;
+		long expectedCount = pageNumber * pageRowCount;
+		
+		if(entityType.equals(Student.class)){
+			actualCount = studentDao.getEntityCount();
+		}
+		else if(entityType.equals(Course.class)){
+			actualCount = courseDao.getEntityCount();
+		}
+		else if(entityType.equals(ScJoinHolder.class)){
+			actualCount = scJoinHolderDao.getEntityCount();
+		}
+		else{
+			throw new IllegalArgumentException(entityType + " is not a valid entity");
+		}
+		
+		return actualCount > expectedCount;
+	}
+
+	@Transactional
+	@Override
+	public <T extends JoinHolder, U> boolean hasPagesRemainingFor(Class<T> joinHolderType, Class<U> joinedEntityType,
+			int entityId, int pageNumber, int pageRowCount) {
+		long actualCount = 0;
+		long expectedCount = pageNumber * pageRowCount;
+		
+		if(joinHolderType.equals(ScJoinHolder.class)){
+			if(joinedEntityType.equals(Student.class) 
+					|| joinedEntityType.equals(Course.class)){
+				actualCount = scJoinHolderDao.getJoinCountFor(joinedEntityType, entityId);
+			}
+			else{
+				throw new IllegalArgumentException(joinedEntityType + " is not a valid Joined Entity");
+			}
+		}
+		else{
+			throw new IllegalArgumentException(joinHolderType + " is not a valid JoinHolder");
+		}
+		
+		return actualCount > expectedCount;
+	}
+
 }
