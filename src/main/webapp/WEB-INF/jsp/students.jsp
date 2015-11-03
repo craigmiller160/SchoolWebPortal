@@ -129,7 +129,6 @@
 									value="Previous Page"/>
 							</form:form>
 						</c:if>
-						<% //TODO need to figure out how to kill the next button when there's no more pages %> 
 						<c:if test="${morePages == true}">
 							<form:form method="get">
 								<input type="hidden" name="page" value="${page + 1}"/>
