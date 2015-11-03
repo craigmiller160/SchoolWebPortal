@@ -130,12 +130,13 @@
 							</form:form>
 						</c:if>
 						<% //TODO need to figure out how to kill the next button when there's no more pages %> 
-						<form:form method="get">
-							<input type="hidden" name="page" value="${page + 1}"/>
-							<input class="btn-page btn btn-lg btn-default btn-shadow" type="submit"
-								value="Next Page"/>
-						</form:form>
-						
+						<c:if test="${morePages == true}">
+							<form:form method="get">
+								<input type="hidden" name="page" value="${page + 1}"/>
+								<input class="btn-page btn btn-lg btn-default btn-shadow" type="submit"
+									value="Next Page"/>
+							</form:form>
+						</c:if>
 					</div>
 					
 					<!-- Add Student Button -->

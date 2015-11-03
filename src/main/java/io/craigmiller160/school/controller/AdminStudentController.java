@@ -24,6 +24,7 @@ import io.craigmiller160.school.util.DatePropertyEditor;
 public class AdminStudentController {
 
 	//TODO this and the course controller, how to handle HibernateExceptions???
+	//TODO need data validation before saving an entity
 	
 	private final GenericEntityServiceBean service;
 	
@@ -47,6 +48,8 @@ public class AdminStudentController {
 				Student.class, page, 10);
 		model.addAttribute("students", students);
 		model.addAttribute("page", page);
+		model.addAttribute("morePages", service.hasPagesRemaining(
+				Student.class, page, 10));
 		
 		return "students";
 	}
