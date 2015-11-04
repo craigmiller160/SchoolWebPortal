@@ -7,6 +7,8 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 
 @Entity (name="address")
 public class Address {
@@ -36,7 +38,8 @@ public class Address {
 	@Column (length=5)
 	private String zip;
 	
-	//TODO many to one mapping
+	@ManyToOne
+	@JoinColumn (name="owner_id")
 	private Owner owner;
 
 	public int getAddressId() {
