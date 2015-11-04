@@ -1,5 +1,6 @@
 package io.craigmiller160.school.entity;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 
 import javax.persistence.Column;
@@ -14,7 +15,13 @@ import javax.persistence.Id;
 import io.craigmiller160.school.util.LocalDateConverter;
 
 @Entity (name="admin")
-public class Administrator {
+public class Administrator 
+implements Comparable<Administrator>, Serializable{
+
+	/**
+	 * SerialVersionUID for serialization support.
+	 */
+	private static final long serialVersionUID = 5246015989704799314L;
 
 	@Id
 	@GeneratedValue (strategy=GenerationType.AUTO)
@@ -82,6 +89,32 @@ public class Administrator {
 
 	public void setGender(Gender gender) {
 		this.gender = gender;
+	}
+	
+	@Override
+	public int hashCode(){
+		return adminId;
+	}
+	
+	@Override
+	public boolean equals(Object obj){
+		if(obj instanceof Administrator){
+			return ((Administrator) obj).adminId == this.adminId;
+		}
+		else{
+			return false;
+		}
+	}
+	
+	@Override
+	public String toString(){
+		return firstName + " " + lastName;
+	}
+
+	@Override
+	public int compareTo(Administrator admin) {
+		return ((Integer) this.adminId)
+				.compareTo((Integer) admin.adminId);
 	}
 	
 }

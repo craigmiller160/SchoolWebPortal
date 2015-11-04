@@ -1,5 +1,7 @@
 package io.craigmiller160.school.entity;
 
+import java.io.Serializable;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -11,7 +13,13 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
 @Entity (name="phone")
-public class Phone {
+public class Phone 
+implements Comparable<Phone>, Serializable{
+
+	/**
+	 * SerialVersionUID for serialization support.
+	 */
+	private static final long serialVersionUID = 8478847944391493241L;
 
 	@Id
 	@GeneratedValue (strategy=GenerationType.AUTO)
@@ -92,6 +100,34 @@ public class Phone {
 
 	public void setOwner(Owner owner) {
 		this.owner = owner;
+	}
+	
+	@Override
+	public int hashCode(){
+		return phoneId;
+	}
+	
+	@Override
+	public boolean equals(Object obj){
+		if(obj instanceof Phone){
+			return ((Phone) obj).phoneId == this.phoneId;
+		}
+		else{
+			return false;
+		}
+	}
+	
+	@Override
+	public String toString(){
+		return "(" + areaCode + ") " 
+				+ prefix + "-" + suffix 
+				+ " x" + extension;  
+	}
+
+	@Override
+	public int compareTo(Phone phone) {
+		return ((Integer) this.phoneId)
+				.compareTo((Integer) phone.phoneId);
 	}
 	
 }
