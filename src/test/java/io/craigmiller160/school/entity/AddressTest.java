@@ -1,0 +1,76 @@
+package io.craigmiller160.school.entity;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
+
+import org.junit.Test;
+
+public class AddressTest {
+
+	@Test
+	public void testFields(){
+		Address address = new Address();
+		address.setAddressId(1);
+		address.setAddressType(AddressType.HOME);
+		address.setAddress1("12 Freehold Way");
+		address.setAddress2("Apt 23");
+		address.setCity("Hamilton");
+		address.setState(State.AL);
+		address.setZip("12345");
+		
+		assertNotNull("Is null", address);
+		assertEquals("ID fail", address.getAddressId(), 1);
+		assertEquals("Type Fail", address.getAddressType(), AddressType.HOME);
+		assertEquals("Address1 Fail", address.getAddress1(), "12 Freehold Way");
+		assertEquals("Address2 Fail", address.getAddress2(), "Apt 23");
+		assertEquals("City Fail", address.getCity(), "Hamilton");
+		assertEquals("State Fail", address.getState(), State.AL);
+		assertEquals("Zip Fail", address.getZip(), "12345");
+	}
+	
+	@Test
+	public void testEquals(){
+		//An invalid type object
+		Object o = new Object();
+		
+		//The base object to be compared
+		Address address1 = new Address();
+		address1.setAddressId(1);
+		
+		//Same type, doesn't match
+		Address address2 = new Address();
+		address2.setAddressId(2);
+		
+		//Same type, should match
+		Address address3 = new Address();
+		address3.setAddressId(1);
+		
+		//Test for accurate comparison
+		assertFalse("ID mismatch", address1.equals(address2));
+		assertFalse("Type mismatch", address1.equals(o));
+		assertTrue("Perfect match", address1.equals(address3));
+	}
+	
+	@Test
+	public void testCompareTo(){
+		//The base object to be compared
+		Address address1 = new Address();
+		address1.setAddressId(1);
+		
+		//Same type, doesn't match
+		Address address2 = new Address();
+		address2.setAddressId(2);
+		
+		//Same type, should match
+		Address address3 = new Address();
+		address3.setAddressId(1);
+		
+		//Test for accurate comparison
+		assertEquals("Less than test", address1.compareTo(address2), -1);
+		assertEquals("Greater than test", address2.compareTo(address1), 1);
+		assertEquals("Equals test", address1.compareTo(address3), 0);
+	}
+	
+}
