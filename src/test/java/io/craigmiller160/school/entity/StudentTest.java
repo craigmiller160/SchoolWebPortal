@@ -45,11 +45,11 @@ public class StudentTest{
 		student = new Student("FirstName", "LastName", 
 				LocalDate.of(1900, 1, 1), Gender.UNKNOWN, 1);
 		assertNotNull(student);
-		assertEquals(student.getFirstName(), "FirstName");
-		assertEquals(student.getLastName(), "LastName");
-		assertEquals(student.getBirthDate(), LocalDate.of(1900, 1, 1));
-		assertEquals(student.getGender(), Gender.UNKNOWN);
-		assertEquals(student.getGrade(), 1);
+		assertEquals("First Name is wrong", student.getFirstName(), "FirstName");
+		assertEquals("Last Name is wrong", student.getLastName(), "LastName");
+		assertEquals("Birth Date is wrong", student.getBirthDate(), LocalDate.of(1900, 1, 1));
+		assertEquals("Gender is wrong", student.getGender(), Gender.UNKNOWN);
+		assertEquals("Grade is wrong", student.getGrade(), 1);
 	}
 	
 	/**

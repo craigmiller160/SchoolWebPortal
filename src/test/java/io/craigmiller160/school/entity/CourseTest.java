@@ -42,10 +42,10 @@ public class CourseTest{
 		
 		course = new Course("Name", "Teacher", "Subject", 1);
 		assertNotNull(course);
-		assertEquals(course.getCourseName(), "Name");
-		assertEquals(course.getSubject(), "Subject");
-		assertEquals(course.getTeacherLastName(), "Teacher");
-		assertEquals(course.getPeriod(), 1);
+		assertEquals("Name Fail", course.getCourseName(), "Name");
+		assertEquals("Subject Fail", course.getSubject(), "Subject");
+		assertEquals("Teacher Fail", course.getTeacherLastName(), "Teacher");
+		assertEquals("Period Fail", course.getPeriod(), 1);
 	}
 	
 	/**
@@ -61,11 +61,11 @@ public class CourseTest{
 		course.setTeacherLastName("Flubber");
 		course.setPeriod(5);
 		
-		assertEquals(course.getCourseId(), 1);
-		assertEquals(course.getCourseName(), "Algebra");
-		assertEquals(course.getSubject(), "Math");
-		assertEquals(course.getTeacherLastName(), "Flubber");
-		assertEquals(course.getPeriod(), 5);
+		assertEquals("ID fail", course.getCourseId(), 1);
+		assertEquals("Name Fail", course.getCourseName(), "Algebra");
+		assertEquals("Subject Fail", course.getSubject(), "Math");
+		assertEquals("Teacher Fail", course.getTeacherLastName(), "Flubber");
+		assertEquals("Period Fail", course.getPeriod(), 5);
 	}
 	
 	/**
