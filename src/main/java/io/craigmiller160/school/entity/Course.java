@@ -36,29 +36,31 @@ implements Comparable<Course>, Serializable{
 	 */
 	@Id
 	@GeneratedValue (strategy=GenerationType.AUTO)
-	@Column (name="course_id")
+	@Column (name="course_id", length=6)
 	private int courseId;
 	
 	/**
 	 * The subject of the course.
 	 */
+	@Column (length=255)
 	private String subject;
 	
 	/**
 	 * The name of the course.
 	 */
-	@Column (name="course_name")
+	@Column (name="course_name", length=255)
 	private String courseName;
 	
 	/**
 	 * The last name of the course's teacher
 	 */
-	@Column (name="teacher_last_name")
+	@Column (name="teacher_last_name", length=255)
 	private String teacherLastName;
 	
 	/**
 	 * The period the course is taught.
 	 */
+	@Column (length=2)
 	private int period;
 	
 	/**

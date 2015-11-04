@@ -42,19 +42,19 @@ implements Comparable<Student>, Serializable{
 	 */
 	@Id
 	@GeneratedValue (strategy=GenerationType.AUTO)
-	@Column (name="student_id")
+	@Column (name="student_id", length=6)
 	private int studentId;
 	
 	/**
 	 * The first name of the student.
 	 */
-	@Column (name="first_name")
+	@Column (name="first_name", length=255)
 	private String firstName;
 	
 	/**
 	 * The last name of the student.
 	 */
-	@Column (name="last_name")
+	@Column (name="last_name", length=255)
 	private String lastName;
 	
 	/**
@@ -73,6 +73,7 @@ implements Comparable<Student>, Serializable{
 	/**
 	 * The grade of the student.
 	 */
+	@Column (length=2)
 	private int grade;
 	
 	/**
