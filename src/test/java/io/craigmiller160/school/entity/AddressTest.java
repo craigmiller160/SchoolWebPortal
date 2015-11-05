@@ -10,7 +10,25 @@ import org.junit.Test;
 public class AddressTest {
 
 	@Test
+	public void testConstructorArgs(){
+		//Create test data
+		Address address = new Address(AddressType.HOME,
+				"12 Freehold Way", "Apt 23", "Hamilton",
+				State.AL, "12345");
+		
+		//Test the values
+		assertNotNull("Is null", address);
+		assertEquals("Type Fail", address.getAddressType(), AddressType.HOME);
+		assertEquals("Address1 Fail", address.getAddress1(), "12 Freehold Way");
+		assertEquals("Address2 Fail", address.getAddress2(), "Apt 23");
+		assertEquals("City Fail", address.getCity(), "Hamilton");
+		assertEquals("State Fail", address.getState(), State.AL);
+		assertEquals("Zip Fail", address.getZip(), "12345");
+	}
+	
+	@Test
 	public void testFields(){
+		//Create test data
 		Address address = new Address();
 		address.setAddressId(1);
 		address.setAddressType(AddressType.HOME);
@@ -20,6 +38,7 @@ public class AddressTest {
 		address.setState(State.AL);
 		address.setZip("12345");
 		
+		//Test the values
 		assertNotNull("Is null", address);
 		assertEquals("ID fail", address.getAddressId(), 1);
 		assertEquals("Type Fail", address.getAddressType(), AddressType.HOME);
