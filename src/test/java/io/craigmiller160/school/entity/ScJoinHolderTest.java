@@ -11,9 +11,11 @@ public class ScJoinHolderTest {
 
 	@Test
 	public void testConstructorArgs(){
+		//Create test data
 		ScJoinHolder joinHolder = new ScJoinHolder();
 		assertNotNull(joinHolder);
 		
+		//Test the values
 		joinHolder = new ScJoinHolder(new Student(), new Course());
 		assertNotNull(joinHolder);
 		assertNotNull(joinHolder.getStudent());
@@ -22,6 +24,7 @@ public class ScJoinHolderTest {
 	
 	@Test
 	public void testFields(){
+		//Create test data
 		ScJoinHolder joinHolder = new ScJoinHolder();
 		Student student = new Student();
 		student.setStudentId(1);
@@ -31,6 +34,7 @@ public class ScJoinHolderTest {
 		joinHolder.setStudent(student);
 		joinHolder.setCourse(course);
 		
+		//Test the values
 		assertNotNull(joinHolder.getStudent());
 		assertEquals(joinHolder.getStudent().getStudentId(), 1);
 		assertNotNull(joinHolder.getCourse());
@@ -39,14 +43,22 @@ public class ScJoinHolderTest {
 	
 	@Test
 	public void testEquals(){
+		//An invalid type object
 		Object o = new Object();
+		
+		//The base object to be compared
 		ScJoinHolder jh1 = new ScJoinHolder();
 		jh1.setScId(1);
+		
+		//Same type, doesn't match
 		ScJoinHolder jh2 = new ScJoinHolder();
 		jh2.setScId(2);
+		
+		//Same type, should match
 		ScJoinHolder jh3 = new ScJoinHolder();
 		jh3.setScId(1);
 		
+		//Test for accurate comparison
 		assertFalse("ID mismatch", jh1.equals(jh2));
 		assertFalse("Type mismatch", jh1.equals(o));
 		assertTrue("Perfect match", jh1.equals(jh3));
@@ -54,13 +66,19 @@ public class ScJoinHolderTest {
 	
 	@Test
 	public void testCompareTo(){
+		//The base object to be compared
 		ScJoinHolder jh1 = new ScJoinHolder();
 		jh1.setScId(1);
+		
+		//Same type, doesn't match
 		ScJoinHolder jh2 = new ScJoinHolder();
 		jh2.setScId(2);
+		
+		//Same type, should match
 		ScJoinHolder jh3 = new ScJoinHolder();
 		jh3.setScId(1);
 		
+		//Test for accurate comparison
 		assertEquals("Less than test", jh1.compareTo(jh2), -1);
 		assertEquals("Greater than test", jh2.compareTo(jh1), 1);
 		assertEquals("Equals test", jh1.compareTo(jh3), 0);

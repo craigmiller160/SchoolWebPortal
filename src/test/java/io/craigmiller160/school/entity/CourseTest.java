@@ -37,9 +37,11 @@ public class CourseTest{
 	 */
 	@Test
 	public void testConstructorArgs(){
+		//Create test data
 		Course course = new Course();
 		assertNotNull(course);
 		
+		//Test the values
 		course = new Course("Name", "Teacher", "Subject", 1);
 		assertNotNull(course);
 		assertEquals("Name Fail", course.getCourseName(), "Name");
@@ -54,6 +56,7 @@ public class CourseTest{
 	 */
 	@Test
 	public void testFields(){
+		//Create test data
 		Course course = new Course();
 		course.setCourseId(1);
 		course.setCourseName("Algebra");
@@ -61,6 +64,7 @@ public class CourseTest{
 		course.setTeacherLastName("Flubber");
 		course.setPeriod(5);
 		
+		//Test the values
 		assertEquals("ID fail", course.getCourseId(), 1);
 		assertEquals("Name Fail", course.getCourseName(), "Algebra");
 		assertEquals("Subject Fail", course.getSubject(), "Math");
@@ -74,17 +78,22 @@ public class CourseTest{
 	 */
 	@Test
 	public void testEquals(){
+		//An invalid type object
 		Object o = new Object();
 		
+		//The base object to be compared
 		Course course1 = new Course();
 		course1.setCourseId(1);
 		
+		//Same type, doesn't match
 		Course course2 = new Course();
 		course2.setCourseId(2);
 		
+		//Same type, should match
 		Course course3 = new Course();
 		course3.setCourseId(1);
 		
+		//Test for accurate comparison
 		assertFalse("ID mismatch", course1.equals(course2));
 		assertFalse("Type mismatch", course1.equals(o));
 		assertTrue("Perfect match", course1.equals(course3));
@@ -96,15 +105,19 @@ public class CourseTest{
 	 */
 	@Test
 	public void testCompareTo(){
+		//The base object to be compared
 		Course course1 = new Course();
 		course1.setCourseId(1);
 		
+		//Same type, doesn't match
 		Course course2 = new Course();
 		course2.setCourseId(2);
 		
+		//Same type, should match
 		Course course3 = new Course();
 		course3.setCourseId(1);
 		
+		//Test for accurate comparison
 		assertEquals("Less than test", course1.compareTo(course2), -1);
 		assertEquals("Greater than test", course2.compareTo(course1), 1);
 		assertEquals("Equals test", course1.compareTo(course3), 0);

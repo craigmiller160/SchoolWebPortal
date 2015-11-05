@@ -39,11 +39,14 @@ public class StudentTest{
 	 */
 	@Test
 	public void testConstructorArgs(){
+		//Create test data
 		Student student = new Student();
 		assertNotNull(student);
 		
 		student = new Student("FirstName", "LastName", 
 				LocalDate.of(1900, 1, 1), Gender.UNKNOWN, 1);
+		
+		//Test the values
 		assertNotNull(student);
 		assertEquals("First Name is wrong", student.getFirstName(), "FirstName");
 		assertEquals("Last Name is wrong", student.getLastName(), "LastName");
@@ -58,6 +61,7 @@ public class StudentTest{
 	 */
 	@Test
 	public void testFields(){
+		//Create test data
 		Student student = new Student();
 		assertNotNull(student);
 		student.setStudentId(1);
@@ -67,6 +71,7 @@ public class StudentTest{
 		student.setGender(Gender.UNKNOWN);
 		student.setGrade(5);
 		
+		//Test the values
 		assertEquals("ID is wrong", student.getStudentId(), 1);
 		assertEquals("First Name is wrong", student.getFirstName(), "Joe");
 		assertEquals("Last Name is wrong", student.getLastName(), "Dirt");
@@ -83,17 +88,22 @@ public class StudentTest{
 	 */
 	@Test
 	public void testEquals(){
+		//An invalid type object
 		Object o = new Object();
 		
+		//The base object to be compared
 		Student student1 = new Student();
 		student1.setStudentId(1);
 		
+		//Same type, doesn't match
 		Student student2 = new Student();
 		student2.setStudentId(2);
 		
+		//Same type, should match
 		Student student3 = new Student();
 		student3.setStudentId(1);
 		
+		//Test for accurate comparison
 		assertFalse("ID mismatch", student1.equals(student2));
 		assertFalse("Type mismatch", student1.equals(o));
 		assertTrue("Perfect match", student1.equals(student3));
@@ -105,15 +115,19 @@ public class StudentTest{
 	 */
 	@Test
 	public void testCompareTo(){
+		//The base object to be compared
 		Student student1 = new Student();
 		student1.setStudentId(1);
 		
+		//Same type, doesn't match
 		Student student2 = new Student();
 		student2.setStudentId(2);
 		
+		//Same type, should match
 		Student student3 = new Student();
 		student3.setStudentId(1);
 		
+		//Test for accurate comparison
 		assertEquals("Less than test", student1.compareTo(student2), -1);
 		assertEquals("Greater than test", student2.compareTo(student1), 1);
 		assertEquals("Equals test", student1.compareTo(student3), 0);
