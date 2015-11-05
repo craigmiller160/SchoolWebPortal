@@ -49,6 +49,24 @@ implements Comparable<Address>, Serializable{
 	@ManyToOne
 	@JoinColumn (name="owner_id")
 	private Owner owner;
+	
+	public Address(){}
+	
+	public Address(AddressType addressType, String address1, 
+			String address2, String city, 
+			State state, String zip){
+		this.addressType = addressType;
+		this.address1 = address1;
+		this.address2 = address2;
+		this.city = city;
+		this.state = state;
+		this.zip = zip;
+	}
+	
+	public Address(AddressType addressType, String address1, 
+			String city, State state, String zip){
+		this(addressType, address1, "", city, state, zip);
+	}
 
 	public int getAddressId() {
 		return addressId;

@@ -45,6 +45,22 @@ implements Comparable<Phone>, Serializable{
 	@ManyToOne
 	@JoinColumn (name="owner_id")
 	private Owner owner;
+	
+	public Phone(){}
+	
+	public Phone(PhoneType phoneType, String areaCode,
+			String prefix, String suffix){
+		this(phoneType, areaCode, prefix, suffix, null);
+	}
+	
+	public Phone(PhoneType phoneType, String areaCode,
+			String prefix, String suffix, String extension){
+		this.phoneType = phoneType;
+		this.areaCode = areaCode;
+		this.prefix = prefix;
+		this.suffix = suffix;
+		this.extension = extension;
+	}
 
 	public int getPhoneId() {
 		return phoneId;
@@ -119,9 +135,11 @@ implements Comparable<Phone>, Serializable{
 	
 	@Override
 	public String toString(){
-		return "(" + areaCode + ") " 
-				+ prefix + "-" + suffix 
-				+ " x" + extension;  
+		String output = "(" + areaCode + ") " 
+				+ prefix + "-" + suffix;
+		return extension != null || !extension.equals("")
+				? output + " x" + extension
+				: output;
 	}
 
 	@Override

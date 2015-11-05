@@ -35,6 +35,13 @@ implements Comparable<Email>, Serializable{
 	@ManyToOne
 	@JoinColumn (name="owner_id")
 	private Owner owner;
+	
+	public Email(){}
+	
+	public Email(EmailType emailType, String emailAddress){
+		this.emailType = emailType;
+		this.emailAddress = emailAddress;
+	}
 
 	public int getEmailId() {
 		return emailId;
