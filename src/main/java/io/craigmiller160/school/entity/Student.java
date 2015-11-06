@@ -2,8 +2,8 @@ package io.craigmiller160.school.entity;
 
 import java.io.Serializable;
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -83,13 +83,13 @@ implements Comparable<Student>, Serializable{
 	
 	//TODO address experiment is here
 	@OneToMany (cascade=CascadeType.ALL, fetch=FetchType.EAGER, mappedBy="student", orphanRemoval=true)
-	private List<AddressStudent> addresses = new ArrayList<>();
+	private Set<AddressStudent> addresses = new HashSet<>();
 	
 	@OneToMany (cascade=CascadeType.ALL, fetch=FetchType.EAGER, mappedBy="student", orphanRemoval=true)
-	private List<PhoneStudent> phones = new ArrayList<>();
+	private Set<PhoneStudent> phones = new HashSet<>();
 	
 	@OneToMany (cascade=CascadeType.ALL, fetch=FetchType.EAGER, mappedBy="student", orphanRemoval=true)
-	private List<EmailStudent> emails = new ArrayList<>();
+	private Set<EmailStudent> emails = new HashSet<>();
 	
 	/**
 	 * Create a new student with none of its properties set.
@@ -249,11 +249,11 @@ implements Comparable<Student>, Serializable{
 	
 	//TODO address experiment here
 	
-	public List<AddressStudent> getAddresses(){
+	public Set<AddressStudent> getAddresses(){
 		return addresses;
 	}
 	
-	public void setAddresses(List<AddressStudent> addresses){
+	public void setAddresses(Set<AddressStudent> addresses){
 		this.addresses = addresses;
 	}
 	
@@ -266,11 +266,11 @@ implements Comparable<Student>, Serializable{
 		return this.addresses.remove(address);
 	}
 	
-	public List<PhoneStudent> getPhones(){
+	public Set<PhoneStudent> getPhones(){
 		return phones;
 	}
 	
-	public void setPhones(List<PhoneStudent> phones){
+	public void setPhones(Set<PhoneStudent> phones){
 		this.phones = phones;
 	}
 	
@@ -285,11 +285,11 @@ implements Comparable<Student>, Serializable{
 	
 	//TODO
 	
-	public List<EmailStudent> getEmails(){
+	public Set<EmailStudent> getEmails(){
 		return emails;
 	}
 	
-	public void setEmails(List<EmailStudent> emails){
+	public void setEmails(Set<EmailStudent> emails){
 		this.emails = emails;
 	}
 	
