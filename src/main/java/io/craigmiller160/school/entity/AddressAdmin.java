@@ -1,8 +1,10 @@
 package io.craigmiller160.school.entity;
 
+import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
+@Entity (name="address_admin")
 public class AddressAdmin extends Address {
 
 	/**
