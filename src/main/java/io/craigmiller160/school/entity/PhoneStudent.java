@@ -5,7 +5,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
 @Entity (name="phone_student")
-public class StudentPhone extends Phone{
+public class PhoneStudent extends Phone{
 
 	/**
 	 * 
@@ -16,14 +16,14 @@ public class StudentPhone extends Phone{
 	@JoinColumn (name="student_id")
 	private Student student;
 	
-	public StudentPhone(){}
+	public PhoneStudent(){}
 	
-	public StudentPhone(PhoneType phoneType, String areaCode,
+	public PhoneStudent(PhoneType phoneType, String areaCode,
 			String prefix, String suffix){
 		super(phoneType, areaCode, prefix, suffix);
 	}
 	
-	public StudentPhone(PhoneType phoneType, String areaCode,
+	public PhoneStudent(PhoneType phoneType, String areaCode,
 			String prefix, String suffix, String extension){
 		super(phoneType, areaCode, prefix, suffix, extension);
 	}

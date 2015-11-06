@@ -5,7 +5,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
 @Entity (name="email_student")
-public class StudentEmail extends Email {
+public class EmailStudent extends Email {
 
 	/**
 	 * 
@@ -16,9 +16,9 @@ public class StudentEmail extends Email {
 	@JoinColumn (name="student_id")
 	private Student student;
 	
-	public StudentEmail(){}
+	public EmailStudent(){}
 	
-	public StudentEmail(EmailType emailType, String emailAddress){
+	public EmailStudent(EmailType emailType, String emailAddress){
 		super(emailType, emailAddress);
 	}
 	

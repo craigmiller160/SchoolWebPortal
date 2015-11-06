@@ -83,13 +83,13 @@ implements Comparable<Student>, Serializable{
 	
 	//TODO address experiment is here
 	@OneToMany (cascade=CascadeType.ALL, fetch=FetchType.EAGER, mappedBy="student", orphanRemoval=true)
-	private List<StudentAddress> addresses = new ArrayList<>();
+	private List<AddressStudent> addresses = new ArrayList<>();
 	
 	@OneToMany (cascade=CascadeType.ALL, fetch=FetchType.EAGER, mappedBy="student", orphanRemoval=true)
-	private List<StudentPhone> phones = new ArrayList<>();
+	private List<PhoneStudent> phones = new ArrayList<>();
 	
 	@OneToMany (cascade=CascadeType.ALL, fetch=FetchType.EAGER, mappedBy="student", orphanRemoval=true)
-	private List<StudentEmail> emails = new ArrayList<>();
+	private List<EmailStudent> emails = new ArrayList<>();
 	
 	/**
 	 * Create a new student with none of its properties set.
@@ -249,56 +249,56 @@ implements Comparable<Student>, Serializable{
 	
 	//TODO address experiment here
 	
-	public List<StudentAddress> getAddresses(){
+	public List<AddressStudent> getAddresses(){
 		return addresses;
 	}
 	
-	public void setAddresses(List<StudentAddress> addresses){
+	public void setAddresses(List<AddressStudent> addresses){
 		this.addresses = addresses;
 	}
 	
-	public boolean addAddress(StudentAddress address){
+	public boolean addAddress(AddressStudent address){
 		address.setStudent(this); //TODO review this line
 		return this.addresses.add(address);
 	}
 	
-	public boolean removeAddress(StudentAddress address){
+	public boolean removeAddress(AddressStudent address){
 		return this.addresses.remove(address);
 	}
 	
-	public List<StudentPhone> getPhones(){
+	public List<PhoneStudent> getPhones(){
 		return phones;
 	}
 	
-	public void setPhones(List<StudentPhone> phones){
+	public void setPhones(List<PhoneStudent> phones){
 		this.phones = phones;
 	}
 	
-	public boolean addPhone(StudentPhone phone){
+	public boolean addPhone(PhoneStudent phone){
 		phone.setStudent(this); //TODO review this line
 		return this.phones.add(phone);
 	}
 	
-	public boolean removePhone(StudentPhone phone){
+	public boolean removePhone(PhoneStudent phone){
 		return this.phones.remove(phone);
 	}
 	
 	//TODO
 	
-	public List<StudentEmail> getEmails(){
+	public List<EmailStudent> getEmails(){
 		return emails;
 	}
 	
-	public void setEmails(List<StudentEmail> emails){
+	public void setEmails(List<EmailStudent> emails){
 		this.emails = emails;
 	}
 	
-	public boolean addEmail(StudentEmail email){
+	public boolean addEmail(EmailStudent email){
 		email.setStudent(this); //TODO review this line
 		return this.emails.add(email);
 	}
 	
-	public boolean removeEmail(StudentEmail email){
+	public boolean removeEmail(EmailStudent email){
 		return this.emails.remove(email);
 	}
 	

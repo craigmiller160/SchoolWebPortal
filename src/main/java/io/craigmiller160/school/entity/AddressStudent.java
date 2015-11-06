@@ -5,7 +5,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
 @Entity (name="address_student")
-public class StudentAddress extends Address {
+public class AddressStudent extends Address {
 
 	/**
 	 * 
@@ -16,17 +16,17 @@ public class StudentAddress extends Address {
 	@JoinColumn (name="student_id")
 	private Student student;
 	
-	public StudentAddress(){
+	public AddressStudent(){
 		super();
 	}
 	
-	public StudentAddress(AddressType addressType, String address1, 
+	public AddressStudent(AddressType addressType, String address1, 
 			String address2, String city, 
 			State state, String zip){
 		super(addressType, address1, address2, city, state, zip);
 	}
 	
-	public StudentAddress(AddressType addressType, String address1, 
+	public AddressStudent(AddressType addressType, String address1, 
 			String city, State state, String zip){
 		super(addressType, address1, city, state, zip);
 	}
