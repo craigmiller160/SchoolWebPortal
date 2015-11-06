@@ -85,7 +85,7 @@ implements Comparable<Student>, Serializable{
 	@OneToMany (cascade=CascadeType.ALL, fetch=FetchType.EAGER, mappedBy="student", orphanRemoval=true)
 	private List<StudentAddress> addresses = new ArrayList<>();
 	
-	
+	private List<StudentPhone> phones = new ArrayList<>();
 	
 	/**
 	 * Create a new student with none of its properties set.
@@ -249,7 +249,7 @@ implements Comparable<Student>, Serializable{
 		return addresses;
 	}
 	
-	public void setAddress(List<StudentAddress> addresses){
+	public void setAddresses(List<StudentAddress> addresses){
 		this.addresses = addresses;
 	}
 	
@@ -260,6 +260,23 @@ implements Comparable<Student>, Serializable{
 	
 	public boolean removeAddress(StudentAddress address){
 		return this.addresses.remove(address);
+	}
+	
+	public List<StudentPhone> getPhones(){
+		return phones;
+	}
+	
+	public void setPhones(List<StudentPhone> phones){
+		this.phones = phones;
+	}
+	
+	public boolean addAddress(StudentPhone phone){
+		phone.setStudent(this); //TODO review this line
+		return this.phones.add(phone);
+	}
+	
+	public boolean removeAddress(StudentPhone phone){
+		return this.phones.remove(phone);
 	}
 	
 	@Override

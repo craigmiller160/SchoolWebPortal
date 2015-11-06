@@ -3,17 +3,15 @@ package io.craigmiller160.school.entity;
 import java.io.Serializable;
 
 import javax.persistence.Column;
-import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import javax.persistence.MappedSuperclass;
 
-@Entity (name="phone")
-public class Phone 
+@MappedSuperclass
+public abstract class Phone 
 implements Comparable<Phone>, Serializable{
 
 	/**
@@ -42,18 +40,14 @@ implements Comparable<Phone>, Serializable{
 	@Column (length=20)
 	private String extension;
 	
-	@ManyToOne
-	@JoinColumn (name="owner_id")
-	private Owner owner;
+	protected Phone(){}
 	
-	public Phone(){}
-	
-	public Phone(PhoneType phoneType, String areaCode,
+	protected Phone(PhoneType phoneType, String areaCode,
 			String prefix, String suffix){
 		this(phoneType, areaCode, prefix, suffix, null);
 	}
 	
-	public Phone(PhoneType phoneType, String areaCode,
+	protected Phone(PhoneType phoneType, String areaCode,
 			String prefix, String suffix, String extension){
 		this.phoneType = phoneType;
 		this.areaCode = areaCode;
@@ -108,14 +102,6 @@ implements Comparable<Phone>, Serializable{
 
 	public void setExtension(String extension) {
 		this.extension = extension;
-	}
-
-	public Owner getOwner() {
-		return owner;
-	}
-
-	public void setOwner(Owner owner) {
-		this.owner = owner;
 	}
 	
 	@Override
