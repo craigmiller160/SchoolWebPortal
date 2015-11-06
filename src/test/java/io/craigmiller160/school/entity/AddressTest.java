@@ -7,14 +7,19 @@ import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
+//TODO document how this is only testing Address fields,
+//and as such it instantiates the abstract class.
+//The DAO tests for Student/Admin will test the subclasses.
 public class AddressTest {
 
+	//Anonymous instantiation of abstract class, needs @SuppressWarnings
+	@SuppressWarnings("serial")
 	@Test
 	public void testConstructorArgs(){
 		//Create test data
 		Address address = new Address(AddressType.HOME,
 				"12 Freehold Way", "Apt 23", "Hamilton",
-				State.AL, "12345");
+				State.AL, "12345"){};
 		
 		//Test the values
 		assertNotNull("Is null", address);
@@ -26,10 +31,12 @@ public class AddressTest {
 		assertEquals("Zip Fail", address.getZip(), "12345");
 	}
 	
+	//Anonymous instantiation of abstract class, needs @SuppressWarnings
+	@SuppressWarnings("serial")
 	@Test
 	public void testFields(){
 		//Create test data
-		Address address = new Address();
+		Address address = new Address(){};
 		address.setAddressId(1);
 		address.setAddressType(AddressType.HOME);
 		address.setAddress1("12 Freehold Way");
@@ -49,21 +56,23 @@ public class AddressTest {
 		assertEquals("Zip Fail", address.getZip(), "12345");
 	}
 	
+	//Anonymous instantiation of abstract class, needs @SuppressWarnings
+	@SuppressWarnings("serial")
 	@Test
 	public void testEquals(){
 		//An invalid type object
 		Object o = new Object();
 		
 		//The base object to be compared
-		Address address1 = new Address();
+		Address address1 = new Address(){};
 		address1.setAddressId(1);
 		
 		//Same type, doesn't match
-		Address address2 = new Address();
+		Address address2 = new Address(){};
 		address2.setAddressId(2);
 		
 		//Same type, should match
-		Address address3 = new Address();
+		Address address3 = new Address(){};
 		address3.setAddressId(1);
 		
 		//Test for accurate comparison
@@ -72,18 +81,20 @@ public class AddressTest {
 		assertTrue("Perfect match", address1.equals(address3));
 	}
 	
+	//Anonymous instantiation of abstract class, needs @SuppressWarnings
+	@SuppressWarnings("serial")
 	@Test
 	public void testCompareTo(){
 		//The base object to be compared
-		Address address1 = new Address();
+		Address address1 = new Address(){};
 		address1.setAddressId(1);
 		
 		//Same type, doesn't match
-		Address address2 = new Address();
+		Address address2 = new Address(){};
 		address2.setAddressId(2);
 		
 		//Same type, should match
-		Address address3 = new Address();
+		Address address3 = new Address(){};
 		address3.setAddressId(1);
 		
 		//Test for accurate comparison

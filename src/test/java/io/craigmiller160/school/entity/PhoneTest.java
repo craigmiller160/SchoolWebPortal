@@ -7,13 +7,18 @@ import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
+//TODO document how this is only testing Phone fields,
+//and as such it instantiates the abstract class.
+//The DAO tests for Student/Admin will test the subclasses.
 public class PhoneTest {
 
+	//Anonymous instantiation of abstract class, needs @SuppressWarnings
+	@SuppressWarnings("serial")
 	@Test
 	public void testConstructorArgs(){
 		//Create test data
 		Phone phone = new Phone(PhoneType.HOME,
-				"732", "613", "1234", "5678");
+				"732", "613", "1234", "5678"){};
 		
 		//Test the values
 		assertNotNull("Is null", phone);
@@ -24,10 +29,12 @@ public class PhoneTest {
 		assertEquals("Extension Fail", phone.getExtension(), "5678");
 	}
 	
+	//Anonymous instantiation of abstract class, needs @SuppressWarnings
+	@SuppressWarnings("serial")
 	@Test
 	public void testFields(){
 		//Create test data
-		Phone phone = new Phone();
+		Phone phone = new Phone(){};
 		phone.setPhoneId(1);
 		phone.setPhoneType(PhoneType.HOME);
 		phone.setAreaCode("732");
@@ -45,21 +52,23 @@ public class PhoneTest {
 		assertEquals("Extension Fail", phone.getExtension(), "5678");
 	}
 	
+	//Anonymous instantiation of abstract class, needs @SuppressWarnings
+	@SuppressWarnings("serial")
 	@Test
 	public void testEquals(){
 		//An invalid type object
 		Object o = new Object();
 		
 		//The base object to be compared
-		Phone phone1 = new Phone();
+		Phone phone1 = new Phone(){};
 		phone1.setPhoneId(1);
 		
 		//Same type, doesn't match
-		Phone phone2 = new Phone();
+		Phone phone2 = new Phone(){};
 		phone2.setPhoneId(2);
 		
 		//Same type, should match
-		Phone phone3 = new Phone();
+		Phone phone3 = new Phone(){};
 		phone3.setPhoneId(1);
 		
 		//Test for accurate comparison
@@ -68,18 +77,20 @@ public class PhoneTest {
 		assertTrue("Perfect match", phone1.equals(phone3));
 	}
 	
+	//Anonymous instantiation of abstract class, needs @SuppressWarnings
+	@SuppressWarnings("serial")
 	@Test
 	public void testCompareTo(){
 		//The base object to be compared
-		Phone phone1 = new Phone();
+		Phone phone1 = new Phone(){};
 		phone1.setPhoneId(1);
 		
 		//Same type, doesn't match
-		Phone phone2 = new Phone();
+		Phone phone2 = new Phone(){};
 		phone2.setPhoneId(2);
 		
 		//Same type, should match
-		Phone phone3 = new Phone();
+		Phone phone3 = new Phone(){};
 		phone3.setPhoneId(1);
 		
 		//Test for accurate comparison
