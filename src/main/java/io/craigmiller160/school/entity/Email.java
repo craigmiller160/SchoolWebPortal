@@ -3,17 +3,15 @@ package io.craigmiller160.school.entity;
 import java.io.Serializable;
 
 import javax.persistence.Column;
-import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import javax.persistence.MappedSuperclass;
 
-@Entity (name="email")
-public class Email 
+@MappedSuperclass
+public abstract class Email 
 implements Comparable<Email>, Serializable{
 
 	/**
@@ -32,13 +30,9 @@ implements Comparable<Email>, Serializable{
 	@Column (name="email_address", length=255)
 	private String emailAddress;
 	
-	@ManyToOne
-	@JoinColumn (name="owner_id")
-	private Owner owner;
+	protected Email(){}
 	
-	public Email(){}
-	
-	public Email(EmailType emailType, String emailAddress){
+	protected Email(EmailType emailType, String emailAddress){
 		this.emailType = emailType;
 		this.emailAddress = emailAddress;
 	}
@@ -65,14 +59,6 @@ implements Comparable<Email>, Serializable{
 
 	public void setEmailAddress(String emailAddress) {
 		this.emailAddress = emailAddress;
-	}
-
-	public Owner getOwner() {
-		return owner;
-	}
-
-	public void setOwner(Owner owner) {
-		this.owner = owner;
 	}
 	
 	@Override
