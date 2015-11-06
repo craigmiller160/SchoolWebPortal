@@ -2,8 +2,8 @@ package io.craigmiller160.school.entity;
 
 import java.io.Serializable;
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -47,13 +47,13 @@ implements Comparable<Administrator>, Serializable{
 	private Gender gender;
 	
 	@OneToMany (cascade=CascadeType.ALL, fetch=FetchType.EAGER, mappedBy="admin", orphanRemoval=true)
-	private List<AddressAdmin> addresses = new ArrayList<>();
+	private Set<AddressAdmin> addresses = new HashSet<>();
 	
 	@OneToMany (cascade=CascadeType.ALL, fetch=FetchType.EAGER, mappedBy="admin", orphanRemoval=true)
-	private List<PhoneAdmin> phones = new ArrayList<>();
+	private Set<PhoneAdmin> phones = new HashSet<>();
 	
 	@OneToMany (cascade=CascadeType.ALL, fetch=FetchType.EAGER, mappedBy="admin", orphanRemoval=true)
-	private List<EmailAdmin> emails = new ArrayList<>();
+	private Set<EmailAdmin> emails = new HashSet<>();
 	
 	public Administrator() {}
 	
@@ -105,11 +105,11 @@ implements Comparable<Administrator>, Serializable{
 		this.gender = gender;
 	}
 	
-	public List<AddressAdmin> getAddresses(){
+	public Set<AddressAdmin> getAddresses(){
 		return addresses;
 	}
 	
-	public void setAddresses(List<AddressAdmin> addresses){
+	public void setAddresses(Set<AddressAdmin> addresses){
 		this.addresses = addresses;
 	}
 	
@@ -124,11 +124,11 @@ implements Comparable<Administrator>, Serializable{
 	
 	//TODO
 	
-	public List<PhoneAdmin> getPhones(){
+	public Set<PhoneAdmin> getPhones(){
 		return phones;
 	}
 	
-	public void setPhones(List<PhoneAdmin> phones){
+	public void setPhones(Set<PhoneAdmin> phones){
 		this.phones = phones;
 	}
 	
@@ -143,11 +143,11 @@ implements Comparable<Administrator>, Serializable{
 	
 	//TODO
 	
-	public List<EmailAdmin> getEmails(){
+	public Set<EmailAdmin> getEmails(){
 		return emails;
 	}
 	
-	public void setEmails(List<EmailAdmin> emails){
+	public void setEmails(Set<EmailAdmin> emails){
 		this.emails = emails;
 	}
 	
