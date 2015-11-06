@@ -21,6 +21,7 @@ implements Comparable<Email>, Serializable{
 
 	@Id
 	@GeneratedValue (strategy=GenerationType.AUTO)
+	@Column (name="email_id")
 	private int emailId;
 	
 	@Enumerated (EnumType.STRING)
