@@ -3,17 +3,15 @@ package io.craigmiller160.school.entity;
 import java.io.Serializable;
 
 import javax.persistence.Column;
-import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import javax.persistence.MappedSuperclass;
 
-@Entity (name="address")
-public class Address 
+@MappedSuperclass
+public abstract class Address 
 implements Comparable<Address>, Serializable{
 
 	/**
@@ -46,13 +44,18 @@ implements Comparable<Address>, Serializable{
 	@Column (length=5)
 	private String zip;
 	
-	@ManyToOne
-	@JoinColumn (name="owner_id")
-	private Owner owner;
+	//TODO join testing stuff
 	
-	public Address(){}
+	/*@Column (name="unified_key", 
+			length=20, 
+			columnDefinition="bigint default 0",
+			insertable=false,
+			updatable=false)
+	private int unifiedKey;*/
 	
-	public Address(AddressType addressType, String address1, 
+	protected Address(){}
+	
+	protected Address(AddressType addressType, String address1, 
 			String address2, String city, 
 			State state, String zip){
 		this.addressType = addressType;
@@ -63,7 +66,7 @@ implements Comparable<Address>, Serializable{
 		this.zip = zip;
 	}
 	
-	public Address(AddressType addressType, String address1, 
+	protected Address(AddressType addressType, String address1, 
 			String city, State state, String zip){
 		this(addressType, address1, "", city, state, zip);
 	}
@@ -124,13 +127,17 @@ implements Comparable<Address>, Serializable{
 		this.zip = zip;
 	}
 
-	public Owner getOwner() {
-		return owner;
+	//TODO join testing stuff
+	
+	
+	
+	/*public int getUnifiedKey(){
+		return unifiedKey;
 	}
-
-	public void setOwner(Owner owner) {
-		this.owner = owner;
-	}
+	
+	public void setUnifiedKey(int unifiedKey){
+		this.unifiedKey = unifiedKey;
+	}*/
 	
 	@Override
 	public int hashCode(){
@@ -149,8 +156,11 @@ implements Comparable<Address>, Serializable{
 	
 	@Override
 	public String toString(){
-		return address1 + " " + address2 + ", "
-				+ city + ", " + state + " " + zip;
+		StringBuilder builder = new StringBuilder(address1);
+		builder.append(address2 != null ? address2 + ", " : ", ");
+		builder.append(city + ", " + state + " " + zip);
+		
+		return builder.toString();
 	}
 
 	@Override

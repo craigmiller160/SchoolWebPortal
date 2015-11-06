@@ -2,15 +2,20 @@ package io.craigmiller160.school.entity;
 
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Convert;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import io.craigmiller160.school.util.LocalDateConverter;
@@ -42,7 +47,7 @@ implements Comparable<Student>, Serializable{
 	 */
 	@Id
 	@GeneratedValue (strategy=GenerationType.AUTO)
-	@Column (name="student_id", length=6)
+	@Column (name="student_id", length=20)
 	private int studentId;
 	
 	/**
@@ -75,6 +80,12 @@ implements Comparable<Student>, Serializable{
 	 */
 	@Column (length=2)
 	private int grade;
+	
+	//TODO address experiment is here
+	@OneToMany (cascade=CascadeType.ALL, fetch=FetchType.EAGER, mappedBy="student", orphanRemoval=true)
+	private List<StudentAddress> addresses = new ArrayList<>();
+	
+	
 	
 	/**
 	 * Create a new student with none of its properties set.
@@ -230,6 +241,25 @@ implements Comparable<Student>, Serializable{
 	public int getAge(){
 		LocalDate today = LocalDate.now();
 		return birthDate.until(today).getYears();
+	}
+	
+	//TODO address experiment here
+	
+	public List<StudentAddress> getAddresses(){
+		return addresses;
+	}
+	
+	public void setAddress(List<StudentAddress> addresses){
+		this.addresses = addresses;
+	}
+	
+	public boolean addAddress(StudentAddress address){
+		address.setStudent(this); //TODO review this line
+		return this.addresses.add(address);
+	}
+	
+	public boolean removeAddress(StudentAddress address){
+		return this.addresses.remove(address);
 	}
 	
 	@Override
