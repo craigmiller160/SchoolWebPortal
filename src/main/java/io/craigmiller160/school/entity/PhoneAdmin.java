@@ -14,6 +14,8 @@ public class PhoneAdmin extends Phone {
 	@JoinColumn (name="admin_id")
 	private Administrator admin;
 	
+	public PhoneAdmin(){}
+	
 	public PhoneAdmin(PhoneType phoneType, String areaCode,
 			String prefix, String suffix){
 		super(phoneType, areaCode, prefix, suffix);
