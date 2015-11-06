@@ -2,15 +2,20 @@ package io.craigmiller160.school.entity;
 
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Convert;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 
 import io.craigmiller160.school.util.LocalDateConverter;
 
@@ -40,6 +45,15 @@ implements Comparable<Administrator>, Serializable{
 	
 	@Enumerated (EnumType.STRING)
 	private Gender gender;
+	
+	@OneToMany (cascade=CascadeType.ALL, fetch=FetchType.EAGER, mappedBy="admin", orphanRemoval=true)
+	private List<AddressAdmin> addresses = new ArrayList<>();
+	
+	@OneToMany (cascade=CascadeType.ALL, fetch=FetchType.EAGER, mappedBy="admin", orphanRemoval=true)
+	private List<PhoneAdmin> phones = new ArrayList<>();
+	
+	@OneToMany (cascade=CascadeType.ALL, fetch=FetchType.EAGER, mappedBy="admin", orphanRemoval=true)
+	private List<EmailAdmin> emails = new ArrayList<>();
 	
 	public Administrator() {}
 	
@@ -89,6 +103,61 @@ implements Comparable<Administrator>, Serializable{
 
 	public void setGender(Gender gender) {
 		this.gender = gender;
+	}
+	
+	public List<AddressAdmin> getAddresses(){
+		return addresses;
+	}
+	
+	public void setAddresses(List<AddressAdmin> addresses){
+		this.addresses = addresses;
+	}
+	
+	public boolean addAddress(AddressAdmin address){
+		address.setAdministrator(this); //TODO review this line
+		return this.addresses.add(address);
+	}
+	
+	public boolean removeAddress(AddressAdmin address){
+		return this.addresses.remove(address);
+	}
+	
+	//TODO
+	
+	public List<PhoneAdmin> getPhones(){
+		return phones;
+	}
+	
+	public void setPhones(List<PhoneAdmin> phones){
+		this.phones = phones;
+	}
+	
+	public boolean addPhone(PhoneAdmin phone){
+		phone.setAdministrator(this); //TODO review this line
+		return this.phones.add(phone);
+	}
+	
+	public boolean removePhone(PhoneAdmin phone){
+		return this.phones.remove(phone);
+	}
+	
+	//TODO
+	
+	public List<EmailAdmin> getEmails(){
+		return emails;
+	}
+	
+	public void setEmails(List<EmailAdmin> emails){
+		this.emails = emails;
+	}
+	
+	public boolean addEmail(EmailAdmin email){
+		email.setAdministrator(this); //TODO review this line
+		return this.emails.add(email);
+	}
+	
+	public boolean removeEmail(EmailAdmin email){
+		return this.emails.remove(email);
 	}
 	
 	@Override
