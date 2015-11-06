@@ -3,6 +3,7 @@ package io.craigmiller160.school.entity;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
@@ -88,6 +89,43 @@ public class EmailTest {
 		assertEquals("Less than test", email1.compareTo(email2), -1);
 		assertEquals("Greater than test", email2.compareTo(email1), 1);
 		assertEquals("Equals test", email1.compareTo(email3), 0);
+	}
+	
+	//Testing for each of the two subclasses is here
+	@Test
+	public void testStudent(){
+		//Create dummy data
+		Student student = new Student();
+		EmailStudent email = new EmailStudent();
+		
+		//Test that student field is null
+		assertNull("Pre-Test should be Null", 
+				email.getStudent());
+		
+		//Set student in email
+		email.setStudent(student);
+		
+		//Test if it worked
+		assertNotNull("Post-Test should not be null", 
+				email.getStudent());
+	}
+	
+	@Test
+	public void testAdmin(){
+		//Create dummy data
+		Administrator admin = new Administrator();
+		EmailAdmin email = new EmailAdmin();
+		
+		//Test that student field is null
+		assertNull("Pre-Test should be Null", 
+				email.getAdministrator());
+		
+		//Set student in address
+		email.setAdministrator(admin);
+		
+		//Test if it worked
+		assertNotNull("Post-Test should not be null", 
+				email.getAdministrator());
 	}
 	
 }

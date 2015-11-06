@@ -3,6 +3,7 @@ package io.craigmiller160.school.entity;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
@@ -101,6 +102,43 @@ public class AddressTest {
 		assertEquals("Less than test", address1.compareTo(address2), -1);
 		assertEquals("Greater than test", address2.compareTo(address1), 1);
 		assertEquals("Equals test", address1.compareTo(address3), 0);
+	}
+	
+	//Testing for each of the two subclasses is here
+	@Test
+	public void testStudent(){
+		//Create dummy data
+		Student student = new Student();
+		AddressStudent address = new AddressStudent();
+		
+		//Test that student field is null
+		assertNull("Pre-Test should be Null", 
+				address.getStudent());
+		
+		//Set student in address
+		address.setStudent(student);
+		
+		//Test if it worked
+		assertNotNull("Post-Test should not be null", 
+				address.getStudent());
+	}
+	
+	@Test
+	public void testAdmin(){
+		//Create dummy data
+		Administrator admin = new Administrator();
+		AddressAdmin address = new AddressAdmin();
+		
+		//Test that student field is null
+		assertNull("Pre-Test should be Null", 
+				address.getAdministrator());
+		
+		//Set student in address
+		address.setAdministrator(admin);
+		
+		//Test if it worked
+		assertNotNull("Post-Test should not be null", 
+				address.getAdministrator());
 	}
 	
 }
