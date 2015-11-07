@@ -8,6 +8,7 @@ import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import io.craigmiller160.school.entity.Administrator;
 import io.craigmiller160.school.entity.Course;
 import io.craigmiller160.school.entity.Gender;
 import io.craigmiller160.school.entity.JoinHolder;
@@ -53,6 +54,11 @@ implements GenericEntityServiceBean {
 	private final GenericJoinHolderDaoBean<ScJoinHolder> scJoinHolderDao;
 	
 	/**
+	 * The DAO for persisting <tt>Administrator</tt> objects.
+	 */
+	private final GenericEntityDaoBean<Administrator> adminDao;
+	
+	/**
 	 * Create a new instance of this service, setting
 	 * both DAOs that it requires. If null is passed as 
 	 * either DAO parameter, this class will not be able
@@ -68,10 +74,12 @@ implements GenericEntityServiceBean {
 	@Autowired (required=true)
 	public SchoolDataService(GenericEntityDaoBean<Student> studentDao, 
 			GenericEntityDaoBean<Course> courseDao,
-			GenericJoinHolderDaoBean<ScJoinHolder> scJoinHolderDao){
+			GenericJoinHolderDaoBean<ScJoinHolder> scJoinHolderDao,
+			GenericEntityDaoBean<Administrator> adminDao){
 		this.studentDao = studentDao;
 		this.courseDao = courseDao;
 		this.scJoinHolderDao = scJoinHolderDao;
+		this.adminDao = adminDao;
 	}
 	
 	/**
@@ -101,6 +109,15 @@ implements GenericEntityServiceBean {
 		return studentDao;
 	}
 	
+	/**
+	 * Get the DAO for persisting <tt>Administrator</tt> objects.
+	 * 
+	 * @return the DAO for persisting <tt>Administrator</tt> objects.
+	 */
+	public GenericEntityDaoBean<Administrator> getAdministratorDao(){
+		return adminDao;
+	}
+	
 	@Transactional
 	@Override
 	public <T> void updateEntity(T entity) {
@@ -112,6 +129,9 @@ implements GenericEntityServiceBean {
 		}
 		else if(entity instanceof ScJoinHolder){
 			scJoinHolderDao.updateEntity((ScJoinHolder) entity);
+		}
+		else if(entity instanceof Administrator){
+			adminDao.updateEntity((Administrator) entity);
 		}
 		else{
 			throw new IllegalArgumentException(entity.getClass() + " is not a valid entity");
@@ -130,17 +150,22 @@ implements GenericEntityServiceBean {
 		else if(entity instanceof ScJoinHolder){
 			scJoinHolderDao.deleteEntity((ScJoinHolder) entity);
 		}
+		else if(entity instanceof Administrator){
+			adminDao.deleteEntity((Administrator) entity);
+		}
 		else{
 			throw new IllegalArgumentException(entity.getClass() + " is not a valid entity");
 		}
 	}
 	
+	//TODO ultimately remove this method, it's a bad method and isn't
+	//going to be used
 	/**
 	 * {@inheritDoc}
 	 * <p>
 	 * <b>NOTE:</b> This implementation of this method does NOT support
-	 * creating the <tt>ScJoinHolder</tt> entity. That is handled by the
-	 * separate <tt>joinEntities(Class,Object...)</tt> method.
+	 * creating the <tt>ScJoinHolder</tt> entity, or any of the contact
+	 * entities (<tt>Address</tt>, <tt>Phone</tt>, <tt>Email</tt>).
 	 */
 	@Transactional
 	@SuppressWarnings("unchecked") //Casting to <T> works because of the check on entityType
@@ -246,6 +271,9 @@ implements GenericEntityServiceBean {
 		else if(entity instanceof ScJoinHolder){
 			scJoinHolderDao.insertEntity((ScJoinHolder) entity);
 		}
+		else if(entity instanceof Administrator){
+			adminDao.insertEntity((Administrator) entity);
+		}
 		else{
 			throw new IllegalArgumentException(entity.getClass() + " is not a valid entity");
 		}
@@ -263,6 +291,9 @@ implements GenericEntityServiceBean {
 		}
 		else if(entityType.equals(ScJoinHolder.class)){
 			return (List<T>) scJoinHolderDao.getAllEntities();
+		}
+		else if(entityType.equals(Administrator.class)){
+			return (List<T>) adminDao.getAllEntities();
 		}
 		else{
 			throw new IllegalArgumentException(entityType + " is not a valid entity");
@@ -282,6 +313,9 @@ implements GenericEntityServiceBean {
 		else if(entityType.equals(ScJoinHolder.class)){
 			return (T) scJoinHolderDao.getEntityById(entityId);
 		}
+		else if(entityType.equals(Administrator.class)){
+			return (T) adminDao.getEntityById(entityId);
+		}
 		else{
 			throw new IllegalArgumentException(entityType + " is not a valid entity");
 		}
@@ -299,6 +333,9 @@ implements GenericEntityServiceBean {
 		}
 		else if(entityType.equals(ScJoinHolder.class)){
 			result = scJoinHolderDao.getEntityCount();
+		}
+		else if(entityType.equals(Administrator.class)){
+			result = adminDao.getEntityCount();
 		}
 		else{
 			throw new IllegalArgumentException(entityType + " is not a valid Entity");
@@ -405,6 +442,9 @@ implements GenericEntityServiceBean {
 		else if(entityType.equals(ScJoinHolder.class)){
 			resultList = (List<T>) scJoinHolderDao.getEntitiesByPage(startPageAfterRow, pageRowCount);
 		}
+		else if(entityType.equals(Administrator.class)){
+			resultList = (List<T>) adminDao.getEntitiesByPage(startPageAfterRow, pageRowCount);
+		}
 		else{
 			throw new IllegalArgumentException(entityType + " is not a valid Entity");
 		}
@@ -452,6 +492,10 @@ implements GenericEntityServiceBean {
 			ScJoinHolder joinHolder = scJoinHolderDao.getEntityById(entityId);
 			scJoinHolderDao.deleteEntity(joinHolder);
 		}
+		else if(entityType.equals(Administrator.class)){
+			Administrator admin = adminDao.getEntityById(entityId);
+			adminDao.deleteEntity(admin);
+		}
 		else{
 			throw new IllegalArgumentException(entityType + " is not a valid entity");
 		}
@@ -471,6 +515,9 @@ implements GenericEntityServiceBean {
 		}
 		else if(entityType.equals(ScJoinHolder.class)){
 			actualCount = scJoinHolderDao.getEntityCount();
+		}
+		else if(entityType.equals(Administrator.class)){
+			actualCount = adminDao.getEntityCount();
 		}
 		else{
 			throw new IllegalArgumentException(entityType + " is not a valid entity");
