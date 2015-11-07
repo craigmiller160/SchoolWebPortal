@@ -115,5 +115,103 @@ public class HibernateTestUtil {
 					"Method is only compatible with MySQL database");
 		}
 	}
+	//TODO document stuff after this
+	@Transactional
+	public void resetAddressStudentAutoIncrement(){
+		Dialect dialect = ((SessionFactoryImplementor) sessionFactory).getDialect();
+		if(dialect instanceof MySQLDialect){
+			sessionFactory.getCurrentSession()
+			.createSQLQuery("alter table address_student auto_increment = 1")
+			.executeUpdate();
+		}
+		else{
+			throw new UnsupportedOperationException(
+					"Method is only compatible with MySQL database");
+		}
+	}
+	
+	@Transactional
+	public void resetAddressAdminAutoIncrement(){
+		Dialect dialect = ((SessionFactoryImplementor) sessionFactory).getDialect();
+		if(dialect instanceof MySQLDialect){
+			sessionFactory.getCurrentSession()
+			.createSQLQuery("alter table address_admin auto_increment = 1")
+			.executeUpdate();
+		}
+		else{
+			throw new UnsupportedOperationException(
+					"Method is only compatible with MySQL database");
+		}
+	}
+	
+	@Transactional
+	public void resetPhoneStudentAutoIncrement(){
+		Dialect dialect = ((SessionFactoryImplementor) sessionFactory).getDialect();
+		if(dialect instanceof MySQLDialect){
+			sessionFactory.getCurrentSession()
+			.createSQLQuery("alter table phone_student auto_increment = 1")
+			.executeUpdate();
+		}
+		else{
+			throw new UnsupportedOperationException(
+					"Method is only compatible with MySQL database");
+		}
+	}
+	
+	@Transactional
+	public void resetPhoneAdminAutoIncrement(){
+		Dialect dialect = ((SessionFactoryImplementor) sessionFactory).getDialect();
+		if(dialect instanceof MySQLDialect){
+			sessionFactory.getCurrentSession()
+			.createSQLQuery("alter table phone_admin auto_increment = 1")
+			.executeUpdate();
+		}
+		else{
+			throw new UnsupportedOperationException(
+					"Method is only compatible with MySQL database");
+		}
+	}
+	
+	@Transactional
+	public void resetEmailStudentAutoIncrement(){
+		Dialect dialect = ((SessionFactoryImplementor) sessionFactory).getDialect();
+		if(dialect instanceof MySQLDialect){
+			sessionFactory.getCurrentSession()
+			.createSQLQuery("alter table email_student auto_increment = 1")
+			.executeUpdate();
+		}
+		else{
+			throw new UnsupportedOperationException(
+					"Method is only compatible with MySQL database");
+		}
+	}
+	
+	@Transactional
+	public void resetEmailAdminAutoIncrement(){
+		Dialect dialect = ((SessionFactoryImplementor) sessionFactory).getDialect();
+		if(dialect instanceof MySQLDialect){
+			sessionFactory.getCurrentSession()
+			.createSQLQuery("alter table email_admin auto_increment = 1")
+			.executeUpdate();
+		}
+		else{
+			throw new UnsupportedOperationException(
+					"Method is only compatible with MySQL database");
+		}
+	}
+	
+	@Transactional
+	public void resetAdminAutoIncrement(){
+		Dialect dialect = ((SessionFactoryImplementor) sessionFactory).getDialect();
+		if(dialect instanceof MySQLDialect){
+			sessionFactory.getCurrentSession()
+			.createSQLQuery("alter table admin auto_increment = 1")
+			.executeUpdate();
+		}
+		else{
+			throw new UnsupportedOperationException(
+					"Method is only compatible with MySQL database");
+		}
+	}
 	
 }
