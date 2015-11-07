@@ -95,6 +95,8 @@ implements GenericEntityDaoBean<Course> {
 	 */
 	@Override
 	public Course getEntityById(int courseId) {
+		//TODO don't need this anymore, as students field doesn't exist.
+		//also this needs to be done to StudentDao as well.
 		Session session = sessionFactory.getCurrentSession();
 		return (Course) session.createCriteria(Course.class)
 					.setFetchMode("students", FetchMode.JOIN)
@@ -149,7 +151,8 @@ implements GenericEntityDaoBean<Course> {
 	@Override
 	public long getEntityCount() {
 		Session session = sessionFactory.getCurrentSession();
-		return (Long) session.createQuery("select count(*) from Course").uniqueResult();
+		return (Long) session.createQuery("select count(*) from Course")
+				.uniqueResult();
 	}
 	
 	/**
