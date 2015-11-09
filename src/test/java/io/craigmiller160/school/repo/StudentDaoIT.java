@@ -78,7 +78,7 @@ public class StudentDaoIT {
 	 * Set the fields of the <tt>Student</tt> object
 	 * to the first set of values.
 	 * 
-	 * @param course the <tt>Student</tt> object to set.
+	 * @param student the <tt>Student</tt> object to set.
 	 */
 	private void setStudent1(Student student){
 		student.setFirstName("First");
@@ -92,7 +92,7 @@ public class StudentDaoIT {
 	 * Set the fields of the <tt>Student</tt> object
 	 * to the second set of values.
 	 * 
-	 * @param course the <tt>Student</tt> object to set.
+	 * @param student the <tt>Student</tt> object to set.
 	 */
 	private void setStudent2(Student student){
 		student.setFirstName("First2");
