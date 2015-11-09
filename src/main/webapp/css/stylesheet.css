@@ -1,0 +1,176 @@
+@CHARSET "UTF-8";
+
+/************ 
+* ALL PAGES *
+*************/
+
+/* Universal style for footer */
+.footer{
+	text-align: center;
+	text-size: 15px;
+}
+
+/* Setting values for footer and push, 
+the div to help make footer work */
+.footer, .push{
+	height: 35px;
+}
+
+/* Set the html/body height */
+html, body{
+	height: 100%;
+}
+
+/* The main content container, within the wrapper */
+.main-content{
+	min-height: 100%;
+	height: auto !important;
+	height: 100%;
+	margin: 0 auto -30px;
+	background-color: mintcream;
+	border: 1px solid lightgray;
+}
+
+/* Content wrapper to set the width 
+of the main content.
+Should be compined with JQuery for dynamic sizes */
+.wrapper{
+	margin: 0 auto;
+	width: 1200px;
+}
+
+/********* 
+* HEADER *
+**********/
+
+/* Universal attributes of a page header */
+.header{
+	margin-bottom: 0px;
+	border-radius: 0px;
+	box-shadow: 2px 2px 5px lightgray;
+}
+
+/* The text with the logo image */
+#logo-text{
+	display: inline-block;
+	vertical-align: middle;
+	margin-left: 5px;
+	text-align: left;
+	font-family: 'Coda', cursive;
+	color: white;
+}
+
+/* The first line of the logo title */
+#logo-title1{
+	font-size: 22px;
+}
+
+/* The second line of the logo title */
+#logo-title2{
+	font-size: 15px;
+	text-align: center;
+}
+
+/* The school logo image */
+#school-logo{
+	background-color: white;
+	padding: 1px;
+}
+
+/*************** 
+* WELCOME PAGE *
+****************/
+
+/* The building image on the page */
+#building-img{
+	height: 600px;
+	width: 100%;
+}
+
+/* Set the color of the welcome page header */
+.header-welcome{
+	background-color: coral;
+}
+
+/* The header text for the welcome page */
+.header-welcome-text{
+	font-family: 'Coda', cursive;
+	color: white;
+	font-size: 18px;
+}
+
+/* The background image for the welcome page */
+.welcome-background-img{
+	position: absolute;
+	z-index: -1;
+	opacity: 0.5;
+}
+
+/* The students background image */
+#student-background{
+	width: 100%;
+	height: 656px;
+}
+
+/* The foreground color of the header buttons for welcome page */
+.nav > li > a.header-welcome-text{
+	color: white;
+}
+
+/* The hover color of header buttons for welcome page */
+.nav > li:hover > a.header-welcome-text{
+	background-color: #FFA483;
+}
+
+.nav > li > a.header-welcome-text:focus{
+	color: white;
+}
+
+/* Style the dropdown menus */
+.navbar-default .navbar-nav .open .dropdown-menu> li> a,
+.navbar-default .navbar-nav .open .dropdown-menu {
+  	background-color: #FFA483;
+    color: black;
+    font-family: "Times New Roman", Times, Serif;
+    font-size: 16px;
+}
+
+/* The hover highlight for items in the dropdown menus in the header */
+.navbar-default .navbar-nav .open .dropdown-menu > li > a:hover{
+	background-color: coral;
+	color: white;
+}
+
+/* Welcome page banner text */
+.welcome-banner{
+	text-align: center;
+	font-family: 'Limelight', cursive;
+}
+
+/* The body of the welcome page */
+#welcome-body{
+	background-color: #FFCAB6;
+}
+
+.welcome-content{
+	width: 100%;
+	margin: 0 auto;
+	padding: 0;
+}
+
+/* Style for the details text for the welcome page */
+.welcome-details{
+	text-align: center;
+	font-family: "Times New Roman", Times, Serif;
+}
+
+/* The smaller images on the welcome page */
+.welcome-img{
+	margin: 0 auto;
+	width: 80%;
+}
+
+/* Background color of the title row of welcome page */
+#welcome-title-row{
+	background-color: #FFA483;
+}

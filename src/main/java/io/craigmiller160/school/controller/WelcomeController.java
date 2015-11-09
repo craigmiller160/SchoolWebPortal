@@ -1,6 +1,7 @@
 package io.craigmiller160.school.controller;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -35,7 +36,14 @@ public class WelcomeController {
 	 * on the request parameter.
 	 */
 	@RequestMapping(value="/welcome", method=RequestMethod.GET)
-	public String welcome(@RequestParam (required=false) String loginButton){
+	public String welcome(Model model,
+			@RequestParam (required=false) String loginButton){
+		model.addAttribute("headerTitle", "welcome.header.title");
+		model.addAttribute("pageName", "welcome");
+		
+		//TODO currently, loginButton is not being used at all
+		//in this page. It may be restored when doing the login
+		//operation though.
 		if(loginButton != null){
 			return "redirect:login.html";
 		}

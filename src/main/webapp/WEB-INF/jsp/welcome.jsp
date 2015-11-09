@@ -4,65 +4,147 @@
 <html>
 <head>
 <%@ include file="stub/jstl-stub.jsp" %> <!-- Include JSTL Tag Library -->
+<%@ include file="stub/spring-stub.jsp" %> <!-- Include Spring Tag Library -->
 <%@ include file="stub/js-stub.jsp" %> <!-- Include JQuery -->
 <%@ include file="stub/bootstrap-stub.jsp" %> <!-- Include Bootstrap Dependencies -->
-<%@ include file="stub/css-stub.jsp" %> <!-- Include CSS Stylesheets -->
-<%@ include file="stub/spring-stub.jsp" %> <!-- Include Spring Tag Library -->
+<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css"/>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+<link rel="stylesheet" href="<c:url value="css/stylesheet.css"/>"/>
+<link href='https://fonts.googleapis.com/css?family=Coda' rel='stylesheet' type='text/css'>
+<link href='https://fonts.googleapis.com/css?family=Limelight' rel='stylesheet' type='text/css'>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title><spring:message code="welcome.page.title"/></title>
 </head>
-<body>
+<body id="welcome-body">
+	<%@ include file="component/header.jsp" %>
 	
-	<!-- Wrapper div for implemented FlexBox Layout -->
+	<div class="welcome-background-img">
+		<img src="<c:url value="img/student-background.jpg"/>"
+			id="student-background"/>
+	</div>
+
 	<div class="wrapper">
-		<!-- Page Header -->
-		<header class="header-welcome">
-			<!-- Logo in upper left of header -->
-			<div class="logo">
-				<img src="<c:url value="/img/ehslogo.png"/>" height="70px"/>
-			</div>
-			
-			<!-- Page Title in header -->
-			<div class="header-title">
-				<h1><spring:message code="welcome.header.title"/></h1>
-			</div>
-			
-			<!-- Option to Login to Web Portal -->
-			<div class="user-status">
-				<form:form method="get">
-					<input class="btn-link" type="submit" 
-						name="loginButton" 
-						value="<spring:message code="welcome.header.login"/>"/>
-				</form:form>
-			</div>
-		</header>
 		
-		<!-- Container holding the main content for the page -->
-		<div class="content-container">
-			<!-- Large image of a high school building -->
-			<div>
-				<img src="<c:url value="/img/highschoolbuilding.jpg"/>" width="100%"/>
+		<div class="container-fluid main-content">
+			
+			<div id="welcome-title-row" class="row">
+				<div class="col-md-6">
+					<h3 class="welcome-banner">
+						<spring:message code="welcome.banner.title1"/>
+					</h3>
+				</div>
+				<div class="col-md-6">
+					<h3 class="welcome-banner">
+						<spring:message code="welcome.banner.title2"/>
+					</h3>
+				</div>
 			</div>
+			
+			<div class="row">
+				<img src="<c:url value="img/highschoolbuilding.jpg"/>"
+					class="img-responsive" id="building-img"/>
+			</div>
+			
+			<div class="row">
+				<div class="col-md-12">
+					<div class="page-header welcome-page-header">
+						<h3 class="welcome-banner">
+							<spring:message code="welcome.academic.title"/>
+						</h3>
+					</div>
+				</div>
+			</div>
+			
+			<div class="row">
+				<div class="col-md-4 welcome-details">
+					<img src="<c:url value="img/classroom1.jpg"/>"
+						class="img-responsive welcome-img"/>
+					<h4>
+						<spring:message code="welcome.academic.class"/>
+					</h4>
+				</div>
+				<div class="col-md-4 welcome-details">
+					<img src="<c:url value="img/classroom2.jpg"/>"
+						class="img-responsive welcome-img"/>
+					<h4>
+						<spring:message code="welcome.academic.students"/>
+					</h4>
+				</div>
+				<div class="col-md-4 welcome-details">
+					<img src="<c:url value="img/classroom3.jpg"/>"
+						class="img-responsive welcome-img"/>
+					<h4>
+						<spring:message code="welcome.academic.instructors"/>
+					</h4>
+				</div>
+			</div>
+			
+			<div class="row">
+				<div class="col-md-12">
+					<div class="page-header welcome-page-header">
+						<h3 class="welcome-banner">
+							<spring:message code="welcome.athletic.title"/>
+						</h3>
+					</div>
+				</div>
+			</div>
+			
+			<div class="row">
+				<div class="col-md-4 welcome-details">
+					<img src="<c:url value="img/athletics-track.jpg"/>"
+						class="img-responsive welcome-img"/>
+					<h4>
+						<spring:message code="welcome.athletic.fitness"/>
+					</h4>
+				</div>
+				<div class="col-md-4 welcome-details">
+					<img src="<c:url value="img/athletics-football.jpg"/>"
+						class="img-responsive welcome-img"/>
+					<h4>
+						<spring:message code="welcome.athletic.football"/>
+					</h4>
+				</div>
+				<div class="col-md-4 welcome-details">
+					<img src="<c:url value="img/athletics-women.jpg"/>"
+						class="img-responsive welcome-img"/>
+					<h4>
+						<spring:message code="welcome.athletic.team"/>
+					</h4>
+				</div>
+			</div>
+			
+			<div class="push"></div>
 		</div>
 		
-		<!-- Page footer -->
-		<footer class="footer-welcome">
-			<h4><spring:message code="general.footer"/></h4>
-		</footer>
 		
+	
 	</div>
 	
-	<script>
-		function docWidth(){
-			var width = $(document).width();
-			$('header').width(width);
-			$('footer').width(width);
-		};
+	<%@ include file="component/footer.jsp" %>
 
-		$(document).ready(docWidth());
-		$(document).ready(function(){
-			$(window).resize(docWidth());
+	<script>
+	function resizeWindow(){
+		var width = $(window).width();
+
+		if(width < 1200){
+			$('.wrapper').css('width', 100 + '%');
+		}
+		else{
+			$('.wrapper').css('width', 1200 + 'px');
+		}
+
+		var headerHeight = $('.header').height();
+		$('.main-content').css('margin-top', headerHeight);
+	};
+
+
+	$(document).ready(resizeWindow());
+	$(document).ready(function(){
+		$(window).on('resize', function(){
+			resizeWindow();
 		});
+	});
 	</script>
 
 </body>
