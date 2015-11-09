@@ -105,7 +105,8 @@ public class HibernateAdminDao implements GenericEntityDaoBean<Administrator> {
 	@Override
 	public long getEntityCount() {
 		Session session = sessionFactory.getCurrentSession();
-		return (Long) session.createQuery("select count(*) from Administrator")
+		return (Long) session.createQuery("select count(*) from "
+				+ Administrator.class.getName())
 				.uniqueResult();
 	}
 
