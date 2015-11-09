@@ -231,6 +231,9 @@ public class StudentDaoIT {
 		ApplicationContext context = AppContext.getApplicationContext();
 		HibernateTestUtil testUtil = context.getBean(HibernateTestUtil.class, "hibernateTestUtil");
 		testUtil.resetStudentAutoIncrement();
+		testUtil.resetAddressStudentAutoIncrement();
+		testUtil.resetPhoneStudentAutoIncrement();
+		testUtil.resetEmailStudentAutoIncrement();
 	}
 	
 }
