@@ -51,13 +51,13 @@ public class EmailTest {
 				return false;
 			}
 		};
-		email.setEmailId(1);
+		email.setEmailId(new Long(1));
 		email.setEmailType(EmailType.PERSONAL);
 		email.setEmailAddress("bob@gmail.com");
 		
 		//Test the values
 		assertNotNull(email);
-		assertEquals("ID Fail", email.getEmailId(), 1);
+		assertEquals("ID Fail", email.getEmailId(), new Long(1));
 		assertEquals("Type Fail", email.getEmailType(), EmailType.PERSONAL);
 		assertEquals("Email Fail", email.getEmailAddress(), "bob@gmail.com");
 	}
@@ -67,17 +67,17 @@ public class EmailTest {
 		//The base object to be compared
 		EmailAdmin email1 = new EmailAdmin();
 		setEmail1(email1);
-		email1.setEmailId(1);
+		email1.setEmailId(new Long(1));
 		
 		//Same type, doesn't match
 		EmailAdmin email2 = new EmailAdmin();
 		setEmail2(email2);
-		email2.setEmailId(2);
+		email2.setEmailId(new Long(2));
 		
 		//Same type, should match
 		EmailAdmin email3 = new EmailAdmin();
 		setEmail1(email3);
-		email3.setEmailId(1);
+		email3.setEmailId(new Long(1));
 		
 		//Test for accurate comparison
 		assertTrue("Less than test", email1.compareTo(email2) < 0);
@@ -90,17 +90,17 @@ public class EmailTest {
 		//The base object to be compared
 		EmailStudent email1 = new EmailStudent();
 		setEmail1(email1);
-		email1.setEmailId(1);
+		email1.setEmailId(new Long(1));
 		
 		//Same type, doesn't match
 		EmailStudent email2 = new EmailStudent();
 		setEmail2(email2);
-		email2.setEmailId(2);
+		email2.setEmailId(new Long(2));
 		
 		//Same type, should match
 		EmailStudent email3 = new EmailStudent();
 		setEmail1(email3);
-		email3.setEmailId(1);
+		email3.setEmailId(new Long(1));
 		
 		//Test for accurate comparison
 		assertTrue("Less than test", email1.compareTo(email2) < 0);
@@ -153,22 +153,22 @@ public class EmailTest {
 		//The base object to be compared
 		EmailAdmin email1 = new EmailAdmin();
 		setEmail1(email1);
-		email1.setEmailId(1);
+		email1.setEmailId(new Long(1));
 		
 		//Same type, won't match
 		EmailAdmin email2 = new EmailAdmin();
 		setEmail2(email2);
-		email2.setEmailId(2);
+		email2.setEmailId(new Long(2));
 		
 		//Same type, should match
 		EmailAdmin email3 = new EmailAdmin();
 		setEmail1(email3);
-		email3.setEmailId(1);
+		email3.setEmailId(new Long(1));
 		
 		//Different Email Type, same content, won't match
 		EmailStudent email4 = new EmailStudent();
 		setEmail1(email4);
-		email4.setEmailId(1);
+		email4.setEmailId(new Long(1));
 		
 		//Test for accurate comparison
 		assertFalse("Content mismatch", email1.equals(email2));
@@ -185,22 +185,22 @@ public class EmailTest {
 		//The base object to be compared
 		EmailStudent email1 = new EmailStudent();
 		setEmail1(email1);
-		email1.setEmailId(1);
+		email1.setEmailId(new Long(1));
 		
 		//Same type, won't match
 		EmailStudent email2 = new EmailStudent();
 		setEmail2(email2);
-		email2.setEmailId(2);
+		email2.setEmailId(new Long(2));
 		
 		//Same type, should match
 		EmailStudent email3 = new EmailStudent();
 		setEmail1(email3);
-		email3.setEmailId(1);
+		email3.setEmailId(new Long(1));
 		
 		//Different Email Type, same content, won't match
 		EmailAdmin email4 = new EmailAdmin();
 		setEmail1(email4);
-		email4.setEmailId(1);
+		email4.setEmailId(new Long(1));
 		
 		//Test for accurate comparison
 		assertFalse("Content mismatch", email1.equals(email2));
