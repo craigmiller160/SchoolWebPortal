@@ -52,7 +52,7 @@
 				<ul class="nav navbar-nav navbar-right">
 					<li>
 						<% //TODO this won't always be login, needs to be adjustable %>
-						<a href="<c:url value="login.html"/>" class="${headerWelcomeText}">
+						<a href="<c:url value="portal.html"/>" class="${headerWelcomeText}">
 							<spring:message code="welcome.header.login"/>
 						</a>
 					</li>
