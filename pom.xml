@@ -22,6 +22,7 @@
   		<mysql.driver.version>5.1.36</mysql.driver.version>
   		<servlet.version>3.1.0</servlet.version>
   		<spring.version>4.2.0.RELEASE</spring.version>
+  		<spring.security.version>4.0.3.RELEASE</spring.security.version>
   		<taglibs.version>1.1.2</taglibs.version>
   	</properties>
   
@@ -68,6 +69,23 @@
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-orm</artifactId>
 			<version>${spring.version}</version>
+		</dependency>
+		
+	<!-- SPRING SECURITY -->
+		<dependency> <!-- Spring Security - Web -->
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-web</artifactId>
+			<version>${spring.security.version}</version>
+		</dependency>
+		<dependency> <!-- Spring Security - Config -->
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-config</artifactId>
+			<version>${spring.security.version}</version>
+		</dependency>
+		<dependency> <!-- Spring Security - Taglibs -->
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-taglibs</artifactId>
+			<version>${spring.security.version}</version>
 		</dependency>
 		
 	<!-- HIBERNATE -->
