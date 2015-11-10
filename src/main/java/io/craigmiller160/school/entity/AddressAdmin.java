@@ -38,5 +38,39 @@ public class AddressAdmin extends Address {
 	public void setAdministrator(Administrator admin) {
 		this.admin = admin;
 	}
+	
+	@Override
+	public int hashCode(){
+		String s = "ADMIN "
+				+ toString();
+		return s.hashCode();
+	}
+	
+	@Override
+	public boolean equals(Object obj){
+		if(obj instanceof AddressAdmin){
+			if(getAddressType()
+					.equals(((AddressAdmin) obj)
+							.getAddressType())
+					&& getAddress1()
+					.equals(((AddressAdmin) obj)
+							.getAddress1())
+					&& getAddress2()
+					.equals(((AddressAdmin) obj)
+							.getAddress2())
+					&& getCity()
+					.equals(((AddressAdmin) obj)
+							.getCity())
+					&& getState()
+					.equals(((AddressAdmin) obj)
+							.getState())
+					&& getZip()
+					.equals(((AddressAdmin) obj)
+							.getZip())){
+				return true;
+			}
+		}
+		return false;
+	}
 
 }

@@ -39,4 +39,38 @@ public class AddressStudent extends Address {
 		this.student = student;
 	}
 	
+	@Override
+	public int hashCode(){
+		String s = "STUDENT "
+				+ toString();
+		return s.hashCode();
+	}
+	
+	@Override
+	public boolean equals(Object obj){
+		if(obj instanceof AddressStudent){
+			if(getAddressType()
+					.equals(((AddressStudent) obj)
+							.getAddressType())
+					&& getAddress1()
+					.equals(((AddressStudent) obj)
+							.getAddress1())
+					&& getAddress2()
+					.equals(((AddressStudent) obj)
+							.getAddress2())
+					&& getCity()
+					.equals(((AddressStudent) obj)
+							.getCity())
+					&& getState()
+					.equals(((AddressStudent) obj)
+							.getState())
+					&& getZip()
+					.equals(((AddressStudent) obj)
+							.getZip())){
+				return true;
+			}
+		}
+		return false;
+	}
+	
 }

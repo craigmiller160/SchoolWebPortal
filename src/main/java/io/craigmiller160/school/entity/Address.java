@@ -127,36 +127,15 @@ implements Comparable<Address>, Serializable{
 		this.zip = zip;
 	}
 
-	//TODO join testing stuff
-	
-	
-	
-	/*public int getUnifiedKey(){
-		return unifiedKey;
-	}
-	
-	public void setUnifiedKey(int unifiedKey){
-		this.unifiedKey = unifiedKey;
-	}*/
+	@Override
+	public abstract int hashCode();
 	
 	@Override
-	public int hashCode(){
-		return addressId;
-	}
-	
-	@Override
-	public boolean equals(Object obj){
-		if(obj instanceof Address){
-			return ((Address) obj).addressId == this.addressId;
-		}
-		else{
-			return false;
-		}
-	}
+	public abstract boolean equals(Object obj);
 	
 	@Override
 	public String toString(){
-		StringBuilder builder = new StringBuilder(address1);
+		StringBuilder builder = new StringBuilder(addressType + address1);
 		builder.append(address2 != null ? address2 + ", " : ", ");
 		builder.append(city + ", " + state + " " + zip);
 		

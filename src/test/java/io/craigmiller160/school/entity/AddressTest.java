@@ -13,6 +13,24 @@ import org.junit.Test;
 //The DAO tests for Student/Admin will test the subclasses.
 public class AddressTest {
 
+	private void setAddress1(Address address){
+		address.setAddressType(AddressType.HOME);
+		address.setAddress1("12 Freehold Way");
+		address.setAddress2("Apt 23");
+		address.setCity("Hamilton");
+		address.setState(State.AL);
+		address.setZip("12345");
+	}
+	
+	private void setAddress2(Address address){
+		address.setAddressType(AddressType.WORK);
+		address.setAddress1("500 Paradise Rd");
+		address.setAddress2("Apt 46");
+		address.setCity("Henderson");
+		address.setState(State.NV);
+		address.setZip("08852");
+	}
+	
 	//Anonymous instantiation of abstract class, needs @SuppressWarnings
 	@SuppressWarnings("serial")
 	@Test
@@ -20,7 +38,16 @@ public class AddressTest {
 		//Create test data
 		Address address = new Address(AddressType.HOME,
 				"12 Freehold Way", "Apt 23", "Hamilton",
-				State.AL, "12345"){};
+				State.AL, "12345"){
+			//Impliment these methods with dummy values
+			//They aren't needed for this test anyway.
+			public int hashCode(){
+				return 1;
+			}
+			public boolean equals(Object obj){
+				return false;
+			}
+		};
 		
 		//Test the values
 		assertNotNull("Is null", address);
@@ -37,14 +64,18 @@ public class AddressTest {
 	@Test
 	public void testFields(){
 		//Create test data
-		Address address = new Address(){};
+		Address address = new Address(){
+			//Impliment these methods with dummy values
+			//They aren't needed for this test anyway.
+			public int hashCode(){
+				return 1;
+			}
+			public boolean equals(Object obj){
+				return false;
+			}
+		};
 		address.setAddressId(1);
-		address.setAddressType(AddressType.HOME);
-		address.setAddress1("12 Freehold Way");
-		address.setAddress2("Apt 23");
-		address.setCity("Hamilton");
-		address.setState(State.AL);
-		address.setZip("12345");
+		setAddress1(address);
 		
 		//Test the values
 		assertNotNull("Is null", address);
@@ -60,42 +91,44 @@ public class AddressTest {
 	//Anonymous instantiation of abstract class, needs @SuppressWarnings
 	@SuppressWarnings("serial")
 	@Test
-	public void testEquals(){
-		//An invalid type object
-		Object o = new Object();
-		
-		//The base object to be compared
-		Address address1 = new Address(){};
-		address1.setAddressId(1);
-		
-		//Same type, doesn't match
-		Address address2 = new Address(){};
-		address2.setAddressId(2);
-		
-		//Same type, should match
-		Address address3 = new Address(){};
-		address3.setAddressId(1);
-		
-		//Test for accurate comparison
-		assertFalse("ID mismatch", address1.equals(address2));
-		assertFalse("Type mismatch", address1.equals(o));
-		assertTrue("Perfect match", address1.equals(address3));
-	}
-	
-	//Anonymous instantiation of abstract class, needs @SuppressWarnings
-	@SuppressWarnings("serial")
-	@Test
 	public void testCompareTo(){
 		//The base object to be compared
-		Address address1 = new Address(){};
+		Address address1 = new Address(){
+			//Impliment these methods with dummy values
+			//They aren't needed for this test anyway.
+			public int hashCode(){
+				return 1;
+			}
+			public boolean equals(Object obj){
+				return false;
+			}
+		};
 		address1.setAddressId(1);
 		
 		//Same type, doesn't match
-		Address address2 = new Address(){};
+		Address address2 = new Address(){
+			//Impliment these methods with dummy values
+			//They aren't needed for this test anyway.
+			public int hashCode(){
+				return 1;
+			}
+			public boolean equals(Object obj){
+				return false;
+			}
+		};
 		address2.setAddressId(2);
 		
 		//Same type, should match
-		Address address3 = new Address(){};
+		Address address3 = new Address(){
+			//Impliment these methods with dummy values
+			//They aren't needed for this test anyway.
+			public int hashCode(){
+				return 1;
+			}
+			public boolean equals(Object obj){
+				return false;
+			}
+		};
 		address3.setAddressId(1);
 		
 		//Test for accurate comparison
@@ -139,6 +172,70 @@ public class AddressTest {
 		//Test if it worked
 		assertNotNull("Post-Test should not be null", 
 				address.getAdministrator());
+	}
+	
+	@Test
+	public void testAdminEquals(){
+		//An invalid type object
+		Object o = new Object();
+		
+		//The base object to be compared
+		AddressAdmin address1 = new AddressAdmin();
+		setAddress1(address1);
+		address1.setAddressId(1);
+		
+		//Same type, won't match
+		AddressAdmin address2 = new AddressAdmin();
+		setAddress2(address2);
+		address2.setAddressId(2);
+		
+		//Same type, should match
+		AddressAdmin address3 = new AddressAdmin();
+		setAddress1(address3);
+		address3.setAddressId(1);
+		
+		//Different Address type, same content, won't match
+		AddressStudent address4 = new AddressStudent();
+		setAddress1(address4);
+		address4.setAddressId(1);
+		
+		//Test for accurate comparison
+		assertFalse("Content mismatch", address1.equals(address2));
+		assertFalse("Type mismatch", address1.equals(o));
+		assertFalse("Address Type mismatch", address1.equals(address4));
+		assertTrue("Perfect match", address1.equals(address3));
+	}
+	
+	@Test
+	public void testStudentEquals(){
+		//An invalid type object
+		Object o = new Object();
+		
+		//The base object to be compared
+		AddressStudent address1 = new AddressStudent();
+		setAddress1(address1);
+		address1.setAddressId(1);
+		
+		//Same type, won't match
+		AddressStudent address2 = new AddressStudent();
+		setAddress2(address2);
+		address2.setAddressId(2);
+		
+		//Same type, should match
+		AddressStudent address3 = new AddressStudent();
+		setAddress1(address3);
+		address3.setAddressId(1);
+		
+		//The base object to be compared
+		AddressAdmin address4 = new AddressAdmin();
+		setAddress1(address1);
+		address1.setAddressId(1);
+		
+		//Test for accurate comparison
+		assertFalse("Content mismatch", address1.equals(address2));
+		assertFalse("Type mismatch", address1.equals(o));
+		assertFalse("Address Type mismatch", address1.equals(address4));
+		assertTrue("Perfect match", address1.equals(address3));
 	}
 	
 }
