@@ -214,4 +214,32 @@ public class HibernateTestUtil {
 		}
 	}
 	
+	@Transactional
+	public void resetUserAutoIncrement(){
+		Dialect dialect = ((SessionFactoryImplementor) sessionFactory).getDialect();
+		if(dialect instanceof MySQLDialect){
+			sessionFactory.getCurrentSession()
+			.createSQLQuery("alter table user auto_increment = 1")
+			.executeUpdate();
+		}
+		else{
+			throw new UnsupportedOperationException(
+					"Method is only compatible with MySQL database");
+		}
+	}
+	
+	@Transactional
+	public void resetUserRoleAutoIncrement(){
+		Dialect dialect = ((SessionFactoryImplementor) sessionFactory).getDialect();
+		if(dialect instanceof MySQLDialect){
+			sessionFactory.getCurrentSession()
+			.createSQLQuery("alter table user_role auto_increment = 1")
+			.executeUpdate();
+		}
+		else{
+			throw new UnsupportedOperationException(
+					"Method is only compatible with MySQL database");
+		}
+	}
+	
 }
