@@ -20,6 +20,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import io.craigmiller160.school.context.AppContext;
+import io.craigmiller160.school.entity.Administrator;
 import io.craigmiller160.school.entity.Course;
 import io.craigmiller160.school.entity.Gender;
 import io.craigmiller160.school.entity.ScJoinHolder;
@@ -168,6 +169,43 @@ public class SchoolDataServiceIT {
 		assertNull(DELETE_FAIL, course);
 	}
 	
+	@Transactional
+	@Test
+	public void testAdminCRUD(){
+		//Create and insert test entity
+		Administrator admin = new Administrator();
+		setAdmin1(admin);
+		schoolDataService.insertEntity(admin);
+		int adminId = admin.getAdminId();
+		
+		//Get entity and test for successful insert
+		admin = schoolDataService.getEntityById(Administrator.class, adminId);
+		assertNotNull(INSERT_FAIL, admin);
+		assertEquals(INSERT_FAIL, admin.getFirstName(), "First");
+		assertEquals(INSERT_FAIL, admin.getLastName(), "Last");
+		assertEquals(INSERT_FAIL, admin.getBirthDate(), LocalDate.of(1900, 1, 1));
+		assertEquals(INSERT_FAIL, admin.getGender(), Gender.UNKNOWN);
+		
+		//Change content and update
+		setAdmin2(admin);
+		schoolDataService.updateEntity(admin);
+		
+		//Get entity and test for successful update
+		admin = schoolDataService.getEntityById(Administrator.class, adminId);
+		assertNotNull(INSERT_FAIL, admin);
+		assertEquals(UPDATE_FAIL, admin.getFirstName(), "First2");
+		assertEquals(UPDATE_FAIL, admin.getLastName(), "Last2");
+		assertEquals(UPDATE_FAIL, admin.getBirthDate(), LocalDate.of(1950, 1, 1));
+		assertEquals(UPDATE_FAIL, admin.getGender(), Gender.MALE);
+		
+		//Delete entity
+		schoolDataService.deleteEntity(admin);
+		
+		//Try to get entity and test for delete
+		admin = schoolDataService.getEntityById(Administrator.class, adminId);
+		assertNull(DELETE_FAIL, admin);
+	}
+	
 	/**
 	 * Test CRURD operations with <tt>JoinHolder</tt> entities.
 	 */
@@ -303,6 +341,21 @@ public class SchoolDataServiceIT {
 		assertTrue(count >= 3);
 	}
 	
+	@Transactional
+	@Test
+	public void testAdminCount(){
+		//Create dummy data
+		for(int i = 0; i < 3; i++){
+			Administrator admin = new Administrator();
+			setAdmin1(admin);
+			schoolDataService.insertEntity(admin);
+		}
+		
+		//Get count and test its value
+		long count = schoolDataService.getEntityCount(Administrator.class);
+		assertTrue(count >= 3);
+	}
+	
 	/**
 	 * Test count operation for <tt>JoinHolder</tt> entities.
 	 */
@@ -364,6 +417,22 @@ public class SchoolDataServiceIT {
 		List<Course> courses = schoolDataService.getAllEntities(Course.class);
 		assertNotNull(courses);
 		assertTrue(courses.size() >= 3);
+	}
+	
+	@Transactional
+	@Test
+	public void testGetAllAdmins(){
+		//Create dummy data
+		for(int i = 0; i < 3; i++){
+			Administrator admin = new Administrator();
+			setAdmin1(admin);
+			schoolDataService.insertEntity(admin);
+		}
+		
+		//Get list and check for content
+		List<Administrator> admins = schoolDataService.getAllEntities(Administrator.class);
+		assertNotNull(admins);
+		assertTrue(admins.size() >= 3);
 	}
 	
 	/**
@@ -471,6 +540,43 @@ public class SchoolDataServiceIT {
 		for(int i = 1; i < courses1.size(); i++){
 			assertFalse("Overlap between pages", 
 					courses2.contains(courses1.get(i)));
+		}
+	}
+	
+	@Transactional
+	@Test
+	public void testGetAdminsPaginated(){
+		//Create dummy data
+		for(int i = 0; i < 20; i++){
+			Administrator admin = new Administrator();
+			setAdmin1(admin);
+			schoolDataService.insertEntity(admin);
+		}
+		
+		//Get page and test for content
+		List<Administrator> admins1 = schoolDataService.getEntitiesByPage(
+				Administrator.class, 2, 5);
+		assertNotNull("Administrators list is null", admins1);
+		assertTrue("List is wrong size", admins1.size() == 5);
+		
+		//Get another page and compare the two
+		//This list is deliberately one entity larger than the first one
+		//This allows testing to ensure that the pages are retrieving entities
+		//in the right order.
+		List<Administrator> admins2 = schoolDataService.getEntitiesByPage(
+				Administrator.class, 1, 6);
+		assertNotNull("Administrators list is null", admins2);
+		assertTrue("List is wrong size", admins2.size() == 6);
+		//The uneven sizes are meant for the following test: If this is true,
+		//then the last entity in the second list matches the first in the first.
+		//That would prove that pages are being retrieved in order.
+		assertEquals("First entity in first list doesn't equal last entity in second", 
+				admins1.get(0), admins2.get(admins2.size() - 1));
+		//Test for overlap while skipping the first record in list one because
+		//that one should match, but the others should not.
+		for(int i = 1; i < admins1.size(); i++){
+			assertFalse("Overlap between pages", 
+					admins2.contains(admins1.get(i)));
 		}
 	}
 	
@@ -922,6 +1028,27 @@ public class SchoolDataServiceIT {
 		assertNull("Course not deleted", course);
 	}
 	
+	@Transactional
+	@Test
+	public void testAdminDeleteById(){
+		//Create dummy data
+		Administrator admin = new Administrator();
+		setAdmin1(admin);
+		schoolDataService.insertEntity(admin);
+		int adminId = admin.getAdminId();
+		
+		//Test to ensure successful insert
+		admin = schoolDataService.getEntityById(Administrator.class, adminId);
+		assertNotNull("Administrator insert failed", admin);
+		
+		//Delete student
+		schoolDataService.deleteEntityById(Administrator.class, adminId);
+		
+		//Attempt to retrieve student to test for deletion
+		admin = schoolDataService.getEntityById(Administrator.class, adminId);
+		assertNull("Administrator not deleted", admin);
+	}
+	
 	/**
 	 * Test delete by ID for <tt>JoinHolder</tt> entities.
 	 * This test depends on the basic CRUD operations 
@@ -1013,6 +1140,28 @@ public class SchoolDataServiceIT {
 		//Test with a value that should result in false
 		assertFalse("Should not have pages remaining", schoolDataService.hasPagesRemaining(
 				Course.class, pageCount + 1, 10));
+	}
+	
+	@Transactional
+	@Test
+	public void testAdminHasPagesRemaining(){
+		//Create dummy data
+		for(int i = 0; i < 10; i++){
+			Administrator admin = new Administrator();
+			setAdmin1(admin);
+			schoolDataService.insertEntity(admin);
+		}
+		
+		//Get the current count to set up the comparison
+		long actualCount = schoolDataService.getEntityCount(Administrator.class);
+		int pageCount = (int) actualCount / 10; //Works because of small data sets, might not work in larger application.
+		
+		//Test with a value that should result in true
+		assertTrue("Should have pages remaining", schoolDataService.hasPagesRemaining(
+				Administrator.class, 1, 5));
+		//Test with a value that should result in false
+		assertFalse("Should not have pages remaining", schoolDataService.hasPagesRemaining(
+				Administrator.class, pageCount + 1, 10));
 	}
 	
 	/**
@@ -1131,7 +1280,7 @@ public class SchoolDataServiceIT {
 	 * Set the fields of the <tt>Student</tt> object
 	 * to the first set of values.
 	 * 
-	 * @param course the <tt>Student</tt> object to set.
+	 * @param student the <tt>Student</tt> object to set.
 	 */
 	private void setStudent1(Student student){
 		student.setFirstName("First");
@@ -1145,7 +1294,7 @@ public class SchoolDataServiceIT {
 	 * Set the fields of the <tt>Student</tt> object
 	 * to the second set of values.
 	 * 
-	 * @param course the <tt>Student</tt> object to set.
+	 * @param student the <tt>Student</tt> object to set.
 	 */
 	private void setStudent2(Student student){
 		student.setFirstName("First2");
@@ -1153,6 +1302,32 @@ public class SchoolDataServiceIT {
 		student.setBirthDate(LocalDate.of(1950, 1, 1));
 		student.setGender(Gender.MALE);
 		student.setGrade(2);
+	}
+	
+	/**
+	 * Set the fields of the <tt>Administrator</tt> object
+	 * to the first set of values.
+	 * 
+	 * @param admin the <tt>Administrator</tt> object to set.
+	 */
+	private void setAdmin1(Administrator admin){
+		admin.setFirstName("First");
+		admin.setLastName("Last");
+		admin.setBirthDate(LocalDate.of(1900, 1, 1));
+		admin.setGender(Gender.UNKNOWN);
+	}
+	
+	/**
+	 * Set the fields of the <tt>Administrator</tt> object
+	 * to the second set of values.
+	 * 
+	 * @param admin the <tt>Administrator</tt> object to set.
+	 */
+	private void setAdmin2(Administrator admin){
+		admin.setFirstName("First2");
+		admin.setLastName("Last2");
+		admin.setBirthDate(LocalDate.of(1950, 1, 1));
+		admin.setGender(Gender.MALE);
 	}
 	
 	/**
