@@ -303,7 +303,7 @@ implements GenericEntityServiceBean {
 	@SuppressWarnings("unchecked") //The entityType.equals(Class<?>) is the type check
 	@Transactional
 	@Override
-	public <T> T getEntityById(Class<T> entityType, int entityId) {
+	public <T> T getEntityById(Class<T> entityType, Long entityId) {
 		if(entityType.equals(Student.class)){
 			return (T) studentDao.getEntityById(entityId);
 		}
@@ -348,7 +348,7 @@ implements GenericEntityServiceBean {
 	@Transactional
 	@Override
 	public <T extends JoinHolder, U> List<T> getAllJoinsFor(Class<T> joinHolderType, 
-			Class<U> joinedEntityType, int entityId) {
+			Class<U> joinedEntityType, Long entityId) {
 		List<T> resultList = null;
 		if(joinHolderType.equals(ScJoinHolder.class)){
 			if(joinedEntityType.equals(Student.class) 
@@ -368,7 +368,7 @@ implements GenericEntityServiceBean {
 
 	@Transactional
 	@Override
-	public <T extends JoinHolder,U> long getJoinCountFor(Class<T> joinHolderType, Class<U> joinedEntityType, int entityId) {
+	public <T extends JoinHolder,U> long getJoinCountFor(Class<T> joinHolderType, Class<U> joinedEntityType, Long entityId) {
 		long result = 0;
 		if(joinHolderType.equals(ScJoinHolder.class)){
 			if(joinedEntityType.equals(Student.class) 
@@ -417,7 +417,7 @@ implements GenericEntityServiceBean {
 	@Transactional
 	@Override
 	public <T extends JoinHolder, U> void removeJoinsFor(Class<T> joinHolderType, Class<U> joinedEntityType,
-			int entityId) {
+			Long entityId) {
 		if(joinHolderType.equals(ScJoinHolder.class)){
 			scJoinHolderDao.removeJoinsFor(joinedEntityType, entityId);
 		}
@@ -456,7 +456,7 @@ implements GenericEntityServiceBean {
 	@SuppressWarnings("unchecked") //type is checked prior to the operation
 	@Override
 	public <T extends JoinHolder, U> List<T> getEntitiesByPageFor(Class<T> joinHolderType, 
-			Class<U> joinedEntityType, int entityId, int pageNumber, int pageRowCount) {
+			Class<U> joinedEntityType, Long entityId, int pageNumber, int pageRowCount) {
 		List<T> resultList = null;
 		int startPageAfterRow = (pageNumber - 1) * pageRowCount;
 		
@@ -479,7 +479,7 @@ implements GenericEntityServiceBean {
 
 	@Transactional
 	@Override
-	public <T> void deleteEntityById(Class<T> entityType, int entityId) {
+	public <T> void deleteEntityById(Class<T> entityType, Long entityId) {
 		if(entityType.equals(Student.class)){
 			Student student = studentDao.getEntityById(entityId);
 			studentDao.deleteEntity(student);
@@ -529,7 +529,7 @@ implements GenericEntityServiceBean {
 	@Transactional
 	@Override
 	public <T extends JoinHolder, U> boolean hasPagesRemainingFor(Class<T> joinHolderType, Class<U> joinedEntityType,
-			int entityId, int pageNumber, int pageRowCount) {
+			Long entityId, int pageNumber, int pageRowCount) {
 		long actualCount = 0;
 		long expectedCount = pageNumber * pageRowCount;
 		
