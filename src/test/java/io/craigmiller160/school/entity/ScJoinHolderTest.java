@@ -27,18 +27,18 @@ public class ScJoinHolderTest {
 		//Create test data
 		ScJoinHolder joinHolder = new ScJoinHolder();
 		Student student = new Student();
-		student.setStudentId(1);
+		student.setStudentId(new Long(1));
 		Course course = new Course();
-		course.setCourseId(2);
+		course.setCourseId(new Long(2));
 		
 		joinHolder.setStudent(student);
 		joinHolder.setCourse(course);
 		
 		//Test the values
 		assertNotNull(joinHolder.getStudent());
-		assertEquals(joinHolder.getStudent().getStudentId(), 1);
+		assertEquals(joinHolder.getStudent().getStudentId(), new Long(1));
 		assertNotNull(joinHolder.getCourse());
-		assertEquals(joinHolder.getCourse().getCourseId(), 2);
+		assertEquals(joinHolder.getCourse().getCourseId(), new Long(2));
 	}
 	
 	@Test
@@ -48,15 +48,15 @@ public class ScJoinHolderTest {
 		
 		//The base object to be compared
 		ScJoinHolder jh1 = new ScJoinHolder();
-		jh1.setScId(1);
+		jh1.setScId(new Long(1));
 		
 		//Same type, doesn't match
 		ScJoinHolder jh2 = new ScJoinHolder();
-		jh2.setScId(2);
+		jh2.setScId(new Long(2));
 		
 		//Same type, should match
 		ScJoinHolder jh3 = new ScJoinHolder();
-		jh3.setScId(1);
+		jh3.setScId(new Long(1));
 		
 		//Test for accurate comparison
 		assertFalse("ID mismatch", jh1.equals(jh2));
@@ -68,15 +68,15 @@ public class ScJoinHolderTest {
 	public void testCompareTo(){
 		//The base object to be compared
 		ScJoinHolder jh1 = new ScJoinHolder();
-		jh1.setScId(1);
+		jh1.setScId(new Long(1));
 		
 		//Same type, doesn't match
 		ScJoinHolder jh2 = new ScJoinHolder();
-		jh2.setScId(2);
+		jh2.setScId(new Long(2));
 		
 		//Same type, should match
 		ScJoinHolder jh3 = new ScJoinHolder();
-		jh3.setScId(1);
+		jh3.setScId(new Long(1));
 		
 		//Test for accurate comparison
 		assertEquals("Less than test", jh1.compareTo(jh2), -1);
