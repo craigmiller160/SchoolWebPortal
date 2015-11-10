@@ -19,7 +19,16 @@ public class EmailTest {
 	public void testConstructorArgs(){
 		//Create test data
 		Email email = new Email(EmailType.PERSONAL, 
-				"bob@gmail.com"){};
+				"bob@gmail.com"){
+			//Impliment these methods with dummy values
+			//They aren't needed for this test anyway.
+			public int hashCode(){
+				return 1;
+			}
+			public boolean equals(Object obj){
+				return false;
+			}
+		};
 		
 		//Test the values
 		assertNotNull(email);
@@ -32,7 +41,16 @@ public class EmailTest {
 	@Test
 	public void testFields(){
 		//Create test data
-		Email email = new Email(){};
+		Email email = new Email(){
+			//Impliment these methods with dummy values
+			//They aren't needed for this test anyway.
+			public int hashCode(){
+				return 1;
+			}
+			public boolean equals(Object obj){
+				return false;
+			}
+		};
 		email.setEmailId(1);
 		email.setEmailType(EmailType.PERSONAL);
 		email.setEmailAddress("bob@gmail.com");
@@ -47,42 +65,44 @@ public class EmailTest {
 	//Anonymous instantiation of abstract class, needs @SuppressWarnings
 	@SuppressWarnings("serial")
 	@Test
-	public void testEquals(){
-		//An invalid type object
-		Object o = new Object();
-		
-		//The base object to be compared
-		Email email1 = new Email(){};
-		email1.setEmailId(1);
-		
-		//Same type, doesn't match
-		Email email2 = new Email(){};
-		email2.setEmailId(2);
-		
-		//Same type, should match
-		Email email3 = new Email(){};
-		email3.setEmailId(1);
-		
-		//Test for accurate comparison
-		assertFalse("ID mismatch", email1.equals(email2));
-		assertFalse("Type mismatch", email1.equals(o));
-		assertTrue("Perfect match", email1.equals(email3));
-	}
-	
-	//Anonymous instantiation of abstract class, needs @SuppressWarnings
-	@SuppressWarnings("serial")
-	@Test
 	public void testCompareTo(){
 		//The base object to be compared
-		Email email1 = new Email(){};
+		Email email1 = new Email(){
+			//Impliment these methods with dummy values
+			//They aren't needed for this test anyway.
+			public int hashCode(){
+				return 1;
+			}
+			public boolean equals(Object obj){
+				return false;
+			}
+		};
 		email1.setEmailId(1);
 		
 		//Same type, doesn't match
-		Email email2 = new Email(){};
+		Email email2 = new Email(){
+			//Impliment these methods with dummy values
+			//They aren't needed for this test anyway.
+			public int hashCode(){
+				return 1;
+			}
+			public boolean equals(Object obj){
+				return false;
+			}
+		};
 		email2.setEmailId(2);
 		
 		//Same type, should match
-		Email email3 = new Email(){};
+		Email email3 = new Email(){
+			//Impliment these methods with dummy values
+			//They aren't needed for this test anyway.
+			public int hashCode(){
+				return 1;
+			}
+			public boolean equals(Object obj){
+				return false;
+			}
+		};
 		email3.setEmailId(1);
 		
 		//Test for accurate comparison
@@ -126,6 +146,80 @@ public class EmailTest {
 		//Test if it worked
 		assertNotNull("Post-Test should not be null", 
 				email.getAdministrator());
+	}
+	
+	@Test
+	public void testAdminEquals(){
+		//An invalid type object
+		Object o = new Object();
+		
+		//The base object to be compared
+		EmailAdmin email1 = new EmailAdmin();
+		setEmail1(email1);
+		email1.setEmailId(1);
+		
+		//Same type, won't match
+		EmailAdmin email2 = new EmailAdmin();
+		setEmail2(email2);
+		email2.setEmailId(2);
+		
+		//Same type, should match
+		EmailAdmin email3 = new EmailAdmin();
+		setEmail1(email3);
+		email3.setEmailId(1);
+		
+		//Different Email Type, same content, won't match
+		EmailStudent email4 = new EmailStudent();
+		setEmail1(email4);
+		email4.setEmailId(1);
+		
+		//Test for accurate comparison
+		assertFalse("Content mismatch", email1.equals(email2));
+		assertFalse("Type mismatch", email1.equals(o));
+		assertFalse("Email Class mismatch", email1.equals(email4));
+		assertTrue("Perfect match", email1.equals(email3));
+	}
+	
+	@Test
+	public void testStudentEquals(){
+		//An invalid type object
+		Object o = new Object();
+		
+		//The base object to be compared
+		EmailStudent email1 = new EmailStudent();
+		setEmail1(email1);
+		email1.setEmailId(1);
+		
+		//Same type, won't match
+		EmailStudent email2 = new EmailStudent();
+		setEmail2(email2);
+		email2.setEmailId(2);
+		
+		//Same type, should match
+		EmailStudent email3 = new EmailStudent();
+		setEmail1(email3);
+		email3.setEmailId(1);
+		
+		//Different Email Type, same content, won't match
+		EmailAdmin email4 = new EmailAdmin();
+		setEmail1(email4);
+		email4.setEmailId(1);
+		
+		//Test for accurate comparison
+		assertFalse("Content mismatch", email1.equals(email2));
+		assertFalse("Type mismatch", email1.equals(o));
+		assertFalse("Email Class mismatch", email1.equals(email4));
+		assertTrue("Perfect match", email1.equals(email3));
+	}
+	
+	private void setEmail1(Email email){
+		email.setEmailType(EmailType.PERSONAL);
+		email.setEmailAddress("craig@gmail.com");
+	}
+	
+	private void setEmail2(Email email){
+		email.setEmailType(EmailType.WORK);
+		email.setEmailAddress("bob@aol.com");
 	}
 	
 }

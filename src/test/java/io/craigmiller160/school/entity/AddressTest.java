@@ -202,7 +202,7 @@ public class AddressTest {
 		//Test for accurate comparison
 		assertFalse("Content mismatch", address1.equals(address2));
 		assertFalse("Type mismatch", address1.equals(o));
-		assertFalse("Address Type mismatch", address1.equals(address4));
+		assertFalse("Address Class mismatch", address1.equals(address4));
 		assertTrue("Perfect match", address1.equals(address3));
 	}
 	
@@ -234,7 +234,7 @@ public class AddressTest {
 		//Test for accurate comparison
 		assertFalse("Content mismatch", address1.equals(address2));
 		assertFalse("Type mismatch", address1.equals(o));
-		assertFalse("Address Type mismatch", address1.equals(address4));
+		assertFalse("Address Class mismatch", address1.equals(address4));
 		assertTrue("Perfect match", address1.equals(address3));
 	}
 	
