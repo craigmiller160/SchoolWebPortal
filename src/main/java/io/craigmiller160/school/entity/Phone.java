@@ -114,9 +114,11 @@ implements Serializable{
 	public String toString(){
 		String output = phoneType + ": (" + areaCode + ") " 
 				+ prefix + "-" + suffix;
-		return extension != null || !extension.equals("")
-				? output + " x" + extension
-				: output;
+		if(extension != null && !extension.equals("")){
+			output = output + " x" + extension;
+		}
+		
+		return output;
 	}
 	
 }
