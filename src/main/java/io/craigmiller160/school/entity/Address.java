@@ -12,7 +12,7 @@ import javax.persistence.MappedSuperclass;
 
 @MappedSuperclass
 public abstract class Address 
-implements Comparable<Address>, Serializable{
+implements Serializable{
 
 	/**
 	 * SerialVersionUID for serialization support.
@@ -140,11 +140,5 @@ implements Comparable<Address>, Serializable{
 		builder.append(city + ", " + state + " " + zip);
 		
 		return builder.toString();
-	}
-
-	@Override
-	public int compareTo(Address address) {
-		return ((Integer) this.addressId)
-				.compareTo((Integer)address.addressId);
 	}
 }
