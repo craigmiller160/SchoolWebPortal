@@ -91,7 +91,7 @@ implements GenericJoinHolderDaoBean<ScJoinHolder> {
 	}
 
 	@Override
-	public ScJoinHolder getEntityById(int entityId) {
+	public ScJoinHolder getEntityById(Long entityId) {
 		return (ScJoinHolder) sessionFactory.getCurrentSession()
 				.get(ScJoinHolder.class, entityId);
 	}
@@ -132,7 +132,7 @@ implements GenericJoinHolderDaoBean<ScJoinHolder> {
 	 */
 	@SuppressWarnings("unchecked") //Hibernate list() method doesn't support generics
 	@Override
-	public <U> List<ScJoinHolder> getAllJoinsFor(Class<U> joinedEntityType, int entityId) {
+	public <U> List<ScJoinHolder> getAllJoinsFor(Class<U> joinedEntityType, Long entityId) {
 		List<ScJoinHolder> resultList = null;
 		if(joinedEntityType.equals(Student.class)){
 			resultList = sessionFactory.getCurrentSession()
@@ -160,17 +160,17 @@ implements GenericJoinHolderDaoBean<ScJoinHolder> {
 	 * was set to null.
 	 */
 	@Override
-	public <U> void removeJoinsFor(Class<U> joinedEntityType, int entityId) {
+	public <U> void removeJoinsFor(Class<U> joinedEntityType, Long entityId) {
 		if(joinedEntityType.equals(Student.class)){
 			sessionFactory.getCurrentSession()
 				.createQuery("delete from " + ScJoinHolder.class.getName() + " where student.studentId= :id")
-				.setInteger("id", entityId)
+				.setLong("id", entityId)
 				.executeUpdate();
 		}
 		else if(joinedEntityType.equals(Course.class)){
 			sessionFactory.getCurrentSession()
 				.createQuery("delete from " + ScJoinHolder.class.getName() + " where course.courseId= :id")
-				.setInteger("id", entityId)
+				.setLong("id", entityId)
 				.executeUpdate();
 		}
 		else{
@@ -185,7 +185,7 @@ implements GenericJoinHolderDaoBean<ScJoinHolder> {
 	 * was set to null.
 	 */
 	@Override
-	public <U> long getJoinCountFor(Class<U> joinedEntityType, int entityId) {
+	public <U> long getJoinCountFor(Class<U> joinedEntityType, Long entityId) {
 		long result = 0;
 		if(joinedEntityType.equals(Student.class)){
 			result = (Long) sessionFactory.getCurrentSession()
@@ -248,7 +248,7 @@ implements GenericJoinHolderDaoBean<ScJoinHolder> {
 	@SuppressWarnings("unchecked") //Hibernate list() method doesn't support generics
 	@Override
 	public <U> List<ScJoinHolder> getEntitiesByPageFor(Class<U> joinedEntityType, 
-			int entityId, int startPageAfterRow, int pageRowCount) {
+			Long entityId, int startPageAfterRow, int pageRowCount) {
 		List<ScJoinHolder> resultList = null;
 		if(joinedEntityType.equals(Student.class)){
 			resultList = sessionFactory.getCurrentSession()

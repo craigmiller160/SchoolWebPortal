@@ -94,7 +94,7 @@ implements GenericEntityDaoBean<Student> {
 	 * was set to null.
 	 */
 	@Override
-	public Student getEntityById(int studentId) {
+	public Student getEntityById(Long studentId) {
 		Session session = sessionFactory.getCurrentSession();
 		return (Student) session.createCriteria(Student.class)
 					.setFetchMode("courses", FetchMode.JOIN)

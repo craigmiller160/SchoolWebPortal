@@ -94,7 +94,7 @@ implements GenericEntityDaoBean<Course> {
 	 * was set to null.
 	 */
 	@Override
-	public Course getEntityById(int courseId) {
+	public Course getEntityById(Long courseId) {
 		//TODO don't need this anymore, as students field doesn't exist.
 		//also this needs to be done to StudentDao as well.
 		Session session = sessionFactory.getCurrentSession();

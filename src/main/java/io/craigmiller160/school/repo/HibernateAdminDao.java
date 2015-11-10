@@ -91,7 +91,7 @@ public class HibernateAdminDao implements GenericEntityDaoBean<Administrator> {
 	 * was set to null.
 	 */
 	@Override
-	public Administrator getEntityById(int adminId) {
+	public Administrator getEntityById(Long adminId) {
 		return (Administrator) sessionFactory.getCurrentSession()
 				.get(Administrator.class, adminId);
 	}
