@@ -48,7 +48,7 @@ implements Comparable<Student>, Serializable{
 	@Id
 	@GeneratedValue (strategy=GenerationType.AUTO)
 	@Column (name="student_id", length=20)
-	private int studentId;
+	private Long studentId;
 	
 	/**
 	 * The first name of the student.
@@ -122,7 +122,7 @@ implements Comparable<Student>, Serializable{
 	 * @throws NullPointerException if the field 
 	 * being retrieved was not set.
 	 */
-	public int getStudentId() {
+	public Long getStudentId() {
 		return studentId;
 	}
 	
@@ -131,7 +131,7 @@ implements Comparable<Student>, Serializable{
 	 * 
 	 * @param studentId the id of the student.
 	 */
-	public void setStudentId(int studentId) {
+	public void setStudentId(Long studentId) {
 		this.studentId = studentId;
 	}
 	
@@ -309,13 +309,14 @@ implements Comparable<Student>, Serializable{
 	
 	@Override
 	public int hashCode(){
-		return studentId;
+		return studentId.hashCode();
 	}
 	
 	@Override
 	public boolean equals(Object obj){
 		if(obj instanceof Student){
-			return ((Student) obj).studentId == this.studentId;
+			return ((Student) obj).studentId
+					.equals(this.studentId);
 		}
 		else{
 			return false;
@@ -324,8 +325,7 @@ implements Comparable<Student>, Serializable{
 
 	@Override
 	public int compareTo(Student student) {
-		return ((Integer) this.studentId)
-				.compareTo((Integer) student.studentId);
+		return this.studentId.compareTo(student.studentId);
 	}
 	
 }
