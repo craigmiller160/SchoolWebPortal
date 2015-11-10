@@ -31,7 +31,7 @@ public class AdminTest {
 	public void testFields(){
 		//Create test data
 		Administrator admin = new Administrator();
-		admin.setAdminId(1);
+		admin.setAdminId(new Long(1));
 		admin.setFirstName("Bob");
 		admin.setLastName("Saget");
 		admin.setBirthDate(LocalDate.of(1988, 1, 1));
@@ -39,7 +39,7 @@ public class AdminTest {
 		
 		//Test the values
 		assertNotNull("Is Null", admin);
-		assertEquals("ID Fail", admin.getAdminId(), 1);
+		assertEquals("ID Fail", admin.getAdminId(), new Long(1));
 		assertEquals("First Name Fail", admin.getFirstName(), "Bob");
 		assertEquals("Last Name Fail", admin.getLastName(), "Saget");
 		assertEquals("Birth Date Fail", admin.getBirthDate(), 
@@ -54,15 +54,15 @@ public class AdminTest {
 		
 		//The base object to be compared
 		Administrator admin1 = new Administrator();
-		admin1.setAdminId(1);
+		admin1.setAdminId(new Long(1));
 		
 		//Same type, doesn't match
 		Administrator admin2 = new Administrator();
-		admin2.setAdminId(2);
+		admin2.setAdminId(new Long(2));
 		
 		//Same type, should match
 		Administrator admin3 = new Administrator();
-		admin3.setAdminId(1);
+		admin3.setAdminId(new Long(1));
 		
 		//Test for accurate comparison
 		assertFalse("ID mismatch", admin1.equals(admin2));
@@ -74,15 +74,15 @@ public class AdminTest {
 	public void testCompareTo(){
 		//The base object to be compared
 		Administrator admin1 = new Administrator();
-		admin1.setAdminId(1);
+		admin1.setAdminId(new Long(1));
 		
 		//Same type, doesn't match
 		Administrator admin2 = new Administrator();
-		admin2.setAdminId(2);
+		admin2.setAdminId(new Long(2));
 		
 		//Same type, should match
 		Administrator admin3 = new Administrator();
-		admin3.setAdminId(1);
+		admin3.setAdminId(new Long(1));
 		
 		//Test for accurate comparison
 		assertEquals("Less than test", admin1.compareTo(admin2), -1);
