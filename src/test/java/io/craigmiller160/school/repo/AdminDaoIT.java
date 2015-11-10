@@ -28,7 +28,13 @@ import io.craigmiller160.school.context.AppContext;
 import io.craigmiller160.school.entity.AddressAdmin;
 import io.craigmiller160.school.entity.AddressType;
 import io.craigmiller160.school.entity.Administrator;
+import io.craigmiller160.school.entity.Email;
+import io.craigmiller160.school.entity.EmailAdmin;
+import io.craigmiller160.school.entity.EmailType;
 import io.craigmiller160.school.entity.Gender;
+import io.craigmiller160.school.entity.Phone;
+import io.craigmiller160.school.entity.PhoneAdmin;
+import io.craigmiller160.school.entity.PhoneType;
 import io.craigmiller160.school.entity.State;
 import io.craigmiller160.school.util.HibernateTestUtil;
 
@@ -263,7 +269,7 @@ public class AdminDaoIT {
 					equalTo("Fords")));
 		}
 		
-		
+		//Address to find and change in list
 		address = new AddressAdmin();
 		setAddress1(address);
 		
@@ -311,6 +317,169 @@ public class AdminDaoIT {
 	}
 	
 	/**
+	 * Test CRUD operations with added Phones to this
+	 * entity.
+	 */
+	@SuppressWarnings("unchecked")
+	@Transactional
+	@Test
+	public void testPhoneCRUD(){
+		//Create dummy Admin
+		Administrator admin = new Administrator();
+		setAdmin1(admin);
+		
+		//Add phones
+		PhoneAdmin phone = new PhoneAdmin();
+		setPhone1(phone);
+		admin.addPhone(phone);
+		
+		phone = new PhoneAdmin();
+		setPhone2(phone);
+		admin.addPhone(phone);
+		
+		//Insert Admin with phones
+		adminDao.insertEntity(admin);
+		int adminId = admin.getAdminId();
+		
+		//Retrieve Admin and test phones
+		admin = adminDao.getEntityById(adminId);
+		Set<PhoneAdmin> phones = admin.getPhones();
+		assertNotNull("Phones are null", phones);
+		assertEquals("Phones size wrong", phones.size(), 2);
+		for(PhoneAdmin p : phones){
+			assertThat(p.getAreaCode(), anyOf(equalTo("732"), 
+					equalTo("908")));
+		}
+		
+		//Phone to find and change in list
+		phone = new PhoneAdmin();
+		setPhone1(phone);
+		
+		//Change phone value and update
+		for(PhoneAdmin p : phones){
+			if(p.equals(phone)){
+				setPhone3(p);
+			}
+		}
+		adminDao.updateEntity(admin);
+		
+		//Retrieve and test for update
+		admin = adminDao.getEntityById(adminId);
+		phones = admin.getPhones();
+		assertNotNull("Phones are null", phones);
+		assertEquals("Phones size wrong", phones.size(), 2);
+		for(PhoneAdmin p : phones){
+			assertThat(p.getAreaCode(), anyOf(equalTo("908"), 
+					equalTo("800")));
+			assertThat(p.getAreaCode(), anyOf(not(equalTo("732"))));
+		}
+		
+		//Create comparison phone
+		phone = new PhoneAdmin();
+		setPhone2(phone);
+		
+		//Remove phone and update entity
+		for(PhoneAdmin p : phones){
+			if(p.equals(phone)){
+				phones.remove(p);
+				break;
+			}
+		}
+		adminDao.updateEntity(admin);
+		
+		//Test for propper removal
+		admin = adminDao.getEntityById(adminId);
+		phones = admin.getPhones();
+		assertNotNull("Phones are null", phones);
+		assertEquals("Phones size wrong", phones.size(), 1);
+		for(PhoneAdmin p : phones){
+			assertThat(p.getAreaCode(), anyOf(equalTo("800")));
+			assertThat(p.getAreaCode(), anyOf(not(equalTo("908"))));
+		}
+	}
+	
+	/**
+	 * Test CRUD operations with added Emails to this
+	 * entity.
+	 */
+	@SuppressWarnings("unchecked")
+	@Transactional
+	@Test
+	public void testEmailCRUD(){
+		//Create dummy Admin
+		Administrator admin = new Administrator();
+		setAdmin1(admin);
+		
+		//Add emails
+		EmailAdmin email = new EmailAdmin();
+		setEmail1(email);
+		admin.addEmail(email);
+		
+		email = new EmailAdmin();
+		setEmail2(email);
+		admin.addEmail(email);
+		
+		//Insert admin with emails
+		adminDao.insertEntity(admin);
+		int adminId = admin.getAdminId();
+		
+		//Retrieve Admin and test emails
+		admin = adminDao.getEntityById(adminId);
+		Set<EmailAdmin> emails = admin.getEmails();
+		assertNotNull("Emails are null", emails);
+		assertEquals("Emails size wrong", emails.size(), 2);
+		for(EmailAdmin e : emails){
+			assertThat(e.getEmailAddress(), anyOf(equalTo("craig@gmail.com"), 
+					equalTo("bob@aol.com")));
+		}
+		
+		//Email to find and change in list
+		email = new EmailAdmin();
+		setEmail1(email);
+		
+		//Change email value and update
+		for(EmailAdmin e : emails){
+			if(e.equals(email)){
+				setEmail3(e);
+			}
+		}
+		adminDao.updateEntity(admin);
+		
+		//Retrieve admin and test for update
+		admin = adminDao.getEntityById(adminId);
+		emails = admin.getEmails();
+		assertNotNull("Emails are null", emails);
+		assertEquals("Emails size wrong", emails.size(), 2);
+		for(EmailAdmin e : emails){
+			assertThat(e.getEmailAddress(), anyOf(equalTo("joe@hotmail.com"), 
+					equalTo("bob@aol.com")));
+		}
+		
+		//Create comparison email
+		email = new EmailAdmin();
+		setEmail2(email);
+		
+		//Remove email and update entity
+		for(EmailAdmin e : emails){
+			if(e.equals(email)){
+				emails.remove(e);
+				break;
+			}
+		}
+		adminDao.updateEntity(admin);
+		
+		//Test for propper removal
+		admin = adminDao.getEntityById(adminId);
+		emails = admin.getEmails();
+		assertNotNull("Emails are null", emails);
+		assertEquals("Emails size wrong", emails.size(), 1);
+		for(EmailAdmin e : emails){
+			assertThat(e.getEmailAddress(), anyOf(equalTo("joe@hotmail.com")));
+			assertThat(e.getEmailAddress(), anyOf(not(equalTo("bob@aol.com"))));
+		}
+	}
+	
+	/**
 	 * Set the fields of the <tt>Address</tt> object
 	 * to the first set of values.
 	 * 
@@ -340,7 +509,7 @@ public class AdminDaoIT {
 	
 	/**
 	 * Set the fields of the <tt>Address</tt> object
-	 * to the second set of values.
+	 * to the third set of values.
 	 * 
 	 * @param address the <tt>Address</tt> object to set.
 	 */
@@ -350,6 +519,81 @@ public class AdminDaoIT {
 		address.setCity("Henderson");
 		address.setState(State.NV);
 		address.setZip("53321");
+	}
+	
+	/**
+	 * Set the fields of the <tt>Phone</tt> object
+	 * to the first set of values.
+	 * 
+	 * @param phone the <tt>Phone</tt> object to set.
+	 */
+	private void setPhone1(Phone phone){
+		phone.setPhoneType(PhoneType.HOME);
+		phone.setAreaCode("732");
+		phone.setPrefix("555");
+		phone.setSuffix("6789");
+		phone.setExtension("x1234");
+	}
+	
+	/**
+	 * Set the fields of the <tt>Phone</tt> object
+	 * to the second set of values.
+	 * 
+	 * @param phone the <tt>Phone</tt> object to set.
+	 */
+	private void setPhone2(Phone phone){
+		phone.setPhoneType(PhoneType.WORK);
+		phone.setAreaCode("908");
+		phone.setPrefix("666");
+		phone.setSuffix("1234");
+		phone.setExtension(null);
+	}
+	
+	/**
+	 * Set the fields of the <tt>Phone</tt> object
+	 * to the third set of values.
+	 * 
+	 * @param phone the <tt>Phone</tt> object to set.
+	 */
+	private void setPhone3(Phone phone){
+		phone.setPhoneType(PhoneType.FAX);
+		phone.setAreaCode("800");
+		phone.setPrefix("123");
+		phone.setSuffix("4567");
+		phone.setExtension(null);
+	}
+	
+	/**
+	 * Set the fields of the <tt>Email</tt> object
+	 * to the first set of values.
+	 * 
+	 * @param email the <tt>Email</tt> object to set.
+	 */
+	private void setEmail1(Email email){
+		email.setEmailType(EmailType.PERSONAL);
+		email.setEmailAddress("craig@gmail.com");
+	}
+	
+	/**
+	 * Set the fields of the <tt>Email</tt> object
+	 * to the second set of values.
+	 * 
+	 * @param email the <tt>Email</tt> object to set.
+	 */
+	private void setEmail2(Email email){
+		email.setEmailType(EmailType.WORK);
+		email.setEmailAddress("bob@aol.com");
+	}
+	
+	/**
+	 * Set the fields of the <tt>Email</tt> object
+	 * to the third set of values.
+	 * 
+	 * @param email the <tt>Email</tt> object to set.
+	 */
+	private void setEmail3(Email email){
+		email.setEmailType(EmailType.OTHER);
+		email.setEmailAddress("joe@hotmail.com");
 	}
 	
 	/**
