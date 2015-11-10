@@ -5,8 +5,6 @@
 <head>
 <%@ include file="stub/jstl-stub.jsp" %> <!-- Include JSTL Tag Library -->
 <%@ include file="stub/spring-stub.jsp" %> <!-- Include Spring Tag Library -->
-<%//@ include file="stub/js-stub.jsp" %> <!-- Include JQuery -->
-<%//@ include file="stub/bootstrap-stub.jsp" %> <!-- Include Bootstrap Dependencies -->
 
 
 <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css"/>
