@@ -36,9 +36,9 @@ implements JoinHolder, Comparable<ScJoinHolder>, Serializable{
 	 * Unique ID for each join in the table.
 	 */
 	@Id
-	@Column (name="sc_id")
+	@Column (name="sc_id", length=20)
 	@GeneratedValue (strategy=GenerationType.AUTO)
-	private int scId;
+	private Long scId;
 	
 	//TODO consider adding cascade effects to the mapped entities.
 	
@@ -78,7 +78,7 @@ implements JoinHolder, Comparable<ScJoinHolder>, Serializable{
 	 * 
 	 * @return the unique ID for each join in the table.
 	 */
-	public int getScId() {
+	public Long getScId() {
 		return scId;
 	}
 
@@ -87,7 +87,7 @@ implements JoinHolder, Comparable<ScJoinHolder>, Serializable{
 	 * 
 	 * @param scId the unique ID for each join in the table.
 	 */
-	public void setScId(int scId) {
+	public void setScId(Long scId) {
 		this.scId = scId;
 	}
 
@@ -129,13 +129,13 @@ implements JoinHolder, Comparable<ScJoinHolder>, Serializable{
 	
 	@Override
 	public int hashCode(){
-		return scId;
+		return scId.hashCode();
 	}
 	
 	@Override
 	public boolean equals(Object obj){
 		if(obj instanceof ScJoinHolder){
-			return this.scId == ((ScJoinHolder) obj).scId;
+			return this.scId.equals(((ScJoinHolder) obj).scId);
 		}
 		else{
 			return false;
@@ -144,7 +144,7 @@ implements JoinHolder, Comparable<ScJoinHolder>, Serializable{
 
 	@Override
 	public int compareTo(ScJoinHolder joinHolder) {
-		return ((Integer) this.scId).compareTo(((Integer) joinHolder.scId));
+		return this.scId.compareTo(joinHolder.scId);
 	}
 	
 	@Override
