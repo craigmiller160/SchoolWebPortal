@@ -36,8 +36,8 @@ implements Comparable<Course>, Serializable{
 	 */
 	@Id
 	@GeneratedValue (strategy=GenerationType.AUTO)
-	@Column (name="course_id", length=6)
-	private int courseId;
+	@Column (name="course_id", length=20)
+	private Long courseId;
 	
 	/**
 	 * The subject of the course.
@@ -112,7 +112,7 @@ implements Comparable<Course>, Serializable{
 	 * @throws NullPointerException if the field 
 	 * being retrieved was not set.
 	 */
-	public int getCourseId() {
+	public Long getCourseId() {
 		return courseId;
 	}
 	
@@ -121,7 +121,7 @@ implements Comparable<Course>, Serializable{
 	 * 
 	 * @param courseId the id of the course.
 	 */
-	public void setCourseId(int courseId) {
+	public void setCourseId(Long courseId) {
 		this.courseId = courseId;
 	}
 	
@@ -187,13 +187,14 @@ implements Comparable<Course>, Serializable{
 	
 	@Override
 	public int hashCode(){
-		return courseId;
+		return courseId.hashCode();
 	}
 	
 	@Override
 	public boolean equals(Object obj){
 		if(obj instanceof Course){
-			return ((Course) obj).courseId == this.courseId;
+			return ((Course) obj).courseId
+					.equals(this.courseId);
 		}
 		else{
 			return false;
@@ -202,8 +203,7 @@ implements Comparable<Course>, Serializable{
 
 	@Override
 	public int compareTo(Course course) {
-		return ((Integer) this.courseId)
-				.compareTo((Integer) course.courseId);
+		return this.courseId.compareTo(course.courseId);
 	}
 	
 }
