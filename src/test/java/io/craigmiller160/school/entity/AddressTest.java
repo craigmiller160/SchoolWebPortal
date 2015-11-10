@@ -74,12 +74,12 @@ public class AddressTest {
 				return false;
 			}
 		};
-		address.setAddressId(1);
+		address.setAddressId(new Long(1));
 		setAddress1(address);
 		
 		//Test the values
 		assertNotNull("Is null", address);
-		assertEquals("ID fail", address.getAddressId(), 1);
+		assertEquals("ID fail", address.getAddressId(), new Long(1));
 		assertEquals("Type Fail", address.getAddressType(), AddressType.HOME);
 		assertEquals("Address1 Fail", address.getAddress1(), "12 Freehold Way");
 		assertEquals("Address2 Fail", address.getAddress2(), "Apt 23");
@@ -93,17 +93,17 @@ public class AddressTest {
 		//The base object to be compared
 		AddressAdmin address1 = new AddressAdmin();
 		setAddress1(address1);
-		address1.setAddressId(1);
+		address1.setAddressId(new Long(1));
 		
 		//Same type, doesn't match
 		AddressAdmin address2 = new AddressAdmin();
 		setAddress2(address2);
-		address2.setAddressId(2);
+		address2.setAddressId(new Long(2));
 		
 		//Same type, should match
 		AddressAdmin address3 = new AddressAdmin();
 		setAddress1(address3);
-		address3.setAddressId(1);
+		address3.setAddressId(new Long(1));
 		
 		//Test for accurate comparison
 		assertTrue("Less than test", address1.compareTo(address2) < 0);
@@ -116,17 +116,17 @@ public class AddressTest {
 		//The base object to be compared
 		AddressStudent address1 = new AddressStudent();
 		setAddress1(address1);
-		address1.setAddressId(1);
+		address1.setAddressId(new Long(1));
 		
 		//Same type, doesn't match
 		AddressStudent address2 = new AddressStudent();
 		setAddress2(address2);
-		address2.setAddressId(2);
+		address2.setAddressId(new Long(2));
 		
 		//Same type, should match
 		AddressStudent address3 = new AddressStudent();
 		setAddress1(address3);
-		address3.setAddressId(1);
+		address3.setAddressId(new Long(1));
 		
 		//Test for accurate comparison
 		assertTrue("Less than test", address1.compareTo(address2) < 0);
@@ -179,22 +179,22 @@ public class AddressTest {
 		//The base object to be compared
 		AddressAdmin address1 = new AddressAdmin();
 		setAddress1(address1);
-		address1.setAddressId(1);
+		address1.setAddressId(new Long(1));
 		
 		//Same type, won't match
 		AddressAdmin address2 = new AddressAdmin();
 		setAddress2(address2);
-		address2.setAddressId(2);
+		address2.setAddressId(new Long(2));
 		
 		//Same type, should match
 		AddressAdmin address3 = new AddressAdmin();
 		setAddress1(address3);
-		address3.setAddressId(1);
+		address3.setAddressId(new Long(1));
 		
 		//Different Address type, same content, won't match
 		AddressStudent address4 = new AddressStudent();
 		setAddress1(address4);
-		address4.setAddressId(1);
+		address4.setAddressId(new Long(1));
 		
 		//Test for accurate comparison
 		assertFalse("Content mismatch", address1.equals(address2));
@@ -211,22 +211,22 @@ public class AddressTest {
 		//The base object to be compared
 		AddressStudent address1 = new AddressStudent();
 		setAddress1(address1);
-		address1.setAddressId(1);
+		address1.setAddressId(new Long(1));
 		
 		//Same type, won't match
 		AddressStudent address2 = new AddressStudent();
 		setAddress2(address2);
-		address2.setAddressId(2);
+		address2.setAddressId(new Long(2));
 		
 		//Same type, should match
 		AddressStudent address3 = new AddressStudent();
 		setAddress1(address3);
-		address3.setAddressId(1);
+		address3.setAddressId(new Long(1));
 		
 		//The base object to be compared
 		AddressAdmin address4 = new AddressAdmin();
 		setAddress1(address1);
-		address1.setAddressId(1);
+		address1.setAddressId(new Long(1));
 		
 		//Test for accurate comparison
 		assertFalse("Content mismatch", address1.equals(address2));
