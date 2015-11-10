@@ -88,52 +88,49 @@ public class AddressTest {
 		assertEquals("Zip Fail", address.getZip(), "12345");
 	}
 	
-	//Anonymous instantiation of abstract class, needs @SuppressWarnings
-	@SuppressWarnings("serial")
 	@Test
-	public void testCompareTo(){
+	public void testAdminCompareTo(){
 		//The base object to be compared
-		Address address1 = new Address(){
-			//Impliment these methods with dummy values
-			//They aren't needed for this test anyway.
-			public int hashCode(){
-				return 1;
-			}
-			public boolean equals(Object obj){
-				return false;
-			}
-		};
+		AddressAdmin address1 = new AddressAdmin();
+		setAddress1(address1);
 		address1.setAddressId(1);
 		
 		//Same type, doesn't match
-		Address address2 = new Address(){
-			//Impliment these methods with dummy values
-			//They aren't needed for this test anyway.
-			public int hashCode(){
-				return 1;
-			}
-			public boolean equals(Object obj){
-				return false;
-			}
-		};
+		AddressAdmin address2 = new AddressAdmin();
+		setAddress2(address2);
 		address2.setAddressId(2);
 		
 		//Same type, should match
-		Address address3 = new Address(){
-			//Impliment these methods with dummy values
-			//They aren't needed for this test anyway.
-			public int hashCode(){
-				return 1;
-			}
-			public boolean equals(Object obj){
-				return false;
-			}
-		};
+		AddressAdmin address3 = new AddressAdmin();
+		setAddress1(address3);
 		address3.setAddressId(1);
 		
 		//Test for accurate comparison
-		assertEquals("Less than test", address1.compareTo(address2), -1);
-		assertEquals("Greater than test", address2.compareTo(address1), 1);
+		assertTrue("Less than test", address1.compareTo(address2) < 0);
+		assertTrue("Greater than test", address2.compareTo(address1) > 0);
+		assertEquals("Equals test", address1.compareTo(address3), 0);
+	}
+	
+	@Test
+	public void testStudentCompareTo(){
+		//The base object to be compared
+		AddressStudent address1 = new AddressStudent();
+		setAddress1(address1);
+		address1.setAddressId(1);
+		
+		//Same type, doesn't match
+		AddressStudent address2 = new AddressStudent();
+		setAddress2(address2);
+		address2.setAddressId(2);
+		
+		//Same type, should match
+		AddressStudent address3 = new AddressStudent();
+		setAddress1(address3);
+		address3.setAddressId(1);
+		
+		//Test for accurate comparison
+		assertTrue("Less than test", address1.compareTo(address2) < 0);
+		assertTrue("Greater than test", address2.compareTo(address1) > 0);
 		assertEquals("Equals test", address1.compareTo(address3), 0);
 	}
 	

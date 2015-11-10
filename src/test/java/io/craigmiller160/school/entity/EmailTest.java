@@ -62,52 +62,49 @@ public class EmailTest {
 		assertEquals("Email Fail", email.getEmailAddress(), "bob@gmail.com");
 	}
 	
-	//Anonymous instantiation of abstract class, needs @SuppressWarnings
-	@SuppressWarnings("serial")
 	@Test
-	public void testCompareTo(){
+	public void testAdminCompareTo(){
 		//The base object to be compared
-		Email email1 = new Email(){
-			//Impliment these methods with dummy values
-			//They aren't needed for this test anyway.
-			public int hashCode(){
-				return 1;
-			}
-			public boolean equals(Object obj){
-				return false;
-			}
-		};
+		EmailAdmin email1 = new EmailAdmin();
+		setEmail1(email1);
 		email1.setEmailId(1);
 		
 		//Same type, doesn't match
-		Email email2 = new Email(){
-			//Impliment these methods with dummy values
-			//They aren't needed for this test anyway.
-			public int hashCode(){
-				return 1;
-			}
-			public boolean equals(Object obj){
-				return false;
-			}
-		};
+		EmailAdmin email2 = new EmailAdmin();
+		setEmail2(email2);
 		email2.setEmailId(2);
 		
 		//Same type, should match
-		Email email3 = new Email(){
-			//Impliment these methods with dummy values
-			//They aren't needed for this test anyway.
-			public int hashCode(){
-				return 1;
-			}
-			public boolean equals(Object obj){
-				return false;
-			}
-		};
+		EmailAdmin email3 = new EmailAdmin();
+		setEmail1(email3);
 		email3.setEmailId(1);
 		
 		//Test for accurate comparison
-		assertEquals("Less than test", email1.compareTo(email2), -1);
-		assertEquals("Greater than test", email2.compareTo(email1), 1);
+		assertTrue("Less than test", email1.compareTo(email2) < 0);
+		assertTrue("Greater than test", email2.compareTo(email1) > 0);
+		assertEquals("Equals test", email1.compareTo(email3), 0);
+	}
+	
+	@Test
+	public void testStudentCompareTo(){
+		//The base object to be compared
+		EmailStudent email1 = new EmailStudent();
+		setEmail1(email1);
+		email1.setEmailId(1);
+		
+		//Same type, doesn't match
+		EmailStudent email2 = new EmailStudent();
+		setEmail2(email2);
+		email2.setEmailId(2);
+		
+		//Same type, should match
+		EmailStudent email3 = new EmailStudent();
+		setEmail1(email3);
+		email3.setEmailId(1);
+		
+		//Test for accurate comparison
+		assertTrue("Less than test", email1.compareTo(email2) < 0);
+		assertTrue("Greater than test", email2.compareTo(email1) > 0);
 		assertEquals("Equals test", email1.compareTo(email3), 0);
 	}
 	

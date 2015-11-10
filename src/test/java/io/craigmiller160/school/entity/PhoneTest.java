@@ -71,52 +71,49 @@ public class PhoneTest {
 		assertEquals("Extension Fail", phone.getExtension(), "5678");
 	}
 	
-	//Anonymous instantiation of abstract class, needs @SuppressWarnings
-	@SuppressWarnings("serial")
 	@Test
-	public void testCompareTo(){
+	public void testAdminCompareTo(){
 		//The base object to be compared
-		Phone phone1 = new Phone(){
-			//Impliment these methods with dummy values
-			//They aren't needed for this test anyway.
-			public int hashCode(){
-				return 1;
-			}
-			public boolean equals(Object obj){
-				return false;
-			}
-		};
+		PhoneAdmin phone1 = new PhoneAdmin();
+		setPhone1(phone1);
 		phone1.setPhoneId(1);
 		
 		//Same type, doesn't match
-		Phone phone2 = new Phone(){
-			//Impliment these methods with dummy values
-			//They aren't needed for this test anyway.
-			public int hashCode(){
-				return 1;
-			}
-			public boolean equals(Object obj){
-				return false;
-			}
-		};
+		PhoneAdmin phone2 = new PhoneAdmin();
+		setPhone2(phone2);
 		phone2.setPhoneId(2);
 		
 		//Same type, should match
-		Phone phone3 = new Phone(){
-			//Impliment these methods with dummy values
-			//They aren't needed for this test anyway.
-			public int hashCode(){
-				return 1;
-			}
-			public boolean equals(Object obj){
-				return false;
-			}
-		};
+		PhoneAdmin phone3 = new PhoneAdmin();
+		setPhone1(phone3);
 		phone3.setPhoneId(1);
 		
 		//Test for accurate comparison
-		assertEquals("Less than test", phone1.compareTo(phone2), -1);
-		assertEquals("Greater than test", phone2.compareTo(phone1), 1);
+		assertTrue("Less than test", phone1.compareTo(phone2) < 0);
+		assertTrue("Greater than test", phone2.compareTo(phone1) > 0);
+		assertEquals("Equals test", phone1.compareTo(phone3), 0);
+	}
+	
+	@Test
+	public void testStudentCompareTo(){
+		//The base object to be compared
+		PhoneStudent phone1 = new PhoneStudent();
+		setPhone1(phone1);
+		phone1.setPhoneId(1);
+		
+		//Same type, doesn't match
+		PhoneStudent phone2 = new PhoneStudent();
+		setPhone2(phone2);
+		phone2.setPhoneId(2);
+		
+		//Same type, should match
+		PhoneStudent phone3 = new PhoneStudent();
+		setPhone1(phone3);
+		phone3.setPhoneId(1);
+		
+		//Test for accurate comparison
+		assertTrue("Less than test", phone1.compareTo(phone2) < 0);
+		assertTrue("Greater than test", phone2.compareTo(phone1) > 0);
 		assertEquals("Equals test", phone1.compareTo(phone3), 0);
 	}
 	
