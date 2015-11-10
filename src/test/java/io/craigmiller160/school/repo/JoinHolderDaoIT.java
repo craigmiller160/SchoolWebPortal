@@ -89,25 +89,25 @@ public class JoinHolderDaoIT {
 	 * The ID of the first <tt>Student</tt> entity used
 	 * in the <tt>JoinHolder</tt> tests.
 	 */
-	private int studentId1;
+	private Long studentId1;
 	
 	/**
 	 * The ID of the first <tt>Course</tt> entity used
 	 * in the <tt>JoinHolder</tt> tests.
 	 */
-	private int courseId1;
+	private Long courseId1;
 	
 	/**
 	 * The ID of the second <tt>Student</tt> entity used
 	 * in the <tt>JoinHolder</tt> tests.
 	 */
-	private int studentId2;
+	private Long studentId2;
 	
 	/**
 	 * The ID of the second <tt>Course</tt> entity used
 	 * in the <tt>JoinHolder</tt> tests.
 	 */
-	private int courseId2;
+	private Long courseId2;
 	
 	/**
 	 * Get the DAO for <tt>Student</tt> entities.
@@ -204,7 +204,7 @@ public class JoinHolderDaoIT {
 		//Create first joinHolder and insert
 		ScJoinHolder joinHolder = new ScJoinHolder(student, course);
 		scJoinHolderDao.insertEntity(joinHolder);
-		int joinHolderId = joinHolder.getScId();
+		Long joinHolderId = joinHolder.getScId();
 		
 		//Get joinHolder and test values
 		joinHolder = scJoinHolderDao.getEntityById(joinHolderId);

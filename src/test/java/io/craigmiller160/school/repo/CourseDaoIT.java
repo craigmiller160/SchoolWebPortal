@@ -108,7 +108,7 @@ public class CourseDaoIT {
 		Course course = new Course();
 		setCourse1(course);
 		courseDao.insertEntity(course);
-		int courseId = course.getCourseId();
+		Long courseId = course.getCourseId();
 		
 		//Get entity and test for successful insert
 		course = courseDao.getEntityById(courseId);

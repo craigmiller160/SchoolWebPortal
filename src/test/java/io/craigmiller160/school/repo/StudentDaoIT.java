@@ -127,7 +127,7 @@ public class StudentDaoIT {
 		Student student = new Student();
 		setStudent1(student);
 		studentDao.insertEntity(student);
-		int studentId = student.getStudentId();
+		Long studentId = student.getStudentId();
 		
 		//Get entity and test for successful insert.
 		student = studentDao.getEntityById(studentId);
@@ -259,7 +259,7 @@ public class StudentDaoIT {
 		
 		//Insert entity with addresses;
 		studentDao.insertEntity(student);
-		int studentId = student.getStudentId();
+		Long studentId = student.getStudentId();
 		
 		//Retrieve entity and test the addresses
 		student = studentDao.getEntityById(studentId);
@@ -341,7 +341,7 @@ public class StudentDaoIT {
 		
 		//Insert Student with phones
 		studentDao.insertEntity(student);
-		int studentId = student.getStudentId();
+		Long studentId = student.getStudentId();
 		
 		//Retrieve Student and test phones
 		student = studentDao.getEntityById(studentId);
@@ -423,7 +423,7 @@ public class StudentDaoIT {
 		
 		//Insert Student with emails
 		studentDao.insertEntity(student);
-		int studentId = student.getStudentId();
+		Long studentId = student.getStudentId();
 		
 		//Retrieve Student and test emails
 		student = studentDao.getEntityById(studentId);

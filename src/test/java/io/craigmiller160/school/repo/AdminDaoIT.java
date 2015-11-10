@@ -123,7 +123,7 @@ public class AdminDaoIT {
 		Administrator admin = new Administrator();
 		setAdmin1(admin);
 		adminDao.insertEntity(admin);
-		int adminId = admin.getAdminId();
+		Long adminId = admin.getAdminId();
 		
 		//Get entity and test for successful insert.
 		admin = adminDao.getEntityById(adminId);
@@ -257,7 +257,7 @@ public class AdminDaoIT {
 		
 		//Insert entity with addresses;
 		adminDao.insertEntity(admin);
-		int adminId = admin.getAdminId();
+		Long adminId = admin.getAdminId();
 		
 		//Retrieve entity and test the addresses
 		admin = adminDao.getEntityById(adminId);
@@ -339,7 +339,7 @@ public class AdminDaoIT {
 		
 		//Insert Admin with phones
 		adminDao.insertEntity(admin);
-		int adminId = admin.getAdminId();
+		Long adminId = admin.getAdminId();
 		
 		//Retrieve Admin and test phones
 		admin = adminDao.getEntityById(adminId);
@@ -421,7 +421,7 @@ public class AdminDaoIT {
 		
 		//Insert admin with emails
 		adminDao.insertEntity(admin);
-		int adminId = admin.getAdminId();
+		Long adminId = admin.getAdminId();
 		
 		//Retrieve Admin and test emails
 		admin = adminDao.getEntityById(adminId);
