@@ -21,8 +21,8 @@ implements Serializable{
 
 	@Id
 	@GeneratedValue (strategy=GenerationType.AUTO)
-	@Column (name="address_id", length=6)
-	private int addressId;
+	@Column (name="address_id", length=20)
+	private Long addressId;
 	
 	@Enumerated (EnumType.STRING)
 	@Column (name="address_type")
@@ -71,11 +71,11 @@ implements Serializable{
 		this(addressType, address1, "", city, state, zip);
 	}
 
-	public int getAddressId() {
+	public Long getAddressId() {
 		return addressId;
 	}
 
-	public void setAddressId(int addressId) {
+	public void setAddressId(Long addressId) {
 		this.addressId = addressId;
 	}
 
