@@ -1,13 +1,18 @@
 package io.craigmiller160.school.repo;
 
+import static org.hamcrest.core.AnyOf.anyOf;
+import static org.hamcrest.core.IsEqual.equalTo;
+import static org.hamcrest.core.IsNot.not;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Set;
 
 import javax.transaction.Transactional;
 
@@ -20,7 +25,17 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import io.craigmiller160.school.context.AppContext;
+import io.craigmiller160.school.entity.Address;
+import io.craigmiller160.school.entity.AddressStudent;
+import io.craigmiller160.school.entity.AddressType;
+import io.craigmiller160.school.entity.Email;
+import io.craigmiller160.school.entity.EmailStudent;
+import io.craigmiller160.school.entity.EmailType;
 import io.craigmiller160.school.entity.Gender;
+import io.craigmiller160.school.entity.Phone;
+import io.craigmiller160.school.entity.PhoneStudent;
+import io.craigmiller160.school.entity.PhoneType;
+import io.craigmiller160.school.entity.State;
 import io.craigmiller160.school.entity.Student;
 import io.craigmiller160.school.util.HibernateTestUtil;
 
@@ -219,6 +234,368 @@ public class StudentDaoIT {
 			assertFalse("Overlap between pages", 
 					students2.contains(students1.get(i)));
 		}
+	}
+	
+	/**
+	 * Test CRUD operations with added Addresses to this
+	 * entity.
+	 */
+	@SuppressWarnings("unchecked")
+	@Transactional
+	@Test
+	public void testAddressCRUD(){
+		//Create dummy Student
+		Student student = new Student();
+		setStudent1(student);
+		
+		//Add addresses
+		AddressStudent address = new AddressStudent();
+		setAddress1(address);
+		student.addAddress(address);
+		
+		address = new AddressStudent();
+		setAddress2(address);
+		student.addAddress(address);
+		
+		//Insert entity with addresses;
+		studentDao.insertEntity(student);
+		int studentId = student.getStudentId();
+		
+		//Retrieve entity and test the addresses
+		student = studentDao.getEntityById(studentId);
+		Set<AddressStudent> addresses = student.getAddresses();
+		assertNotNull("Addresses are null", addresses);
+		assertEquals("Addresses size wrong", addresses.size(), 2);
+		for(AddressStudent a : addresses){
+			assertThat(a.getCity(), anyOf(equalTo("East Brunswick"), 
+					equalTo("Fords")));
+		}
+		
+		//Address to find and change in list
+		address = new AddressStudent();
+		setAddress1(address);
+		
+		//Change value and update
+		for(AddressStudent a : addresses){
+			if(a.equals(address)){
+				setAddress3(a);
+			}
+		}
+		studentDao.updateEntity(student);
+		
+		//Retrieve and test for update
+		student = studentDao.getEntityById(studentId);
+		addresses = student.getAddresses();
+		assertNotNull("Addresses are null", addresses);
+		assertEquals("Addresses size wrong", addresses.size(), 2);
+		for(AddressStudent a : addresses){
+			assertThat(a.getCity(), anyOf(equalTo("Henderson"), 
+					equalTo("Fords")));
+			assertThat(a.getCity(), anyOf(not(equalTo("East Brunswick"))));
+		}
+		
+		//Create comparison address
+		address = new AddressStudent();
+		setAddress2(address);
+		
+		//Remove address and update entity
+		for(AddressStudent a : addresses){
+			if(a.equals(address)){
+				addresses.remove(a);
+				break;
+			}
+		}
+		studentDao.updateEntity(student);
+		
+		//Test for propper removal
+		student = studentDao.getEntityById(studentId);
+		addresses = student.getAddresses();
+		assertNotNull("Addresses are null", addresses);
+		assertEquals("Addresses size wrong", addresses.size(), 1);
+		for(AddressStudent a : addresses){
+			assertThat(a.getCity(), anyOf(equalTo("Henderson")));
+			assertThat(a.getCity(), anyOf(not(equalTo("Fords"))));
+		}
+	}
+	
+	/**
+	 * Test CRUD operations with added Phones to this
+	 * entity.
+	 */
+	@SuppressWarnings("unchecked")
+	@Transactional
+	@Test
+	public void testPhoneCRUD(){
+		//Create dummy Student
+		Student student = new Student();
+		setStudent1(student);
+		
+		//Add phones
+		PhoneStudent phone = new PhoneStudent();
+		setPhone1(phone);
+		student.addPhone(phone);
+		
+		phone = new PhoneStudent();
+		setPhone2(phone);
+		student.addPhone(phone);
+		
+		//Insert Student with phones
+		studentDao.insertEntity(student);
+		int studentId = student.getStudentId();
+		
+		//Retrieve Student and test phones
+		student = studentDao.getEntityById(studentId);
+		Set<PhoneStudent> phones = student.getPhones();
+		assertNotNull("Phones are null", phones);
+		assertEquals("Phones size wrong", phones.size(), 2);
+		for(PhoneStudent p : phones){
+			assertThat(p.getAreaCode(), anyOf(equalTo("732"), 
+					equalTo("908")));
+		}
+		
+		//Phone to find and change in list
+		phone = new PhoneStudent();
+		setPhone1(phone);
+		
+		//Change phone value and update
+		for(PhoneStudent p : phones){
+			if(p.equals(phone)){
+				setPhone3(p);
+			}
+		}
+		studentDao.updateEntity(student);
+		
+		//Retrieve and test for update
+		student = studentDao.getEntityById(studentId);
+		phones = student.getPhones();
+		assertNotNull("Phones are null", phones);
+		assertEquals("Phones size wrong", phones.size(), 2);
+		for(PhoneStudent p : phones){
+			assertThat(p.getAreaCode(), anyOf(equalTo("908"), 
+					equalTo("800")));
+			assertThat(p.getAreaCode(), anyOf(not(equalTo("732"))));
+		}
+		
+		//Create comparison phone
+		phone = new PhoneStudent();
+		setPhone2(phone);
+		
+		//Remove phone and update entity
+		for(PhoneStudent p : phones){
+			if(p.equals(phone)){
+				phones.remove(p);
+				break;
+			}
+		}
+		studentDao.updateEntity(student);
+		
+		//Test for propper removal
+		student = studentDao.getEntityById(studentId);
+		phones = student.getPhones();
+		assertNotNull("Phones are null", phones);
+		assertEquals("Phones size wrong", phones.size(), 1);
+		for(PhoneStudent p : phones){
+			assertThat(p.getAreaCode(), anyOf(equalTo("800")));
+			assertThat(p.getAreaCode(), anyOf(not(equalTo("908"))));
+		}
+	}
+	
+	/**
+	 * Test CRUD operations with added Emails to this
+	 * entity.
+	 */
+	@SuppressWarnings("unchecked")
+	@Transactional
+	@Test
+	public void testEmailCRUD(){
+		//Create dummy Student
+		Student student = new Student();
+		setStudent1(student);
+		
+		//Add emails
+		EmailStudent email = new EmailStudent();
+		setEmail1(email);
+		student.addEmail(email);
+		
+		email = new EmailStudent();
+		setEmail2(email);
+		student.addEmail(email);
+		
+		//Insert Student with emails
+		studentDao.insertEntity(student);
+		int studentId = student.getStudentId();
+		
+		//Retrieve Student and test emails
+		student = studentDao.getEntityById(studentId);
+		Set<EmailStudent> emails = student.getEmails();
+		assertNotNull("Emails are null", emails);
+		assertEquals("Emails size wrong", emails.size(), 2);
+		for(EmailStudent e : emails){
+			assertThat(e.getEmailAddress(), anyOf(equalTo("craig@gmail.com"), 
+					equalTo("bob@aol.com")));
+		}
+		
+		//Email to find and change in list
+		email = new EmailStudent();
+		setEmail1(email);
+		
+		//Change email value and update
+		for(EmailStudent e : emails){
+			if(e.equals(email)){
+				setEmail3(e);
+			}
+		}
+		studentDao.updateEntity(student);
+		
+		//Retrieve Student and test for update
+		student = studentDao.getEntityById(studentId);
+		emails = student.getEmails();
+		assertNotNull("Emails are null", emails);
+		assertEquals("Emails size wrong", emails.size(), 2);
+		for(EmailStudent e : emails){
+			assertThat(e.getEmailAddress(), anyOf(equalTo("joe@hotmail.com"), 
+					equalTo("bob@aol.com")));
+		}
+		
+		//Create comparison email
+		email = new EmailStudent();
+		setEmail2(email);
+		
+		//Remove email and update entity
+		for(EmailStudent e : emails){
+			if(e.equals(email)){
+				emails.remove(e);
+				break;
+			}
+		}
+		studentDao.updateEntity(student);
+		
+		//Test for propper removal
+		student = studentDao.getEntityById(studentId);
+		emails = student.getEmails();
+		assertNotNull("Emails are null", emails);
+		assertEquals("Emails size wrong", emails.size(), 1);
+		for(EmailStudent e : emails){
+			assertThat(e.getEmailAddress(), anyOf(equalTo("joe@hotmail.com")));
+			assertThat(e.getEmailAddress(), anyOf(not(equalTo("bob@aol.com"))));
+		}
+	}
+	
+	/**
+	 * Set the fields of the <tt>Address</tt> object
+	 * to the first set of values.
+	 * 
+	 * @param address the <tt>Address</tt> object to set.
+	 */
+	private void setAddress1(Address address){
+		address.setAddressType(AddressType.HOME);
+		address.setAddress1("3 Brookside Ct");
+		address.setCity("East Brunswick");
+		address.setState(State.NJ);
+		address.setZip("08816");
+	}
+	
+	/**
+	 * Set the fields of the <tt>Address</tt> object
+	 * to the second set of values.
+	 * 
+	 * @param address the <tt>Address</tt> object to set.
+	 */
+	private void setAddress2(Address address){
+		address.setAddressType(AddressType.WORK);
+		address.setAddress1("22 Denman Drive");
+		address.setCity("Fords");
+		address.setState(State.NJ);
+		address.setZip("08892");
+	}
+	
+	/**
+	 * Set the fields of the <tt>Address</tt> object
+	 * to the third set of values.
+	 * 
+	 * @param address the <tt>Address</tt> object to set.
+	 */
+	private void setAddress3(Address address){
+		address.setAddressType(AddressType.MAILING);
+		address.setAddress1("500 Paradise Rd");
+		address.setCity("Henderson");
+		address.setState(State.NV);
+		address.setZip("53321");
+	}
+	
+	/**
+	 * Set the fields of the <tt>Phone</tt> object
+	 * to the first set of values.
+	 * 
+	 * @param phone the <tt>Phone</tt> object to set.
+	 */
+	private void setPhone1(Phone phone){
+		phone.setPhoneType(PhoneType.HOME);
+		phone.setAreaCode("732");
+		phone.setPrefix("555");
+		phone.setSuffix("6789");
+		phone.setExtension("x1234");
+	}
+	
+	/**
+	 * Set the fields of the <tt>Phone</tt> object
+	 * to the second set of values.
+	 * 
+	 * @param phone the <tt>Phone</tt> object to set.
+	 */
+	private void setPhone2(Phone phone){
+		phone.setPhoneType(PhoneType.WORK);
+		phone.setAreaCode("908");
+		phone.setPrefix("666");
+		phone.setSuffix("1234");
+		phone.setExtension(null);
+	}
+	
+	/**
+	 * Set the fields of the <tt>Phone</tt> object
+	 * to the third set of values.
+	 * 
+	 * @param phone the <tt>Phone</tt> object to set.
+	 */
+	private void setPhone3(Phone phone){
+		phone.setPhoneType(PhoneType.FAX);
+		phone.setAreaCode("800");
+		phone.setPrefix("123");
+		phone.setSuffix("4567");
+		phone.setExtension(null);
+	}
+	
+	/**
+	 * Set the fields of the <tt>Email</tt> object
+	 * to the first set of values.
+	 * 
+	 * @param email the <tt>Email</tt> object to set.
+	 */
+	private void setEmail1(Email email){
+		email.setEmailType(EmailType.PERSONAL);
+		email.setEmailAddress("craig@gmail.com");
+	}
+	
+	/**
+	 * Set the fields of the <tt>Email</tt> object
+	 * to the second set of values.
+	 * 
+	 * @param email the <tt>Email</tt> object to set.
+	 */
+	private void setEmail2(Email email){
+		email.setEmailType(EmailType.WORK);
+		email.setEmailAddress("bob@aol.com");
+	}
+	
+	/**
+	 * Set the fields of the <tt>Email</tt> object
+	 * to the third set of values.
+	 * 
+	 * @param email the <tt>Email</tt> object to set.
+	 */
+	private void setEmail3(Email email){
+		email.setEmailType(EmailType.OTHER);
+		email.setEmailAddress("joe@hotmail.com");
 	}
 	
 	/**
