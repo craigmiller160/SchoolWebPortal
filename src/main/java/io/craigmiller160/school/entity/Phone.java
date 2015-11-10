@@ -21,8 +21,8 @@ implements Serializable{
 
 	@Id
 	@GeneratedValue (strategy=GenerationType.AUTO)
-	@Column (name="phone_id", length=6)
-	private int phoneId;
+	@Column (name="phone_id", length=20)
+	private Long phoneId;
 	
 	@Enumerated (EnumType.STRING)
 	@Column (name="phone_type")
@@ -56,11 +56,11 @@ implements Serializable{
 		this.extension = extension;
 	}
 
-	public int getPhoneId() {
+	public Long getPhoneId() {
 		return phoneId;
 	}
 
-	public void setPhoneId(int phoneId) {
+	public void setPhoneId(Long phoneId) {
 		this.phoneId = phoneId;
 	}
 
