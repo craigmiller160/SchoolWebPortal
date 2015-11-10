@@ -24,8 +24,8 @@ implements Serializable{
 
 	@Id
 	@GeneratedValue (strategy=GenerationType.AUTO)
-	@Column (name="email_id")
-	private int emailId;
+	@Column (name="email_id", length=20)
+	private Long emailId;
 	
 	@Enumerated (EnumType.STRING)
 	@Column (name="email_type")
@@ -41,11 +41,11 @@ implements Serializable{
 		this.emailAddress = emailAddress;
 	}
 
-	public int getEmailId() {
+	public Long getEmailId() {
 		return emailId;
 	}
 
-	public void setEmailId(int emailId) {
+	public void setEmailId(Long emailId) {
 		this.emailId = emailId;
 	}
 
