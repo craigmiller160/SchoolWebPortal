@@ -30,8 +30,8 @@ implements Comparable<Administrator>, Serializable{
 
 	@Id
 	@GeneratedValue (strategy=GenerationType.AUTO)
-	@Column (name="admin_id", length=6)
-	private int adminId;
+	@Column (name="admin_id", length=20)
+	private Long adminId;
 	
 	@Column (name="first_name", length=255)
 	private String firstName;
@@ -65,11 +65,11 @@ implements Comparable<Administrator>, Serializable{
 		this.gender = gender;
 	}
 
-	public int getAdminId() {
+	public Long getAdminId() {
 		return adminId;
 	}
 
-	public void setAdminId(int adminId) {
+	public void setAdminId(Long adminId) {
 		this.adminId = adminId;
 	}
 
@@ -162,13 +162,14 @@ implements Comparable<Administrator>, Serializable{
 	
 	@Override
 	public int hashCode(){
-		return adminId;
+		return adminId.hashCode();
 	}
 	
 	@Override
 	public boolean equals(Object obj){
 		if(obj instanceof Administrator){
-			return ((Administrator) obj).adminId == this.adminId;
+			return ((Administrator) obj).adminId
+					.equals(this.adminId);
 		}
 		else{
 			return false;
@@ -182,8 +183,7 @@ implements Comparable<Administrator>, Serializable{
 
 	@Override
 	public int compareTo(Administrator admin) {
-		return ((Integer) this.adminId)
-				.compareTo((Integer) admin.adminId);
+		return this.adminId.compareTo(admin.adminId);
 	}
 	
 }
