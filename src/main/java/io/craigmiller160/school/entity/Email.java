@@ -14,6 +14,9 @@ import javax.persistence.MappedSuperclass;
 public abstract class Email 
 implements Comparable<Email>, Serializable{
 
+	//TODO ultimately add a regex check for email addresses
+	//added to ensure they are accurate emails.
+	
 	/**
 	 * SerialVersionUID for serialization support.
 	 */
