@@ -5,14 +5,20 @@
 <head>
 <%@ include file="stub/jstl-stub.jsp" %> <!-- Include JSTL Tag Library -->
 <%@ include file="stub/spring-stub.jsp" %> <!-- Include Spring Tag Library -->
-<%@ include file="stub/js-stub.jsp" %> <!-- Include JQuery -->
-<%@ include file="stub/bootstrap-stub.jsp" %> <!-- Include Bootstrap Dependencies -->
+<%//@ include file="stub/js-stub.jsp" %> <!-- Include JQuery -->
+<%//@ include file="stub/bootstrap-stub.jsp" %> <!-- Include Bootstrap Dependencies -->
+
+
 <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css"/>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
-<link rel="stylesheet" href="<c:url value="css/stylesheet.css"/>"/>
-<link href='https://fonts.googleapis.com/css?family=Coda' rel='stylesheet' type='text/css'>
-<link href='https://fonts.googleapis.com/css?family=Limelight' rel='stylesheet' type='text/css'>
+
+<link rel="stylesheet" href="<c:url value="css/main-styles.css"/>" type="text/css"/>
+<link rel="stylesheet" href="<c:url value="css/welcome-styles.css"/>" type="text/css"/>
+
+<link href="https://fonts.googleapis.com/css?family=Coda" rel="stylesheet" type='text/css'>
+<link href="https://fonts.googleapis.com/css?family=Limelight" rel="stylesheet" type='text/css'>
+
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title><spring:message code="welcome.page.title"/></title>
 </head>

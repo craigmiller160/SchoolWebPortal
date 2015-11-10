@@ -1,0 +1,36 @@
+@CHARSET "UTF-8";
+
+/* Universal style for footer */
+.footer{
+	text-align: center;
+	text-size: 15px;
+}
+
+/* Setting values for footer and push, 
+the div to help make footer work */
+.footer, .push{
+	height: 35px;
+}
+
+/* Set the html/body height */
+html, body{
+	height: 100%;
+}
+
+/* The main content container, within the wrapper */
+.main-content{
+	min-height: 100%;
+	height: auto !important;
+	height: 100%;
+	margin: 0 auto -30px;
+	background-color: mintcream;
+	border: 1px solid lightgray;
+}
+
+/* Content wrapper to set the width 
+of the main content.
+Should be compined with JQuery for dynamic sizes */
+.wrapper{
+	margin: 0 auto;
+	width: 1200px;
+}

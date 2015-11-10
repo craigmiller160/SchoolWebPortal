@@ -1,0 +1,35 @@
+@CHARSET "UTF-8";
+
+/* Universal attributes of a page header */
+.header{
+	margin-bottom: 0px;
+	border-radius: 0px;
+	box-shadow: 2px 2px 5px lightgray;
+}
+
+/* The text with the logo image */
+#logo-text{
+	display: inline-block;
+	vertical-align: middle;
+	margin-left: 5px;
+	text-align: left;
+	font-family: 'Coda', cursive;
+	color: white;
+}
+
+/* The first line of the logo title */
+#logo-title1{
+	font-size: 22px;
+}
+
+/* The second line of the logo title */
+#logo-title2{
+	font-size: 15px;
+	text-align: center;
+}
+
+/* The school logo image */
+#school-logo{
+	background-color: white;
+	padding: 1px;
+}

@@ -2,6 +2,8 @@
 <!-- IMPORTANT - The JSTL, Bootstrap, Spring Tags, and JavaScript imports 
 	are required for this and all components -->
 
+<link rel="stylesheet" href="<c:url value="css/header-styles.css"/>" type="text/css"/>
+
 <c:if test="${pageName == 'welcome'}">
 	<c:set var="headerWelcome" value="header-welcome"/>
 	<c:set var="headerWelcomeText" value="header-welcome-text"/>
