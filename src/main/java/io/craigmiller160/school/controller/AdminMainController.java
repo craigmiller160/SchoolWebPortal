@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
  * @version 1.0
  */
 @Controller
-@RequestMapping (value="/admin")
+@RequestMapping (value="/portal")
 public class AdminMainController {
 
 	/**
@@ -30,7 +30,7 @@ public class AdminMainController {
 	 */
 	@RequestMapping (method=RequestMethod.GET)
 	public String showMainPage(){
-		return "admin-main";
+		return "main-menu";
 	}
 	
 	/**
