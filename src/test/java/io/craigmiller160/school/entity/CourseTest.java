@@ -58,14 +58,14 @@ public class CourseTest{
 	public void testFields(){
 		//Create test data
 		Course course = new Course();
-		course.setCourseId(1);
+		course.setCourseId(new Long(1));
 		course.setCourseName("Algebra");
 		course.setSubject("Math");
 		course.setTeacherLastName("Flubber");
 		course.setPeriod(5);
 		
 		//Test the values
-		assertEquals("ID fail", course.getCourseId(), 1);
+		assertEquals("ID fail", course.getCourseId(), new Long(1));
 		assertEquals("Name Fail", course.getCourseName(), "Algebra");
 		assertEquals("Subject Fail", course.getSubject(), "Math");
 		assertEquals("Teacher Fail", course.getTeacherLastName(), "Flubber");
@@ -83,15 +83,15 @@ public class CourseTest{
 		
 		//The base object to be compared
 		Course course1 = new Course();
-		course1.setCourseId(1);
+		course1.setCourseId(new Long(1));
 		
 		//Same type, doesn't match
 		Course course2 = new Course();
-		course2.setCourseId(2);
+		course2.setCourseId(new Long(2));
 		
 		//Same type, should match
 		Course course3 = new Course();
-		course3.setCourseId(1);
+		course3.setCourseId(new Long(1));
 		
 		//Test for accurate comparison
 		assertFalse("ID mismatch", course1.equals(course2));
@@ -107,15 +107,15 @@ public class CourseTest{
 	public void testCompareTo(){
 		//The base object to be compared
 		Course course1 = new Course();
-		course1.setCourseId(1);
+		course1.setCourseId(new Long(1));
 		
 		//Same type, doesn't match
 		Course course2 = new Course();
-		course2.setCourseId(2);
+		course2.setCourseId(new Long(2));
 		
 		//Same type, should match
 		Course course3 = new Course();
-		course3.setCourseId(1);
+		course3.setCourseId(new Long(1));
 		
 		//Test for accurate comparison
 		assertEquals("Less than test", course1.compareTo(course2), -1);
