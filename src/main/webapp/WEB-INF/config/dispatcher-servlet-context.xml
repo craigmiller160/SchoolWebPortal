@@ -10,6 +10,7 @@
 <!-- DISPATCHER SERVLET BEAN CONTEXT CONFIGURATION -->
 
 	<import resource="classpath:/data-context.xml"/>
+	<import resource="spring-security.xml"/>
 
 	<mvc:annotation-driven/>
 	<context:component-scan base-package="io.craigmiller160.school.controller"/>
