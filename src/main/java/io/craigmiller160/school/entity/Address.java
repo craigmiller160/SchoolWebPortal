@@ -135,7 +135,7 @@ implements Comparable<Address>, Serializable{
 	
 	@Override
 	public String toString(){
-		StringBuilder builder = new StringBuilder(addressType + address1);
+		StringBuilder builder = new StringBuilder(addressType + ": " + address1);
 		builder.append(address2 != null ? address2 + ", " : ", ");
 		builder.append(city + ", " + state + " " + zip);
 		
