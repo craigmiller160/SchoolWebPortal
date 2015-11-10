@@ -63,23 +63,14 @@ implements Comparable<Email>, Serializable{
 	}
 	
 	@Override
-	public int hashCode(){
-		return emailId;
-	}
+	public abstract int hashCode();
 	
 	@Override
-	public boolean equals(Object obj){
-		if(obj instanceof Email){
-			return ((Email) obj).emailId == this.emailId;
-		}
-		else{
-			return false;
-		}
-	}
+	public abstract boolean equals(Object obj);
 	
 	@Override
 	public String toString(){
-		return emailAddress;
+		return emailType + ": " + emailAddress;
 	}
 
 	@Override

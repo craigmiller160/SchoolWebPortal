@@ -29,5 +29,22 @@ public class EmailStudent extends Email {
 	public void setStudent(Student student) {
 		this.student = student;
 	}
+	
+	@Override
+	public int hashCode(){
+		String s = "STUDENT "
+				+ toString();
+		return s.hashCode();
+	}
+	
+	@Override
+	public boolean equals(Object obj){
+		if(obj instanceof EmailStudent){
+			String s1 = "STUDENT " + toString();
+			String s2 = "STUDENT " + obj.toString();
+			return s1.equals(s2);
+		}
+		return false;
+	}
 
 }

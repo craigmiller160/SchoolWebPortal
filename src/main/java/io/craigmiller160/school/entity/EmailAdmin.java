@@ -30,4 +30,21 @@ public class EmailAdmin extends Email {
 		this.admin = admin;
 	}
 	
+	@Override
+	public int hashCode(){
+		String s = "ADMIN "
+				+ toString();
+		return s.hashCode();
+	}
+	
+	@Override
+	public boolean equals(Object obj){
+		if(obj instanceof EmailAdmin){
+			String s1 = "ADMIN " + toString();
+			String s2 = "ADMIN " + obj.toString();
+			return s1.equals(s2);
+		}
+		return false;
+	}
+	
 }
