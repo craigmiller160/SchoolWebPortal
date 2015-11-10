@@ -54,7 +54,7 @@ public class PhoneTest {
 				return false;
 			}
 		};
-		phone.setPhoneId(1);
+		phone.setPhoneId(new Long(1));
 		phone.setPhoneType(PhoneType.HOME);
 		phone.setAreaCode("732");
 		phone.setPrefix("613");
@@ -63,7 +63,7 @@ public class PhoneTest {
 		
 		//Test the values
 		assertNotNull("Is null", phone);
-		assertEquals("ID Fail", phone.getPhoneId(), 1);
+		assertEquals("ID Fail", phone.getPhoneId(), new Long(1));
 		assertEquals("Type Fail", phone.getPhoneType(), PhoneType.HOME);
 		assertEquals("Area Code Fail", phone.getAreaCode(), "732");
 		assertEquals("Prefix Fail", phone.getPrefix(), "613");
@@ -76,17 +76,17 @@ public class PhoneTest {
 		//The base object to be compared
 		PhoneAdmin phone1 = new PhoneAdmin();
 		setPhone1(phone1);
-		phone1.setPhoneId(1);
+		phone1.setPhoneId(new Long(1));
 		
 		//Same type, doesn't match
 		PhoneAdmin phone2 = new PhoneAdmin();
 		setPhone2(phone2);
-		phone2.setPhoneId(2);
+		phone2.setPhoneId(new Long(2));
 		
 		//Same type, should match
 		PhoneAdmin phone3 = new PhoneAdmin();
 		setPhone1(phone3);
-		phone3.setPhoneId(1);
+		phone3.setPhoneId(new Long(1));
 		
 		//Test for accurate comparison
 		assertTrue("Less than test", phone1.compareTo(phone2) < 0);
@@ -99,17 +99,17 @@ public class PhoneTest {
 		//The base object to be compared
 		PhoneStudent phone1 = new PhoneStudent();
 		setPhone1(phone1);
-		phone1.setPhoneId(1);
+		phone1.setPhoneId(new Long(1));
 		
 		//Same type, doesn't match
 		PhoneStudent phone2 = new PhoneStudent();
 		setPhone2(phone2);
-		phone2.setPhoneId(2);
+		phone2.setPhoneId(new Long(2));
 		
 		//Same type, should match
 		PhoneStudent phone3 = new PhoneStudent();
 		setPhone1(phone3);
-		phone3.setPhoneId(1);
+		phone3.setPhoneId(new Long(1));
 		
 		//Test for accurate comparison
 		assertTrue("Less than test", phone1.compareTo(phone2) < 0);
@@ -162,22 +162,22 @@ public class PhoneTest {
 		//The base object to be compared
 		PhoneAdmin phone1 = new PhoneAdmin();
 		setPhone1(phone1);
-		phone1.setPhoneId(1);
+		phone1.setPhoneId(new Long(1));
 		
 		//Same type, won't match
 		PhoneAdmin phone2 = new PhoneAdmin();
 		setPhone2(phone2);
-		phone2.setPhoneId(2);
+		phone2.setPhoneId(new Long(2));
 		
 		//Same type, should match
 		PhoneAdmin phone3 = new PhoneAdmin();
 		setPhone1(phone3);
-		phone3.setPhoneId(1);
+		phone3.setPhoneId(new Long(1));
 		
 		//Different phone type, same content, won't match
 		PhoneStudent phone4 = new PhoneStudent();
 		setPhone1(phone4);
-		phone4.setPhoneId(1);
+		phone4.setPhoneId(new Long(1));
 		
 		//Test for accurate comparison
 		assertFalse("ID mismatch", phone1.equals(phone2));
