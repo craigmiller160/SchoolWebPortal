@@ -12,7 +12,7 @@ import javax.persistence.MappedSuperclass;
 
 @MappedSuperclass
 public abstract class Phone 
-implements Comparable<Phone>, Serializable{
+implements Serializable{
 
 	/**
 	 * SerialVersionUID for serialization support.
@@ -117,12 +117,6 @@ implements Comparable<Phone>, Serializable{
 		return extension != null || !extension.equals("")
 				? output + " x" + extension
 				: output;
-	}
-
-	@Override
-	public int compareTo(Phone phone) {
-		return ((Integer) this.phoneId)
-				.compareTo((Integer) phone.phoneId);
 	}
 	
 }

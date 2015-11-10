@@ -5,7 +5,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
 @Entity (name="phone_student")
-public class PhoneStudent extends Phone{
+public class PhoneStudent 
+extends Phone implements Comparable<PhoneStudent>{
 
 	/**
 	 * 
@@ -51,6 +52,13 @@ public class PhoneStudent extends Phone{
 			return s1.equals(s2);
 		}
 		return false;
+	}
+	
+	@Override
+	public int compareTo(PhoneStudent phone){
+		String s1 = "STUDENT " + toString();
+		String s2 = "STUDENT " + phone.toString();
+		return s1.compareTo(s2);
 	}
 	
 }
