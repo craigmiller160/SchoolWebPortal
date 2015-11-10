@@ -36,4 +36,21 @@ public class PhoneStudent extends Phone{
 		this.student = student;
 	}
 	
+	@Override
+	public int hashCode(){
+		String s = "STUDENT "
+				+ toString();
+		return s.hashCode();
+	}
+	
+	@Override
+	public boolean equals(Object obj){
+		if(obj instanceof PhoneStudent){
+			String s1 = "STUDENT " + toString();
+			String s2 = "STUDENT " + obj.toString();
+			return s1.equals(s2);
+		}
+		return false;
+	}
+	
 }

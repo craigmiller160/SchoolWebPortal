@@ -105,23 +105,14 @@ implements Comparable<Phone>, Serializable{
 	}
 	
 	@Override
-	public int hashCode(){
-		return phoneId;
-	}
+	public abstract int hashCode();
 	
 	@Override
-	public boolean equals(Object obj){
-		if(obj instanceof Phone){
-			return ((Phone) obj).phoneId == this.phoneId;
-		}
-		else{
-			return false;
-		}
-	}
+	public abstract boolean equals(Object obj);
 	
 	@Override
 	public String toString(){
-		String output = "(" + areaCode + ") " 
+		String output = phoneType + ": (" + areaCode + ") " 
 				+ prefix + "-" + suffix;
 		return extension != null || !extension.equals("")
 				? output + " x" + extension
