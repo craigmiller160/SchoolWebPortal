@@ -1,13 +1,18 @@
 package io.craigmiller160.school.repo;
 
+import static org.hamcrest.core.AnyOf.anyOf;
+import static org.hamcrest.core.IsEqual.equalTo;
+import static org.hamcrest.core.IsNot.not;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Set;
 
 import javax.transaction.Transactional;
 
@@ -20,9 +25,11 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import io.craigmiller160.school.context.AppContext;
+import io.craigmiller160.school.entity.AddressAdmin;
+import io.craigmiller160.school.entity.AddressType;
 import io.craigmiller160.school.entity.Administrator;
 import io.craigmiller160.school.entity.Gender;
-import io.craigmiller160.school.entity.Student;
+import io.craigmiller160.school.entity.State;
 import io.craigmiller160.school.util.HibernateTestUtil;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -222,6 +229,130 @@ public class AdminDaoIT {
 	}
 	
 	/**
+	 * Test CRUD operations with added Addresses to this
+	 * entity.
+	 */
+	@SuppressWarnings("unchecked")
+	@Transactional
+	@Test
+	public void testAddressCRUD(){
+		//Create dummy Admin
+		Administrator admin = new Administrator();
+		setAdmin1(admin);
+		
+		//Add addresses
+		AddressAdmin address = new AddressAdmin();
+		setAddress1(address);
+		admin.addAddress(address);
+		
+		address = new AddressAdmin();
+		setAddress2(address);
+		admin.addAddress(address);
+		
+		//Insert entity with addresses;
+		adminDao.insertEntity(admin);
+		int adminId = admin.getAdminId();
+		
+		//Retrieve entity and test the addresses
+		admin = adminDao.getEntityById(adminId);
+		Set<AddressAdmin> addresses = admin.getAddresses();
+		assertNotNull("Addresses are null", addresses);
+		assertEquals("Addresses size wrong", addresses.size(), 2);
+		for(AddressAdmin a : addresses){
+			assertThat(a.getCity(), anyOf(equalTo("East Brunswick"), 
+					equalTo("Fords")));
+		}
+		
+		
+		address = new AddressAdmin();
+		setAddress1(address);
+		
+		//Change value and update
+		for(AddressAdmin a : addresses){
+			if(a.equals(address)){
+				setAddress3(a);
+			}
+		}
+		adminDao.updateEntity(admin);
+		
+		//Retrieve and test for update
+		admin = adminDao.getEntityById(adminId);
+		addresses = admin.getAddresses();
+		assertNotNull("Addresses are null", addresses);
+		assertEquals("Addresses size wrong", addresses.size(), 2);
+		for(AddressAdmin a : addresses){
+			assertThat(a.getCity(), anyOf(equalTo("Henderson"), 
+					equalTo("Fords")));
+			assertThat(a.getCity(), anyOf(not(equalTo("East Brunswick"))));
+		}
+		
+		//Create comparison address
+		address = new AddressAdmin();
+		setAddress2(address);
+		
+		//Remove address and update entity
+		for(AddressAdmin a : addresses){
+			if(a.equals(address)){
+				addresses.remove(a);
+				break;
+			}
+		}
+		adminDao.updateEntity(admin);
+		
+		//Test for propper removal
+		admin = adminDao.getEntityById(adminId);
+		addresses = admin.getAddresses();
+		assertNotNull("Addresses are null", addresses);
+		assertEquals("Addresses size wrong", addresses.size(), 1);
+		for(AddressAdmin a : addresses){
+			assertThat(a.getCity(), anyOf(equalTo("Henderson")));
+			assertThat(a.getCity(), anyOf(not(equalTo("Fords"))));
+		}
+	}
+	
+	/**
+	 * Set the fields of the <tt>Address</tt> object
+	 * to the first set of values.
+	 * 
+	 * @param address the <tt>Address</tt> object to set.
+	 */
+	private void setAddress1(AddressAdmin address){
+		address.setAddressType(AddressType.HOME);
+		address.setAddress1("3 Brookside Ct");
+		address.setCity("East Brunswick");
+		address.setState(State.NJ);
+		address.setZip("08816");
+	}
+	
+	/**
+	 * Set the fields of the <tt>Address</tt> object
+	 * to the second set of values.
+	 * 
+	 * @param address the <tt>Address</tt> object to set.
+	 */
+	private void setAddress2(AddressAdmin address){
+		address.setAddressType(AddressType.WORK);
+		address.setAddress1("22 Denman Drive");
+		address.setCity("Fords");
+		address.setState(State.NJ);
+		address.setZip("08892");
+	}
+	
+	/**
+	 * Set the fields of the <tt>Address</tt> object
+	 * to the second set of values.
+	 * 
+	 * @param address the <tt>Address</tt> object to set.
+	 */
+	private void setAddress3(AddressAdmin address){
+		address.setAddressType(AddressType.MAILING);
+		address.setAddress1("500 Paradise Rd");
+		address.setCity("Henderson");
+		address.setState(State.NV);
+		address.setZip("53321");
+	}
+	
+	/**
 	 * Reset the auto-increment counter of the table being tested
 	 * in the database. This method is invoked after all test
 	 * cases have completed.
@@ -229,7 +360,8 @@ public class AdminDaoIT {
 	@AfterClass
 	public static void resetAutoIncrement(){
 		ApplicationContext context = AppContext.getApplicationContext();
-		HibernateTestUtil testUtil = context.getBean(HibernateTestUtil.class, "hibernateTestUtil");
+		HibernateTestUtil testUtil = context.getBean(
+				HibernateTestUtil.class, "hibernateTestUtil");
 		testUtil.resetAdminAutoIncrement();
 		testUtil.resetAddressAdminAutoIncrement();
 		testUtil.resetPhoneAdminAutoIncrement();
