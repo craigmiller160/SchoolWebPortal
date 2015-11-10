@@ -54,7 +54,7 @@ public interface GenericEntityDao<T> {
 	 * @throws RuntimeException a subclass of <tt>RuntimeException</tt>
 	 * is thrown if this operation fails in some way.
 	 */
-	T getEntityById(int entityId);
+	T getEntityById(Long entityId);
 	
 	/**
 	 * Get a count of all entities of this type in the database.

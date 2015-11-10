@@ -31,7 +31,7 @@ public interface GenericJoinHolderDao<T extends JoinHolder>{
 	 * is not a valid type for this class's <tt>JoinHolder</tt>.
 	 * @param <U> the type of entity that is joined.
 	 */
-	<U> List<T> getAllJoinsFor(Class<U> joinedEntityType, int entityId);
+	<U> List<T> getAllJoinsFor(Class<U> joinedEntityType, Long entityId);
 	
 	/**
 	 * Remove all <tt>JoinHolder</tt> entities that are
@@ -44,7 +44,7 @@ public interface GenericJoinHolderDao<T extends JoinHolder>{
 	 * is not a valid type for this class's <tt>JoinHolder</tt>.
 	 * @param <U> the type of entity that is joined.
 	 */
-	<U> void removeJoinsFor(Class<U> joinedEntityType, int entityId);
+	<U> void removeJoinsFor(Class<U> joinedEntityType, Long entityId);
 	
 	//TODO restore this only if it's actuall necessary
 	/*<U,V> void removeJoinFor(Class<U> firstJoinedEntityType, int firstEntityId, 
@@ -63,6 +63,6 @@ public interface GenericJoinHolderDao<T extends JoinHolder>{
 	 * is not a valid type for this class's <tt>JoinHolder</tt>.
 	 * @param <U> the type of entity that is joined.
 	 */
-	<U> long getJoinCountFor(Class<U> joinedEntityType, int entityId);
+	<U> long getJoinCountFor(Class<U> joinedEntityType, Long entityId);
 	
 }

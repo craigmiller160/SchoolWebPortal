@@ -41,7 +41,7 @@ public interface GenericPaginatedJoinHolderDao<T extends JoinHolder> {
 	 * is thrown if this operation fails in some way.
 	 * @param <U> the type of entity that is joined.
 	 */
-	<U> List<T> getEntitiesByPageFor(Class<U> joinedEntityType, int entityId,
+	<U> List<T> getEntitiesByPageFor(Class<U> joinedEntityType, Long entityId,
 			int startPageAfterRow, int pageRowCount);
 	
 }
