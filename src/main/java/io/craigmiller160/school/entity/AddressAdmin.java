@@ -49,26 +49,9 @@ public class AddressAdmin extends Address {
 	@Override
 	public boolean equals(Object obj){
 		if(obj instanceof AddressAdmin){
-			if(getAddressType()
-					.equals(((AddressAdmin) obj)
-							.getAddressType())
-					&& getAddress1()
-					.equals(((AddressAdmin) obj)
-							.getAddress1())
-					&& getAddress2()
-					.equals(((AddressAdmin) obj)
-							.getAddress2())
-					&& getCity()
-					.equals(((AddressAdmin) obj)
-							.getCity())
-					&& getState()
-					.equals(((AddressAdmin) obj)
-							.getState())
-					&& getZip()
-					.equals(((AddressAdmin) obj)
-							.getZip())){
-				return true;
-			}
+			String s1 = "ADMIN " + toString();
+			String s2 = "ADMIN " + obj.toString();
+			return s1.equals(s2);
 		}
 		return false;
 	}
