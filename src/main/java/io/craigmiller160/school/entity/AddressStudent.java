@@ -49,26 +49,9 @@ public class AddressStudent extends Address {
 	@Override
 	public boolean equals(Object obj){
 		if(obj instanceof AddressStudent){
-			if(getAddressType()
-					.equals(((AddressStudent) obj)
-							.getAddressType())
-					&& getAddress1()
-					.equals(((AddressStudent) obj)
-							.getAddress1())
-					&& getAddress2()
-					.equals(((AddressStudent) obj)
-							.getAddress2())
-					&& getCity()
-					.equals(((AddressStudent) obj)
-							.getCity())
-					&& getState()
-					.equals(((AddressStudent) obj)
-							.getState())
-					&& getZip()
-					.equals(((AddressStudent) obj)
-							.getZip())){
-				return true;
-			}
+			String s1 = "STUDENT " + toString();
+			String s2 = "STUDENT " + obj.toString();
+			return s1.equals(s2);
 		}
 		return false;
 	}
