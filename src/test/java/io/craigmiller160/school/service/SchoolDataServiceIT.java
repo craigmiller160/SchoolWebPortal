@@ -97,7 +97,7 @@ public class SchoolDataServiceIT {
 		Student student = new Student();
 		setStudent1(student);
 		schoolDataService.insertEntity(student);
-		int studentId = student.getStudentId();
+		Long studentId = student.getStudentId();
 		
 		//Get entity and test for successful insert
 		student = schoolDataService.getEntityById(Student.class, studentId);
@@ -139,7 +139,7 @@ public class SchoolDataServiceIT {
 		Course course = new Course();
 		setCourse1(course);
 		schoolDataService.insertEntity(course);
-		int courseId = course.getCourseId();
+		Long courseId = course.getCourseId();
 		
 		//Get entity and test for successful insert
 		course = schoolDataService.getEntityById(Course.class, courseId);
@@ -176,7 +176,7 @@ public class SchoolDataServiceIT {
 		Administrator admin = new Administrator();
 		setAdmin1(admin);
 		schoolDataService.insertEntity(admin);
-		int adminId = admin.getAdminId();
+		Long adminId = admin.getAdminId();
 		
 		//Get entity and test for successful insert
 		admin = schoolDataService.getEntityById(Administrator.class, adminId);
@@ -216,17 +216,17 @@ public class SchoolDataServiceIT {
 		Student student = new Student();
 		setStudent1(student);
 		schoolDataService.insertEntity(student);
-		int studentId = student.getStudentId();
+		Long studentId = student.getStudentId();
 		
 		Course course = new Course();
 		setCourse1(course);
 		schoolDataService.insertEntity(course);
-		int courseId = course.getCourseId();
+		Long courseId = course.getCourseId();
 		
 		//Create first joinHolder and insert
 		ScJoinHolder joinHolder = new ScJoinHolder(student, course);
 		schoolDataService.insertEntity(joinHolder);
-		int joinHolderId = joinHolder.getScId();
+		Long joinHolderId = joinHolder.getScId();
 		
 		//Get joinHolder and test values
 		joinHolder = schoolDataService.getEntityById(ScJoinHolder.class, joinHolderId);
@@ -275,7 +275,7 @@ public class SchoolDataServiceIT {
 		assertEquals(CREATE_FAIL, student.getBirthDate(), LocalDate.of(1988, 10, 26));
 		assertEquals(CREATE_FAIL, student.getGender(), Gender.MALE);
 		assertEquals(CREATE_FAIL, student.getGrade(), 10);
-		int studentId = student.getStudentId();
+		Long studentId = student.getStudentId();
 		
 		//Test if it was inserted properly into the database.
 		student = schoolDataService.getEntityById(Student.class, studentId);
@@ -297,7 +297,7 @@ public class SchoolDataServiceIT {
 		assertEquals(CREATE_FAIL, course.getSubject(), "Subject");
 		assertEquals(CREATE_FAIL, course.getTeacherLastName(), "LastName");
 		assertEquals(CREATE_FAIL, course.getPeriod(), 1);
-		int courseId = course.getCourseId();
+		Long courseId = course.getCourseId();
 		
 		//Test if it was inserted properly into the database.
 		course = schoolDataService.getEntityById(Course.class, courseId);
@@ -639,7 +639,7 @@ public class SchoolDataServiceIT {
 		Student student = new Student();
 		setStudent1(student);
 		schoolDataService.insertEntity(student);
-		int studentId = student.getStudentId();
+		Long studentId = student.getStudentId();
 		
 		Course course = new Course();
 		setCourse1(course);
@@ -671,7 +671,7 @@ public class SchoolDataServiceIT {
 		Course course = new Course();
 		setCourse1(course);
 		schoolDataService.insertEntity(course);
-		int courseId = course.getCourseId();
+		Long courseId = course.getCourseId();
 		
 		Student student = new Student();
 		setStudent1(student);
@@ -703,7 +703,7 @@ public class SchoolDataServiceIT {
 		Student student = new Student();
 		setStudent1(student);
 		schoolDataService.insertEntity(student);
-		int studentId = student.getStudentId();
+		Long studentId = student.getStudentId();
 		for(int i = 0; i < 20; i++){
 			Course course = new Course();
 			setCourse1(course);
@@ -760,7 +760,7 @@ public class SchoolDataServiceIT {
 		Course course = new Course();
 		setCourse1(course);
 		schoolDataService.insertEntity(course);
-		int courseId = course.getCourseId();
+		Long courseId = course.getCourseId();
 		for(int i = 0; i < 20; i++){
 			Student student = new Student();
 			setStudent1(student);
@@ -817,7 +817,7 @@ public class SchoolDataServiceIT {
 		Student student = new Student();
 		setStudent1(student);
 		schoolDataService.insertEntity(student);
-		int studentId = student.getStudentId();
+		Long studentId = student.getStudentId();
 		
 		Course course = new Course();
 		setCourse1(course);
@@ -850,7 +850,7 @@ public class SchoolDataServiceIT {
 		Course course = new Course();
 		setCourse1(course);
 		schoolDataService.insertEntity(course);
-		int courseId = course.getCourseId();
+		Long courseId = course.getCourseId();
 		
 		Student student = new Student();
 		setStudent1(student);
@@ -887,12 +887,12 @@ public class SchoolDataServiceIT {
 		Student student = new Student();
 		setStudent1(student);
 		schoolDataService.insertEntity(student);
-		int studentId = student.getStudentId();
+		Long studentId = student.getStudentId();
 		
 		Course course = new Course();
 		setCourse1(course);
 		schoolDataService.insertEntity(course);
-		int courseId = course.getCourseId();
+		Long courseId = course.getCourseId();
 		
 		//Use convenience method to join entities and insert
 		schoolDataService.joinEntities(ScJoinHolder.class, student, course);
@@ -925,7 +925,7 @@ public class SchoolDataServiceIT {
 		Student student = new Student();
 		setStudent1(student);
 		schoolDataService.insertEntity(student);
-		int studentId = student.getStudentId();
+		Long studentId = student.getStudentId();
 		
 		Course course = new Course();
 		setCourse1(course);
@@ -960,7 +960,7 @@ public class SchoolDataServiceIT {
 		Course course = new Course();
 		setCourse1(course);
 		schoolDataService.insertEntity(course);
-		int courseId = course.getCourseId();
+		Long courseId = course.getCourseId();
 		
 		ScJoinHolder joinHolder = new ScJoinHolder(student, course);
 		schoolDataService.insertEntity(joinHolder);
@@ -988,7 +988,7 @@ public class SchoolDataServiceIT {
 		Student student = new Student();
 		setStudent1(student);
 		schoolDataService.insertEntity(student);
-		int studentId = student.getStudentId();
+		Long studentId = student.getStudentId();
 		
 		//Test to ensure successful insert
 		student = schoolDataService.getEntityById(Student.class, studentId);
@@ -1014,7 +1014,7 @@ public class SchoolDataServiceIT {
 		Course course = new Course();
 		setCourse1(course);
 		schoolDataService.insertEntity(course);
-		int courseId = course.getCourseId();
+		Long courseId = course.getCourseId();
 		
 		//Test to ensure successful insert
 		course = schoolDataService.getEntityById(Course.class, courseId);
@@ -1035,7 +1035,7 @@ public class SchoolDataServiceIT {
 		Administrator admin = new Administrator();
 		setAdmin1(admin);
 		schoolDataService.insertEntity(admin);
-		int adminId = admin.getAdminId();
+		Long adminId = admin.getAdminId();
 		
 		//Test to ensure successful insert
 		admin = schoolDataService.getEntityById(Administrator.class, adminId);
@@ -1070,7 +1070,7 @@ public class SchoolDataServiceIT {
 		joinHolder.setCourse(course);
 		joinHolder.setStudent(student);
 		schoolDataService.insertEntity(joinHolder);
-		int jhId = joinHolder.getScId();
+		Long jhId = joinHolder.getScId();
 		
 		//Test to ensure successful insert
 		joinHolder = schoolDataService.getEntityById(ScJoinHolder.class, jhId);
@@ -1215,7 +1215,7 @@ public class SchoolDataServiceIT {
 		Student student = new Student();
 		setStudent1(student);
 		schoolDataService.insertEntity(student);
-		int studentId = student.getStudentId();
+		Long studentId = student.getStudentId();
 		for(int i = 0; i < 10; i++){
 			Course course = new Course();
 			setCourse1(course);
@@ -1253,7 +1253,7 @@ public class SchoolDataServiceIT {
 		Course course = new Course();
 		setCourse1(course);
 		schoolDataService.insertEntity(course);
-		int courseId = course.getCourseId();
+		Long courseId = course.getCourseId();
 		for(int i = 0; i < 10; i++){
 			Student student = new Student();
 			setStudent1(student);
