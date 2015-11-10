@@ -43,7 +43,7 @@ public interface GenericPaginatedJoinHolderService {
 	 * @param <U> the type of entity that is joined.
 	 */
 	<T extends JoinHolder,U> List<T> getEntitiesByPageFor(Class<T> joinHolderType,
-			Class<U> joinedEntityType, int entityId, int pageNumber, int pageRowCount);
+			Class<U> joinedEntityType, Long entityId, int pageNumber, int pageRowCount);
 	
 	/**
 	 * A convenience method to determine if the last available
@@ -65,7 +65,7 @@ public interface GenericPaginatedJoinHolderService {
 	 * @param <T> the type of entity to get by page.
 	 */
 	<T extends JoinHolder,U> boolean hasPagesRemainingFor(Class<T> joinHolderType,
-			Class<U> joinedEntityType, int entityId, int pageNumber, 
+			Class<U> joinedEntityType, Long entityId, int pageNumber, 
 			int pageRowCount);
 	
 }

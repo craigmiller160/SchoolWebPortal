@@ -49,7 +49,7 @@ public interface GenericJoinHolderService{
 	 * @param <U> the type of entity that is joined.
 	 */
 	<T extends JoinHolder,U> List<T> getAllJoinsFor(Class<T> joinHolderType, 
-			Class<U> joinedEntityType, int entityId);
+			Class<U> joinedEntityType, Long entityId);
 	
 	/**
 	 * Get a count of the number of <tt>JoinHolder</tt> entities that hold the entity
@@ -68,7 +68,7 @@ public interface GenericJoinHolderService{
 	 * @param <T> the type of <tt>JoinHolder</tt>  to use.
 	 * @param <U> the type of entity that is joined.
 	 */
-	<T extends JoinHolder,U> long getJoinCountFor(Class<T> joinHolderType, Class<U> joinedEntityType, int entityId);
+	<T extends JoinHolder,U> long getJoinCountFor(Class<T> joinHolderType, Class<U> joinedEntityType, Long entityId);
 	
 	/**
 	 * Remove all <tt>JoinHolder</tt> entities that are
@@ -84,6 +84,6 @@ public interface GenericJoinHolderService{
 	 * @param <U> the type of entity that is joined.
 	 */
 	<T extends JoinHolder, U> void removeJoinsFor(Class<T> joinHolderType, 
-			Class<U> joinedEntityType, int entityId);
+			Class<U> joinedEntityType, Long entityId);
 	
 }

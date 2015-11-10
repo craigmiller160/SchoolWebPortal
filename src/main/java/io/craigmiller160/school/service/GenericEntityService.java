@@ -93,7 +93,7 @@ public interface GenericEntityService {
 	 * is thrown if this operation fails in some way.
 	 * @param <T> the type of entity to delete.
 	 */
-	<T> void deleteEntityById(Class<T> entityType, int entityId);
+	<T> void deleteEntityById(Class<T> entityType, Long entityId);
 	
 	/**
 	 * Get a list of all persisted entities of the
@@ -119,7 +119,7 @@ public interface GenericEntityService {
 	 * provided is not a supported entity by the database.
 	 * @param <T> the type of entity to get.
 	 */
-	<T> T getEntityById(Class<T> entityType, int entityId);
+	<T> T getEntityById(Class<T> entityType, Long entityId);
 	
 	/**
 	 * Get a count of the total number of entities
