@@ -132,7 +132,7 @@ public class AdminCourseController {
 	public String editCourse(Model model, Course course,
 			@PathVariable ("courseId") String courseId){
 		//TODO need a way to handle NumberFormatException here
-		int id = Integer.parseInt(courseId);
+		Long id = Long.parseLong(courseId);
 		course = service.getEntityById(Course.class, id);
 		model.addAttribute("course", course);
 		
@@ -180,7 +180,7 @@ public class AdminCourseController {
 	@RequestMapping (value="/{courseId}", method=RequestMethod.DELETE)
 	public String deleteCourse(@PathVariable ("courseId") String courseId){
 		//TODO NumberFormatException needs to be handled
-		int id = Integer.parseInt(courseId);
+		Long id = Long.parseLong(courseId);
 		service.deleteEntityById(Course.class, id);
 		
 		return "redirect:/admin/course/all.html?page=1";

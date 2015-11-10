@@ -76,7 +76,7 @@ public class AdminStudentController {
 	public String editStudent(Model model, Student student,
 			@PathVariable ("studentId") String studentId){
 		//TODO need a way to handle NumberFormatException here
-		int id = Integer.parseInt(studentId);
+		Long id = Long.parseLong(studentId);
 		student = service.getEntityById(Student.class, id);
 		model.addAttribute("student", student);
 		model.addAttribute("genders", Gender.values());
@@ -100,7 +100,7 @@ public class AdminStudentController {
 	@RequestMapping (value="/{studentId}", method=RequestMethod.DELETE)
 	public String deleteStudent(@PathVariable ("studentId") String studentId){
 		//TODO NumberFormatException needs to be handled
-		int id = Integer.parseInt(studentId);
+		Long id = Long.parseLong(studentId);
 		service.deleteEntityById(Student.class, id);
 		
 		return "redirect:/admin/student/all.html?page=1";
