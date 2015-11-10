@@ -12,7 +12,7 @@ import javax.persistence.MappedSuperclass;
 
 @MappedSuperclass
 public abstract class Email 
-implements Comparable<Email>, Serializable{
+implements Serializable{
 
 	//TODO ultimately add a regex check for email addresses
 	//added to ensure they are accurate emails.
@@ -74,12 +74,6 @@ implements Comparable<Email>, Serializable{
 	@Override
 	public String toString(){
 		return emailType + ": " + emailAddress;
-	}
-
-	@Override
-	public int compareTo(Email email) {
-		return ((Integer) this.emailId)
-				.compareTo((Integer) email.emailId);
 	}
 	
 }
