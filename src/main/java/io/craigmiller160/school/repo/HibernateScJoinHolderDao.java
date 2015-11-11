@@ -10,7 +10,7 @@ import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
 
 import io.craigmiller160.school.entity.Course;
 import io.craigmiller160.school.entity.ScJoinHolder;
@@ -32,7 +32,7 @@ import io.craigmiller160.school.entity.Student;
  * @author craig
  * @version 1.0
  */
-@Component ("scJoinHolderDao")
+@Repository ("scJoinHolderDao")
 public class HibernateScJoinHolderDao 
 implements GenericJoinHolderDaoBean<ScJoinHolder> {
 

@@ -8,11 +8,11 @@ import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
 
 import io.craigmiller160.school.entity.Administrator;
 
-@Component ("adminDao")
+@Repository ("adminDao")
 public class HibernateAdminDao implements GenericEntityDaoBean<Administrator> {
 
 	/**

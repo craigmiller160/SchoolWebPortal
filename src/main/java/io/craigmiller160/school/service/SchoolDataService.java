@@ -6,7 +6,7 @@ import java.util.List;
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import io.craigmiller160.school.entity.Administrator;
 import io.craigmiller160.school.entity.Course;
@@ -31,7 +31,7 @@ import io.craigmiller160.school.repo.GenericJoinHolderDaoBean;
  * @author craig
  * @version 1.0
  */
-@Component ("schoolService")
+@Service ("schoolService")
 public class SchoolDataService 
 implements GenericEntityServiceBean {
 

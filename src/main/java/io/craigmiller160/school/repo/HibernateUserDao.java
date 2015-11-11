@@ -10,11 +10,11 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
 
 import io.craigmiller160.school.entity.SchoolUser;
 
-@Component ("userDao")
+@Repository ("userDao")
 public class HibernateUserDao implements 
 GenericEntityDaoBean<SchoolUser> {
 
