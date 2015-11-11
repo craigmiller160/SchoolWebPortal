@@ -48,6 +48,14 @@ implements Comparable<UserRole>{
 		this.role = role;
 	}
 	
+	public void setUser(SchoolUser user){
+		this.user = user;
+	}
+	
+	public SchoolUser getUser(){
+		return user;
+	}
+	
 	@Override
 	public int hashCode(){
 		return toString().hashCode();

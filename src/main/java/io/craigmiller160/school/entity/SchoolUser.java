@@ -93,6 +93,7 @@ implements Serializable, Comparable<SchoolUser>{
 	}
 	
 	public boolean addRole(UserRole role){
+		role.setUser(this);
 		return this.roles.add(role);
 	}
 	
