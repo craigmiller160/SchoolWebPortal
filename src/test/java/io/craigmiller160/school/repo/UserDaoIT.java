@@ -29,6 +29,9 @@ public class UserDaoIT {
 	//TODO use trigger to give a better message back when violating
 	//unique constraint on username than "constraint violation".
 	
+	//TODO this test depends on their not being a username matching the one 
+	//that is being inserted. That should be resolved in the future.
+	
 	/**
 	 * Output message for the insert operation failing.
 	 */
@@ -192,6 +195,20 @@ public class UserDaoIT {
 			assertFalse("Overlap between pages", 
 					users2.contains(users1.get(i)));
 		}
+	}
+	
+	@Transactional
+	@Test
+	public void testGetByUserName(){
+		//Create and insert test data
+		SchoolUser user = new SchoolUser();
+		setUser1(user);
+		userDao.insertEntity(user);
+		
+		//Attempt to get user by UserName
+		user = ((HibernateUserDao) userDao).getUserByUsername("hsolo2");
+		assertNotNull("Is null", user);
+		assertEquals("Values don't match", user.getPassword(), "pass");
 	}
 	
 	/**

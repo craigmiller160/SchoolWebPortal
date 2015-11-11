@@ -99,6 +99,13 @@ GenericEntityDaoBean<SchoolUser> {
 				.list();
 	}
 	
+	public SchoolUser getUserByUsername(String userName){
+		return (SchoolUser) sessionFactory.getCurrentSession()
+				.createCriteria(SchoolUser.class)
+				.add(Restrictions.eq("userName", userName))
+				.uniqueResult();
+	}
+	
 	/**
 	 * Close the <tt>SessionFactory</tt> when this class's work
 	 * is complete.
