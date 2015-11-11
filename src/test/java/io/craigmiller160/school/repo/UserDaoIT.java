@@ -1,12 +1,17 @@
 package io.craigmiller160.school.repo;
 
+import static org.hamcrest.core.AnyOf.anyOf;
+import static org.hamcrest.core.IsEqual.equalTo;
+import static org.hamcrest.core.IsNot.not;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
 
 import java.util.List;
+import java.util.Set;
 
 import javax.transaction.Transactional;
 
@@ -19,7 +24,9 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import io.craigmiller160.school.context.AppContext;
+import io.craigmiller160.school.entity.Role;
 import io.craigmiller160.school.entity.SchoolUser;
+import io.craigmiller160.school.entity.UserRole;
 import io.craigmiller160.school.util.HibernateTestUtil;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -209,6 +216,52 @@ public class UserDaoIT {
 		user = ((HibernateUserDao) userDao).getUserByUsername("hsolo2");
 		assertNotNull("Is null", user);
 		assertEquals("Values don't match", user.getPassword(), "pass");
+	}
+	
+	@Transactional
+	@Test
+	public void testPersistRoles(){
+		//Create and insert test data
+		SchoolUser user = new SchoolUser();
+		setUser1(user);
+		
+		UserRole role1 = new UserRole(Role.ROLE_USER);
+		UserRole role2 = new UserRole(Role.ROLE_ADMIN);
+		user.addRole(role1);
+		user.addRole(role2);
+		
+		userDao.insertEntity(user);
+		Long userId = user.getUserId();
+		
+		//Get entity and test values
+		user = userDao.getEntityById(userId);
+		Set<UserRole> roles = user.getRoles();
+		assertNotNull("Is Null", roles);
+		assertEquals("Roles List Wrong Size", roles.size(), 2);
+		for(UserRole r : roles){
+			assertThat("Invalid Role", r, 
+					anyOf(
+						equalTo(new UserRole(Role.ROLE_USER)), 
+						equalTo(new UserRole(Role.ROLE_ADMIN))));
+		}
+		
+		//Alter/remove data and update databse
+		user.getRoles().clear();
+		user.addRole(new UserRole(Role.ROLE_MASTER));
+		userDao.updateEntity(user);
+		
+		//Get Entity and test data
+		user = userDao.getEntityById(userId);
+		roles = user.getRoles();
+		assertNotNull("Is Null", roles);
+		assertEquals("Roles List Wrong Size", roles.size(), 1);
+		for(UserRole r : roles){
+			assertThat("Invalid Role", r, 
+					equalTo(new UserRole(Role.ROLE_MASTER)));
+			assertThat("Invalid Role", r,
+					not(anyOf(equalTo(new UserRole(Role.ROLE_USER)),
+							equalTo(new UserRole(Role.ROLE_ADMIN)))));
+		}
 	}
 	
 	/**
