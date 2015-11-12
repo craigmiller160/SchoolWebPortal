@@ -16,7 +16,7 @@ public class SchoolUserTest {
 		
 		//Test the values
 		assertNotNull("Is null", user);
-		assertEquals("UserName Fail", user.getUserName(), "hsolo");
+		assertEquals("UserName Fail", user.getUsername(), "hsolo");
 		assertEquals("Password Fail", user.getPassword(), "pass");
 		assertEquals("Enabled Fail", user.isEnabled(), true);
 	}
@@ -26,14 +26,14 @@ public class SchoolUserTest {
 		//Create test data
 		SchoolUser user = new SchoolUser();
 		user.setUserId(new Long(1));
-		user.setUserName("hsolo");
+		user.setUsername("hsolo");
 		user.setPassword("pass");
 		user.setEnabled(true);
 		
 		//Test the values
 		assertNotNull("Is null", user);
 		assertEquals("ID Fail", user.getUserId(), new Long(1));
-		assertEquals("UserName Fail", user.getUserName(), "hsolo");
+		assertEquals("UserName Fail", user.getUsername(), "hsolo");
 		assertEquals("Password Fail", user.getPassword(), "pass");
 		assertEquals("Enabled fail", user.isEnabled(), true);
 	}
@@ -88,13 +88,13 @@ public class SchoolUserTest {
 	}
 	
 	private void setUser1(SchoolUser user){
-		user.setUserName("hsolo");
+		user.setUsername("hsolo");
 		user.setPassword("pass");
 		user.setEnabled(true);
 	}
 	
 	private void setUser2(SchoolUser user){
-		user.setUserName("hsolo2");
+		user.setUsername("hsolo2");
 		user.setPassword("pass2");
 		user.setEnabled(false);
 	}
