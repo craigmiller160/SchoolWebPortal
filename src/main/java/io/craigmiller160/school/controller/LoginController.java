@@ -45,4 +45,12 @@ public class LoginController {
 		return null;
 	}
 	
+	//TODO will probably need to move this method to another controller,
+	//as this one will likely end up deprecated
+	
+	@RequestMapping (value="/logout-placeholder")
+	public String logout(){
+		return "logout-placeholder";
+	}
+	
 }

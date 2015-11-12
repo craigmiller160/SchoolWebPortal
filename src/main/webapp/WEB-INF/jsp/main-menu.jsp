@@ -28,7 +28,7 @@
 			
 			<!-- Option to logout of web portal -->
 			<div class="user-status">
-				<form:form action="admin/logout.html" method="get">
+				<form:form action="logout.html" method="post">
 					<input id="logout-btn" class="btn-link" type="submit" 
 						name="logoutButton" 
 						value="<spring:message code="general.logout"/>"/>
