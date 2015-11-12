@@ -11,7 +11,7 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
 
-<link rel="stylesheet" href="<c:url value="css/main-styles.css"/>" type="text/css"/>
+<link rel="stylesheet" href="<c:url value="css/global-styles.css"/>" type="text/css"/>
 <link rel="stylesheet" href="<c:url value="css/welcome-styles.css"/>" type="text/css"/>
 
 <link href="https://fonts.googleapis.com/css?family=Coda" rel="stylesheet" type='text/css'>
