@@ -10,8 +10,8 @@ import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
 
+import java.util.Collection;
 import java.util.List;
-import java.util.Set;
 
 import javax.transaction.Transactional;
 
@@ -20,6 +20,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.test.context.ContextConfiguration;
@@ -89,7 +90,7 @@ public class SchoolUserServiceIT {
 		//Get entity and test for successful insert
 		user = userService.getUserById(userId);
 		assertNotNull(INSERT_FAIL, user);
-		assertEquals(INSERT_FAIL, user.getUserName(), "hsolo2");
+		assertEquals(INSERT_FAIL, user.getUsername(), "hsolo2");
 		assertEquals(INSERT_FAIL, user.getPassword(), "pass");
 		assertEquals(INSERT_FAIL, user.isEnabled(), true);
 		
@@ -100,7 +101,7 @@ public class SchoolUserServiceIT {
 		//Get entity and test for successful update
 		user = userService.getUserById(userId);
 		assertNotNull(INSERT_FAIL, user);
-		assertEquals(UPDATE_FAIL, user.getUserName(), "hsolo3");
+		assertEquals(UPDATE_FAIL, user.getUsername(), "hsolo3");
 		assertEquals(UPDATE_FAIL, user.getPassword(), "pass2");
 		assertEquals(UPDATE_FAIL, user.isEnabled(), false);
 		
@@ -123,7 +124,7 @@ public class SchoolUserServiceIT {
 		//Get By Name
 		SchoolUser user = userService.getByUserName("hsolo2");
 		assertNotNull(CREATE_FAIL, user);
-		assertEquals(CREATE_FAIL, user.getUserName(), "hsolo2");
+		assertEquals(CREATE_FAIL, user.getUsername(), "hsolo2");
 		assertEquals(CREATE_FAIL, user.getPassword(), "pass");
 		assertEquals(CREATE_FAIL, user.isEnabled(), true);
 		
@@ -221,6 +222,10 @@ public class SchoolUserServiceIT {
 		//Insert test entity
 		SchoolUser user = new SchoolUser();
 		setUser1(user);
+		
+		UserRole role = new UserRole(Role.ROLE_USER);
+		user.addRole(role);
+		
 		userService.insertUser(user);
 		
 		//Get and test UserDetails
@@ -231,6 +236,11 @@ public class SchoolUserServiceIT {
 		assertEquals("Password doesn't match", 
 				userDetails.getPassword(), "pass");
 		assertEquals("Enabled doesn't match", userDetails.isEnabled(), true);
+		
+		//Test authorities
+		for(GrantedAuthority ga : userDetails.getAuthorities()){
+			assertEquals("Invalid Role", ga.toString(), "ROLE_USER");
+		}
 	}
 	
 	@Transactional
@@ -278,7 +288,7 @@ public class SchoolUserServiceIT {
 		
 		//Get entity and test values
 		user = userService.getUserById(userId);
-		Set<UserRole> roles = user.getRoles();
+		Collection<UserRole> roles = user.getAuthorities();
 		assertNotNull("Is Null", roles);
 		assertEquals("Roles List Wrong Size", roles.size(), 2);
 		for(UserRole r : roles){
@@ -289,13 +299,13 @@ public class SchoolUserServiceIT {
 		}
 		
 		//Alter/remove data and update databse
-		user.getRoles().clear();
+		user.getAuthorities().clear();
 		user.addRole(new UserRole(Role.ROLE_MASTER));
 		userService.updateUser(user);
 		
 		//Get Entity and test data
 		user = userService.getUserById(userId);
-		roles = user.getRoles();
+		roles = user.getAuthorities();
 		assertNotNull("Is Null", roles);
 		assertEquals("Roles List Wrong Size", roles.size(), 1);
 		for(UserRole r : roles){
@@ -313,7 +323,7 @@ public class SchoolUserServiceIT {
 		//Create dummy data
 		for(int i = 0; i < 20; i++){
 			SchoolUser user = new SchoolUser();
-			user.setUserName("hsolo2" + i);
+			user.setUsername("hsolo2" + i);
 			user.setPassword("pass");
 			user.setEnabled(true);
 			userService.insertUser(user);
@@ -352,7 +362,7 @@ public class SchoolUserServiceIT {
 		//Create dummy data
 		for(int i = 0; i < 20; i++){
 			SchoolUser user = new SchoolUser();
-			user.setUserName("hsolo2" + i);
+			user.setUsername("hsolo2" + i);
 			user.setPassword("pass");
 			user.setEnabled(true);
 			userService.insertUser(user);
@@ -371,13 +381,13 @@ public class SchoolUserServiceIT {
 	}
 	
 	private void setUser1(SchoolUser user){
-		user.setUserName("hsolo2");
+		user.setUsername("hsolo2");
 		user.setPassword("pass");
 		user.setEnabled(true);
 	}
 	
 	private void setUser2(SchoolUser user){
-		user.setUserName("hsolo3");
+		user.setUsername("hsolo3");
 		user.setPassword("pass2");
 		user.setEnabled(false);
 	}
