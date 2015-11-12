@@ -10,9 +10,18 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
+import org.springframework.security.core.GrantedAuthority;
+
 @Entity (name="user_role")
 public class UserRole 
-implements Comparable<UserRole>{
+implements GrantedAuthority, Comparable<UserRole>{
+
+	//TODO rename to UserAuthority
+	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -425460305260210250L;
 
 	@Id
 	@GeneratedValue (strategy=GenerationType.AUTO)
@@ -54,6 +63,11 @@ implements Comparable<UserRole>{
 	
 	public SchoolUser getUser(){
 		return user;
+	}
+	
+	@Override
+	public String getAuthority(){
+		return role.toString();
 	}
 	
 	@Override
