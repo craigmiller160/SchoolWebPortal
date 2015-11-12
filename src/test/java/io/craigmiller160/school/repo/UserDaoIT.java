@@ -10,8 +10,8 @@ import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
 
+import java.util.Collection;
 import java.util.List;
-import java.util.Set;
 
 import javax.transaction.Transactional;
 
@@ -79,13 +79,13 @@ public class UserDaoIT {
 	}
 	
 	private void setUser1(SchoolUser user){
-		user.setUserName("hsolo2");
+		user.setUsername("hsolo2");
 		user.setPassword("pass");
 		user.setEnabled(true);
 	}
 	
 	private void setUser2(SchoolUser user){
-		user.setUserName("hsolo3");
+		user.setUsername("hsolo3");
 		user.setPassword("pass2");
 		user.setEnabled(false);
 	}
@@ -105,7 +105,7 @@ public class UserDaoIT {
 		//Get entity and test for successful insert
 		user = userDao.getEntityById(userId);
 		assertNotNull(INSERT_FAIL, user);
-		assertEquals(INSERT_FAIL, user.getUserName(), "hsolo2");
+		assertEquals(INSERT_FAIL, user.getUsername(), "hsolo2");
 		assertEquals(INSERT_FAIL, user.getPassword(), "pass");
 		assertEquals(INSERT_FAIL, user.isEnabled(), true);
 		
@@ -116,7 +116,7 @@ public class UserDaoIT {
 		//Get entity and test for successful update
 		user = userDao.getEntityById(userId);
 		assertNotNull(UPDATE_FAIL, user);
-		assertEquals(UPDATE_FAIL, user.getUserName(), "hsolo3");
+		assertEquals(UPDATE_FAIL, user.getUsername(), "hsolo3");
 		assertEquals(UPDATE_FAIL, user.getPassword(), "pass2");
 		assertEquals(UPDATE_FAIL, user.isEnabled(), false);
 		
@@ -172,7 +172,7 @@ public class UserDaoIT {
 		//Create big list of temporary data
 		for(int i = 0; i < 20; i++){
 			SchoolUser user = new SchoolUser();
-			user.setUserName("page" + i);
+			user.setUsername("page" + i);
 			user.setPassword("password");
 			userDao.insertEntity(user);
 		}
@@ -235,7 +235,7 @@ public class UserDaoIT {
 		
 		//Get entity and test values
 		user = userDao.getEntityById(userId);
-		Set<UserRole> roles = user.getRoles();
+		Collection<UserRole> roles = user.getAuthorities();
 		assertNotNull("Is Null", roles);
 		assertEquals("Roles List Wrong Size", roles.size(), 2);
 		for(UserRole r : roles){
@@ -246,13 +246,13 @@ public class UserDaoIT {
 		}
 		
 		//Alter/remove data and update databse
-		user.getRoles().clear();
+		user.getAuthorities().clear();
 		user.addRole(new UserRole(Role.ROLE_MASTER));
 		userDao.updateEntity(user);
 		
 		//Get Entity and test data
 		user = userDao.getEntityById(userId);
-		roles = user.getRoles();
+		roles = user.getAuthorities();
 		assertNotNull("Is Null", roles);
 		assertEquals("Roles List Wrong Size", roles.size(), 1);
 		for(UserRole r : roles){
