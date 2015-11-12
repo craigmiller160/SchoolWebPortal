@@ -114,6 +114,15 @@ implements UserDetails, Serializable, Comparable<SchoolUser>{
 		return enabled;
 	}
 	
+	public void setPersonHolder(PersonHolder personHolder){
+		personHolder.setUser(this);
+		this.personHolder = personHolder;
+	}
+	
+	public PersonHolder getPersonHolder(){
+		return personHolder;
+	}
+	
 	@Override
 	public Collection<UserRole> getAuthorities(){
 		return authorities;
