@@ -10,6 +10,7 @@ import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
 
+import java.time.LocalDate;
 import java.util.Collection;
 import java.util.List;
 
@@ -24,8 +25,12 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import io.craigmiller160.school.context.AppContext;
+import io.craigmiller160.school.entity.Administrator;
+import io.craigmiller160.school.entity.Gender;
+import io.craigmiller160.school.entity.PersonHolder;
 import io.craigmiller160.school.entity.Role;
 import io.craigmiller160.school.entity.SchoolUser;
+import io.craigmiller160.school.entity.Student;
 import io.craigmiller160.school.entity.UserRole;
 import io.craigmiller160.school.util.HibernateTestUtil;
 
@@ -264,6 +269,101 @@ public class UserDaoIT {
 		}
 	}
 	
+	@Transactional
+	@Test
+	public void testPersistPersonHolderStudent(){
+		//Create Student to insert into PersonHolder
+		Student student = new Student();
+		setStudent1(student);
+		
+		//Create PersonHolder
+		PersonHolder personHolder = new PersonHolder();
+		personHolder.setStudent(student);
+		
+		//Create User to persist
+		SchoolUser user = new SchoolUser();
+		setUser1(user);
+		user.setPersonHolder(personHolder);
+		
+		//Insert User
+		userDao.insertEntity(user);
+		Long userId = user.getUserId();
+		Long studentId = student.getStudentId();
+		
+		//Retrieve User and test PersonHolder
+		user = userDao.getEntityById(userId);
+		personHolder = user.getPersonHolder();
+		assertNotNull("PersonHolder is null", personHolder);
+		assertEquals("PersonHolder isn't holding Student", 
+				personHolder.getPersonType(), Student.class);
+		assertEquals("PersonHolder isn't holding correct Student",
+				personHolder.getPersonId(), studentId);
+	}
+	
+	@Transactional
+	@Test
+	public void testPersistHolderAdmin(){
+		//Create Admin to insert into PersonHolder
+		Administrator admin = new Administrator();
+		setAdmin1(admin);
+		
+		//Create PersonHolder
+		PersonHolder personHolder = new PersonHolder();
+		personHolder.setAdmin(admin);
+		
+		//Create User to persist
+		SchoolUser user = new SchoolUser();
+		setUser1(user);
+		user.setPersonHolder(personHolder);
+		
+		//Insert User
+		userDao.insertEntity(user);
+		Long userId = user.getUserId();
+		Long adminId = admin.getAdminId();
+		
+		//Retrieve User and test PersonHolder
+		user = userDao.getEntityById(userId);
+		personHolder = user.getPersonHolder();
+		assertNotNull("PersonHolder is null", personHolder);
+		assertEquals("PersonHolder isn't holding Administrator", 
+				personHolder.getPersonType(), Administrator.class);
+		assertEquals("PersonHolder isn't holding correct Administrator",
+				personHolder.getPersonId(), adminId);
+	}
+	
+	@Transactional
+	@Test
+	public void testPersistPersonHolderAdmin(){
+		
+	}
+	
+	/**
+	 * Set the fields of the <tt>Student</tt> object
+	 * to the first set of values.
+	 * 
+	 * @param student the <tt>Student</tt> object to set.
+	 */
+	private void setStudent1(Student student){
+		student.setFirstName("First");
+		student.setLastName("Last");
+		student.setBirthDate(LocalDate.of(1900, 1, 1));
+		student.setGender(Gender.UNKNOWN);
+		student.setGrade(1);
+	}
+	
+	/**
+	 * Set the fields of the <tt>Administrator</tt> object
+	 * to the first set of values.
+	 * 
+	 * @param admin the <tt>Administrator</tt> object to set.
+	 */
+	private void setAdmin1(Administrator admin){
+		admin.setFirstName("First");
+		admin.setLastName("Last");
+		admin.setBirthDate(LocalDate.of(1900, 1, 1));
+		admin.setGender(Gender.MALE);
+	}
+	
 	/**
 	 * Reset the auto-increment counter of the table being tested
 	 * in the database. This method is invoked after all test
@@ -275,6 +375,9 @@ public class UserDaoIT {
 		HibernateTestUtil testUtil = context.getBean(HibernateTestUtil.class, "hibernateTestUtil");
 		testUtil.resetUserAutoIncrement();
 		testUtil.resetUserRoleAutoIncrement();
+		testUtil.resetUserStudentAdminAutoIncrement();
+		testUtil.resetStudentAutoIncrement();
+		testUtil.resetAdminAutoIncrement();
 	}
 	
 }
