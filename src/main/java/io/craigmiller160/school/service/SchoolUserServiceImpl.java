@@ -14,7 +14,7 @@ import io.craigmiller160.school.entity.UserRole;
 import io.craigmiller160.school.repo.GenericEntityDaoBean;
 import io.craigmiller160.school.repo.HibernateUserDao;
 
-@Service ("userService")
+@Service ("schoolUserService")
 public class SchoolUserServiceImpl implements SchoolUserService {
 
 	private final GenericEntityDaoBean<SchoolUser> userDao;
