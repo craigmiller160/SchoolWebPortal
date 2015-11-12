@@ -1,6 +1,7 @@
 package io.craigmiller160.school.entity;
 
 import java.io.Serializable;
+import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -13,14 +14,14 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
+import org.springframework.security.core.userdetails.UserDetails;
+
 @Entity (name="user")
 public class SchoolUser
-implements Serializable, Comparable<SchoolUser>{
+implements UserDetails, Serializable, Comparable<SchoolUser>{
 
 	//TODO experiment with restricting the access level
 	//of the setters here
-	
-	//TODO need a test class for this
 	
 	/**
 	 * 
@@ -40,8 +41,12 @@ implements Serializable, Comparable<SchoolUser>{
 	
 	private boolean enabled;
 	
-	@OneToMany (cascade=CascadeType.ALL, fetch=FetchType.EAGER, mappedBy="user", orphanRemoval=true)
-	private Set<UserRole> roles = new HashSet<>();
+	@OneToMany (
+			cascade=CascadeType.ALL, 
+			fetch=FetchType.EAGER, 
+			mappedBy="user", 
+			orphanRemoval=true)
+	private Set<UserRole> authorities = new HashSet<>();
 	
 	public SchoolUser(){}
 	
@@ -60,14 +65,16 @@ implements Serializable, Comparable<SchoolUser>{
 		this.userId = userId;
 	}
 
-	public String getUserName() {
+	@Override
+	public String getUsername() {
 		return userName;
 	}
 
-	public void setUserName(String userName) {
+	public void setUsername(String userName) {
 		this.userName = userName;
 	}
 
+	@Override
 	public String getPassword() {
 		return password;
 	}
@@ -76,6 +83,7 @@ implements Serializable, Comparable<SchoolUser>{
 		this.password = password;
 	}
 
+	@Override
 	public boolean isEnabled() {
 		return enabled;
 	}
@@ -84,21 +92,40 @@ implements Serializable, Comparable<SchoolUser>{
 		this.enabled = enabled;
 	}
 	
-	public Set<UserRole> getRoles(){
-		return roles;
+	@Override
+	public boolean isAccountNonLocked(){
+		//TODO consider separating this value in the future
+		return enabled;
 	}
 	
-	public void setRoles(Set<UserRole> roles){
-		this.roles = roles;
+	@Override
+	public boolean isAccountNonExpired(){
+		//TODO consider separating this value in the future
+		return enabled;
+	}
+	
+	@Override
+	public boolean isCredentialsNonExpired(){
+		//TODO consider separating this value in the future
+		return enabled;
+	}
+	
+	@Override
+	public Collection<UserRole> getAuthorities(){
+		return authorities;
+	}
+	
+	public void setAuthorities(Set<UserRole> authorities){
+		this.authorities = authorities;
 	}
 	
 	public boolean addRole(UserRole role){
 		role.setUser(this);
-		return this.roles.add(role);
+		return this.authorities.add(role);
 	}
 	
 	public boolean removeRole(UserRole role){
-		return this.roles.remove(role);
+		return this.authorities.remove(role);
 	}
 	
 	@Override
