@@ -242,4 +242,18 @@ public class HibernateTestUtil {
 		}
 	}
 	
+	@Transactional
+	public void resetUserStudentAdminAutoIncrement(){
+		Dialect dialect = ((SessionFactoryImplementor) sessionFactory).getDialect();
+		if(dialect instanceof MySQLDialect){
+			sessionFactory.getCurrentSession()
+			.createSQLQuery("alter table user_student_admin auto_increment = 1")
+			.executeUpdate();
+		}
+		else{
+			throw new UnsupportedOperationException(
+					"Method is only compatible with MySQL database");
+		}
+	}
+	
 }
