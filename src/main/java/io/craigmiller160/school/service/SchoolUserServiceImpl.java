@@ -1,15 +1,10 @@
 package io.craigmiller160.school.service;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
@@ -120,7 +115,7 @@ public class SchoolUserServiceImpl implements SchoolUserService {
 				throw new UsernameNotFoundException(username + " not found");
 			}
 			
-			Set<UserRole> roles = user.getRoles();
+			/*Set<UserRole> roles = user.getAuthorities();
 
 			//Convert UserRole objects to GrantedAuthority objects.
 			List<GrantedAuthority> authorities = new ArrayList<>();
@@ -137,7 +132,8 @@ public class SchoolUserServiceImpl implements SchoolUserService {
 					user.isEnabled(),
 					user.isEnabled(),
 					user.isEnabled(),
-					authorities); 
+					authorities); */
+			return user;
 		}
 		else{
 			throw new IllegalArgumentException(
