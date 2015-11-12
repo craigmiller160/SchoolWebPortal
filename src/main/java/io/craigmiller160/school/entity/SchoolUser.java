@@ -13,6 +13,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -47,6 +48,9 @@ implements UserDetails, Serializable, Comparable<SchoolUser>{
 			mappedBy="user", 
 			orphanRemoval=true)
 	private Set<UserRole> authorities = new HashSet<>();
+	
+	@OneToOne (fetch=FetchType.EAGER, mappedBy="user")
+	private PersonHolder personHolder;
 	
 	public SchoolUser(){}
 	
