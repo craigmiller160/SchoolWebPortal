@@ -1,9 +1,12 @@
 package io.craigmiller160.school.controller;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+
+import io.craigmiller160.school.domain.PasswordReset;
 
 /**
  * The controller for handling the login page of this
@@ -22,35 +25,52 @@ import org.springframework.web.bind.annotation.RequestParam;
 @Controller
 public class LoginController {
 
-	//TODO login authentication is still needed, and will be integrated
-	//before development completion.
-	
-	@RequestMapping(value="/login", method=RequestMethod.GET)
-	public String showPage(){
+	@RequestMapping (value="/login", method=RequestMethod.GET)
+	public String login(Model model,
+			@RequestParam (value="error", required=false) String error){
+		model.addAttribute("pageName", "login");
+		if(error != null){
+			model.addAttribute("error", new Object());
+		}
+		
 		return "login";
 	}
 	
-	@RequestMapping(value="/login", method=RequestMethod.POST)
-	public String login(@RequestParam (required=false) String admin,
-			@RequestParam (required=false) String student){
-		if(admin != null && student == null){
-			return "redirect:/admin.html";
-		}
-		else if(student != null && admin == null){
-			System.out.println("Student");
-		}
-		
-		//TODO probably should be a better option for this besides
-		//return null
-		return null;
-	}
-	
-	//TODO will probably need to move this method to another controller,
-	//as this one will likely end up deprecated
-	
+	//TODO this will need to be redone as part of a larger logout revamp
 	@RequestMapping (value="/logout-placeholder")
 	public String logout(){
 		return "logout-placeholder";
+	}
+	
+	@RequestMapping (value="login/forgot", method=RequestMethod.GET)
+	public String forgotPassword(Model model){
+		model.addAttribute("pageName", "login");
+		
+		return "forgot-password";
+	}
+	
+	@RequestMapping (value="login/forgot", method=RequestMethod.POST)
+	public String resetPassword(Model model, 
+			@RequestParam (value="username", required=false) String username){
+		if(username != null){
+			//TODO get user's email, send email to account with reset code
+			model.addAttribute("codeSent", new Object());
+			//TODO need a different value sent to the view if the username is invalid
+		}
+		
+		model.addAttribute("pageName", "login");
+		
+		return "forgot-password";
+	}
+	
+	@RequestMapping (value="login/forgot", method=RequestMethod.PUT)
+	public String resetPassword(Model model, PasswordReset passReset){
+		//TODO use passReset values to perform the reset.
+		//Return a success/fail model value for displaying to the user
+		
+		model.addAttribute("pageName", "login");
+		
+		return "forgot-password";
 	}
 	
 }
