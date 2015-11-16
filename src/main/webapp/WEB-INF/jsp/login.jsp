@@ -4,87 +4,138 @@
 <html>
 <head>
 <%@ include file="stub/jstl-stub.jsp" %> <!-- Include JSTL Tag Library -->
-<%@ include file="stub/bootstrap-stub.jsp" %> <!-- Include Bootstrap Dependencies -->
-<%@ include file="stub/css-stub.jsp" %> <!-- Include CSS Stylesheets -->
 <%@ include file="stub/spring-stub.jsp" %> <!-- Include Spring Tag Library -->
-<%@ include file="stub/js-stub.jsp" %> <!-- Include JQuery -->
-<%@ include file="stub/bootstrap-tab-stub.jsp" %> <!-- Include Bootstrap Tab Dependencies -->
+
+<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css"/>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+
+<link rel="stylesheet" href="<c:url value="css/global-styles.css"/>" type="text/css"/>
+<link rel="stylesheet" href="<c:url value="css/login-styles.css"/>" type="text/css"/>
+
+<link href="https://fonts.googleapis.com/css?family=Coda" rel="stylesheet" type='text/css'>
+<link href="https://fonts.googleapis.com/css?family=Limelight" rel="stylesheet" type='text/css'>
+
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title><spring:message code="login.page.title"/></title>
 </head>
-<body>
-
-	<!-- Wrapper div for implemented FlexBox Layout -->
+<body id="login-body">
+	
+	<%@ include file="component/header.jsp" %>
+	
+	<% //TODO background image??? %>
+	
 	<div class="wrapper">
-		<!-- Page Header -->
-		<header class="header-login">
-			<!-- Logo and link to welcome page in upper left of header -->
-			<div class="logo">
-				<a href="<c:url value="/welcome.html"/>"><img src="<c:url value="/img/ehslogo.png"/>" height="70px"/></a>
-			</div>
+		<div class="container-fluid main-content">
 			
-			<!-- Page Title in header -->
-			<div class="header-title">
-				<h1><spring:message code="login.header.title"/></h1>
-			</div>
-		
-		</header>
-		
-		<!-- Container holding the main content for the page -->
-		<div class="content-container">
-			
-			<!-- Instructions for logging in -->
-			<h3 id="login-instruction"><spring:message code="login.instruction"/></h3>
-		
-			<!-- Form for handling the login request -->
-			<form:form method="post">
-				<!-- Bootstrap tab pane, with some modifications, 
-				for switching between admin/student login options -->
-				<div class="container">
-					<div id="login-tabs">
-						<!-- The actual tabs in the bootstrap tab pane -->
-						<ul id="tabs" class="nav nav-tabs" data-tabs="tabs">
-							<!-- Admin Tab, default active -->
-							<li class="active">
-								<a href="#admintab" data-toggle="tab">
-									<spring:message code="login.tabs.admin.tab"/>
-								</a>
-							</li>
-							<!-- Student Tab -->
-							<li>
-								<a href="#studenttab" data-toggle="tab">
-									<spring:message code="login.tabs.student.tab"/>
-								</a>
-							</li>
-						</ul>
-						<!-- The content in each tab -->
-						<div class="tab-content">
-							<!-- Admin Tab Content, default active -->
-							<div class="tab-pane active login-tab-content" id="admintab">
-								<h4><spring:message code="login.tabs.admin.description"/></h4>
-								<input class="btn login-btn" name="admin" type="submit" 
-									value="<spring:message code="login.tabs.loginbutton"/>" />
-							</div>
-							<!-- Student Tab Content -->
-							<div class="tab-pane login-tab-content" id="studenttab">
-								<h4><spring:message code="login.tabs.student.description"/></h4>
-								<input class="btn login-btn" name="student" type="submit" 
-									value="<spring:message code="login.tabs.loginbutton"/>" />
-							</div>
-						</div>
-					</div>
+			<div id="login-title-row" class="row">
+				<div class="col-md-12">
+					<h3 class="login-banner">
+						<spring:message code="login.banner.title"/>
+					</h3>
 				</div>
-			</form:form>
-		
+			</div>
+			
+			<div id="login-box-row" class="row">
+				<div class="col-md-12">
+					<c:if test="${not empty error}">
+						<div id="login-error-div" class="action-box action-box-fail">
+							<spring:message code="login.error"/>
+						</div>
+					</c:if>
+				
+				
+					<table class="table-responsive" id="login-box-table">
+						<tr>
+							<td id="login-box-title-cell" colspan=2>
+								<spring:message code="login.box.title"/>
+							</td>
+						</tr>
+						<form:form action="login-process.html" method="post">
+						<tr>
+							<td class="login-label">
+								<spring:message code="login.box.username"/>
+							</td>
+							<td class="login-field-cell">
+								<input class="login-field form-control" type="text" 
+									name="username"/>
+							</td>
+						</tr>
+						<tr>
+							<td class="login-label">
+								<spring:message code="login.box.password"/>
+							</td>
+							<td class="login-field-cell">
+								<input class="login-field form-control" 
+									type="password" 
+									name="password"/>
+							</td>
+						</tr>
+						<tr>
+							<td id="login-submit-cell" colspan=2>
+								<input id="login-btn" class="btn btn-default" type="submit" 
+									value="Login"/>
+							</td>
+						</tr>
+						</form:form>
+						<tr>
+							<td class="login-link-cell" colspan=2>
+								<a href="<c:url value="/login/forgot.html"/>">
+									<spring:message code="login.box.forgot"/>
+								</a>
+							</td>
+						</tr>
+						<tr>
+							<td class="login-link-cell" colspan=2>
+								<a href="<c:url value="/login/create.html"/>">
+									<spring:message code="login.box.create"/>
+								</a>
+							</td>
+						</tr>
+					</table>
+					
+					
+				</div>
+			</div>
+			
 		</div>
-		
-		<!-- Page footer -->
-		<footer class="footer-login">
-			<h4><spring:message code="general.footer"/></h4>
-		</footer>
-	
-	
+		<div class="push"></div>
 	</div>
+	
+	<%@ include file="component/footer.jsp" %>
+	
+	<script>
+	function resizeWindow(){
+		var width = $(window).width();
+
+		if(width < 1200){
+			$('.wrapper').css('width', 100 + '%');
+		}
+		else{
+			$('.wrapper').css('width', 1200 + 'px');
+		}
+
+		var headerHeight = $('.header').height();
+		var mainContentHeight = $(window).height() 
+			- headerHeight - $('.footer').height();
+		$('.main-content').css({
+			'margin-top' : headerHeight,
+			'min-height' : mainContentHeight,
+			'height' : mainContentHeight
+			});
+		$('#login-body').css('height', mainContentHeight);
+		
+	};
+
+
+	$(document).ready(resizeWindow());
+	$(document).ready(function(){
+		$(window).on('resize', function(){
+			resizeWindow();
+		});
+	});
+	</script>
+
 
 </body>
 </html>
