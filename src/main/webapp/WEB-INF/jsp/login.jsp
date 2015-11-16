@@ -74,7 +74,7 @@
 						<tr>
 							<td id="login-submit-cell" colspan=2>
 								<input id="login-btn" class="btn btn-default" type="submit" 
-									value="Login"/>
+									value="<spring:message code="login.box.login"/>"/>
 							</td>
 						</tr>
 						</form:form>

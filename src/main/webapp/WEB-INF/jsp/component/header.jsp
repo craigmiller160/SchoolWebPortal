@@ -2,16 +2,21 @@
 <!-- IMPORTANT - The JSTL, Bootstrap, Spring Tags, and JavaScript imports 
 	are required for this and all components -->
 
-<link rel="stylesheet" href="<c:url value="css/header-styles.css"/>" type="text/css"/>
+<link rel="stylesheet" href="<c:url value="/css/header-styles.css"/>" type="text/css"/>
 
 <c:if test="${pageName == 'welcome'}">
-	<c:set var="headerWelcome" value="header-welcome"/>
-	<c:set var="headerWelcomeText" value="header-welcome-text"/>
+	<c:set var="headerStyle" value="header-welcome"/>
+	<c:set var="headerTextStyle" value="header-welcome-text"/>
+</c:if>
+
+<c:if test="${pageName == 'login'}">
+	<c:set var="headerStyle" value="header-login"/>
+	<c:set var="headerTextStyle" value="header-login-text"/>
 </c:if>
 
 <!-- Bootstrap navbar as the header -->
 
-<nav class="navbar navbar-fixed-top navbar-default header ${headerWelcome}">
+<nav class="navbar navbar-fixed-top navbar-default header ${headerStyle}">
 	<div class="wrapper">
 		<div class="container-fluid">
 			<!-- The header portion of the navbar -->
@@ -27,8 +32,8 @@
 				<% //TODO consider changing the value of this URL based on
 					//if logged in or not%>
 				<div>
-					<a href="<c:url value="/welcome.html"/>" class="${headerWelcomeText}">
-						<img id="school-logo" src="<c:url value="img/ehslogo.png"/>" 
+					<a href="<c:url value="/welcome.html"/>" class="${headerTextStyle}">
+						<img id="school-logo" src="<c:url value="/img/ehslogo.png"/>" 
 							height="50px" class="img-circle"/>
 					</a>
 					<label id="logo-text" for="school-logo">
@@ -50,12 +55,13 @@
 				
 				
 				<ul class="nav navbar-nav navbar-right">
-					<li>
-						<% //TODO this won't always be login, needs to be adjustable %>
-						<a href="<c:url value="portal.html"/>" class="${headerWelcomeText}">
-							<spring:message code="welcome.header.login"/>
-						</a>
-					</li>
+					<c:if test="${pageName == 'welcome'}">
+						<li>
+							<a href="<c:url value="portal.html"/>" class="${headerTextStyle}">
+								<spring:message code="welcome.header.login"/>
+							</a>
+						</li>
+					</c:if>
 				</ul>
 			</div>
 		</div>

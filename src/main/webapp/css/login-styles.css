@@ -1,0 +1,172 @@
+@CHARSET "UTF-8";
+
+/*********
+* HEADER *
+**********/
+
+/* Set the color of the login page header */
+.header-login{
+	background-color: coral;
+}
+
+/* The header text for the login page */
+.header-login-text{
+	font-family: 'Coda', cursive;
+	color: white;
+	font-size: 18px;
+}
+
+/* The foreground color of the header buttons for login page */
+.nav > li > a.header-login-text{
+	color: white;
+}
+
+/* The hover color of header buttons for login page */
+.nav > li:hover > a.header-login-text{
+	background-color: #FFA483;
+}
+
+/* The focus color of the header buttons for login page */
+.nav > li > a.header-login-text:focus{
+	color: white;
+}
+
+/* Style the dropdown menus */
+.navbar-default .navbar-nav .open .dropdown-menu> li> a,
+.navbar-default .navbar-nav .open .dropdown-menu {
+  	background-color: #FFA483;
+    color: black;
+    font-family: "Times New Roman", Times, Serif;
+    font-size: 16px;
+}
+
+/* The hover highlight for items in the dropdown menus in the header */
+.navbar-default .navbar-nav .open .dropdown-menu > li > a:hover{
+	background-color: coral;
+	color: white;
+}
+
+/***************
+* PAGE CONTENT *
+****************/
+
+/* Login page banner text */
+.login-banner{
+	text-align: center;
+	font-family: 'Limelight', cursive;
+}
+
+/* The body of the login page */
+#login-body{
+	background-color: #FFCAB6;
+}
+
+/* The table cell holding the login box title */
+#login-box-title-cell{
+	font-family: LimeLight, cursive;
+	font-size: 18px;
+	text-align: center;
+}
+
+/* The div holding the login box */
+#login-box-table{
+	margin: 0 auto;
+	height: 400px;
+	border: 1px solid lightgray;
+}
+
+#login-box-row{
+	margin-top: 100px;
+	margin-bottom: 20px;
+}
+
+/* The login button */
+#login-btn{
+	font-size: 18px;
+	font-family: Coda, cursive;
+}
+
+/* The div holding a login error message */
+#login-error-div{
+	width: 600px;
+	margin-bottom: 20px;
+}
+
+/* An input field in the login box */
+.login-field{
+	width: 80%;
+	margin-left: 10px;
+}
+
+/* A table cell holding an input field in the login box */
+.login-field-cell{
+	text-align: left;
+	width: 50%;
+	font-size: 18px;
+	font-family: "Times New Roman", Times, Serif;
+}
+
+/* A table cell holding a label in the login box */
+.login-label{
+	text-align: center;
+	width: 50%;
+	font-size: 18px;
+	font-family: "Times New Roman", Times, Serif;
+}
+
+/* A table cell holding a link in the login box */
+.login-link-cell{
+	text-align: center;
+	font-family: "Times New Roman", Times, Serif;
+	font-size: 15px;
+}
+
+/* The table cell holding the login button */
+#login-submit-cell{
+	text-align: center;
+}
+
+/* Background color of the title row of login page */
+#login-title-row{
+	background-color: #FFA483;
+}
+
+
+/********************
+* LOGIN FORGOT PAGE *
+*********************/
+
+.forgot-form-wrap{
+	border: 1px solid lightgray;
+}
+
+.forgot-instructions{
+	margin-top: 100px;
+	text-align: center;
+	font-family: "Times New Roman", Times, Serif;
+}
+
+.forgot-label-cell{
+	margin-top: 30px;
+	text-align: center;
+	font-family: "Times New Roman", Times, Serif;
+}
+
+.forgot-field-cell{
+	margin-top: 30px;
+	text-align: center;
+	font-family: "Times New Roman", Times, Serif;
+}
+
+#forgot-last-row{
+	margin-bottom: 30px;
+}
+
+.forgot-submit-cell{
+	margin-top: 30px;
+	text-align: center;
+}
+
+#reset-code-sent{
+	width: 600px;
+}
