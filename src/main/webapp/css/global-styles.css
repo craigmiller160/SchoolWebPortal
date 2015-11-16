@@ -1,5 +1,26 @@
 @CHARSET "UTF-8";
 
+/* Style for a box wrapping around a successful action */
+.action-box{
+	margin: 0 auto;
+	font-size: 18px;
+	border: 3px solid;
+	font-family: "Times New Roman", Times, Serif;
+	padding-top: 10px;
+	padding-bottom: 10px;
+	text-align: center;
+}
+
+.action-box-success{
+	border-color: lawngreen;
+	color: lawngreen;
+}
+
+.action-box-fail{
+	border-color: red;
+	color: red;
+}
+
 /* Universal style for footer */
 .footer{
 	text-align: center;

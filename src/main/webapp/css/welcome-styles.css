@@ -26,6 +26,7 @@
 	background-color: #FFA483;
 }
 
+/* The focus color of the header buttons for welcome page */
 .nav > li > a.header-welcome-text:focus{
 	color: white;
 }

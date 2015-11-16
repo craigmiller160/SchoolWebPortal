@@ -139,7 +139,15 @@
 		}
 
 		var headerHeight = $('.header').height();
-		$('.main-content').css('margin-top', headerHeight);
+		var mainContentHeight = $(window).height() 
+			- headerHeight - $('.footer').height();
+		$('.main-content').css({
+			'margin-top' : headerHeight,
+			'min-height' : mainContentHeight,
+			'height' : mainContentHeight
+			});
+		$('#login-body').css('height', mainContentHeight);
+		
 	};
 
 
