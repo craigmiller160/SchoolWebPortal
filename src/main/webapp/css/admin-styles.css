@@ -1,0 +1,66 @@
+@CHARSET "UTF-8";
+
+/*********
+* HEADER *
+**********/
+
+/* Set the color of the login page header */
+.header-admin{
+	background-color: dodgerblue;
+}
+
+/* The header text for the login page */
+.header-admin-text{
+	font-family: 'Coda', cursive;
+	color: white;
+	font-size: 18px;
+}
+
+/* The foreground color of the header buttons for login page */
+.nav > li > a.header-admin-text{
+	color: white;
+}
+
+/* The hover color of header buttons for login page */
+.nav > li:hover > a.header-admin-text{
+	background-color: #b3d9ff;
+}
+
+/* The focus color of the header buttons for login page */
+.nav > li > a.header-admin-text:focus{
+	color: white;
+}
+
+/* Style the dropdown menus */
+.navbar-default .navbar-nav .open .dropdown-menu> li> a,
+.navbar-default .navbar-nav .open .dropdown-menu {
+  	background-color: #b3d9ff;
+    color: black;
+    font-family: "Times New Roman", Times, Serif;
+    font-size: 16px;
+}
+
+/* The hover highlight for items in the dropdown menus in the header */
+.navbar-default .navbar-nav .open .dropdown-menu > li > a:hover{
+	background-color: dodgerblue;
+	color: white;
+}
+
+/***************
+* PAGE CONTENT *
+****************/
+
+/* Admin pages banner text */
+.admin-banner{
+	text-align: center;
+	font-family: 'Limelight', cursive;
+}
+
+.admin-body{
+	background-color: #80c0ff;
+}
+
+/* Background color of the title row of admin pages */
+.admin-title-row{
+	background-color: #4da7ff;
+}

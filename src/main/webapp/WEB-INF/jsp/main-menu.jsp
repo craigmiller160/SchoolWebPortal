@@ -4,75 +4,76 @@
 <html>
 <head>
 <%@ include file="stub/jstl-stub.jsp" %> <!-- Include JSTL Tag Library -->
-<%@ include file="stub/bootstrap-stub.jsp" %> <!-- Include Bootstrap Dependencies -->
-<%@ include file="stub/css-stub.jsp" %> <!-- Include CSS Stylesheets -->
 <%@ include file="stub/spring-stub.jsp" %> <!-- Include Spring Tag Library -->
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title><spring:message code="admin.main.page.title"/></title>
-</head>
-<body>
 
-	<!-- Wrapper div for implemented FlexBox Layout -->
+
+<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css"/>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+
+<link rel="stylesheet" href="<c:url value="css/global-styles.css"/>" type="text/css"/>
+<link rel="stylesheet" href="<c:url value="css/admin-styles.css"/>" type="text/css"/>
+
+<link href="https://fonts.googleapis.com/css?family=Coda" rel="stylesheet" type='text/css'>
+<link href="https://fonts.googleapis.com/css?family=Limelight" rel="stylesheet" type='text/css'>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title><spring:message code="menu.page.title"/></title>
+</head>
+<body class="admin-body">
+	
+	<%@ include file="component/header.jsp" %>
+	
 	<div class="wrapper">
-		<!-- Page Header -->
-		<header class="header-admin">
-			<!-- Logo and link to welcome page in upper left of header -->
-			<div class="logo">
-				<a href="<c:url value="/welcome.html"/>"><img src="<c:url value="/img/ehslogo.png"/>" height="70px"/></a>
+		<div class="container-fluid main-content">
+			<div class="row admin-title-row">
+				<h3 class="admin-banner">
+					<% //TODO Internationalize text %>
+					Web Portal Main Menu
+				</h3>
 			</div>
 			
-			<!-- Page Title in header -->
-			<div class="header-title">
-				<h1><spring:message code="admin.main.header.title"/></h1>
-			</div>
-			
-			<!-- Option to logout of web portal -->
-			<div class="user-status">
-				<form:form action="logout.html" method="post">
-					<input id="logout-btn" class="btn-link" type="submit" 
-						name="logoutButton" 
-						value="<spring:message code="general.logout"/>"/>
-				</form:form>
-			</div>
-		</header>
-		
-		<!-- Container holding the main content for the page -->
-		<div class="content-container">
-		
-			<!-- Main menu div -->
-			<div id="admin-menu">
-				<!-- Title for main menu -->
-				<h3><spring:message code="admin.main.options.title"/></h3>
-				
-				<!-- Form with button to open the courses section -->
-				<form:form action="admin/course/all.html" method="get">
-					<div>
-						<input type="hidden" name="page" value="1"/>
-						<button class="options-button" type="submit">
-							<spring:message code="admin.main.options.courses"/>
-						</button>
-					</div>
-				</form:form>
-				
-				<!-- Form with button to open the students section -->
-				<form:form action="admin/student/all.html" method="get">
-					<div>
-						<input type="hidden" name="page" value="1"/>
-						<button class="options-button" type="submit">
-							<spring:message code="admin.main.options.students"/>
-						</button>
-					</div>
-				</form:form>
-				
-			</div>
-		
+			<h1 style="text-align: center; margin-top: 200px">
+				There will be an image here
+			</h1>
 		</div>
-		
-		<!-- Page footer -->
-		<footer class="footer-admin">
-			<h4><spring:message code="general.footer"/></h4>
-		</footer>
+		<div class="push"></div>
 	</div>
+	
+	<%@ include file="component/footer.jsp" %>
+
+	<script>
+	function resizeWindow(){
+		var width = $(window).width();
+
+		if(width < 1200){
+			$('.wrapper').css('width', 100 + '%');
+		}
+		else{
+			$('.wrapper').css('width', 1200 + 'px');
+		}
+
+		var headerHeight = $('.header').height();
+		var mainContentHeight = $(window).height() 
+			- headerHeight - $('.footer').height();
+		$('.main-content').css({
+			'margin-top' : headerHeight,
+			'min-height' : mainContentHeight,
+			'height' : mainContentHeight
+			});
+		$('.admin-body').css('height', mainContentHeight);
+		
+	};
+
+
+	$(document).ready(resizeWindow());
+	$(document).ready(function(){
+		$(window).on('resize', function(){
+			resizeWindow();
+		});
+	});
+	</script>
+
+	
 
 </body>
 </html>
