@@ -14,6 +14,11 @@
 	<c:set var="headerTextStyle" value="header-login-text"/>
 </c:if>
 
+<c:if test="${pageName == 'adminMainMenu'}">
+	<c:set var="headerStyle" value="header-admin"/>
+	<c:set var="headerTextStyle" value="header-admin-text"/>
+</c:if>
+
 <footer class="footer ${headerStyle}">
 	<div class="wrapper">
 		<div class="container-fluid">

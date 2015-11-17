@@ -14,6 +14,26 @@
 	<c:set var="headerTextStyle" value="header-login-text"/>
 </c:if>
 
+<% //TODO ultimately test to make sure all access level color schemes work %>
+
+<sec:authorize access="hasRole('USER')">
+	<c:set var="headerStyle" value="header-welcome"/>
+	<c:set var="headerTextStyle" value="header-welcome-text"/>
+</sec:authorize>
+
+<sec:authorize access="hasRole('STUDENT')">
+	<% //TODO add student page color scheme here %>
+</sec:authorize>
+
+<sec:authorize access="hasRole('ADMIN')">
+	<c:set var="headerStyle" value="header-admin"/>
+	<c:set var="headerTextStyle" value="header-admin-text"/>
+</sec:authorize>
+
+<sec:authorize access="hasRole('MASTER')">
+	<% //TODO add master page color scheme here %>
+</sec:authorize>
+
 <!-- Bootstrap navbar as the header -->
 
 <nav class="navbar navbar-fixed-top navbar-default header ${headerStyle}">
@@ -53,6 +73,9 @@
 					<%@ include file="welcome-header.jsp" %>
 				</c:if>
 				
+				<c:if test="${pageName != 'welcome' && pageName != 'login'}">
+					<%@ include file="portal-header.jsp" %>
+				</c:if>
 				
 				<ul class="nav navbar-nav navbar-right">
 					<c:if test="${pageName == 'welcome'}">
@@ -62,8 +85,42 @@
 							</a>
 						</li>
 					</c:if>
+					
+					<c:if test="${pageName != 'welcome' && pageName != 'login'}">
+						<li class="dropdown">
+							<a href="#" class="${headerTextStyle} dropdown-toggle"
+								data-toggle="dropdown">
+								${userName} <span class="caret"></span>
+							</a>
+							<ul class="dropdown-menu" id="user-dropdown">
+								<li>
+									<a href="#">
+										<% //TODO internationalize text %>
+										User Profile
+									</a>
+								</li>
+								<li>
+									<% //TODO internationalize text %>
+									<a id="logout-link" href="#">
+										Logout
+									</a>
+									<form:form id="logout-form" action="logout.html" 
+										method="post">
+									</form:form>
+								</li>
+							</ul>
+						</li>
+					</c:if>
 				</ul>
 			</div>
 		</div>
 	</div>
 </nav>
+
+<script>
+$(document).ready(function(){
+	$('#logout-link').click(function(){
+		$('#logout-form').submit();
+	});
+});
+</script>
