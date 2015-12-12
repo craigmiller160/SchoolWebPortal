@@ -6,26 +6,23 @@
 	<li class="dropdown">
 		<a href="#" class="header-welcome-text dropdown-toggle" 
 			data-toggle="dropdown">
-			<% //TODO internationalize text %>
-			About Us <span class="caret"></span>
+			<spring:message code="welcome.header.about"/> 
+			<span class="caret"></span>
 		</a>
 		<ul class="dropdown-menu" id="about-dropdown">
 			<li>
 				<a href="#">
-					<% //TODO internationalize text %>
-					School History
+					<spring:message code="welcome.header.about.history"/>
 				</a>
 			</li>
 			<li>
 				<a href="#">
-					<% //TODO internationalize text %>
-					Accolades
+					<spring:message code="welcome.header.about.accolades"/>
 				</a>
 			</li>
 			<li>
 				<a href="#">
-					<% //TODO internationalize text %>
-					Why Choose Us?
+					<spring:message code="welcome.header.about.why"/>
 				</a>
 			</li>
 		</ul>
@@ -33,8 +30,8 @@
 	<li class="dropdown">
 		<a href="#" class="header-welcome-text dropdown-toggle" 
 			data-toggle="dropdown">
-			<% //TODO internationalize text %>
-			Academics <span class="caret"></span>
+			<spring:message code="welcome.header.academic"/>
+			<span class="caret"></span>
 		</a>
 		<ul class="dropdown-menu" id="academic-dropdown">
 			<li>

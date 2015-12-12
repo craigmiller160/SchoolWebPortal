@@ -95,14 +95,12 @@
 							<ul class="dropdown-menu" id="user-dropdown">
 								<li>
 									<a href="#">
-										<% //TODO internationalize text %>
-										User Profile
+										<spring:message code="portal.header.user.profile"/>
 									</a>
 								</li>
 								<li>
-									<% //TODO internationalize text %>
 									<a id="logout-link" href="#">
-										Logout
+										<spring:message code="portal.header.user.logout"/>
 									</a>
 									<form:form id="logout-form" action="logout.html" 
 										method="post">
